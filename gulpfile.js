@@ -1,7 +1,7 @@
 
 // dependencies
 var gulp = require('gulp'),
-    compass = require('gulp-compass'),
+    compass = require('gulp-sass'),
     sourcemaps = require('gulp-sourcemaps'),
     autoprefixer = require('gulp-autoprefixer'),
     concat = require('gulp-concat'),
@@ -34,7 +34,7 @@ function setPaths(mode){
     serverDir = '/undefined/';
     templatesDir = '';
     staticDir = 'static/';
-    sassDir = 'sass/';
+    sassDir = 'scss/';
     fontsDir = 'fonts/'
     cssDir = 'css/';
     imgDir = 'img/';
@@ -83,32 +83,27 @@ function setPaths(mode){
         var taskName = this.seq.slice(0)[0];
 
         return gulp.src(sassPath + '*.scss')
-        
-            //compass
+            // compass-sourcemaps
+            .pipe(sourcemaps.init())
             .pipe(compass({
-                sass: sassPath,
-                css: cssPath,
-                image: imgPath
-            })).on('error', function(error) {
-                // Would like to catch the error here 
-                console.log(error);
-                this.emit('end');
-            })
+                file: sassPath,
+                outfile: cssPath
+            }).on('error', compass.logError))
+            .pipe(sourcemaps.write())
 
-            //autoprefixer
+            // autoprefixer
             .pipe(autoprefixer(cssSupport))
 
-            //destination
+            // destination
             .pipe(gulp.dest(cssPath))
 
-            //browserSync
+            // browserSync
             .pipe(browserSync.reload({
                 stream: true
             }))
 
             // log task
             .on('end', function(){ gutil.log(gutil.colors.green(taskName + ' ' + mode + ' task finished!!')); })
-
         ;
 
     });
