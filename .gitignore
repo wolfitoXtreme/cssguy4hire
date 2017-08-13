@@ -1,5 +1,8 @@
 # Project source
 node_modules
+docs
+print
+ui
 
 # Compiled source
 *.com
