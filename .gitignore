@@ -1,3 +1,6 @@
+# Project source
+node_modules
+
 # Compiled source
 *.com
 *.class
