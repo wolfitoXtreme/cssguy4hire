@@ -3,6 +3,10 @@ node_modules
 docs
 print
 ui
+resources
+_old
+app/js/lib/
+app/css/
 
 # Compiled source
 *.com

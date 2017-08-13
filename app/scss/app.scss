@@ -1,0 +1,11 @@
+body {
+    &:after {
+        content: "hello cruel world!!";
+        display: block;
+        position: absolute;
+        right: 0;
+        bootom: 0;
+        color: #fff;
+        background-color: #000;
+    }
+}
