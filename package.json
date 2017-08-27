@@ -16,15 +16,29 @@
     "url": "https://github.com/wolfitoXtreme/cssguy4hire/issues"
   },
   "homepage": "https://github.com/wolfitoXtreme/cssguy4hire#readme",
+  "browser": {
+    "jquery": "./app/js/dev/lib/jquery.min.js",
+    "modernizr": "./app/js/dev/lib/modernizr-custom.min.js"
+  },
+  "browserify-shim": {
+    "jquery": "$"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
   "devDependencies": {
     "browser-sync": "^2.18.13",
+    "browserify": "^14.4.0",
+    "browserify-shim": "^3.8.14",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.0.0",
-    "gulp-concat": "^2.6.1",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.0",
     "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.8",
-    "run-sequence": "^2.1.0"
+    "run-sequence": "^2.1.0",
+    "vinyl-source-stream": "^1.1.0"
   }
 }

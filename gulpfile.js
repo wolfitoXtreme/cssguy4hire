@@ -1,15 +1,16 @@
+'use strict';
 
 // dependencies
 var gulp = require('gulp'),
+    browserify = require('browserify'),
+    source = require('vinyl-source-stream'),
     compass = require('gulp-sass'),
     sourcemaps = require('gulp-sourcemaps'),
     autoprefixer = require('gulp-autoprefixer'),
-    concat = require('gulp-concat'),
     browserSync = require('browser-sync'),
     uglify = require('gulp-uglify'),
     runSequence = require('run-sequence'),
-    gutil = require('gulp-util')
-;
+    gutil = require('gulp-util');
 
 // project settings
 var project = require('./package.json'),
@@ -23,54 +24,61 @@ var cssSupport = '> 3%';
 
 // DEV or DIST mode
 var mode,
-    upload = false     
-;
+    upload = false;
 
 // paths
-function setPaths(mode){
-    // dirs
-    srcDir = 'app/';
-    destDir = mode === 'DEV' ? srcDir : 'dist/';
-    serverDir = '/undefined/';
-    templatesDir = '';
-    staticDir = 'static/';
-    sassDir = 'scss/';
-    fontsDir = 'fonts/'
-    cssDir = 'css/';
-    imgDir = 'img/';
-    jsDir = 'js/';
+var paths = {
+    init: function(mode) {
+        // dirs
+        this.srcDir = 'app/';
+        this.destDir = mode === 'DEV' ? this.srcDir : 'dist/';
+        this.serverDir = '/undefined/';
+        this.templatesDir = '';
+        this.staticDir = 'static/';
+        this.sassDir = 'scss/';
+        this.fontsDir = 'fonts/'
+        this.cssDir = 'css/';
+        this.imgDir = 'img/';
+        this.jsDir = 'js/';
 
-    // paths (dev, dist)
-    sassPath = srcDir + sassDir;
-    fontsPath = destDir + fontsDir;
-    cssPath = destDir + cssDir;
-    imgPath = destDir + imgDir;
-    jsPath = destDir + jsDir;
-    templatesPath = destDir + templatesDir;
+        // paths (dev, dist)
+        this.sassPath = this.srcDir + this.sassDir;
+        this.fontsPath = this.destDir + this.fontsDir;
+        this.cssPath = this.destDir + this.cssDir;
+        this.imgPath = this.destDir + this.imgDir;
+        this.jsPath = this.destDir + this.jsDir;
+        this.templatesPath = this.destDir + this.templatesDir;
 
-    // paths (server)
-    server_fontsPath = serverDir + fontsDir;
-    server_cssPath = serverDir + cssDir;
-    server_imgPath = serverDir + imgDir;
-    server_jsPath = serverDir + jsDir;
-    server_templatesPath = serverDir + templatesDir;
+        // paths (server)
+        this.server_fontsPath = this.serverDir + this.fontsDir;
+        this.server_cssPath = this.serverDir + this.cssDir;
+        this.server_imgPath = this.serverDir + this.imgDir;
+        this.server_jsPath = this.serverDir + this.jsDir;
+        this.server_templatesPath = this.serverDir + this.templatesDir;
 
-    gutil.log(gutil.colors.green(
-        '\nPATHS\n' +
-        'sassPath = ' + sassPath + '\n' +
-        'fontsPath = ' + fontsPath + '\n' +
-        'cssPath = ' + cssPath + '\n' +
-        'imgPath = ' + imgPath + '\n' +
-        'jsPath = ' + jsPath + '\n' +
-        'templatesPath = ' + templatesPath + '\n' +
-        'server_fontsPath = ' + server_fontsPath + '\n' +
-        'server_cssPath = ' + server_cssPath + '\n' +
-        'server_imgPath = ' + server_imgPath + '\n' +
-        'server_jsPath = ' + server_jsPath + '\n' +
-        'server_templatesPath = ' + server_templatesPath
-    ));
+        gutil.log(gutil.colors.green(
+            '\nPATHS\n' +
+            'sassPath = ' + this.sassPath + '\n' +
+            'fontsPath = ' + this.fontsPath + '\n' +
+            'cssPath = ' + this.cssPath + '\n' +
+            'imgPath = ' + this.imgPath + '\n' +
+            'jsPath = ' + this.jsPath + '\n' +
+            'templatesPath = ' + this.templatesPath + '\n' +
+            'server_fontsPath = ' + this.server_fontsPath + '\n' +
+            'server_cssPath = ' + this.server_cssPath + '\n' +
+            'server_imgPath = ' + this.server_imgPath + '\n' +
+            'server_jsPath = ' + this.server_jsPath + '\n' +
+            'server_templatesPath = ' + this.server_templatesPath
+        ));
+    }
+}
 
-};
+// error handler
+// to avoid watcher exits
+function handleError(error) {
+    gutil.log(gutil.colors.red('ERROR!!:' + error.toString));
+    this.emit('end');
+}
 
 // server options
 // server upload configuration will be here
@@ -82,12 +90,12 @@ function setPaths(mode){
 
         var taskName = this.seq.slice(0)[0];
 
-        return gulp.src(sassPath + '*.scss')
+        return gulp.src(paths.sassPath + '*.scss')
             // compass-sourcemaps
             .pipe(sourcemaps.init())
             .pipe(compass({
-                file: sassPath,
-                outfile: cssPath
+                file: paths.sassPath,
+                outfile: paths.cssPath
             }).on('error', compass.logError))
             .pipe(sourcemaps.write())
 
@@ -95,12 +103,7 @@ function setPaths(mode){
             .pipe(autoprefixer(cssSupport))
 
             // destination
-            .pipe(gulp.dest(cssPath))
-
-            // browserSync
-            .pipe(browserSync.reload({
-                stream: true
-            }))
+            .pipe(gulp.dest(paths.cssPath))
 
             // log task
             .on('end', function(){ gutil.log(gutil.colors.green(taskName + ' ' + mode + ' task finished!!')); })
@@ -108,73 +111,58 @@ function setPaths(mode){
 
     });
 
-    // file Changes
-    gulp.task('fileChange', function () {
+    //  browseryfy
+    gulp.task('browserify', function() {
 
         var taskName = this.seq.slice(0)[0];
 
-        return gulp.src([
-                templatesPath + '*.htm',
-                jsPath + '*.js',
-                cssPath + '*.*'
-            ])
-        
-            //browserSync
-            .pipe(browserSync.reload({
-                stream: true
-            }))
+        return browserify('./app/js/dev/main.js')
+            .bundle()
+            .on('error', handleError)
+            .pipe(source('app.js'))
+            .pipe(gulp.dest('./app/js/'))
 
             // log task
             .on('end', function(){ gutil.log(gutil.colors.green(taskName + ' ' + mode + ' task finished!!')); })
         ;
-
     });
-
-    // concat js
-    gulp.task('concat', function() {
-
-        var taskName = this.seq.slice(0)[0];
-
-        var defaultAssets = gulp.src([
-                jsPath + 'lib/jquery.min.js',
-                jsPath + 'lib/modernizr.min.js',
-                jsPath + 'lib/jquery.ba-throttle-debounce.min.js',
-                jsPath + 'lib/TweenLite.min.js'
-            ], {base: jsDir})
-            .pipe(concat('lib.js', {newLine: ';'}))
-            .pipe(gulp.dest(jsPath))
-
-            // log task
-            .on('end', function(){ gutil.log(gutil.colors.green(taskName + ' ' + mode + ' task finished!!')); })
-        ;
-
-    });
-
 
     // browserSync
     gulp.task('browserSync', function() {
-        browserSync({
+
+        var files = [
+            paths.templatesPath + '*.html',
+            paths.jsPath + '*.js',
+            paths.cssPath + '*.css'
+        ];
+
+        browserSync.init(files, {
             server: {
-                baseDir: ['./' + srcDir, templatesPath],
-                index: '/' + templatesDir + 'index.htm' //need to specify this
-            }
+                baseDir: './app',
+                index: '/' + paths.templatesDir + 'index.html' //need to specify this
+           }
         });
+
     });
 
     // watch
-    gulp.task('watch', ['browserSync', 'compass', 'concat'], function (){
+    gulp.task('watch', ['browserSync', 'compass', 'browserify'], function (){
+
+        // browserify
         gulp.watch([
-            templatesPath + '*.htm',
-            jsPath + '*.js'
-        ], ['fileChange']);
-        gulp.watch(sassPath + '*.scss', ['compass']);
+            paths.jsPath + 'dev/*.js'
+        ], ['browserify']);
+        
+        // compass watcher
+        gulp.watch(paths.sassPath + '*.scss', ['compass']);
+
     });
 
 
     // default task
     gulp.task('default', function (callback) {
         mode = 'DEV';
-        setPaths(mode);
+        paths.init(mode);
         
         runSequence(['watch'],
             callback
