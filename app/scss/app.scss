@@ -1,11 +1,50 @@
-body {
-    &:after {
-        content: "hello cruel world!!";
-        display: block;
-        position: absolute;
-        right: 0;
-        bootom: 0;
-        color: #fff;
-        background-color: #000000;
+// 
+// variables
+// 
+$debug: true;
+
+// breakpoints
+$breakpoints: (
+    x-small: 320px,
+    small: 530px,
+    medium: 700px,
+    large: 1024px
+);
+
+// 
+// plugins
+// 
+@import "../../node_modules/breakpoint-sass/stylesheets/breakpoint";
+
+// 
+// mixins
+// 
+
+//mediaQueries info
+@mixin queryInfo($breakpoints:$breakpoints) {
+    
+    @if $debug == true {
+        &:after {
+            padding: 0.2rem;
+            right: 0;
+            bottom: 0;
+            color: #fff;
+            display: block;
+            background-color: #000000;
+            position: fixed;
+            z-index: 200;
+            @each $breakpoint in map_keys($breakpoints) {
+                @include breakpoint(map-get($breakpoints, $breakpoint)) {
+                    content: "#{$breakpoint} - #{map-get($breakpoints, $breakpoint)}";
+                }
+            }
+        }
     }
 }
+
+body {
+    @include queryInfo();
+}
+
+
+
