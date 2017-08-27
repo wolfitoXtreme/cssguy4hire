@@ -19,9 +19,6 @@ var project = require('./package.json'),
 // css support ('gulp-autoprefixer')
 var cssSupport = '> 3%';
 
-//css support ('gulp-autoprefixer')
-var cssSupport = '> 3%';
-
 // DEV or DIST mode
 var mode,
     upload = false;

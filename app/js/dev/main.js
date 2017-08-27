@@ -2,7 +2,7 @@
 * www.cssguy4hire.com 
 */
 
-// require non non-CommonJS files 
+// require non-CommonJS files 
 require('jquery');
 require('modernizr');
 

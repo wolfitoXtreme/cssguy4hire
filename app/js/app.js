@@ -42,7 +42,7 @@ void 0!==c?e&&"set"in e&&void 0!==(d=e.set(a,c,b))?d:a[b]=c:e&&"get"in e&&null!=
 * www.cssguy4hire.com 
 */
 
-// require non non-CommonJS files 
+// require non-CommonJS files 
 require('jquery');
 require('modernizr');
 
