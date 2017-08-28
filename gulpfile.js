@@ -5,6 +5,7 @@ var gulp = require('gulp'),
     browserify = require('browserify'),
     source = require('vinyl-source-stream'),
     compass = require('gulp-sass'),
+    sassImportJson = require('gulp-sass-import-json'),
     sourcemaps = require('gulp-sourcemaps'),
     autoprefixer = require('gulp-autoprefixer'),
     browserSync = require('browser-sync'),
@@ -90,10 +91,13 @@ function handleError(error) {
         return gulp.src(paths.sassPath + '*.scss')
             // compass-sourcemaps
             .pipe(sourcemaps.init())
+            .pipe(sassImportJson())
             .pipe(compass({
-                file: paths.sassPath,
-                outfile: paths.cssPath
-            }).on('error', compass.logError))
+                    file: paths.sassPath,
+                    outfile: paths.cssPath
+                })
+                .on('error', compass.logError)
+            )
             .pipe(sourcemaps.write())
 
             // autoprefixer
