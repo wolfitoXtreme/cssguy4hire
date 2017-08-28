@@ -18,7 +18,8 @@
   "homepage": "https://github.com/wolfitoXtreme/cssguy4hire#readme",
   "browser": {
     "jquery": "./app/js/dev/lib/jquery.min.js",
-    "modernizr": "./app/js/dev/lib/modernizr-custom.min.js"
+    "modernizr": "./app/js/dev/lib/modernizr-custom.min.js",
+    "enquire" : "./node_modules/enquire.js/dist/enquire.min.js"
   },
   "browserify-shim": {
     "jquery": "$"
