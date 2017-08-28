@@ -1,15 +1,9 @@
+@import '../breakpoints.json';
+
 // 
 // variables
 // 
 $debug: true;
-
-// breakpoints
-$breakpoints: (
-    x-small: 320px,
-    small: 530px,
-    medium: 700px,
-    large: 1024px
-);
 
 // 
 // plugins
