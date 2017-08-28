@@ -6,9 +6,11 @@
 require('jquery');
 require('modernizr');
 
-// load modules
-var emailProtector = require('./emailProtector');
+// require installed module
+var enquire = require('enquire');
 
+// load project modules
+var emailProtector = require('./emailProtector');
 
 
 
@@ -18,6 +20,16 @@ $(function() {
     // initializing loaded modules
     emailProtector.init();
 
+    // test enquire
+    enquire.register("screen and (max-width:45em)", {
+        match : function() {
+            console.log('Breaking point reached!');
+        },
+
+        unmatch : function() {
+            console.log('Breaking point exit!');
+        }
+    });
 
 });
 
