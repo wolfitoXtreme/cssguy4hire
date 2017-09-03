@@ -1,9 +1,10 @@
-@import '../breakpoints.json';
 
 // 
 // variables
 // 
 $debug: true;
+
+@import '../config/breakpoints.json'; // breakpoints
 
 // 
 // plugins
@@ -36,8 +37,26 @@ $debug: true;
     }
 }
 
+// 
+// helpers
+// 
+.hidden {
+    width: 0;
+    height: 0;
+    position: absolute;
+    overflow: hidden;
+    visibility: hidden;
+}
+
 body {
     @include queryInfo();
+}
+
+// icon test
+.icon {
+    width: 25px;
+    height: 25px;
+    fill: #000;
 }
 
 

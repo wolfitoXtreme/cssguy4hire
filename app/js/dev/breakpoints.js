@@ -1,7 +1,7 @@
 'use strict';
 
 // load breakpoints
-var breakpointsFile = require('../../breakpoints.json');
+var breakpointsFile = require('../../config/breakpoints.json');
 
 // 
 // get breakpoints from 'breakpoints.json' shared SASS file
