@@ -11,7 +11,8 @@ var enquire = require('enquire');
 
 // load project modules
 var emailProtector = require('./emailProtector'),
-    breakpoints = require('./breakpoints');
+    breakpoints = require('./breakpoints'),
+    svgIcons = require('./svgIcons');
 
 // 
 $(function() {
@@ -19,6 +20,7 @@ $(function() {
     // initializing loaded modules
     emailProtector.init();
     breakpoints.init();
+    svgIcons.init();
 
     // test enquire
     enquire.register('screen and (min-width:' + breakpoints.get('xsmall') + ') and (max-width:' + breakpoints.get('small') + ')', {

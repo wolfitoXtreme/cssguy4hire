@@ -83,7 +83,8 @@ var enquire = require('enquire');
 
 // load project modules
 var emailProtector = require('./emailProtector'),
-    breakpoints = require('./breakpoints');
+    breakpoints = require('./breakpoints'),
+    svgIcons = require('./svgIcons');
 
 // 
 $(function() {
@@ -91,6 +92,7 @@ $(function() {
     // initializing loaded modules
     emailProtector.init();
     breakpoints.init();
+    svgIcons.init();
 
     // test enquire
     enquire.register('screen and (min-width:' + breakpoints.get('xsmall') + ') and (max-width:' + breakpoints.get('small') + ')', {
@@ -129,7 +131,23 @@ $(function() {
 });
 
 console.log('hello cruel world!');
-},{"./breakpoints":2,"./emailProtector":3,"enquire":7,"jquery":4,"modernizr":5}],7:[function(require,module,exports){
+},{"./breakpoints":2,"./emailProtector":3,"./svgIcons":7,"enquire":8,"jquery":4,"modernizr":5}],7:[function(require,module,exports){
+'use strict';
+
+// 
+// Include SVG icons within the page
+// 
+var svgIcons = {
+    init: function() {
+        var placeholder = $('#svg-icons'),
+            includeFile = '../img/' + placeholder.data('include') + '.svg';
+
+        placeholder.load(includeFile);
+    }
+}
+
+module.exports = svgIcons;
+},{}],8:[function(require,module,exports){
 (function (global){
 /*!
  * enquire.js v2.1.6 - Awesome Media Queries in JavaScript
