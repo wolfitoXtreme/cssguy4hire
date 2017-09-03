@@ -2,13 +2,26 @@
 
 // dependencies
 var gulp = require('gulp'),
+    
+    // browserify task
     browserify = require('browserify'),
     source = require('vinyl-source-stream'),
+
+    // svgstore task
+    svgstore = require('gulp-svgstore'),
+    cheerio = require('gulp-cheerio'),
+    
+    // compass task
     compass = require('gulp-sass'),
     sassImportJson = require('gulp-sass-import-json'),
     sourcemaps = require('gulp-sourcemaps'),
     autoprefixer = require('gulp-autoprefixer'),
+
+    // browserSync
     browserSync = require('browser-sync'),
+
+    // utilities
+    
     uglify = require('gulp-uglify'),
     runSequence = require('run-sequence'),
     gutil = require('gulp-util');
@@ -20,7 +33,7 @@ var project = require('./package.json'),
 // css support ('gulp-autoprefixer')
 var cssSupport = '> 3%';
 
-// DEV or DIST mode
+// config
 var mode,
     upload = false;
 
@@ -29,7 +42,7 @@ var paths = {
     init: function(mode) {
         // dirs
         this.srcDir = 'app/';
-        this.destDir = mode === 'DEV' ? this.srcDir : 'dist/';
+        this.destDir = mode === 'dev' ? this.srcDir : 'dist/';
         this.serverDir = '/undefined/';
         this.templatesDir = '';
         this.staticDir = 'static/';
@@ -54,8 +67,10 @@ var paths = {
         this.server_jsPath = this.serverDir + this.jsDir;
         this.server_templatesPath = this.serverDir + this.templatesDir;
 
-        gutil.log(gutil.colors.green(
-            '\nPATHS\n' +
+        gutil.log(gutil.colors.yellow(
+            '\n--------\n' +
+            'PATHS' +
+            '\n--------\n' +
             'sassPath = ' + this.sassPath + '\n' +
             'fontsPath = ' + this.fontsPath + '\n' +
             'cssPath = ' + this.cssPath + '\n' +
@@ -66,7 +81,8 @@ var paths = {
             'server_cssPath = ' + this.server_cssPath + '\n' +
             'server_imgPath = ' + this.server_imgPath + '\n' +
             'server_jsPath = ' + this.server_jsPath + '\n' +
-            'server_templatesPath = ' + this.server_templatesPath
+            'server_templatesPath = ' + this.server_templatesPath + 
+            '\n--------'
         ));
     }
 }
@@ -111,6 +127,42 @@ function handleError(error) {
         ;
 
     });
+
+    // svg store
+    gulp.task('svgstore', function () {
+        mode = 'dev';
+        paths.init(mode);
+
+        var taskName = this.seq.slice(0)[0];
+
+        return gulp.src(paths.imgPath + 'icons/*.svg')
+            .pipe(svgstore({ inlineSvg: true }))
+            
+            // process resulting SVG sprites file
+            .pipe(cheerio({
+                
+                // ensure visibility is none
+                run: function ($) {
+                    $('svg').attr({
+                        'width': '0',
+                        'height': '0'
+                    }).attr('class', 'hidden');
+                },
+
+                // markup settings
+                parserOptions: { 
+                    xmlMode: true,
+                    lowerCaseTags: true,
+                    lowerCaseAttributeNames: true
+                }
+            }))
+
+            .pipe(gulp.dest(paths.imgPath))
+
+            // log task
+            .on('end', function(){ gutil.log(gutil.colors.green(taskName + ' ' + mode + ' task finished!!')); });
+    });
+
 
     //  browseryfy
     gulp.task('browserify', function() {
@@ -162,7 +214,7 @@ function handleError(error) {
 
     // default task
     gulp.task('default', function (callback) {
-        mode = 'DEV';
+        mode = 'dev';
         paths.init(mode);
         
         runSequence(['watch'],
