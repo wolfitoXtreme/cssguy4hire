@@ -9,7 +9,10 @@ var gulp = require('gulp'),
 
     // svgstore task
     svgstore = require('gulp-svgstore'),
-    cheerio = require('gulp-cheerio'),
+    gulpCheerio = require('gulp-cheerio'),
+    cheerio = require('cheerio'),
+    through2 = require('through2'),
+    inject = require('gulp-inject'),
     
     // compass task
     compass = require('gulp-sass'),
@@ -21,7 +24,6 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync'),
 
     // utilities
-    
     uglify = require('gulp-uglify'),
     runSequence = require('run-sequence'),
     gutil = require('gulp-util');
@@ -50,7 +52,8 @@ var paths = {
         this.fontsDir = 'fonts/'
         this.cssDir = 'css/';
         this.imgDir = 'img/';
-        this.jsDir = 'js/';
+        this.jsDir = 'js/'
+        this.configDir = 'config/';
 
         // paths (dev, dist)
         this.sassPath = this.srcDir + this.sassDir;
@@ -58,6 +61,7 @@ var paths = {
         this.cssPath = this.destDir + this.cssDir;
         this.imgPath = this.destDir + this.imgDir;
         this.jsPath = this.destDir + this.jsDir;
+        this.configPath = this.destDir + this.configDir;
         this.templatesPath = this.destDir + this.templatesDir;
 
         // paths (server)
@@ -76,6 +80,7 @@ var paths = {
             'cssPath = ' + this.cssPath + '\n' +
             'imgPath = ' + this.imgPath + '\n' +
             'jsPath = ' + this.jsPath + '\n' +
+            'configPath = ' + this.configPath + '\n' +
             'templatesPath = ' + this.templatesPath + '\n' +
             'server_fontsPath = ' + this.server_fontsPath + '\n' +
             'server_cssPath = ' + this.server_cssPath + '\n' +
@@ -139,7 +144,7 @@ function handleError(error) {
             .pipe(svgstore({ inlineSvg: true }))
             
             // process resulting SVG sprites file
-            .pipe(cheerio({
+            .pipe(gulpCheerio({
                 
                 // ensure visibility is none
                 run: function ($) {
@@ -163,17 +168,55 @@ function handleError(error) {
             .on('end', function(){ gutil.log(gutil.colors.green(taskName + ' ' + mode + ' task finished!!')); });
     });
 
+    // icons data
+    gulp.task('icons-data', function () {
+        mode = 'dev';
+        paths.init(mode);
+
+        var taskName = this.seq.slice(0)[0];
+
+        return gulp.src(paths.imgPath + 'icons.svg')
+            .pipe(through2.obj(function (file, encoding, cb) {
+
+                // set empty iconsData object
+                var iconsData = {
+                    icons: {}
+                };
+
+                // extract data from source file
+                var $ = cheerio.load(file.contents.toString(), {xmlMode: true});
+
+                // get each icon properties
+                $('svg > symbol').map(function () {
+                    var iconName = $(this).attr('id'),
+                        iconSize = $(this).attr('viewbox').split(' ');
+
+                    iconsData.icons[iconName] = iconSize[2] + 'px ' + iconSize[3] + 'px';
+                }).get();
+
+                // store properties into a Json file
+                var jsonFile = new gutil.File({
+                    path: 'icons.json',
+                    contents: new Buffer(JSON.stringify(iconsData))
+                });
+
+                this.push(jsonFile);
+                cb();
+            }))
+            .pipe(gulp.dest(paths.configPath));
+    });
+
 
     //  browseryfy
     gulp.task('browserify', function() {
 
         var taskName = this.seq.slice(0)[0];
 
-        return browserify('./app/js/dev/main.js')
+        return browserify(paths.jsPath + 'dev/main.js')
             .bundle()
             .on('error', handleError)
             .pipe(source('app.js'))
-            .pipe(gulp.dest('./app/js/'))
+            .pipe(gulp.dest(paths.jsPath))
 
             // log task
             .on('end', function(){ gutil.log(gutil.colors.green(taskName + ' ' + mode + ' task finished!!')); })
