@@ -6,7 +6,11 @@ ui
 resources
 _old
 app/js/lib/
+
+# Compiled files
 app/css/
+app/config/icons.json
+app/img/icons.svg
 
 # Compiled source
 *.com

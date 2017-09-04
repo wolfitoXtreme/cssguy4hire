@@ -5,6 +5,7 @@
 $debug: true;
 
 @import '../config/breakpoints.json'; // breakpoints
+@import '../config/icons.json'; // icons
 
 // 
 // plugins
@@ -52,12 +53,13 @@ body {
     @include queryInfo();
 }
 
-// icon test
-.icon {
-    width: 25px;
-    height: 25px;
-    fill: #000;
-}
 
+// icon test
+@each $icon in map_keys($icons) {
+    .#{$icon} {
+        width: #{nth(map-get($icons, $icon), 1)};
+        height: #{nth(map-get($icons, $icon), 2)};
+    }
+}
 
 
