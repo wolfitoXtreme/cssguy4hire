@@ -24,6 +24,7 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync'),
 
     // utilities
+    rename = require('gulp-rename'),
     uglify = require('gulp-uglify'),
     runSequence = require('run-sequence'),
     gutil = require('gulp-util');
@@ -151,7 +152,7 @@ gulp.Gulp.prototype._runTask = function(task) {
 
     // svg icons
     gulp.task('svg-icons', function (callback) {
-        runSequence(['svg-store', 'svg-icons-data'],
+        runSequence(['svg-store', 'svg-icons-data', 'svg-icons-reference'],
             callback
         );
     });
@@ -231,6 +232,68 @@ gulp.Gulp.prototype._runTask = function(task) {
                 // run browserify to refresh icons inclusion
                 gulp.start('browserify');
             });
+    });
+
+    // icons reference
+    gulp.task('svg-icons-reference', ['svg-icons-data'], function () {
+        
+        var taskName = this.currentTask.name;
+
+        // build HTML from JSON file
+        function buildDemoHtml(file) {
+            
+            var iconsDemo = '',
+                iconsData = JSON.parse(file.contents);
+
+            for(var icon in iconsData.icons) {
+
+                var iconDimensions =  iconsData.icons[icon].split(' '),
+                    iconWidth = iconDimensions[0],
+                    iconHeight = iconDimensions[1];
+                
+                var iconHTML = 
+                    '<div class="icons__icon">'  + 
+                        '<div class="icon-image">' + 
+                            '<svg class="icon-image__svg" style="width: ' + iconWidth + '; height:' + iconHeight + ';">' +
+                            '<use xlink:href="#' + icon + '" />' +
+                            '</svg>' +
+                        '</div>' +
+                        '<div class="icon-details">' + 
+                            '<div class="icon-details__name">' + icon + '</div>' + 
+                            '<div class="icon-details__size">' + iconWidth + ' - ' + iconHeight + '</div>' + 
+                        '</div>' +
+                    '</div>';
+
+                iconsDemo += iconHTML;
+            }
+
+            iconsDemo = '<div class="icons">' + iconsDemo + '</div>';
+
+            return iconsDemo;
+        }
+
+        return gulp.src(paths.imgPath + 'icons-reference-src/icons-reference-src.html')
+            
+            // inject SVG sprites
+            .pipe(inject(gulp.src(paths.imgPath + 'icons.svg'), {
+                transform: function (filepath, file) {
+                  return file.contents.toString();
+                }
+            }))
+
+            // inject generated demo
+            .pipe(inject(gulp.src(paths.configPath + 'icons.json'), {
+                transform: function (filepath, file) {
+                  return buildDemoHtml(file);
+                }
+            }))
+
+            .pipe(rename('icons-reference.html'))
+            .pipe(gulp.dest(paths.imgPath))
+
+            // log task
+            .on('end', function(){taskEnd(taskName);});
+
     });
 
     //  browseryfy

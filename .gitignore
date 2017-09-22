@@ -11,6 +11,7 @@ app/js/lib/
 app/css/
 app/config/icons.json
 app/img/icons.svg
+app/img/icons-reference.html
 
 # Compiled source
 *.com
