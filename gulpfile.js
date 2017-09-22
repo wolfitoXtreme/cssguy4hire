@@ -36,7 +36,7 @@ var project = require('./package.json'),
 var cssSupport = '> 3%';
 
 // config
-var mode,
+var mode = gutil.env.dist === true ? 'dist' : 'dev', // set mode from gulp flag. ie. $gulp --dist
     upload = false;
 
 // paths
@@ -92,6 +92,9 @@ var paths = {
     }
 }
 
+// initialize paths
+paths.init(mode);
+
 // error handler
 // to avoid watcher exits
 function handleError(error) {
@@ -99,15 +102,30 @@ function handleError(error) {
     this.emit('end');
 }
 
+// task end notifications
+function taskEnd(taskName) {
+    gutil.log(gutil.colors.green(taskName + ' ' + mode + ' task finished!!'));
+}
+
+// get current task name
+gulp.Gulp.prototype.__runTask = gulp.Gulp.prototype._runTask;
+gulp.Gulp.prototype._runTask = function(task) {
+    this.currentTask = task;
+    this.__runTask(task);
+}
+
+
 // server options
 // server upload configuration will be here
 
+// 
 // DEVELOPMENT TASKS
+// 
 
     // compass
     gulp.task('compass', function () {
 
-        var taskName = this.seq.slice(0)[0];
+        var taskName = this.currentTask.name;
 
         return gulp.src(paths.sassPath + '*.scss')
             // compass-sourcemaps
@@ -128,7 +146,7 @@ function handleError(error) {
             .pipe(gulp.dest(paths.cssPath))
 
             // log task
-            .on('end', function(){ gutil.log(gutil.colors.green(taskName + ' ' + mode + ' task finished!!')); })
+            .on('end', function(){ taskEnd(taskName); })
         ;
 
     });
@@ -165,7 +183,7 @@ function handleError(error) {
             .pipe(gulp.dest(paths.imgPath))
 
             // log task
-            .on('end', function(){ gutil.log(gutil.colors.green(taskName + ' ' + mode + ' task finished!!')); });
+            .on('end', function(){ taskEnd(taskName); });
     });
 
     // icons data
@@ -206,7 +224,6 @@ function handleError(error) {
             .pipe(gulp.dest(paths.configPath));
     });
 
-
     //  browseryfy
     gulp.task('browserify', function() {
 
@@ -219,7 +236,7 @@ function handleError(error) {
             .pipe(gulp.dest(paths.jsPath))
 
             // log task
-            .on('end', function(){ gutil.log(gutil.colors.green(taskName + ' ' + mode + ' task finished!!')); })
+            .on('end', function(){ taskEnd(taskName); })
         ;
     });
 
@@ -242,7 +259,7 @@ function handleError(error) {
     });
 
     // watch
-    gulp.task('watch', ['browserSync', 'compass', 'browserify'], function (){
+    gulp.task('watch', ['browserify', 'compass', 'browserSync'], function (){
 
         // browserify
         gulp.watch([
@@ -254,18 +271,9 @@ function handleError(error) {
 
     });
 
-
     // default task
-    gulp.task('default', function (callback) {
-        mode = 'dev';
-        paths.init(mode);
-        
+    gulp.task('default', function (callback) {        
         runSequence(['watch'],
             callback
         );
     });
-
-
-// DISTRIBUTION TASKS
-
-
