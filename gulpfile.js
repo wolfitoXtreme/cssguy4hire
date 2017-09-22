@@ -123,7 +123,7 @@ gulp.Gulp.prototype._runTask = function(task) {
 // 
 
     // compass
-    gulp.task('compass', function () {
+    gulp.task('compass', ['svg-icons'], function () {
 
         var taskName = this.currentTask.name;
 
@@ -146,17 +146,20 @@ gulp.Gulp.prototype._runTask = function(task) {
             .pipe(gulp.dest(paths.cssPath))
 
             // log task
-            .on('end', function(){ taskEnd(taskName); })
-        ;
+            .on('end', function(){taskEnd(taskName);});
+    });
 
+    // svg icons
+    gulp.task('svg-icons', function (callback) {
+        runSequence(['svg-store', 'svg-icons-data'],
+            callback
+        );
     });
 
     // svg store
-    gulp.task('svgstore', function () {
-        mode = 'dev';
-        paths.init(mode);
-
-        var taskName = this.seq.slice(0)[0];
+    gulp.task('svg-store', function () {
+        
+        var taskName = this.currentTask.name;
 
         return gulp.src(paths.imgPath + 'icons/*.svg')
             .pipe(svgstore({ inlineSvg: true }))
@@ -183,15 +186,13 @@ gulp.Gulp.prototype._runTask = function(task) {
             .pipe(gulp.dest(paths.imgPath))
 
             // log task
-            .on('end', function(){ taskEnd(taskName); });
+            .on('end', function(){taskEnd(taskName);});
     });
 
     // icons data
-    gulp.task('icons-data', function () {
-        mode = 'dev';
-        paths.init(mode);
+    gulp.task('svg-icons-data', ['svg-store'], function () {
 
-        var taskName = this.seq.slice(0)[0];
+        var taskName = this.currentTask.name;
 
         return gulp.src(paths.imgPath + 'icons.svg')
             .pipe(through2.obj(function (file, encoding, cb) {
@@ -221,13 +222,21 @@ gulp.Gulp.prototype._runTask = function(task) {
                 this.push(jsonFile);
                 cb();
             }))
-            .pipe(gulp.dest(paths.configPath));
+            .pipe(gulp.dest(paths.configPath))
+            
+            // log task
+            .on('end', function(){
+                taskEnd(taskName);
+
+                // run browserify to refresh icons inclusion
+                gulp.start('browserify');
+            });
     });
 
     //  browseryfy
     gulp.task('browserify', function() {
 
-        var taskName = this.seq.slice(0)[0];
+        var taskName = this.currentTask.name;
 
         return browserify(paths.jsPath + 'dev/main.js')
             .bundle()
@@ -236,8 +245,7 @@ gulp.Gulp.prototype._runTask = function(task) {
             .pipe(gulp.dest(paths.jsPath))
 
             // log task
-            .on('end', function(){ taskEnd(taskName); })
-        ;
+            .on('end', function(){taskEnd(taskName);});
     });
 
     // browserSync
@@ -246,7 +254,8 @@ gulp.Gulp.prototype._runTask = function(task) {
         var files = [
             paths.templatesPath + '*.html',
             paths.jsPath + '*.js',
-            paths.cssPath + '*.css'
+            paths.cssPath + '*.css',
+            paths.imgPath + '*.svg'
         ];
 
         browserSync.init(files, {
@@ -259,7 +268,7 @@ gulp.Gulp.prototype._runTask = function(task) {
     });
 
     // watch
-    gulp.task('watch', ['browserify', 'compass', 'browserSync'], function (){
+    gulp.task('watch', function (){
 
         // browserify
         gulp.watch([
@@ -269,11 +278,20 @@ gulp.Gulp.prototype._runTask = function(task) {
         // compass watcher
         gulp.watch(paths.sassPath + '*.scss', ['compass']);
 
+        // svg icons watcher
+        gulp.watch(paths.imgPath + 'icons/*.svg', ['svg-icons']);
+
     });
 
     // default task
-    gulp.task('default', function (callback) {        
-        runSequence(['watch'],
-            callback
-        );
-    });
+    gulp.task('default', [
+        'browserify', 
+        'compass', 
+        'svg-icons',
+        'watch',
+        'browserSync'
+    ]);
+
+// 
+// DISTRIBUTION TASKS
+// 
