@@ -1,0 +1,11 @@
+// 
+// home styles
+// 
+
+// icon test
+@each $icon in map_keys($icons) {
+    .#{$icon} {
+        width: #{nth(map-get($icons, $icon), 1)};
+        height: #{nth(map-get($icons, $icon), 2)};
+    }
+}

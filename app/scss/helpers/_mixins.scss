@@ -1,0 +1,66 @@
+// 
+// mixins
+//
+
+// Libraries Mixins
+@import "../../node_modules/breakpoint-sass/stylesheets/breakpoint";
+
+// mediaQueries info
+// get on screen information for debugging
+@mixin queryInfo($breakpoints:$breakpoints) {
+    
+    @if $debug == true {
+        &:after {
+            padding: 0.2rem;
+            right: 0;
+            bottom: 0;
+            color: #fff;
+            display: block;
+            background-color: #000000;
+            position: fixed;
+            z-index: 200;
+            @each $breakpoint in map_keys($breakpoints) {
+                @include breakpoint(map-get($breakpoints, $breakpoint)) {
+                    content: "#{$breakpoint} - #{map-get($breakpoints, $breakpoint)}";
+                }
+            }
+        }
+    }
+}
+
+// hidden extend wrapper
+@mixin hidden($extend: true) {
+    @if $extend {
+        @extend %hidden;
+    } @else {
+        width: 0;
+        height: 0;
+        position: absolute;
+        overflow: hidden;
+        visibility: hidden;
+    }
+}
+
+// hidden placeholder
+%hidden {
+    @include hidden($extend: false);
+}
+
+// clear fix
+@mixin clearFix($extend: true) {
+    @if $extend {
+        @extend %clearFix;
+    } @else {
+        content: " ";
+        display: block;
+        clear: both;
+        height: 0;
+        overflow: hidden;
+        visibility: hidden;  
+    }
+}
+
+// clear fix placeholder
+%clearFix {
+  @include clearFix($extend: false);
+}

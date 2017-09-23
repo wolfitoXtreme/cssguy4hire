@@ -1,0 +1,14 @@
+// 
+// layout
+//
+
+// override debug mode
+$debug: true;
+
+// set breakpoints to EMS
+@include breakpoint-set('to ems', true);
+
+body {
+    @include queryInfo();
+    background-color: lightblue;
+}

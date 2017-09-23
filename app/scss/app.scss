@@ -1,65 +1,32 @@
-
 // 
-// variables
-// 
-$debug: true;
-
-@import '../config/breakpoints.json'; // breakpoints
-@import '../config/icons.json'; // icons
-
-// 
-// plugins
-// 
-@import "../../node_modules/breakpoint-sass/stylesheets/breakpoint";
-
-// 
-// mixins
+// CSSGuy4Hire styles
 // 
 
-//mediaQueries info
-@mixin queryInfo($breakpoints:$breakpoints) {
-    
-    @if $debug == true {
-        &:after {
-            padding: 0.2rem;
-            right: 0;
-            bottom: 0;
-            color: #fff;
-            display: block;
-            background-color: #000000;
-            position: fixed;
-            z-index: 200;
-            @each $breakpoint in map_keys($breakpoints) {
-                @include breakpoint(map-get($breakpoints, $breakpoint)) {
-                    content: "#{$breakpoint} - #{map-get($breakpoints, $breakpoint)}";
-                }
-            }
-        }
-    }
-}
+// 
+// Configuration
+// 
+@import "config/variables";
+@import '../config/breakpoints.json';
+@import '../config/icons.json';
 
 // 
 // helpers
+//
+@import 'helpers/functions';
+@import "helpers/mixins";
+@import "helpers/helpers";
+
 // 
-.hidden {
-    width: 0;
-    height: 0;
-    position: absolute;
-    overflow: hidden;
-    visibility: hidden;
-}
+// Base
+// 
+@import 'base/normalize';
+@import 'base/layout';
+@import 'base/typography';
 
-body {
-    @include queryInfo();
-}
+// 
+// Components
+// 
+@import 'components/home';
 
-
-// icon test
-@each $icon in map_keys($icons) {
-    .#{$icon} {
-        width: #{nth(map-get($icons, $icon), 1)};
-        height: #{nth(map-get($icons, $icon), 2)};
-    }
-}
 
 
