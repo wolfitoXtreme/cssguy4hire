@@ -49,7 +49,7 @@ var paths = {
         this.serverDir = '/undefined/';
         this.templatesDir = '';
         this.staticDir = 'static/';
-        this.sassDir = 'scss/';
+        this.sassDir = 'scss/**/';
         this.fontsDir = 'fonts/'
         this.cssDir = 'css/';
         this.imgDir = 'img/';
@@ -296,7 +296,7 @@ gulp.Gulp.prototype._runTask = function(task) {
 
     });
 
-    //  browseryfy
+    // browseryfy
     gulp.task('browserify', function() {
 
         var taskName = this.currentTask.name;
