@@ -8,7 +8,33 @@ $debug: true;
 // set breakpoints to EMS
 @include breakpoint-set('to ems', true);
 
-body {
+html, body {
+    height: 100%;
     @include queryInfo();
-    background-color: lightblue;
+}
+
+body {
+    // helps panel navigation visuals
+    .js & {
+        overflow: hidden;
+    }
+}
+
+// main
+.main {
+    height: 100%;
+    position: relative;
+    
+    // helps panel navigation visuals
+    .js & {
+        overflow: hidden;
+    }
+}
+
+// panel
+.panel {
+    height: 100%;
+    position: relative;
+
+    background-color: pink;
 }
