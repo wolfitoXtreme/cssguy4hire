@@ -1,6 +1,4 @@
-/**@license Copyright (c) 2015 Cesar Candela
-* www.cssguy4hire.com 
-*/
+'use strict';
 
 // require non-CommonJS files 
 require('jquery');
@@ -12,15 +10,18 @@ var enquire = require('enquire');
 // load project modules
 var emailProtector = require('./emailProtector'),
     breakpoints = require('./breakpoints'),
-    svgIcons = require('./svgIcons');
+    svgIcons = require('./svgIcons'),
+    panelNav = require('./panelNav'),
+    onScreenTest = require('./onScreenTest');
 
-// 
+// app
 $(function() {
 
     // initializing loaded modules
     emailProtector.init();
     breakpoints.init();
     svgIcons.init();
+    panelNav.init();
 
     // test enquire
     enquire.register('screen and (min-width:' + breakpoints.get('xsmall') + ') and (max-width:' + breakpoints.get('small') + ')', {
@@ -56,6 +57,30 @@ $(function() {
         }
     });
 
-});
+    // test onScreenTest
+    $(window).on({
+        'resize.test': function(event) {
+            $('.main').height($(window).height());
 
-console.log('hello cruel world!');
+            onScreenTest.test(
+               'TEST WINDOW RESIZE', [
+                   'window width = ' + $(window).width(),
+                   'window height = ' + $(window).height(),
+                   'window innerWidth = ' + window.innerWidth,
+                   'window innerHeight = ' + window.innerHeight,
+                   'window outerWidth = ' + window.outerWidth,
+                   'window outerHeight = ' + window.outerHeight,
+                   'screen availHeight = ' + screen.availHeight,
+                   'screen availWidth = ' + screen.availWidth,
+                   'document width = ' + $(document).width(),
+                   'document height = ' + $(document).height(),
+                   'body width = ' + $('body').width(),
+                   'body height = ' + $('body').height(),
+                   'body clientWidth = ' + $('body').prop('clientWidth'),
+                   'body clientHeight = ' + $('body').prop('clientHeight'),
+                   'body STYLE = ' + $('body').attr('style')
+               ], false
+            );
+        }
+    });
+});
