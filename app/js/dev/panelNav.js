@@ -3,7 +3,7 @@
 var throttle = require('lodash.throttle'),
     debounce = require('lodash.debounce'),
     slick = require('slick'),
-    onScreenTest = require('./onScreenTest');
+    mousewheel = require('mousewheel');
 
 // 
 // Panel navigation
@@ -24,6 +24,7 @@ var panelNav = {
             arrows: false,
             vertical: true,
             verticalSwiping: true,
+            speed: 300,
         });
     },
 
@@ -42,7 +43,17 @@ var panelNav = {
                     panelNav.matchSize();
                     $(panelNav.wrapper).slick('setPosition');
                 }
-            , 50)
+            , 50),
+            'mousewheel': function(event) {
+                console.log(event.deltaY);
+                if(event.deltaY < 0) {
+                    $(panelNav.wrapper).slick('slickPrev');
+                }
+                else if(event.deltaY > 0) {
+                    $(panelNav.wrapper).slick('slickNext');
+                }
+
+            }
         });
     },
 

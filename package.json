@@ -20,7 +20,8 @@
     "jquery": "./app/js/dev/lib/jquery.min.js",
     "modernizr": "./app/js/dev/lib/modernizr-custom.min.js",
     "enquire": "./node_modules/enquire.js/dist/enquire.min.js",
-    "slick": "./app/js/dev/lib/slick.min.js"
+    "slick": "./app/js/dev/lib/slick.min.js",
+    "mousewheel": "./node_modules/jquery-mousewheel/jquery.mousewheel.js"
   },
   "browserify-shim": {
     "jquery": "$"
@@ -48,6 +49,7 @@
     "gulp-svgstore": "^6.1.0",
     "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.8",
+    "jquery-mousewheel": "^3.1.13",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "run-sequence": "^2.1.0",

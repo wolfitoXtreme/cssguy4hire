@@ -3,6 +3,7 @@
 // require non-CommonJS files 
 require('jquery');
 require('modernizr');
+require('mousewheel')($);
 
 // require installed modules
 var enquire = require('enquire');

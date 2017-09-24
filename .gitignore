@@ -8,9 +8,10 @@ _old
 app/js/lib/
 
 # Compiled files
-app/css/
 app/config/icons.json
 app/img/icons.svg
+app/css/
+app/js/app.js
 app/img/icons-reference.html
 
 # Compiled source
