@@ -1,7 +1,7 @@
 'use strict';
 
-var throttle = require('lodash.throttle'),
-    debounce = require('lodash.debounce'),
+var throttle = require('lodash/throttle'),
+    debounce = require('lodash/debounce'),
     slick = require('slick'),
     mousewheel = require('mousewheel');
 
@@ -17,6 +17,9 @@ var panelNav = {
         panelNav.matchSize();
         panelNav.resize();
 
+        // initialize mosewheel
+        panelNav.mousewheel(panelNav.wrapper);
+
         // initialize carousel type panel navigation
         $(panelNav.wrapper).slick({
             dots: false,
@@ -25,6 +28,7 @@ var panelNav = {
             vertical: true,
             verticalSwiping: true,
             speed: 300,
+            waitForAnimate: false,
         });
     },
 
@@ -36,25 +40,34 @@ var panelNav = {
                 function() {
                     $(panelNav.wrapper).slick('setPosition');
                 }
-
             , 200),
             'resize.panelNav.throttle': throttle(
                 function() { 
                     panelNav.matchSize();
                     $(panelNav.wrapper).slick('setPosition');
                 }
-            , 50),
+            , 100)
+        });
+    },
+
+    // control panels with mousewheel
+    mousewheel: function(panelWrapper) {
+
+        panelWrapper.on({
             'mousewheel': function(event) {
-                console.log(event.deltaY);
+                console.log('event.deltaY = ' + event.deltaY);
+                
                 if(event.deltaY < 0) {
                     $(panelNav.wrapper).slick('slickPrev');
                 }
                 else if(event.deltaY > 0) {
-                    $(panelNav.wrapper).slick('slickNext');
+                     $(panelNav.wrapper).slick('slickNext');
                 }
 
+                console.log('slickCurrentSlide =' + $(panelNav.wrapper).slick('slickCurrentSlide'));
             }
         });
+
     },
 
     // resize panels and container to match window size

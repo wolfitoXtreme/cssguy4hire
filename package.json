@@ -42,6 +42,7 @@
     "gulp-autoprefixer": "^4.0.0",
     "gulp-cheerio": "^0.6.2",
     "gulp-inject": "^4.3.0",
+    "gulp-jscpd": "0.0.8",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
     "gulp-sass-import-json": "^1.0.0",
@@ -50,8 +51,7 @@
     "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.8",
     "jquery-mousewheel": "^3.1.13",
-    "lodash.debounce": "^4.0.8",
-    "lodash.throttle": "^4.1.1",
+    "lodash": "^4.17.4",
     "run-sequence": "^2.1.0",
     "through2": "^2.0.3",
     "vinyl-source-stream": "^1.1.0"
