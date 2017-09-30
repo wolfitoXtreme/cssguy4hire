@@ -157,151 +157,153 @@ gulp.Gulp.prototype._runTask = function(task) {
         );
     });
 
-    // svg store
-    gulp.task('svg-store', function () {
-        
-        var taskName = this.currentTask.name;
-
-        return gulp.src(paths.imgPath + 'icons/*.svg')
-            .pipe(svgstore({ inlineSvg: true }))
+        // svg store
+        gulp.task('svg-store', function () {
             
-            // process resulting SVG sprites file
-            .pipe(gulpCheerio({
+            var taskName = this.currentTask.name;
+
+            return gulp.src(paths.imgPath + 'icons/*.svg')
+                .pipe(svgstore({ inlineSvg: true }))
                 
-                // ensure visibility is none
-                run: function ($) {
-                    $('svg').attr({
-                        'width': '0',
-                        'height': '0'
-                    }).attr('class', 'hidden');
-                },
+                // process resulting SVG sprites file
+                .pipe(gulpCheerio({
+                    
+                    // ensure visibility is none
+                    run: function ($) {
+                        $('svg').attr({
+                            'width': '0',
+                            'height': '0'
+                        }).attr('class', 'hidden');
+                    },
 
-                // markup settings
-                parserOptions: { 
-                    xmlMode: true,
-                    lowerCaseTags: true,
-                    lowerCaseAttributeNames: true
-                }
-            }))
+                    // markup settings
+                    parserOptions: { 
+                        xmlMode: true,
+                        lowerCaseTags: true,
+                        lowerCaseAttributeNames: true
+                    }
+                }))
 
-            .pipe(gulp.dest(paths.imgPath))
+                .pipe(gulp.dest(paths.imgPath))
 
-            // log task
-            .on('end', function(){taskEnd(taskName);});
-    });
+                // log task
+                .on('end', function(){taskEnd(taskName);});
+        });
 
-    // icons data
-    gulp.task('svg-icons-data', ['svg-store'], function () {
+        // icons data
+        gulp.task('svg-icons-data', ['svg-store'], function () {
 
-        var taskName = this.currentTask.name;
+            var taskName = this.currentTask.name;
 
-        return gulp.src(paths.imgPath + 'icons.svg')
-            .pipe(through2.obj(function (file, encoding, cb) {
+            return gulp.src(paths.imgPath + 'icons.svg')
+                .pipe(through2.obj(function (file, encoding, cb) {
 
-                // set empty iconsData object
-                var iconsData = {
-                    icons: {}
-                };
+                    // set empty iconsData object
+                    var iconsData = {
+                        icons: {}
+                    };
 
-                // extract data from source file
-                var $ = cheerio.load(file.contents.toString(), {xmlMode: true});
+                    // extract data from source file
+                    var $ = cheerio.load(file.contents.toString(), {xmlMode: true});
 
-                // get each icon properties
-                $('svg > symbol').map(function () {
-                    var iconName = $(this).attr('id'),
-                        iconSize = $(this).attr('viewbox').split(' ');
+                    // get each icon properties
+                    $('svg > symbol').map(function () {
+                        var iconName = $(this).attr('id'),
+                            iconSize = $(this).attr('viewbox').split(' ');
 
-                    iconsData.icons[iconName] = iconSize[2] + 'px ' + iconSize[3] + 'px';
-                }).get();
+                        iconsData.icons[iconName] = iconSize[2] + 'px ' + iconSize[3] + 'px';
+                    }).get();
 
-                // store properties into a Json file
-                var jsonFile = new gutil.File({
-                    path: 'icons.json',
-                    contents: new Buffer(JSON.stringify(iconsData))
+                    // store properties into a Json file
+                    var jsonFile = new gutil.File({
+                        path: 'icons.json',
+                        contents: new Buffer(JSON.stringify(iconsData))
+                    });
+
+                    this.push(jsonFile);
+                    cb();
+                }))
+                .pipe(gulp.dest(paths.configPath))
+                
+                // log task
+                .on('end', function(){
+                    taskEnd(taskName);
+
+                    // run browserify to refresh icons inclusion
+                    gulp.start('browserify');
                 });
+        });
 
-                this.push(jsonFile);
-                cb();
-            }))
-            .pipe(gulp.dest(paths.configPath))
+        // icons reference
+        gulp.task('svg-icons-reference', ['svg-icons-data'], function () {
             
-            // log task
-            .on('end', function(){
-                taskEnd(taskName);
+            var taskName = this.currentTask.name;
 
-                // run browserify to refresh icons inclusion
-                gulp.start('browserify');
-            });
-    });
-
-    // icons reference
-    gulp.task('svg-icons-reference', ['svg-icons-data'], function () {
-        
-        var taskName = this.currentTask.name;
-
-        // build HTML from JSON file
-        function buildDemoHtml(file) {
-            
-            var iconsDemo = '',
-                iconsData = JSON.parse(file.contents);
-
-            for(var icon in iconsData.icons) {
-
-                var iconDimensions =  iconsData.icons[icon].split(' '),
-                    iconWidth = iconDimensions[0],
-                    iconHeight = iconDimensions[1];
+            // build HTML from JSON file
+            function buildDemoHtml(file) {
                 
-                var iconHTML = 
-                    '<div class="icons__icon">'  + 
-                        '<div class="icon-image">' + 
-                            '<svg class="icon-image__svg" style="width: ' + iconWidth + '; height:' + iconHeight + ';">' +
-                            '<use xlink:href="#' + icon + '" />' +
-                            '</svg>' +
-                        '</div>' +
-                        '<div class="icon-details">' + 
-                            '<div class="icon-details__name">' + icon + '</div>' + 
-                            '<div class="icon-details__size">' + iconWidth + ' - ' + iconHeight + '</div>' + 
-                        '</div>' +
-                    '</div>';
+                var iconsDemo = '',
+                    iconsData = JSON.parse(file.contents);
 
-                iconsDemo += iconHTML;
+                for(var icon in iconsData.icons) {
+
+                    var iconDimensions =  iconsData.icons[icon].split(' '),
+                        iconWidth = iconDimensions[0],
+                        iconHeight = iconDimensions[1];
+                    
+                    var iconHTML = 
+                        '<div class="icons__icon">'  + 
+                            '<div class="icon-image">' + 
+                                '<svg class="icon-image__svg" style="width: ' + iconWidth + '; height:' + iconHeight + ';">' +
+                                '<use xlink:href="#' + icon + '" />' +
+                                '</svg>' +
+                            '</div>' +
+                            '<div class="icon-details">' + 
+                                '<div class="icon-details__name">' + icon + '</div>' + 
+                                '<div class="icon-details__size">' + iconWidth + ' - ' + iconHeight + '</div>' + 
+                            '</div>' +
+                        '</div>';
+
+                    iconsDemo += iconHTML;
+                }
+
+                iconsDemo = '<div class="icons">' + iconsDemo + '</div>';
+
+                return iconsDemo;
             }
 
-            iconsDemo = '<div class="icons">' + iconsDemo + '</div>';
+            return gulp.src(paths.imgPath + 'icons-reference-src/icons-reference-src.html')
+                
+                // inject SVG sprites
+                .pipe(inject(gulp.src(paths.imgPath + 'icons.svg'), {
+                    transform: function (filepath, file) {
+                      return file.contents.toString();
+                    }
+                }))
 
-            return iconsDemo;
-        }
+                // inject generated demo
+                .pipe(inject(gulp.src(paths.configPath + 'icons.json'), {
+                    transform: function (filepath, file) {
+                      return buildDemoHtml(file);
+                    }
+                }))
 
-        return gulp.src(paths.imgPath + 'icons-reference-src/icons-reference-src.html')
-            
-            // inject SVG sprites
-            .pipe(inject(gulp.src(paths.imgPath + 'icons.svg'), {
-                transform: function (filepath, file) {
-                  return file.contents.toString();
-                }
-            }))
+                .pipe(rename('icons-reference.html'))
+                .pipe(gulp.dest(paths.imgPath))
 
-            // inject generated demo
-            .pipe(inject(gulp.src(paths.configPath + 'icons.json'), {
-                transform: function (filepath, file) {
-                  return buildDemoHtml(file);
-                }
-            }))
+                // log task
+                .on('end', function(){taskEnd(taskName);});
 
-            .pipe(rename('icons-reference.html'))
-            .pipe(gulp.dest(paths.imgPath))
-
-            // log task
-            .on('end', function(){taskEnd(taskName);});
-
-    });
+        });
 
     // browseryfy
     gulp.task('browserify', function() {
 
         var taskName = this.currentTask.name;
 
-        return browserify(paths.jsPath + 'dev/main.js')
+        return browserify(paths.jsPath + 'dev/main.js',{
+                debug: false
+            })
             .bundle()
             .on('error', handleError)
             .pipe(source('app.js'))
