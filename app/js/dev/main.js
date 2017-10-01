@@ -13,6 +13,7 @@ var emailProtector = require('./emailProtector'),
     breakpoints = require('./breakpoints'),
     svgIcons = require('./svgIcons'),
     panelNav = require('./panelNav'),
+    slider = require('./slider'),
     onScreenTest = require('./onScreenTest');
 
 // app
@@ -23,6 +24,7 @@ $(function() {
     breakpoints.init();
     svgIcons.init();
     panelNav.init();
+    slider.init();
 
     // test enquire
     enquire.register('screen and (min-width:' + breakpoints.get('xsmall') + ') and (max-width:' + breakpoints.get('small') + ')', {

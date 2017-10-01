@@ -9,3 +9,18 @@
         height: #{nth(map-get($icons, $icon), 2)};
     }
 }
+
+// 
+// skills
+// 
+.skills {
+    padding: 0;
+    list-style: none;
+
+    background-color: lightblue;
+
+    // skills__item
+    &__item {
+        background-color: orange;
+    }
+}
