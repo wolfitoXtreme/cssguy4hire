@@ -6,7 +6,7 @@
 var svgIcons = {
     init: function() {
         var placeholder = $('#svg-icons'),
-            includeFile = '../img/' + placeholder.data('include') + '.svg';
+            includeFile = 'img/' + placeholder.data('include') + '.svg';
 
         placeholder.load(includeFile);
     }

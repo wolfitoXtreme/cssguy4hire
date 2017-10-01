@@ -44,8 +44,8 @@ var project = require('./package.json'),
 var cssSupport = '> 3%';
 
 // config
-var mode = gutil.env.dist === true ? 'dist' : 'dev', // set mode from gulp flag. ie. $gulp --dist
-    upload = true;
+var mode = gutil.env.dist === true ? 'dist' : 'dev', // set mode from gulp flag. $gulp --dist
+    upload = gutil.env.upload === true ? true : false; // set upload from gulp flag. $gulp --upload
 
 // paths
 var paths = {
@@ -182,6 +182,12 @@ console.log('authFile.host = ' + authFile.host);
             // destination
             .pipe(gulp.dest(paths.cssPath))
 
+            // upload files
+            .pipe(gulpif(
+                upload, 
+                serverUpload(paths.server_cssPath)
+            ))
+
             // log task
             .on('end', function(){taskEnd(taskName);});
     });
@@ -221,6 +227,12 @@ console.log('authFile.host = ' + authFile.host);
                 }))
 
                 .pipe(gulp.dest(paths.imgPath))
+
+                // upload files
+                .pipe(gulpif(
+                    upload, 
+                    serverUpload(paths.server_imgPath)
+                ))
 
                 // log task
                 .on('end', function(){taskEnd(taskName);});
@@ -344,6 +356,31 @@ console.log('authFile.host = ' + authFile.host);
             .on('error', handleError)
             .pipe(source('app.js'))
             .pipe(gulp.dest(paths.jsPath))
+            
+            // upload files
+            .pipe(gulpif(
+                upload, 
+                serverUpload(paths.server_jsPath)
+            ))
+
+            // log task
+            .on('end', function(){taskEnd(taskName);});
+    });
+
+    // file change
+    gulp.task('html', function() {
+
+        var taskName = this.currentTask.name;
+
+        return gulp.src([
+                paths.templatesPath + '*.html'
+            ])
+            
+            // upload files
+            .pipe(gulpif(
+                upload, 
+                serverUpload(paths.server_templatesPath)
+            ))
 
             // log task
             .on('end', function(){taskEnd(taskName);});
@@ -363,7 +400,7 @@ console.log('authFile.host = ' + authFile.host);
             server: {
                 baseDir: './app',
                 index: '/' + paths.templatesDir + 'index.html' //need to specify this
-           }
+            }
         });
 
     });
@@ -382,6 +419,9 @@ console.log('authFile.host = ' + authFile.host);
         // svg icons watcher
         gulp.watch(paths.imgPath + 'icons/*.svg', ['svg-icons']);
 
+        // templates watcher
+        gulp.watch(paths.templatesPath + '*.html', ['html']);
+
     });
 
     // default task
@@ -389,32 +429,10 @@ console.log('authFile.host = ' + authFile.host);
         'browserify', 
         'compass', 
         'svg-icons',
+        'html',
         'watch',
         'browserSync'
     ]);
-
-
-    gulp.task('test', function () {
-
-        var taskName = this.currentTask.name;
-
-        return gulp.src(paths.jsPath + 'app.js', {
-            // base: '.', 
-            buffer: false
-        })
-
-            // upload files
-            .pipe(gulpif(
-                !upload, 
-                gulp.dest(paths.jsPath + 'test'),
-                serverUpload(paths.server_jsPath)
-            ))
-            .on('error', handleError)
-
-            // log task
-            .on('end', function(){taskEnd(taskName);});
-        ;
-    });
 
 // 
 // DISTRIBUTION TASKS
