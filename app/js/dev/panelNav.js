@@ -10,7 +10,7 @@ var throttle = require('lodash/throttle'),
 //
 var panelNav = {
     init: function() {
-        this.wrapper = $('.js-panels-wrapper');
+        this.wrapper = $('.js-panels');
         this.panels = $('.panel', this.wrapper);
 
         // initialize resize
@@ -28,13 +28,12 @@ var panelNav = {
             vertical: true,
             verticalSwiping: true,
             speed: 300,
-            waitForAnimate: false,
+            waitForAnimate: false
         });
     },
 
     // update panel navigation on resize
     resize: function() {
-
         $(window).on({
             'resize.panelNav.debounce': debounce(
                 function() {
