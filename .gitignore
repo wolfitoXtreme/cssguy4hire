@@ -6,6 +6,7 @@ ui
 resources
 _old
 app/js/lib/
+app/config/auth.json
 
 # Compiled files
 app/config/icons.json

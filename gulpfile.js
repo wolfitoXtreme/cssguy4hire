@@ -23,9 +23,16 @@ var gulp = require('gulp'),
     // browserSync
     browserSync = require('browser-sync'),
 
+    // server
+    // GulpSSH = require('gulp-ssh'),
+    ftp = require( 'vinyl-ftp' ),
+
     // utilities
+    lazypipe = require('lazypipe'),
     rename = require('gulp-rename'),
     uglify = require('gulp-uglify'),
+    gulpif = require('gulp-if'),
+    newer = require('gulp-newer'),
     runSequence = require('run-sequence'),
     gutil = require('gulp-util');
 
@@ -38,7 +45,7 @@ var cssSupport = '> 3%';
 
 // config
 var mode = gutil.env.dist === true ? 'dist' : 'dev', // set mode from gulp flag. ie. $gulp --dist
-    upload = false;
+    upload = true;
 
 // paths
 var paths = {
@@ -46,7 +53,7 @@ var paths = {
         // dirs
         this.srcDir = 'app/';
         this.destDir = mode === 'dev' ? this.srcDir : 'dist/';
-        this.serverDir = '/undefined/';
+        this.serverDir = '/test/';
         this.templatesDir = '';
         this.staticDir = 'static/';
         this.sassDir = 'scss/**/';
@@ -116,8 +123,37 @@ gulp.Gulp.prototype._runTask = function(task) {
 }
 
 
-// server options
-// server upload configuration will be here
+// server configuration
+var authFile = require('./app/config/auth.json'),
+    serverConfig  = ftp.create({
+        host: authFile.host,
+        port: authFile.port,
+        user: authFile.user,
+        password: authFile.password,
+        parallel: 10,
+        log: gutil.log
+    });
+
+// server upload streams 
+function serverUpload(uploadPath) {
+    
+    // check for new files
+    var checkNewer = function () {
+        return serverConfig.newer(uploadPath);
+    }
+
+    // upload files
+    var uploadFiles = function() {
+        return serverConfig.dest(uploadPath);
+    }
+
+    // lazypipe
+    var lazyPipe = lazypipe().pipe(checkNewer).pipe(uploadFiles);
+
+    return lazyPipe();
+}
+
+console.log('authFile.host = ' + authFile.host);
 
 // 
 // DEVELOPMENT TASKS
@@ -356,6 +392,29 @@ gulp.Gulp.prototype._runTask = function(task) {
         'watch',
         'browserSync'
     ]);
+
+
+    gulp.task('test', function () {
+
+        var taskName = this.currentTask.name;
+
+        return gulp.src(paths.jsPath + 'app.js', {
+            // base: '.', 
+            buffer: false
+        })
+
+            // upload files
+            .pipe(gulpif(
+                !upload, 
+                gulp.dest(paths.jsPath + 'test'),
+                serverUpload(paths.server_jsPath)
+            ))
+            .on('error', handleError)
+
+            // log task
+            .on('end', function(){taskEnd(taskName);});
+        ;
+    });
 
 // 
 // DISTRIBUTION TASKS
