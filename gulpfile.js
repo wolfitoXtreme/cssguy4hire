@@ -24,7 +24,6 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync'),
 
     // server
-    // GulpSSH = require('gulp-ssh'),
     ftp = require( 'vinyl-ftp' ),
 
     // utilities
@@ -131,12 +130,18 @@ var authFile = require('./app/config/auth.json'),
         user: authFile.user,
         password: authFile.password,
         parallel: 10,
-        log: gutil.log
+        log: null
+        // log: gutil.log
     });
 
 // server upload streams 
-function serverUpload(uploadPath) {
-    
+function serverUpload(source, uploadPath) {
+
+    // set sourse
+    var setSorce = function () {
+        return gulp.src(source);
+    }
+
     // check for new files
     var checkNewer = function () {
         return serverConfig.newer(uploadPath);
@@ -148,12 +153,10 @@ function serverUpload(uploadPath) {
     }
 
     // lazypipe
-    var lazyPipe = lazypipe().pipe(checkNewer).pipe(uploadFiles);
+    var lazyPipe = lazypipe().pipe(setSorce).pipe(checkNewer).pipe(uploadFiles);
 
     return lazyPipe();
 }
-
-console.log('authFile.host = ' + authFile.host);
 
 // 
 // DEVELOPMENT TASKS
@@ -182,14 +185,16 @@ console.log('authFile.host = ' + authFile.host);
             // destination
             .pipe(gulp.dest(paths.cssPath))
 
-            // upload files
-            .pipe(gulpif(
-                upload, 
-                serverUpload(paths.server_cssPath)
-            ))
+            .on('end', function(){
+                // log task
+                taskEnd(taskName);
+                
+                // upload files
+                if(upload) {
+                    serverUpload(paths.cssPath + '*.css', paths.server_cssPath);
+                }
+            });
 
-            // log task
-            .on('end', function(){taskEnd(taskName);});
     });
 
     // svg icons
@@ -225,17 +230,17 @@ console.log('authFile.host = ' + authFile.host);
                         lowerCaseAttributeNames: true
                     }
                 }))
-
                 .pipe(gulp.dest(paths.imgPath))
-
-                // upload files
-                .pipe(gulpif(
-                    upload, 
-                    serverUpload(paths.server_imgPath)
-                ))
-
-                // log task
-                .on('end', function(){taskEnd(taskName);});
+                
+                .on('end', function(){
+                    // log task
+                    taskEnd(taskName);
+                    
+                    // upload files
+                    if(upload) {
+                        serverUpload(paths.imgPath + 'icons.svg', paths.server_imgPath);
+                    }
+                });
         });
 
         // icons data
@@ -356,18 +361,21 @@ console.log('authFile.host = ' + authFile.host);
             .on('error', handleError)
             .pipe(source('app.js'))
             .pipe(gulp.dest(paths.jsPath))
-            
-            // upload files
-            .pipe(gulpif(
-                upload, 
-                serverUpload(paths.server_jsPath)
-            ))
 
             // log task
-            .on('end', function(){taskEnd(taskName);});
+            .on('end', function(){
+                // log task
+                taskEnd(taskName);
+                
+                // upload files
+                if(upload) {
+                    serverUpload(paths.jsPath + 'app.js', paths.server_jsPath);
+                }
+            });
+
     });
 
-    // file change
+    // html change
     gulp.task('html', function() {
 
         var taskName = this.currentTask.name;
@@ -375,15 +383,17 @@ console.log('authFile.host = ' + authFile.host);
         return gulp.src([
                 paths.templatesPath + '*.html'
             ])
-            
-            // upload files
-            .pipe(gulpif(
-                upload, 
-                serverUpload(paths.server_templatesPath)
-            ))
 
             // log task
-            .on('end', function(){taskEnd(taskName);});
+            .on('end', function(){
+                // log task
+                taskEnd(taskName);
+                
+                // upload files
+                if(upload) {
+                    serverUpload(paths.templatesPath + '*.html', paths.server_templatesPath);
+                }
+            });
     });
 
     // browserSync
@@ -419,7 +429,7 @@ console.log('authFile.host = ' + authFile.host);
         // svg icons watcher
         gulp.watch(paths.imgPath + 'icons/*.svg', ['svg-icons']);
 
-        // templates watcher
+        // html watcher
         gulp.watch(paths.templatesPath + '*.html', ['html']);
 
     });
