@@ -13,8 +13,33 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
+h1 {
+    margin-bottom: prem(16px, 16px);
+}
+
+h2 {
+    margin-bottom: prem(10px, 16px);
+}
+
+h3 {
+    margin-bottom: prem(8px, 16px);
+}
+
+h4 {
+    margin-bottom: prem(5px, 16px);
+}
+
+h5 {
+    margin-bottom: prem(4px, 16px);
+}
+
+h6 {
+    margin-bottom: prem(4px, 16px);
+}
+
 // paragraphs
 p {
+    margin-top: 0;
     &:last-child {
         margin-bottom: 0;
     }
