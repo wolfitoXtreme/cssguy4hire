@@ -2,6 +2,15 @@
 // helpers
 //
 
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+    backface-visibility: hidden;
+}
+
 // hidden (visually) 
 .hidden {
     @include hidden;
