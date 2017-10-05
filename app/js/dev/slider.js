@@ -14,6 +14,7 @@ var options = {
     dotsClass: '',
     infinite: true,
     speed: 500,
+    // adaptiveHeight: true,
     centerMode: false,
     centerPadding: 0,
     mobileFirst: true,
@@ -53,11 +54,26 @@ var slider = {
 
             // set responsive options settings
             $slider.options.responsive = responsive;
+            
+            // $slider.on('init', function(slick) {
+            
+            //     $slider.data('slides', $slider.find('.slick-slide'));
+
+            //     console.log('slides = > ' + $slider.data('slides').length);
+            // }).slick($slider.options);
+
             $slider.slick($slider.options);
 
         });
 
+        // slider.sliders.each(function(i) {
+        //     var $current = $(this);
+        //     console.log('........' + $current.slides.length);
+        // });
+
         slider.resize(slider.sliders);
+        slider.matchSize(slider.sliders);
+
     },
 
     // update panel navigation on resize
@@ -66,11 +82,13 @@ var slider = {
             'resize.slider.debounce': debounce(
                 function() {
                     $(sliders).slick('setPosition');
+                    slider.matchSize(sliders);
                 }
             , 200),
             'resize.slider.throttle': throttle(
                 function() { 
                     $(sliders).slick('setPosition');
+                    slider.matchSize(sliders);
                 }
             , 100)
         });
@@ -78,8 +96,21 @@ var slider = {
 
 
     // resize panels and container to match window size
-    matchSize: function() {
+    matchSize: function(sliders) {
+        $(sliders).each(function(i) {
 
+            var $currentSlider = $(this),
+                $slides = $currentSlider.find('.slick-slide'),
+                slideHeight = 0;
+
+            $slides.css('height', 'auto');
+
+            $slides.each(function(j) {
+                slideHeight = ($(this).height() > slideHeight) ? $(this).height() : slideHeight;
+            });
+
+            $slides.css('height', slideHeight + 'px');
+        });
     }
 }
 
