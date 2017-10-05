@@ -172,7 +172,7 @@ function serverUpload(source, uploadPath) {
             .pipe(sourcemaps.init())
             .pipe(sassImportJson())
             .pipe(compass({
-                    file: paths.sassPath,
+                    file: paths.sassPath + '*.scss',
                     outfile: paths.cssPath
                 })
                 .on('error', compass.logError)
