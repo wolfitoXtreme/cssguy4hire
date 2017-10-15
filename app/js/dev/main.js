@@ -10,7 +10,8 @@ require('mousewheel')($);
 var enquire = require('enquire');
 
 // load project modules
-var emailProtector = require('./emailProtector'),
+var domAdjust = require('./domAdjust'),
+    emailProtector = require('./emailProtector'),
     breakpoints = require('./breakpoints'),
     svgIcons = require('./svgIcons'),
     panelNav = require('./panelNav'),
@@ -21,6 +22,7 @@ var emailProtector = require('./emailProtector'),
 $(function() {
 
     // initializing loaded modules
+    domAdjust.init();
     emailProtector.init();
     breakpoints.init();
     svgIcons.init();
