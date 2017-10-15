@@ -44,3 +44,7 @@ p {
         margin-bottom: 0;
     }
 }
+
+hr {
+    @include hidden;
+}
