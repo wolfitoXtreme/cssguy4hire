@@ -22,6 +22,7 @@ body {
     transition: all 300ms ease-in 0ms;
 }
 
+
 // main
 .main {
     height: 100%;
@@ -36,9 +37,14 @@ body {
 // panel
 .panel {
     padding: prem(12px, 16px);
-    // height: 100%;
+    height: 100%;
     position: relative;
 
     border: 5px dashed black;
     background-color: lightgreen;
+
+}
+
+.footer {
+    @include hidden;
 }
