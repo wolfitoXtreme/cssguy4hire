@@ -1,0 +1,32 @@
+// 
+// navigation styles
+// 
+
+// main menu
+.nav-mein-menu {
+}
+
+// utilities menu
+.nav-util-menu {
+    display: none;
+}
+
+// section navigation
+.nav-section {
+    margin: 0;
+    padding: 0;
+
+    // nav-section__link
+    &__link {
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        position: absolute;
+
+        // nav-section__link--prev
+        &--prev {
+            top: 0;
+            bottom: auto;
+        }
+    }
+}

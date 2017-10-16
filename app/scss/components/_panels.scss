@@ -1,0 +1,38 @@
+// 
+// panels default styles
+// 
+
+// icon test
+@each $icon in map_keys($icons) {
+    .#{$icon} {
+        width: #{nth(map-get($icons, $icon), 1)};
+        height: #{nth(map-get($icons, $icon), 2)};
+    }
+}
+
+// 
+// panels
+// 
+.panel {
+    // panel layout styles defined as part of _layout.scss
+
+    // bottom title
+    &:after {
+        content: attr(title);
+        right: 0;
+        bottom: 0;
+        font-weight: bold;
+        font-size: prem(60px, 16px);
+        letter-spacing: -0.1rem;
+        text-transform: uppercase;
+        position: absolute;
+        display: block;
+    }
+
+    // panel__signature
+    &__signature {
+        left: 0;
+        bottom: 0;
+        position: absolute;
+    }
+}

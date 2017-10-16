@@ -1,0 +1,11 @@
+// 
+// Work Panel Styles
+//
+.work {
+    @extend .skills;
+
+    // skills__item
+    &__item {
+        @extend .skills__item;
+    }
+}

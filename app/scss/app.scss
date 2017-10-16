@@ -31,7 +31,12 @@
 // 
 // Components
 // 
-@import 'components/home';
+@import 'components/navigation';
+@import 'components/panels';
 
+// panels specific styles
+@import 'components/skills';
+@import 'components/work';
+@import 'components/contact';
 
 
