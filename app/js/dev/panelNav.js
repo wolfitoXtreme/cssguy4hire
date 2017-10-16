@@ -9,7 +9,9 @@ var throttle = require('lodash/throttle'),
 var panelNav = {
     init: function() {
         this.wrapper =          $('.js-panels');
-        this.panels =           $('.panel', this.wrapper);
+        this.panels =           $('.panel', panelNav.wrapper);
+        // TODO - Arrow navigation already removed by CSS
+        this.panelArrows =      $('.js-nav-panel', panelNav.panels);
         this.panelHeight =      $('body').height();
         this.currentPanel =     0;
         this.maxPanels =        $(panelNav.panels).length;
@@ -41,7 +43,7 @@ var panelNav = {
         };
 
         console.log('supports3D => ' + panelNav.supports3D);
-        
+
         // initialize methods
         panelNav.matchSize();
         panelNav.resize();

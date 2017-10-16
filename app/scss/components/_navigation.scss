@@ -11,22 +11,60 @@
     display: none;
 }
 
-// section navigation
-.nav-section {
+// panel navigation
+.nav-panel {
     margin: 0;
     padding: 0;
 
-    // nav-section__link
+    // nav-panel__link
     &__link {
+        $_icon-width: prem(40px, 16px);
+        $_icon-height: $_icon-width;
+        $_icon-border-width: 10px;
+
         left: 50%;
-        bottom: 0;
+        bottom: prem(10px, 16px);
         transform: translateX(-50%);
         position: absolute;
+        
+        @extend %remove-text;
 
-        // nav-section__link--prev
+        &:before {
+            content: "";
+            left: 0;
+            top: -$_icon-border-width;
+            width: $_icon-width;
+            height: $_icon-height;
+            border: $_icon-border-width solid darkslategrey;
+            border-bottom-style: none;
+            border-left-style: none;
+            display: block;
+            transform: rotate(135deg);
+            transform-origin: center center;
+            position: absolute;
+        }
+
+        &:after {
+            content: "";
+            width: $_icon-width;
+            height: $_icon-height;
+            display: block;
+        }
+
+        // nav-panel__link--prev
         &--prev {
-            top: 0;
+            top: prem(10px, 16px);
             bottom: auto;
+
+            &:before {
+                top: $_icon-border-width;
+                transform: rotate(-45deg);
+            }
+        }
+
+        // avoid firing hash navigation
+        .js & {
+            pointer-events: none;
         }
     }
 }
