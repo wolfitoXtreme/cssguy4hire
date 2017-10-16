@@ -6,6 +6,7 @@ var domAdjust = {
         this.header =       $('.js-header'); // original Header
         this.wrapper =      $('.js-panels');
         this.panels =       $('.panel', this.wrapper);
+        this.contact =      $('.js-contact', this.wrapper);
         this.cover =        this.panels.eq(0).clone().empty();
         this.signature =    $('.js-footer').find('.footer-signature').clone();
 
@@ -27,6 +28,9 @@ var domAdjust = {
         // add signature logo to all panels
         domAdjust.signature.attr('class', 'panel__signature');
         domAdjust.panels.append(domAdjust.signature);
+
+        // relocate 'contact' panel
+        domAdjust.contact.appendTo('body');
     }
 }
 
