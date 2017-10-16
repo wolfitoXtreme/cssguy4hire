@@ -2,13 +2,13 @@
 // helpers
 //
 
-html {
+html, body, * {
     box-sizing: border-box;
-}
 
-*, *:before, *:after {
-    box-sizing: inherit;
-    backface-visibility: hidden;
+    &:before,
+    &:after {
+        box-sizing: inherit;
+    }
 }
 
 // hidden (visually) 

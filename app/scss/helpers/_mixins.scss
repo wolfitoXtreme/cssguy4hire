@@ -64,3 +64,20 @@
 %clearFix {
   @include clearFix($extend: false);
 }
+
+// remove text
+@mixin remove-text($extend: true) {
+    @if $extend {
+        @extend %remove-text;
+    } @else {
+        font-size: 0;
+        line-height: 0;
+        text-indent: 100%;
+        overflow: hidden;
+    }
+}
+
+// remove text placeholder
+%remove-text {
+    @include remove-text($extend: false);
+}
