@@ -9,6 +9,7 @@ var domAdjust = {
         this.contact =      $('.js-contact', this.wrapper);
         this.cover =        this.panels.eq(0).clone().empty();
         this.signature =    $('.js-footer').find('.footer-signature').clone();
+        this.hidden =       $('.js-hidden');
 
         console.log('Header ID -->' + domAdjust.header.attr('id'))
 
@@ -27,10 +28,12 @@ var domAdjust = {
 
         // add signature logo to all panels
         domAdjust.signature.attr('class', 'panel__signature');
-        domAdjust.panels.append(domAdjust.signature);
 
         // relocate 'contact' panel
         domAdjust.contact.appendTo('body');
+
+        // hide all non required markup
+        domAdjust.hidden.hide();
     }
 }
 
