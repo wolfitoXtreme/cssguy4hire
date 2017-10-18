@@ -59,6 +59,7 @@ var paths = {
         this.fontsDir = 'fonts/'
         this.cssDir = 'css/';
         this.imgDir = 'img/';
+        this.iconsDir =  'icons/';
         this.jsDir = 'js/'
         this.configDir = 'config/';
 
@@ -67,6 +68,7 @@ var paths = {
         this.fontsPath = this.destDir + this.fontsDir;
         this.cssPath = this.destDir + this.cssDir;
         this.imgPath = this.destDir + this.imgDir;
+        this.iconsPath = this.imgPath + this.iconsDir;
         this.jsPath = this.destDir + this.jsDir;
         this.configPath = this.destDir + this.configDir;
         this.templatesPath = this.destDir + this.templatesDir;
@@ -75,6 +77,7 @@ var paths = {
         this.server_fontsPath = this.serverDir + this.fontsDir;
         this.server_cssPath = this.serverDir + this.cssDir;
         this.server_imgPath = this.serverDir + this.imgDir;
+        this.server_iconsPath = this.server_imgPath + this.iconsDir;
         this.server_jsPath = this.serverDir + this.jsDir;
         this.server_templatesPath = this.serverDir + this.templatesDir;
 
@@ -86,12 +89,14 @@ var paths = {
             'fontsPath = ' + this.fontsPath + '\n' +
             'cssPath = ' + this.cssPath + '\n' +
             'imgPath = ' + this.imgPath + '\n' +
+            'iconsPath = ' + this.iconsPath + '\n' +
             'jsPath = ' + this.jsPath + '\n' +
             'configPath = ' + this.configPath + '\n' +
             'templatesPath = ' + this.templatesPath + '\n' +
             'server_fontsPath = ' + this.server_fontsPath + '\n' +
             'server_cssPath = ' + this.server_cssPath + '\n' +
             'server_imgPath = ' + this.server_imgPath + '\n' +
+            'server_iconsPath = ' + this.server_iconsPath + '\n' +
             'server_jsPath = ' + this.server_jsPath + '\n' +
             'server_templatesPath = ' + this.server_templatesPath + 
             '\n--------'
@@ -209,7 +214,7 @@ function serverUpload(source, uploadPath) {
             
             var taskName = this.currentTask.name;
 
-            return gulp.src(paths.imgPath + 'icons/*.svg')
+            return gulp.src(paths.iconsPath + 'src/*.svg')
                 .pipe(svgstore({ inlineSvg: true }))
                 
                 // process resulting SVG sprites file
@@ -230,7 +235,8 @@ function serverUpload(source, uploadPath) {
                         lowerCaseAttributeNames: true
                     }
                 }))
-                .pipe(gulp.dest(paths.imgPath))
+                .pipe(rename('icons.svg')) // renaming since output name is directory based
+                .pipe(gulp.dest(paths.iconsPath))
                 
                 .on('end', function(){
                     // log task
@@ -238,7 +244,7 @@ function serverUpload(source, uploadPath) {
                     
                     // upload files
                     if(upload) {
-                        serverUpload(paths.imgPath + 'icons.svg', paths.server_imgPath);
+                        serverUpload(paths.iconsPath + 'icons.svg', paths.server_iconsPath);
                     }
                 });
         });
@@ -248,7 +254,7 @@ function serverUpload(source, uploadPath) {
 
             var taskName = this.currentTask.name;
 
-            return gulp.src(paths.imgPath + 'icons.svg')
+            return gulp.src(paths.imgPath + '/icons/icons.svg')
                 .pipe(through2.obj(function (file, encoding, cb) {
 
                     // set empty iconsData object
@@ -325,10 +331,10 @@ function serverUpload(source, uploadPath) {
                 return iconsDemo;
             }
 
-            return gulp.src(paths.imgPath + 'icons-reference-src/icons-reference-src.html')
+            return gulp.src(paths.iconsPath + 'icons-reference-src/icons-reference-src.html')
                 
                 // inject SVG sprites
-                .pipe(inject(gulp.src(paths.imgPath + 'icons.svg'), {
+                .pipe(inject(gulp.src(paths.iconsPath + 'icons.svg'), {
                     transform: function (filepath, file) {
                       return file.contents.toString();
                     }
@@ -342,7 +348,7 @@ function serverUpload(source, uploadPath) {
                 }))
 
                 .pipe(rename('icons-reference.html'))
-                .pipe(gulp.dest(paths.imgPath))
+                .pipe(gulp.dest(paths.iconsPath))
 
                 // log task
                 .on('end', function(){taskEnd(taskName);});
@@ -427,7 +433,7 @@ function serverUpload(source, uploadPath) {
         gulp.watch(paths.sassPath + '*.scss', ['compass']);
 
         // svg icons watcher
-        gulp.watch(paths.imgPath + 'icons/*.svg', ['svg-icons']);
+        gulp.watch(paths.iconsPath + 'src/*.svg', ['svg-icons']);
 
         // html watcher
         gulp.watch(paths.templatesPath + '*.html', ['html']);
