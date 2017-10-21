@@ -14,7 +14,12 @@ var gulp = require('gulp'),
     through2 = require('through2'),
     inject = require('gulp-inject'),
     
-    // compass task
+    // image tasks
+    imagemin = require('gulp-imagemin'),
+    jpegrecompress = require('imagemin-jpeg-recompress'),
+    imageSize = require('image-size'),
+
+    // compass tasks
     compass = require('gulp-sass'),
     sassImportJson = require('gulp-sass-import-json'),
     sourcemaps = require('gulp-sourcemaps'),
@@ -135,8 +140,8 @@ var authFile = require('./app/config/auth.json'),
         user: authFile.user,
         password: authFile.password,
         parallel: 10,
-        log: null
-        // log: gutil.log
+        // log: null
+        log: gutil.log
     });
 
 // server upload streams 
@@ -349,6 +354,186 @@ function serverUpload(source, uploadPath) {
 
                 .pipe(rename('icons-reference.html'))
                 .pipe(gulp.dest(paths.iconsPath))
+
+                // log task
+                .on('end', function(){taskEnd(taskName);});
+
+        });
+
+    // images
+    gulp.task('images', function (callback) {
+        runSequence(['image-min', 'image-data', 'image-reference'],
+            callback
+        );
+    });
+        // image-min
+        gulp.task('image-min', function () {
+            var taskName = this.currentTask.name;
+
+            return gulp.src(paths.imgPath + '/*.+(jpg|png|svg)')
+                .pipe(newer(paths.imgPath + 'test/'))
+                .pipe(imagemin([
+                    imagemin.gifsicle({
+                        interlaced: true
+                    }),
+                    jpegrecompress({
+                        accurate: true,
+                        quality: 'low',
+                        min: 5,
+                        max: 30
+                    }),
+                    imagemin.optipng({
+                        optimizationLevel: 5 // 0 - 7
+                    }),
+                    imagemin.svgo({
+                        plugins: [
+                            {removeViewBox: true},
+                            {cleanupIDs: false}
+                        ]
+                    })
+                ]))
+                // .pipe(gulp.dest(paths.imgPath))
+                .pipe(gulp.dest(paths.imgPath + 'test/'))
+
+                .on('end', function(){
+                    // log task
+                    taskEnd(taskName);
+                    
+                    // upload files
+                    if(upload) {
+                        serverUpload(paths.imgPath + '/*.+(jpg|png|svg)', paths.server_imgPath);
+                    }
+                });
+        });
+
+        // image data
+        gulp.task('image-data', ['image-min'], function () {
+
+            var taskName = this.currentTask.name;
+
+            // set empty imgData object
+            var imgData = {imgs: {}};
+            
+            // get image properties
+            var getImgProps = function(image) {
+                console.log('getting image info...');
+                var size = imageSize(image), // get current image size
+                    img = image.slice( // extract image file name
+                        image.lastIndexOf('\\') + 1
+                    ),
+                    imgName = img.slice(0, img.lastIndexOf('.')),
+                    imgWidth = size.width, // set image width
+                    imgHeight = size.height; // set image height
+
+                return [img, imgName, imgWidth, imgHeight];
+            }
+
+            // store image properties into a Json file and pass it as a stream
+            var storeImgData = function(stream, imgData) {
+                console.log('storeImgData reached, do something...');
+                var jsonFile = new gutil.File({
+                    path: 'images.json',
+                    contents: new Buffer(JSON.stringify(imgData))
+                });
+                console.log('jsonFile = ' + jsonFile);
+                stream.push(jsonFile);
+            }
+
+            return gulp.src(paths.imgPath + '/*.+(jpg|png|svg)')
+
+                .pipe(through2.obj(function (file, encoding, cb) {
+                    console.log('...' + Object.keys(file).length);
+                    console.log('...' + file.history);
+
+                    var imgProps = getImgProps(file.history.toString());
+
+                    console.log(
+                        'currentImg =' + file.history.toString() + '\n' +
+                        'img =' + imgProps[0] + '\n' +
+                        'imgName =' + imgProps[1] + '\n' +
+                        'imgWidth =' + imgProps[2] + '\n' +
+                        'imgHeight = ' + imgProps[3]
+                    );
+
+                    // set current image data
+                    imgData.imgs[imgProps[1]] = imgProps[0] + ' ' + imgProps[2] + 'px ' + imgProps[3] + 'px';
+
+                    console.log('current imgData is => ' + imgData.toString());
+
+                    cb(null, storeImgData(this, imgData));
+                }))
+                .pipe(gulp.dest(paths.configPath))
+                
+                // log task
+                .on('end', function(){
+                    taskEnd(taskName);
+
+                    // run browserify to refresh images inclusion
+                    // gulp.start('browserify');
+                });
+        });
+
+        // image reference
+        gulp.task('image-reference', ['image-data'], function () {
+            
+            var taskName = this.currentTask.name;
+
+            // build HTML from JSON file
+            function buildDemoHtml(file) {
+                
+                var imagesDemo = '',
+                    imagesData = JSON.parse(file.contents);
+                
+                console.log('building images demo...' + imagesData);
+                
+                for(var img in imagesData.imgs) {
+
+                    var imgName = img,
+                        imgData =  imagesData.imgs[img].split(' '),
+                        imgSrc = imgData[0],
+                        imgWidth = imgData[1],
+                        imgHeight = imgData[2];
+
+                    console.log(
+                        'imgName = ' + imgName + '\n' + 
+                        'imgSrc = ' + imgSrc + '\n' + 
+                        'imgWidth = ' + imgWidth + '\n' + 
+                        'imgHeight = ' + imgHeight
+                    );
+                    
+                    var imgHTML = 
+                        '<div class="images__img">'  + 
+                            '<div class="image">' + 
+                                '<a href="' + imgSrc + '" target="_blank" class="image__link">' + 
+                                    '<img class="image__img" src="' + imgSrc + '" width="' + imgWidth + '" height="' + imgHeight + '">' +
+                                '</a>' +
+                            '</div>' +
+                            '<div class="image-details">' + 
+                                '<div class="image-details__name">' + img + '</div>' + 
+                                '<div class="image-details__src">(' + imgSrc + ')</div>' + 
+                                '<div class="image-details__size">' + imgWidth + ' - ' + imgHeight + '</div>' + 
+                            '</div>' +
+                        '</div>';
+
+                    imagesDemo += imgHTML;
+                }
+
+                imagesDemo = '<div class="images">' + imagesDemo + '</div>';
+
+                return imagesDemo;
+            }
+
+            return gulp.src(paths.imgPath + 'reference-templates/imgs-reference-src.html')
+
+                // inject generated demo
+                .pipe(inject(gulp.src(paths.configPath + 'images.json'), {
+                    transform: function (filepath, file) {
+                      return buildDemoHtml(file);
+                    }
+                }))
+
+                .pipe(rename('imgs-reference.html'))
+                .pipe(gulp.dest(paths.imgPath))
 
                 // log task
                 .on('end', function(){taskEnd(taskName);});
