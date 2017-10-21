@@ -336,7 +336,7 @@ function serverUpload(source, uploadPath) {
                 return iconsDemo;
             }
 
-            return gulp.src(paths.iconsPath + 'icons-reference-src/icons-reference-src.html')
+            return gulp.src(paths.imgPath + 'reference-templates/icons-reference-src.html')
                 
                 // inject SVG sprites
                 .pipe(inject(gulp.src(paths.iconsPath + 'icons.svg'), {
