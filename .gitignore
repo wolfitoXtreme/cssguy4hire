@@ -10,10 +10,10 @@ app/config/auth.json
 
 # Compiled files
 app/config/icons.json
-app/img/icons.svg
+app/img/icons/icons.svg
 app/css/
 app/js/app.js
-app/img/icons-reference.html
+app/img/icons/icons-reference.html
 
 # Compiled source
 *.com
