@@ -370,7 +370,7 @@ function serverUpload(source, uploadPath) {
         gulp.task('image-min', function () {
             var taskName = this.currentTask.name;
 
-            return gulp.src(paths.imgPath + '/*.+(jpg|png|svg)')
+            return gulp.src(paths.imgPath + 'src/*.+(jpg|png|svg)')
                 .pipe(newer(paths.imgPath + 'test/'))
                 .pipe(imagemin([
                     imagemin.gifsicle({
@@ -392,8 +392,7 @@ function serverUpload(source, uploadPath) {
                         ]
                     })
                 ]))
-                // .pipe(gulp.dest(paths.imgPath))
-                .pipe(gulp.dest(paths.imgPath + 'test/'))
+                .pipe(gulp.dest(paths.imgPath))
 
                 .on('end', function(){
                     // log task
