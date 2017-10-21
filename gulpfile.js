@@ -36,7 +36,10 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     uglify = require('gulp-uglify'),
     gulpif = require('gulp-if'),
-    newer = require('gulp-newer'),
+    newer = require('gulp-newer'), // multiple files comparison
+    changed = require('gulp-changed'), // single file and content comparison
+    path = require('path'),
+    del = require('del'),
     runSequence = require('run-sequence'),
     gutil = require('gulp-util');
 
@@ -131,7 +134,6 @@ gulp.Gulp.prototype._runTask = function(task) {
     this.__runTask(task);
 }
 
-
 // server configuration
 var authFile = require('./app/config/auth.json'),
     serverConfig  = ftp.create({
@@ -173,7 +175,7 @@ function serverUpload(source, uploadPath) {
 // 
 
     // compass
-    gulp.task('compass', ['svg-icons'], function () {
+    gulp.task('compass', function () {
 
         var taskName = this.currentTask.name;
 
@@ -293,8 +295,8 @@ function serverUpload(source, uploadPath) {
                 .on('end', function(){
                     taskEnd(taskName);
 
-                    // run browserify to refresh icons inclusion
-                    gulp.start('browserify');
+                    // run browserify and compass to refresh icons inclusion
+                    gulp.start(['browserify', 'compass']);
                 });
         });
 
@@ -360,18 +362,20 @@ function serverUpload(source, uploadPath) {
 
         });
 
+
     // images
     gulp.task('images', function (callback) {
         runSequence(['image-min', 'image-data', 'image-reference'],
             callback
         );
     });
+
         // image-min
         gulp.task('image-min', function () {
             var taskName = this.currentTask.name;
 
             return gulp.src(paths.imgPath + 'src/*.+(jpg|png|svg)')
-                .pipe(newer(paths.imgPath + 'test/'))
+                .pipe(newer(paths.imgPath))
                 .pipe(imagemin([
                     imagemin.gifsicle({
                         interlaced: true
@@ -392,12 +396,14 @@ function serverUpload(source, uploadPath) {
                         ]
                     })
                 ]))
+
                 .pipe(gulp.dest(paths.imgPath))
 
                 .on('end', function(){
+                    
                     // log task
                     taskEnd(taskName);
-                    
+
                     // upload files
                     if(upload) {
                         serverUpload(paths.imgPath + '/*.+(jpg|png|svg)', paths.server_imgPath);
@@ -431,38 +437,25 @@ function serverUpload(source, uploadPath) {
 
             // store image properties into a Json file and pass it as a stream
             var storeImgData = function(stream, imgData) {
-                console.log('storeImgData reached, do something...');
+                
                 var jsonFile = new gutil.File({
                     path: 'images.json',
                     contents: new Buffer(JSON.stringify(imgData))
                 });
-                console.log('jsonFile = ' + jsonFile);
                 stream.push(jsonFile);
             }
 
             return gulp.src(paths.imgPath + '/*.+(jpg|png|svg)')
 
                 .pipe(through2.obj(function (file, encoding, cb) {
-                    console.log('...' + Object.keys(file).length);
-                    console.log('...' + file.history);
 
                     var currentImage = getImgProps.imgProps(file.history.toString());
-
-                    console.log(
-                        'currentImg =' + file.history.toString() + '\n' +
-                        'img =' + currentImage.img + '\n' +
-                        'imgName =' + currentImage.imgName + '\n' +
-                        'imgWidth =' + currentImage.imgWidth + '\n' +
-                        'imgHeight = ' + currentImage.imgHeight
-                    );
 
                     // set current image data
                     imgData.imgs[currentImage.imgName] = 
                         currentImage.img + ' ' + 
                         currentImage.imgWidth + 'px ' + 
                         currentImage.imgHeight + 'px';
-
-                    console.log('current imgData is => ' + imgData.toString());
 
                     cb(null, storeImgData(this, imgData));
                 }))
@@ -472,8 +465,8 @@ function serverUpload(source, uploadPath) {
                 .on('end', function(){
                     taskEnd(taskName);
 
-                    // run browserify to refresh images inclusion
-                    // gulp.start('browserify');
+                    // run browserify and compass to refresh icons inclusion
+                    gulp.start(['browserify', 'compass']);
                 });
         });
 
@@ -487,9 +480,7 @@ function serverUpload(source, uploadPath) {
                 
                 var imagesDemo = '',
                     imagesData = JSON.parse(file.contents);
-                
-                console.log('building images demo...' + imagesData);
-                
+                                
                 for(var img in imagesData.imgs) {
 
                     var imgName = img,
@@ -497,13 +488,6 @@ function serverUpload(source, uploadPath) {
                         imgSrc = imgData[0],
                         imgWidth = imgData[1],
                         imgHeight = imgData[2];
-
-                    console.log(
-                        'imgName = ' + imgName + '\n' + 
-                        'imgSrc = ' + imgSrc + '\n' + 
-                        'imgWidth = ' + imgWidth + '\n' + 
-                        'imgHeight = ' + imgHeight
-                    );
                     
                     var imgHTML = 
                         '<div class="images__img">'  + 
@@ -596,8 +580,7 @@ function serverUpload(source, uploadPath) {
         var files = [
             paths.templatesPath + '*.html',
             paths.jsPath + '*.js',
-            paths.cssPath + '*.css',
-            paths.imgPath + '*.svg'
+            paths.cssPath + '*.css'
         ];
 
         browserSync.init(files, {
@@ -623,6 +606,17 @@ function serverUpload(source, uploadPath) {
         // svg icons watcher
         gulp.watch(paths.iconsPath + 'src/*.svg', ['svg-icons']);
 
+        // images watcher
+        gulp.watch(paths.imgPath + 'src/*.+(jpg|png|svg)', ['images']).on('change', function(event) {
+            if (event.type === 'deleted') {
+                var filePathFromSrc = path.relative(path.resolve('src'), event.path),
+                    destFilePath = path.resolve('build', filePathFromSrc).replace('src\\', '');
+
+                // delete compiled files
+                del.sync(destFilePath);
+            }
+        });
+
         // html watcher
         gulp.watch(paths.templatesPath + '*.html', ['html']);
 
@@ -633,6 +627,7 @@ function serverUpload(source, uploadPath) {
         'browserify', 
         'compass', 
         'svg-icons',
+        'images',
         'html',
         'watch',
         'browserSync'
