@@ -414,17 +414,19 @@ function serverUpload(source, uploadPath) {
             var imgData = {imgs: {}};
             
             // get image properties
-            var getImgProps = function(image) {
-                console.log('getting image info...');
-                var size = imageSize(image), // get current image size
-                    img = image.slice( // extract image file name
-                        image.lastIndexOf('\\') + 1
-                    ),
-                    imgName = img.slice(0, img.lastIndexOf('.')),
-                    imgWidth = size.width, // set image width
-                    imgHeight = size.height; // set image height
+            var getImgProps = {
+                imgProps: function(image) {
+                    
+                    // get current image size
+                    var size = imageSize(image);
+                    
+                    this.img = image.slice(image.lastIndexOf('\\') + 1);
+                    this.imgName = this.img.slice(0, this.img.lastIndexOf('.'));
+                    this.imgWidth = size.width;
+                    this.imgHeight = size.height;
 
-                return [img, imgName, imgWidth, imgHeight];
+                    return this;
+                }
             }
 
             // store image properties into a Json file and pass it as a stream
@@ -444,18 +446,21 @@ function serverUpload(source, uploadPath) {
                     console.log('...' + Object.keys(file).length);
                     console.log('...' + file.history);
 
-                    var imgProps = getImgProps(file.history.toString());
+                    var currentImage = getImgProps.imgProps(file.history.toString());
 
                     console.log(
                         'currentImg =' + file.history.toString() + '\n' +
-                        'img =' + imgProps[0] + '\n' +
-                        'imgName =' + imgProps[1] + '\n' +
-                        'imgWidth =' + imgProps[2] + '\n' +
-                        'imgHeight = ' + imgProps[3]
+                        'img =' + currentImage.img + '\n' +
+                        'imgName =' + currentImage.imgName + '\n' +
+                        'imgWidth =' + currentImage.imgWidth + '\n' +
+                        'imgHeight = ' + currentImage.imgHeight
                     );
 
                     // set current image data
-                    imgData.imgs[imgProps[1]] = imgProps[0] + ' ' + imgProps[2] + 'px ' + imgProps[3] + 'px';
+                    imgData.imgs[currentImage.imgName] = 
+                        currentImage.img + ' ' + 
+                        currentImage.imgWidth + 'px ' + 
+                        currentImage.imgHeight + 'px';
 
                     console.log('current imgData is => ' + imgData.toString());
 
@@ -536,7 +541,6 @@ function serverUpload(source, uploadPath) {
 
                 // log task
                 .on('end', function(){taskEnd(taskName);});
-
         });
 
     // browseryfy
