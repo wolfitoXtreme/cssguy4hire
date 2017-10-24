@@ -548,9 +548,9 @@ function serverUpload(source, uploadPath) {
 
                     var imgName = img,
                         imgData =  imgs[img].split(' '),
-                        imgSrc = imgName + '.' + imgData[0],
-                        imgWidth = imgData[1],
-                        imgHeight = imgData[2];
+                        imgSrc = imgName + '.' + imgData[2],
+                        imgWidth = imgData[0],
+                        imgHeight = imgData[1];
                     
                     var imgHTML = 
                         '<div class="images__img">'  + 
