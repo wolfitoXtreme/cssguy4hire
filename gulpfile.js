@@ -5,7 +5,6 @@ var gulp = require('gulp'),
     
     // browserify task
     browserify = require('browserify'),
-    source = require('vinyl-source-stream'),
 
     // svgstore task
     svgstore = require('gulp-svgstore'),
@@ -21,7 +20,7 @@ var gulp = require('gulp'),
 
     // compass tasks
     compass = require('gulp-sass'),
-    sassImportJson = require('gulp-sass-import-json'),
+    jsonSass = require('json-sass'),
     sourcemaps = require('gulp-sourcemaps'),
     autoprefixer = require('gulp-autoprefixer'),
 
@@ -32,6 +31,8 @@ var gulp = require('gulp'),
     ftp = require( 'vinyl-ftp' ),
 
     // utilities
+    fs = require('fs'),
+    source = require('vinyl-source-stream'),
     lazypipe = require('lazypipe'),
     rename = require('gulp-rename'),
     uglify = require('gulp-uglify'),
@@ -63,7 +64,7 @@ var paths = {
         this.serverDir = '/test/';
         this.templatesDir = '';
         this.staticDir = 'static/';
-        this.sassDir = 'scss/**/';
+        this.sassDir = 'scss/';
         this.fontsDir = 'fonts/'
         this.cssDir = 'css/';
         this.imgDir = 'img/';
@@ -124,7 +125,7 @@ function handleError(error) {
 
 // task end notifications
 function taskEnd(taskName) {
-    gutil.log(gutil.colors.green(taskName + ' ' + mode + ' task finished!!'));
+    gutil.log(gutil.colors.green('----- [' + taskName.toUpperCase() + '] ' + mode + ' task finished!! -----'));
 }
 
 // get current task name
@@ -175,16 +176,15 @@ function serverUpload(source, uploadPath) {
 // 
 
     // compass
-    gulp.task('compass', function () {
+    gulp.task('compass', ['sass-vars'],  function () {
 
         var taskName = this.currentTask.name;
 
-        return gulp.src(paths.sassPath + '*.scss')
+        return gulp.src(paths.sassPath + '**/*.scss')
             // compass-sourcemaps
             .pipe(sourcemaps.init())
-            .pipe(sassImportJson())
             .pipe(compass({
-                    file: paths.sassPath + '*.scss',
+                    file: paths.sassPath + '**/*.scss',
                     outfile: paths.cssPath
                 })
                 .on('error', compass.logError)
@@ -208,6 +208,70 @@ function serverUpload(source, uploadPath) {
             });
 
     });
+
+        // sass vars from JSON
+        gulp.task('sass-vars', function(callback) {
+            runSequence(['breakpoints-sass-vars', 'icon-sass-vars', 'image-sass-vars'],
+                callback
+            );
+        });
+        
+            // breakpoints sass vars from JSON
+            gulp.task('breakpoints-sass-vars', function() {
+
+                var taskName = this.currentTask.name;
+
+                return fs.createReadStream(paths.configPath + 'breakpoints.json')
+                    .pipe(jsonSass({
+                        prefix: '$breakpoints: '
+                     }))
+                    .pipe(source(paths.configPath + 'breakpoints.json'))
+                    .pipe(rename('_breakpoints.scss'))
+                    .pipe(gulp.dest(paths.sassPath + 'config/'))
+
+                    .on('end', function(){
+                        // log task
+                        taskEnd(taskName);
+                    });
+            });
+
+            // icon sass vars from JSON
+            gulp.task('icon-sass-vars', function() {
+
+                var taskName = this.currentTask.name;
+
+                return fs.createReadStream(paths.configPath + 'icons.json')
+                    .pipe(jsonSass({
+                        prefix: '$icons: '
+                     }))
+                    .pipe(source(paths.configPath + 'icons.json'))
+                    .pipe(rename('_icons.scss'))
+                    .pipe(gulp.dest(paths.sassPath + 'config/'))
+
+                    .on('end', function(){
+                        // log task
+                        taskEnd(taskName);
+                    });
+            });
+
+            // image sass vars from JSON
+            gulp.task('image-sass-vars', function() {
+                
+                var taskName = this.currentTask.name;
+
+                return fs.createReadStream(paths.configPath + 'images.json')
+                    .pipe(jsonSass({
+                        prefix: '$imgs: '
+                     }))
+                    .pipe(source(paths.configPath + 'images.json'))
+                    .pipe(rename('_images.scss'))
+                    .pipe(gulp.dest(paths.sassPath + 'config/'))
+
+                    .on('end', function(){
+                        // log task
+                        taskEnd(taskName);
+                    });
+            });
 
     // svg icons
     gulp.task('svg-icons', function (callback) {
@@ -261,13 +325,11 @@ function serverUpload(source, uploadPath) {
 
             var taskName = this.currentTask.name;
 
-            return gulp.src(paths.imgPath + '/icons/icons.svg')
+            return gulp.src(paths.imgPath + 'icons/icons.svg')
                 .pipe(through2.obj(function (file, encoding, cb) {
 
                     // set empty iconsData object
-                    var iconsData = {
-                        icons: {}
-                    };
+                    var iconsData = {};
 
                     // extract data from source file
                     var $ = cheerio.load(file.contents.toString(), {xmlMode: true});
@@ -277,7 +339,7 @@ function serverUpload(source, uploadPath) {
                         var iconName = $(this).attr('id'),
                             iconSize = $(this).attr('viewbox').split(' ');
 
-                        iconsData.icons[iconName] = iconSize[2] + 'px ' + iconSize[3] + 'px';
+                        iconsData[iconName] = iconSize[2] + 'px ' + iconSize[3] + 'px';
                     }).get();
 
                     // store properties into a Json file
@@ -309,11 +371,11 @@ function serverUpload(source, uploadPath) {
             function buildDemoHtml(file) {
                 
                 var iconsDemo = '',
-                    iconsData = JSON.parse(file.contents);
+                    icons = JSON.parse(file.contents);
 
-                for(var icon in iconsData.icons) {
+                for(var icon in icons) {
 
-                    var iconDimensions =  iconsData.icons[icon].split(' '),
+                    var iconDimensions =  icons[icon].split(' '),
                         iconWidth = iconDimensions[0],
                         iconHeight = iconDimensions[1];
                     
@@ -406,7 +468,7 @@ function serverUpload(source, uploadPath) {
 
                     // upload files
                     if(upload) {
-                        serverUpload(paths.imgPath + '/*.+(jpg|png|svg)', paths.server_imgPath);
+                        serverUpload(paths.imgPath + '*.+(jpg|png|svg)', paths.server_imgPath);
                     }
                 });
         });
@@ -417,7 +479,7 @@ function serverUpload(source, uploadPath) {
             var taskName = this.currentTask.name;
 
             // set empty imgData object
-            var imgData = {imgs: {}};
+            var imgData = {};
             
             // get image properties
             var getImgProps = {
@@ -426,8 +488,9 @@ function serverUpload(source, uploadPath) {
                     // get current image size
                     var size = imageSize(image);
                     
-                    this.img = image.slice(image.lastIndexOf('\\') + 1);
-                    this.imgName = this.img.slice(0, this.img.lastIndexOf('.'));
+                    this.img = image.slice(image.lastIndexOf('\\') + 1).split('.');
+                    this.imgName = this.img[0];
+                    this.imgExt = this.img[1];
                     this.imgWidth = size.width;
                     this.imgHeight = size.height;
 
@@ -445,15 +508,15 @@ function serverUpload(source, uploadPath) {
                 stream.push(jsonFile);
             }
 
-            return gulp.src(paths.imgPath + '/*.+(jpg|png|svg)')
+            return gulp.src(paths.imgPath + '*.+(jpg|png|svg)')
 
                 .pipe(through2.obj(function (file, encoding, cb) {
 
                     var currentImage = getImgProps.imgProps(file.history.toString());
 
                     // set current image data
-                    imgData.imgs[currentImage.imgName] = 
-                        currentImage.img + ' ' + 
+                    imgData[currentImage.imgName] = 
+                        currentImage.imgExt + ' ' + 
                         currentImage.imgWidth + 'px ' + 
                         currentImage.imgHeight + 'px';
 
@@ -479,13 +542,13 @@ function serverUpload(source, uploadPath) {
             function buildDemoHtml(file) {
                 
                 var imagesDemo = '',
-                    imagesData = JSON.parse(file.contents);
+                    imgs = JSON.parse(file.contents);
                                 
-                for(var img in imagesData.imgs) {
+                for(var img in imgs) {
 
                     var imgName = img,
-                        imgData =  imagesData.imgs[img].split(' '),
-                        imgSrc = imgData[0],
+                        imgData =  imgs[img].split(' '),
+                        imgSrc = imgName + '.' + imgData[0],
                         imgWidth = imgData[1],
                         imgHeight = imgData[2];
                     
@@ -601,7 +664,7 @@ function serverUpload(source, uploadPath) {
         ], ['browserify']);
         
         // compass watcher
-        gulp.watch(paths.sassPath + '*.scss', ['compass']);
+        gulp.watch(paths.sassPath + '**/*.scss', ['compass']);
 
         // svg icons watcher
         gulp.watch(paths.iconsPath + 'src/*.svg', ['svg-icons']);
