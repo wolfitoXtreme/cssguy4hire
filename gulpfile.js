@@ -516,9 +516,9 @@ function serverUpload(source, uploadPath) {
 
                     // set current image data
                     imgData[currentImage.imgName] = 
-                        currentImage.imgExt + ' ' + 
                         currentImage.imgWidth + 'px ' + 
-                        currentImage.imgHeight + 'px';
+                        currentImage.imgHeight + 'px ' + 
+                        currentImage.imgExt;
 
                     cb(null, storeImgData(this, imgData));
                 }))

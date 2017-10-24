@@ -13,20 +13,43 @@
 // image test
 @each $image in map_keys($imgs) {
     .#{$image} {
-        width: #{nth(map-get($imgs, $image), 2)};
-        height: #{nth(map-get($imgs, $image), 3)};
+        width: #{nth(map-get($imgs, $image), 1)};
+        height: #{nth(map-get($imgs, $image), 2)};
     }
 }
 
-.img-single-test {
-    $_img-width: nth(map-get($imgs, img-04), 2);
-    $_img-height: nth(map-get($imgs, img-04), 3);
-    $_new-size: stretchImage($_img-width, $_img-height, 20);
+.icon-single-test {
+    $_icon-width: nth(map-get($icons, icon-04), 1);
+    $_icon-height: nth(map-get($icons, icon-04), 2);
+    $_new-size: stretchByPercentage($_icon-width, $_icon-height, 45%);
 
     width: nth($_new-size, 1);
     height: nth($_new-size, 2);
 
+    background-color: pink;
+}
 
+.img-single-test {
+    // stretch by percentage
+    $_img-width: nth(map-get($imgs, img-04), 1);
+    $_img-height: nth(map-get($imgs, img-04), 2);
+    $_new-size: stretchByPercentage($_img-width, $_img-height, 21.16402%);
+
+    width: nth($_new-size, 1);
+    height: nth($_new-size, 2);
+    background-color: red;
+}
+
+.img-single-test-b {
+    // stretch by size
+    $_img-width: nth(map-get($imgs, img-04), 1);
+    $_img-height: nth(map-get($imgs, img-04), 2);
+    $_new-height: 200px;
+    $_new-width: stretchBySize($_img-height, $_img-width, $_new-height);
+    
+    content: getPercentageFrom($_new-height, $_img-height);
+    width: $_new-width;
+    height: $_new-height;
     background-color: red;
 }
 

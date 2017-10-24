@@ -76,11 +76,20 @@
 }
 
 // stretch by percentage
-@function stretchImage($width, $height, $percentage) {
-    $s_width: round( ($width * $percentage) / 100 );
-    $s_height: round( ($height * $percentage) / 100 );
+@function stretchByPercentage($width, $height, $percentage) {
+    $newWidth: round( ($width * strip-units($percentage)) / 100 );
+    $newHeight: round( ($height * strip-units($percentage)) / 100 );
     
-    @return ($s_width, $s_height);
+    @return ($newWidth, $newHeight);
+}
+
+// stretch by size
+@function stretchBySize($valueA, $valueB, $newA) {
+
+    $stretch: getPercentageFrom($newA, $valueA);
+    $newB: round(getProportionalSize($valueB, $stretch));
+    
+    @return ($newB);
 }
 
 // Greatest common divisor
