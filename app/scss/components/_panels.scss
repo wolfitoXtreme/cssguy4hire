@@ -10,6 +10,27 @@
     }
 }
 
+// image test
+@each $image in map_keys($imgs) {
+    .#{$image} {
+        width: #{nth(map-get($imgs, $image), 2)};
+        height: #{nth(map-get($imgs, $image), 3)};
+    }
+}
+
+.img-single-test {
+    $_img-width: nth(map-get($imgs, img-04), 2);
+    $_img-height: nth(map-get($imgs, img-04), 3);
+    $_new-size: stretchImage($_img-width, $_img-height, 20);
+
+    width: nth($_new-size, 1);
+    height: nth($_new-size, 2);
+
+
+    background-color: red;
+}
+
+
 // 
 // panels
 // 
