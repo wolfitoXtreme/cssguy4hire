@@ -8,7 +8,7 @@ var breakpointsFile = require('../../config/breakpoints.json');
 // 
 var breakpoints = {
     init: function() {
-        this.breakpoints = breakpointsFile.breakpoints;
+        this.breakpoints = breakpointsFile;
         for(var key in this.breakpoints) {
            console.log(this.breakpoints[key]);
         }        

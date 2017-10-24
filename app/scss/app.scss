@@ -4,10 +4,12 @@
 
 // 
 // Configuration
-// 
+//
+
 @import "config/variables";
-@import '../config/breakpoints.json';
-@import '../config/icons.json';
+@import 'config/breakpoints';
+@import 'config/icons';
+@import 'config/images';
 
 // 
 // helpers

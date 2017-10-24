@@ -1,8 +1,6 @@
 {
-    "breakpoints": {
-        "xsmall": "0px",
-        "small": "530px",
-        "medium":"700px",
-        "large":"1024px"
-    }
+    "xsmall": "0px",
+    "small": "530px",
+    "medium":"700px",
+    "large":"1024px"
 }
