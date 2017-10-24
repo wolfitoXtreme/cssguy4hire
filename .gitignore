@@ -11,6 +11,9 @@ app/config/auth.json
 # Compiled files
 app/config/icons.json
 app/config/images.json
+app/scss/config/_icons.scss
+app/scss/config/_images.scss
+app/scss/config/_breakpoints.scss
 app/css/
 app/js/app.js
 app/img/icons/icons-reference.html
