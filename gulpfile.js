@@ -154,7 +154,7 @@ function serverUpload(source, uploadPath) {
     gutil.log(gutil.colors.green('uploading files to server!! -> ' + source));
 
     // set sourse
-    var setSorce = function () {
+    var setSource = function () {
         return gulp.src(source);
     }
 
@@ -169,7 +169,7 @@ function serverUpload(source, uploadPath) {
     }
 
     // lazypipe
-    var lazyPipe = lazypipe().pipe(setSorce).pipe(checkNewer).pipe(uploadFiles);
+    var lazyPipe = lazypipe().pipe(setSource).pipe(checkNewer).pipe(uploadFiles);
 
     return lazyPipe();
 }
