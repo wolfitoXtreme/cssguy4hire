@@ -27,7 +27,7 @@ var gulp = require('gulp'),
     // browserSync
     browserSync = require('browser-sync'),
 
-    // server
+    // server task
     ftp = require( 'vinyl-ftp' ),
 
     // utilities
@@ -53,7 +53,7 @@ var cssSupport = '> 3%';
 
 // config
 var mode = gutil.env.dist === true ? 'dist' : 'dev', // set mode from gulp flag. $gulp --dist
-    upload = gutil.env.upload === true ? true : false; // set upload from gulp flag. $gulp --upload
+    server = gutil.env.server === true ? true : false; // set server from gulp flag. $gulp --server
 
 // paths
 var paths = {
@@ -102,6 +102,7 @@ var paths = {
             'jsPath = ' + this.jsPath + '\n' +
             'configPath = ' + this.configPath + '\n' +
             'templatesPath = ' + this.templatesPath + '\n' +
+            'server = ' + server + '\n' +
             'server_fontsPath = ' + this.server_fontsPath + '\n' +
             'server_cssPath = ' + this.server_cssPath + '\n' +
             'server_imgPath = ' + this.server_imgPath + '\n' +
@@ -150,6 +151,8 @@ var authFile = require('./app/config/auth.json'),
 // server upload streams 
 function serverUpload(source, uploadPath) {
 
+    gutil.log(gutil.colors.green('uploading files to server!! -> ' + source));
+
     // set sourse
     var setSorce = function () {
         return gulp.src(source);
@@ -160,7 +163,7 @@ function serverUpload(source, uploadPath) {
         return serverConfig.newer(uploadPath);
     }
 
-    // upload files
+    // upload files to server
     var uploadFiles = function() {
         return serverConfig.dest(uploadPath);
     }
@@ -169,6 +172,13 @@ function serverUpload(source, uploadPath) {
     var lazyPipe = lazypipe().pipe(setSorce).pipe(checkNewer).pipe(uploadFiles);
 
     return lazyPipe();
+}
+
+// server delete streams 
+function serverDelete(source) {
+    serverConfig.delete(source, function() {
+        gutil.log(gutil.colors.red('deleting files from server!! -> ' + source));
+    });
 }
 
 // 
@@ -201,8 +211,8 @@ function serverUpload(source, uploadPath) {
                 // log task
                 taskEnd(taskName);
                 
-                // upload files
-                if(upload) {
+                // server operations
+                if(server) {
                     serverUpload(paths.cssPath + '*.css', paths.server_cssPath);
                 }
             });
@@ -313,8 +323,8 @@ function serverUpload(source, uploadPath) {
                     // log task
                     taskEnd(taskName);
                     
-                    // upload files
-                    if(upload) {
+                    // server operations
+                    if(server) {
                         serverUpload(paths.iconsPath + 'icons.svg', paths.server_iconsPath);
                     }
                 });
@@ -424,7 +434,6 @@ function serverUpload(source, uploadPath) {
 
         });
 
-
     // images
     gulp.task('images', function (callback) {
         runSequence(['image-min', 'image-data', 'image-reference'],
@@ -466,8 +475,8 @@ function serverUpload(source, uploadPath) {
                     // log task
                     taskEnd(taskName);
 
-                    // upload files
-                    if(upload) {
+                    // server operations
+                    if(server) {
                         serverUpload(paths.imgPath + '*.+(jpg|png|svg)', paths.server_imgPath);
                     }
                 });
@@ -608,8 +617,8 @@ function serverUpload(source, uploadPath) {
                 // log task
                 taskEnd(taskName);
                 
-                // upload files
-                if(upload) {
+                // server operations
+                if(server) {
                     serverUpload(paths.jsPath + 'app.js', paths.server_jsPath);
                 }
             });
@@ -630,8 +639,8 @@ function serverUpload(source, uploadPath) {
                 // log task
                 taskEnd(taskName);
                 
-                // upload files
-                if(upload) {
+                // server operations
+                if(server) {
                     serverUpload(paths.templatesPath + '*.html', paths.server_templatesPath);
                 }
             });
@@ -671,12 +680,20 @@ function serverUpload(source, uploadPath) {
 
         // images watcher
         gulp.watch(paths.imgPath + 'src/*.+(jpg|png|svg)', ['images']).on('change', function(event) {
+
             if (event.type === 'deleted') {
                 var filePathFromSrc = path.relative(path.resolve('src'), event.path),
                     destFilePath = path.resolve('build', filePathFromSrc).replace('src\\', '');
 
-                // delete compiled files
+                // delete files on server
+                if(server) {
+                    var removeFile = paths.server_imgPath + destFilePath.slice(destFilePath.lastIndexOf('\\') + 1);
+                    serverDelete(removeFile);
+                }
+
+                // delete compiled files locally
                 del.sync(destFilePath);
+
             }
         });
 
