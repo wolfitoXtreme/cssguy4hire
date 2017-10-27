@@ -53,6 +53,19 @@
     background-color: red;
 }
 
+.img-single-test-c {
+    // stretch by size
+    $_img-width: nth(map-get($imgs, img-03), 1);
+    $_img-height: nth(map-get($imgs, img-03), 2);
+    $_new-width: 250px;
+    $_new-height: stretchBySize($_img-width, $_img-height, $_new-width);
+    
+    content: getPercentageFrom($_new-width, $_img-width);
+    width: $_new-width;
+    height: $_new-height;
+    background-color: red;
+}
+
 
 // 
 // panels
