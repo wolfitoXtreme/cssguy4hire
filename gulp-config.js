@@ -8,9 +8,10 @@ var gulp = require('gulp'),
 
 // config vars
 var projectName = require('./package.json').name,
+    authFile = require('./app/config/auth.json'), // server credentials
     mode = plugins.gutil.env.dist === true ? 'dist' : 'dev', // set mode from gulp flag. $gulp --dist
     server = plugins.gutil.env.server === true ? true : false, // set server from gulp flag. $gulp --server
-    cssSupport = '> 3%'; // gulp-autoprefixer
+    cssSupport = '> 3%';// gulp-autoprefixer
 
 // 
 // paths
@@ -58,51 +59,7 @@ var paths = {
 // initialize paths
 paths.init(mode);
 
-// server configuration
-var authFile = require('./app/config/auth.json'),
-    serverConfig  = plugins.ftp.create({
-        host: authFile.host,
-        port: authFile.port,
-        user: authFile.user,
-        password: authFile.password,
-        parallel: 10,
-        // log: null
-        log: plugins.gutil.log
-    });
-
-// server upload streams 
-function serverUpload(source, uploadPath) {
-
-    gutil.log(gutil.colors.green('uploading files to server!! -> ' + source));
-
-    // set sourse
-    var setSource = function () {
-        return gulp.src(source);
-    }
-
-    // check for new files
-    var checkNewer = function () {
-        return serverConfig.newer(uploadPath);
-    }
-
-    // upload files to server
-    var uploadFiles = function() {
-        return serverConfig.dest(uploadPath);
-    }
-
-    // lazypipe
-    var lazyPipe = lazypipe().pipe(setSource).pipe(checkNewer).pipe(uploadFiles);
-
-    return lazyPipe();
-}
-
-// server delete streams 
-function serverDelete(source) {
-    serverConfig.delete(source, function() {
-        gutil.log(gutil.colors.red('deleting files from server!! -> ' + source));
-    });
-}
-
+// configuration
 var config = {
     projectName: projectName,
     cssSupport: cssSupport,
@@ -125,13 +82,46 @@ var config = {
     },
     server: {
         mode: server,
-        auth: './app/config/auth.json',
-        config: '',
+        auth: authFile,
+        config: plugins.ftp.create({
+            host: authFile.host,
+            port: authFile.port,
+            user: authFile.user,
+            password: authFile.password,
+            parallel: 10,
+            // log: null
+            log: plugins.gutil.log
+        }),
         upload: function(source, path) {
+
+            plugins.gutil.log(plugins.gutil.colors.green('uploading files to server!! -> ' + source));
+
+            // set sourse
+            var setSource = function () {
+                return gulp.src(source);
+            }
+
+            // check for new files
+            var checkNewer = function () {
+                return config.server.config.newer(path);
+            }
+
+            // upload files to server
+            var uploadFiles = function() {
+                return config.server.config.dest(path);
+            }
+
+            // lazypipe
+            var lazyPipe = plugins.lazypipe().pipe(setSource).pipe(checkNewer).pipe(uploadFiles);
+
+            return lazyPipe();
         },
         delete: function(source) {
+            config.server.config.delete(source, function() {
+                plugins.gutil.log(plugins.gutil.colors.red('deleting files from server!! -> ' + source));
+            });
         }
-    },
+    }
 }
 
 // log configuration

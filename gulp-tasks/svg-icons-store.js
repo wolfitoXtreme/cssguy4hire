@@ -36,9 +36,9 @@ module.exports = function(gulp, task, plugins, config) {
                     config.functions.taskEnd(task);
                     
                     // server operations
-                    // if(server) {
-                    //     serverUpload(config.paths.icons + 'icons.svg', paths.server_iconsPath);
-                    // }
+                    if(config.server.mode) {
+                        config.server.upload(config.paths.icons + 'icons.svg', config.paths.server.icons);
+                    }
                 });
         });
 

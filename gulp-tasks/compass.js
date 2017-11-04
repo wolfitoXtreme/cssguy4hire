@@ -29,9 +29,9 @@ module.exports = function(gulp, task, plugins, config) {
                     config.functions.taskEnd(task);
                     
                     // server operations
-                    // if(server) {
-                    //     serverUpload(paths.cssPath + '*.css', paths.server_cssPath);
-                    // }
+                    if(config.server.mode) {
+                        config.server.upload(config.paths.css + '*.css', config.paths.server.css);
+                    }
                 });
         });
     }

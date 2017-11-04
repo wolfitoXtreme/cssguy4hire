@@ -27,10 +27,10 @@ module.exports = function(gulp, task, plugins, config) {
                         destFilePath = plugins.path.resolve('build', filePathFromSrc).replace('src\\', '');
 
                     // delete files on server
-                    // if(server) {
-                    //     var removeFile = paths.server_imgPath + destFilePath.slice(destFilePath.lastIndexOf('\\') + 1);
-                    //     serverDelete(removeFile);
-                    // }
+                    if(config.server.mode) {
+                        var removeFile = config.paths.server.img + destFilePath.slice(destFilePath.lastIndexOf('\\') + 1);
+                        config.server.delete(removeFile);
+                    }
 
                     // delete compiled files locally
                     plugins.del.sync(destFilePath);

@@ -36,9 +36,9 @@ module.exports = function(gulp, task, plugins, config) {
                     config.functions.taskEnd(task);
 
                     // server operations
-                    // if(server) {
-                    //     serverUpload(config.paths.img + '*.+(jpg|png|svg)', paths.server_imgPath);
-                    // }
+                    if(config.server.mode) {
+                        config.server.upload(config.paths.img + '*.+(jpg|png|svg)', config.paths.server.img);
+                    }
                 });
         });
     }
