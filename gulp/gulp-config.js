@@ -23,34 +23,35 @@ var paths = {
             src: 'app/',
             dest: (mode === 'dev') ? 'app/' : 'dist/',
             server: '/test/',
-            templates: '',
-            static: 'static/',
+            js: 'js/',
             sass: 'scss/',
-            fonts: 'fonts/',
             css: 'css/',
             img: 'img/',
             icons:  'icons/',
-            js: 'js/',
+            fonts: 'fonts/',
+            templates: '',
+            reference: 'reference/',
             config: 'config/'
         };
 
         // paths (dev, dist)
+        this.js = this.dirs.dest + this.dirs.js;
         this.sass = this.dirs.src + this.dirs.sass;
-        this.fonts = this.dirs.dest + this.dirs.fonts;
         this.css = this.dirs.dest + this.dirs.css;
         this.img = this.dirs.dest + this.dirs.img;
         this.icons = this.img + this.dirs.icons;
-        this.js = this.dirs.dest + this.dirs.js;
-        this.config = this.dirs.dest + this.dirs.config;
+        this.fonts = this.dirs.dest + this.dirs.fonts;
         this.templates = this.dirs.dest + this.dirs.templates;
+        this.reference = this.dirs.dest + this.dirs.reference;
+        this.config = this.dirs.dest + this.dirs.config;
         
         // server paths
         this.server =  {
-            fonts: paths.dirs.server + paths.dirs.fonts,
+            js: paths.dirs.server + paths.dirs.js,
             css: paths.dirs.server + paths.dirs.css,
             img: paths.dirs.server + paths.dirs.img,
             icons: paths.dirs.server + paths.dirs.img + paths.dirs.icons,
-            js: paths.dirs.server + paths.dirs.js,
+            fonts: paths.dirs.server + paths.dirs.fonts,
             templates: paths.dirs.server + paths.dirs.templates
         };
     }
@@ -130,26 +131,28 @@ plugins.gutil.log(plugins.gutil.colors.yellow(
     'CONFIG' +
     '\n--------\n' +
     'projectName = ' +  config.projectName + '\n' +
-    'cssSupport = ' +  config.cssSupport + '\n' +
     'mode = ' +  config.mode + '\n' +
     'server = ' +  config.server.mode + '\n' +
+    'cssSupport = ' +  config.cssSupport + '\n' +
 
     '\n--------\n' +
     'PATHS' +
     '\n--------\n' +
+    'js path = ' + config.paths.js + '\n' +
     'sass path = ' + config.paths.sass + '\n' +
-    'fonts path = ' + config.paths.fonts + '\n' +
     'css path = ' + config.paths.css + '\n' +
     'img path = ' + config.paths.img + '\n' +
     'icons path = ' + config.paths.icons + '\n' +
-    'js path = ' + config.paths.js + '\n' +
-    'config path = ' + config.paths.config + '\n' +
+    'fonts path = ' + config.paths.fonts + '\n' +
     'templates path = ' + config.paths.templates + '\n' +
-    'server fonts path = ' + config.paths.server.fonts + '\n' +
+    'reference path = ' + config.paths.reference + '\n' +
+    'config path = ' + config.paths.config + '\n' +
+    '-- server --\n' +
+    'server js path = ' + config.paths.server.js + '\n' +
     'server css path = ' + config.paths.server.css + '\n' +
     'server img path = ' + config.paths.server.img + '\n' +
     'server icons path = ' + config.paths.server.icons + '\n' +
-    'server js path = ' + config.paths.server.js + '\n' +
+    'server fonts path = ' + config.paths.server.fonts + '\n' +
     'server templates path = ' + config.paths.server.templates + 
     '\n--------'
 ));

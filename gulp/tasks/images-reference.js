@@ -23,8 +23,8 @@ module.exports = function(gulp, task, plugins, config) {
                     var imgHTML = 
                         '<div class="images__img">'  + 
                             '<div class="image">' + 
-                                '<a href="' + imgSrc + '" target="_blank" class="image__link">' + 
-                                    '<img class="image__img" src="' + imgSrc + '" width="' + imgWidth + '" height="' + imgHeight + '">' +
+                                '<a href="../img/' + imgSrc + '" target="_blank" class="image__link">' + 
+                                    '<img class="image__img" src="../img/' + imgSrc + '" width="' + imgWidth + '" height="' + imgHeight + '">' +
                                 '</a>' +
                             '</div>' +
                             '<div class="image-details">' + 
@@ -42,7 +42,7 @@ module.exports = function(gulp, task, plugins, config) {
                 return imagesDemo;
             }
 
-            return gulp.src(config.paths.img + 'reference-templates/imgs-reference-src.html')
+            return gulp.src(config.paths.reference + 'templates/imgs-reference-src.html')
 
                 // inject generated demo
                 .pipe(plugins.inject(gulp.src(config.paths.config + 'images.json'), {
@@ -51,7 +51,7 @@ module.exports = function(gulp, task, plugins, config) {
                     }
                 }))
                 .pipe(plugins.rename('imgs-reference.html'))
-                .pipe(gulp.dest(config.paths.img))
+                .pipe(gulp.dest(config.paths.reference))
 
                 .on('end', function(){
                     // log task

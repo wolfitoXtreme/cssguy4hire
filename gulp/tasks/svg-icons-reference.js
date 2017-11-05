@@ -40,7 +40,7 @@ module.exports = function(gulp, task, plugins, config) {
                 return iconsDemo;
             }
 
-            return gulp.src(config.paths.img + 'reference-templates/icons-reference-src.html')
+            return gulp.src(config.paths.reference + 'templates/icons-reference-src.html')
                 
                 // inject SVG sprites
                 .pipe(plugins.inject(gulp.src(config.paths.icons + 'icons.svg'), {
@@ -57,7 +57,7 @@ module.exports = function(gulp, task, plugins, config) {
                 }))
 
                 .pipe(plugins.rename('icons-reference.html'))
-                .pipe(gulp.dest(config.paths.icons))
+                .pipe(gulp.dest(config.paths.reference))
 
                 .on('end', function(){
                     // log task
