@@ -7,8 +7,8 @@ var gulp = require('gulp'),
     plugins = require('./gulp-plugins.js');
 
 // config vars
-var projectName = require('./package.json').name,
-    authFile = require('./app/config/auth.json'), // server credentials
+var projectName = require('../package.json').name,
+    authFile = require('../app/config/auth.json'), // server credentials
     mode = plugins.gutil.env.dist === true ? 'dist' : 'dev', // set mode from gulp flag. $gulp --dist
     server = plugins.gutil.env.server === true ? true : false, // set server from gulp flag. $gulp --server
     cssSupport = '> 3%';// gulp-autoprefixer
@@ -68,7 +68,7 @@ var config = {
     functions: {
         // require task
         getTask: function(gulp, task, plugins, config) {
-            return require('./gulp-tasks/' + task)(gulp, task, plugins, config);
+            return require('./tasks/' + task)(gulp, task, plugins, config);
         },
         // task end notifications
         taskEnd: function(task) {

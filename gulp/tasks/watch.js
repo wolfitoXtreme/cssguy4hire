@@ -1,7 +1,5 @@
 'use strict';
 
-var gulpfile = require('../gulpfile');
-
 // watch for changes
 module.exports = function(gulp, task, plugins, config) {
     

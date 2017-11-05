@@ -4,8 +4,8 @@
 // dependencies
 // 
 var gulp = require('gulp'),
-    config = require('./gulp-config.js'),
-    plugins = require('./gulp-plugins.js');
+    config = require('./gulp/gulp-config.js'),
+    plugins = require('./gulp/gulp-plugins.js');
 
 // 
 // tasks
