@@ -5,15 +5,33 @@
 // 
 var emailProtector = {
     init: function() {
-        this.emails = $('.email');
+
+        this.hookClass = 'js-email';
+        this.emails = $('.' + this.hookClass);
+        
         $(this.emails).each(function(i){
             var emailText = $(this).text(),
-                emailLink = emailText.replace(/\s*\{.+\}\s*/, "@");
+                emailLink = emailText.replace(/\s*\{.+\}\s*/, "@"),
+                newTag = $('<a href="mailto:' + emailLink +'">').text(emailText);
 
-            $(this).after('<a href="mailto:' + emailLink +'" class="contactLink">' + emailText + '</a>').remove();
+            // remove hookClass
+            $(this).removeClass(emailProtector.hookClass);
 
-            console.log(emailText);
-            console.log(emailLink);
+            // get class names if any
+            var emailClasses = $(this).attr('class');
+
+            // insert class names
+            if(emailClasses.length > 0) {
+                newTag.attr('class', emailClasses);
+            }
+
+            $(this).after(newTag).remove();
+
+            console.log(
+                'emailText = ' + emailText + '\n' +
+                'emailLink = ' + emailLink + '\n' +
+                'emailClasses = ' + emailClasses.length
+            );
 
         });
     }
