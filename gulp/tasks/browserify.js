@@ -23,7 +23,9 @@ module.exports = function(gulp, task, plugins, config) {
                         debug: false
                     })
                     .bundle()
-                    .on('error', config.functions.handleError)
+                    .on('error', function(error){
+                        config.functions.handleError(task, error, this);
+                    })
                     .pipe(plugins.source(setFile(file)))
                     .pipe(gulp.dest(config.paths.js))
 

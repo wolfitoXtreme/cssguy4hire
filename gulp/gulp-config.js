@@ -76,10 +76,11 @@ var config = {
             plugins.gutil.log(plugins.gutil.colors.green('----- [\'' + task.toUpperCase() + '\'] ' + mode + ' task finished!! -----'));
         },
         // error handling
-        handleError: function (error) {
-            plugins.gutil.log(plugins.gutil.colors.red('ERROR!!:' + error.toString));
-            this.emit('end');
+        handleError: function (task, error, stream) {
+            plugins.gutil.log(plugins.gutil.colors.red(task.toUpperCase() + ' ERROR!!:' + error));
+            stream.emit('end');
         }
+
     },
     server: {
         mode: server,

@@ -10,8 +10,7 @@ var onScreenTest = {
 
             var outPutVars = ''
                 + '<strong>' + testing + '</strong><br>'
-                + '<strong>'
-            ;
+                + '<strong>';
         
             for (var i=0; i<testParams.length; i++) {
                 outPutVars += testParams[i] + '<br>'
