@@ -31,6 +31,7 @@ var plugins = {
     // utilities
     fs: require('fs'),
     source: require('vinyl-source-stream'),
+    merge: require('merge-stream'),
     lazypipe: require('lazypipe'),
     rename: require('gulp-rename'),
     uglify: require('gulp-uglify'),
