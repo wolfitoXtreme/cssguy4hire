@@ -1,17 +1,11 @@
+ // Configuration
+@import "config/variables";
+
 // 
 // fonts
 // 
-$fontFaces:
-    'opensans-regular',
-    'opensans-light',
-    'opensans-bold',
-    'oswald-regular',
-    'oswald-bold',
-    'oswald-book'
-;
-    
-@each $font in $fontFaces {
-    /*#{$font}*/
+@each $font in $fonts {
+
     @font-face {
         font-family: '#{$font}';
         src: url('../fonts/#{$font}.eot');

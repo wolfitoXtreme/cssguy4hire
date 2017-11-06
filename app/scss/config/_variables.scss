@@ -5,3 +5,16 @@
 $debug: false !default;
 
 
+// fonts
+$fonts:
+    'opensans-regular',
+    'opensans-light',
+    'opensans-bold',
+    'oswald-regular',
+    'oswald-bold',
+    'oswald-book'
+;
+
+// default fonts
+$default-font: nth($fonts, 2);
+$default-font-fallback: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
