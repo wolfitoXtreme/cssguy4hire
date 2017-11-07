@@ -12,9 +12,12 @@ module.exports = function(gulp, task, plugins, config) {
                 .pipe(plugins.sourcemaps.init())
                 .pipe(plugins.compass({
                         file: config.paths.sass + '**/*.scss',
-                        outfile: config.paths.css
+                        outfile: config.paths.css,
+                        outputStyle: 'expanded' // nested, expanded, compact, compressed
                     })
-                    .on('error', plugins.compass.logError)
+                    .on('error', function(error){
+                        config.functions.handleError(task, error, this);
+                    })
                 )
                 .pipe(plugins.sourcemaps.write())
 
