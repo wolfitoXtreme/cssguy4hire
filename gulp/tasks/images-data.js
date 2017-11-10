@@ -41,7 +41,7 @@ module.exports = function(gulp, task, plugins, config) {
 
                 .pipe(plugins.through2.obj(function (file, encoding, cb) {
 
-                    var currentImage = getImgProps.imgProps(file.history.toString());
+                    var currentImage = getImgProps.imgProps(file.path);
 
                     // set current image data
                     imgData[currentImage.imgName] = 
