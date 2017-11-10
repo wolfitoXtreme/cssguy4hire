@@ -4,16 +4,23 @@
 // 
 // fonts
 // 
-@each $font in $fonts {
 
-    @font-face {
-        font-family: '#{$font}';
-        src: url('../fonts/#{$font}.eot');
-        src: url('../fonts/#{$font}.eot?#iefix') format('embedded-opentype'),
-             url('../fonts/#{$font}.woff') format('woff'),
-             url('../fonts/#{$font}.ttf') format('truetype'),
-             url('../fonts/#{$font}.svg##{$font}') format('svg');
-        font-weight: normal;
-        font-style: normal;
+@each $font in map_keys($fonts) {
+
+    @each $font-size in map_keys(map-get($fonts, $font)) {
+        
+        $_font-name: map-deep-get($fonts, $font, $font-size);
+
+        @font-face {
+            font-family: '#{$font}';
+            src: url('../fonts/#{$_font-name}.eot');
+            src: url('../fonts/#{$_font-name}.eot?#iefix') format('embedded-opentype'),
+                 url('../fonts/#{$_font-name}.woff') format('woff'),
+                 url('../fonts/#{$_font-name}.ttf') format('truetype'),
+                 url('../fonts/#{$_font-name}.svg##{$_font-name}') format('svg');
+            font-weight: $font-size;
+            font-style: normal;
+        }
+
     }
 }
