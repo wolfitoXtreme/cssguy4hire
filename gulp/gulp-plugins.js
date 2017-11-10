@@ -29,6 +29,7 @@ var plugins = {
     ftp: require( 'vinyl-ftp' ),
 
     // utilities
+    tap: require('gulp-tap'),
     fs: require('fs'),
     source: require('vinyl-source-stream'),
     merge: require('merge-stream'),

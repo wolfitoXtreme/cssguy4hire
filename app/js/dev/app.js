@@ -103,6 +103,8 @@ $(function() {
             checkFonts = setInterval(function() {
 
                 checkFontsCount += 1;
+
+                console.log('checking fonts...' + window.fontsReady);
                 
                 if(typeof window.fontsReady !== 'undefined') {
 

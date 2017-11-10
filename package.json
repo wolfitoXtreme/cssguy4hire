@@ -54,6 +54,7 @@
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.0",
     "gulp-svgstore": "^6.1.0",
+    "gulp-tap": "^1.0.1",
     "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.8",
     "image-size": "^0.6.1",
