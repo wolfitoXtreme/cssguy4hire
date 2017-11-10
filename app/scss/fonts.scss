@@ -2,14 +2,19 @@
 @import "config/variables";
 
 // 
+// helpers
+//
+@import 'helpers/functions';
+
+// 
 // fonts
 // 
 
 @each $font in map_keys($fonts) {
 
-    @each $font-size in map_keys(map-get($fonts, $font)) {
+    @each $font-weight in map_keys(map-get($fonts, $font)) {
         
-        $_font-name: map-deep-get($fonts, $font, $font-size);
+        $_font-name: map-deep-get($fonts, $font, $font-weight);
 
         @font-face {
             font-family: '#{$font}';
@@ -18,9 +23,8 @@
                  url('../fonts/#{$_font-name}.woff') format('woff'),
                  url('../fonts/#{$_font-name}.ttf') format('truetype'),
                  url('../fonts/#{$_font-name}.svg##{$_font-name}') format('svg');
-            font-weight: $font-size;
+            font-weight: $font-weight;
             font-style: normal;
         }
-
     }
 }
