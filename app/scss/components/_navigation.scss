@@ -18,12 +18,12 @@
 
     // nav-panel__link
     &__link {
-        $_icon-width: prem(40px, 16px);
+        $_icon-width: prem(40px);
         $_icon-height: $_icon-width;
         $_icon-border-width: 10px;
 
         left: 50%;
-        bottom: prem(10px, 16px);
+        bottom: prem(10px);
         transform: translateX(-50%);
         position: absolute;
         
@@ -53,7 +53,7 @@
 
         // nav-panel__link--prev
         &--prev {
-            top: prem(10px, 16px);
+            top: prem(10px);
             bottom: auto;
 
             &:before {
