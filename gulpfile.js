@@ -36,6 +36,9 @@ gulp.task('images', config.functions.getTask(gulp, 'images', plugins, config));
 // html
 gulp.task('html', config.functions.getTask(gulp, 'html', plugins, config));
 
+// ui-reference
+gulp.task('ui-reference', config.functions.getTask(gulp, 'ui-reference', plugins, config));
+
 // watch
 gulp.task('watch', config.functions.getTask(gulp, 'watch', plugins, config));
 
@@ -49,6 +52,7 @@ gulp.task('default', [
     'svg-icons',
     'images',
     'html',
+    'ui-reference',
     'watch',
     'browserSync'
 ]);

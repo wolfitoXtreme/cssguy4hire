@@ -13,81 +13,62 @@
 <link rel="icon" href="favicon.ico">
 <link rel="shortcut icon" href="favicon.ico">
 
+<!-- fonts loader -->
+<script type="text/javascript" src="js/webfont.js"></script>
+<!-- fonts loader -->
+
 <!-- screen styles -->
+<link rel="stylesheet" type="text/css" href="../css/fonts.css" media="screen">
+<link rel="stylesheet" type="text/css" href="../css/app.css" media="screen">
 <style type="text/css">
 
-    html {
-        font-family: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    .ui {
+        padding: 15px;
+        min-height: 100%;
+        background-color: lightgray;
     }
 
-    body * {
-        box-sizing: border-box;
-    }
-
-    .icons {
-        display: -webkit-box;
-            display: flex;
-        -webkit-box-pack: center;
-            justify-content: center;
-        flex-wrap: wrap;
-    }
-
-        .icons__icon {
-            margin: 0.2rem;
-            text-align: center;
-            border: 2px solid #3a3a3a;
-            display: -webkit-box;
-                display: flex;
-            -webkit-box-orient: vertical;
-            -webkit-box-direction: normal;
-                flex-direction: column;
-            position: relative;
-        }
-
-        .icons__icon:hover {
-            border-color: #1c1c1c;
-        }
-
-    .icon-image {
-        margin: 0 auto;
-        padding: 0.4rem;
-        width: 100%;
-        height: 100%;
+    .ui__block-heading {
+        margin: 0 0 0.5rem;
+        padding: 0 2rem;
+        letter-spacing: 0.5rem;
+        text-transform: uppercase;
         position: relative;
-        background-color: #c9c9c9;
+        z-index: 0;
     }
 
-    .icons__icon:hover .icon-image {
-        background-color: #aba8a8;
+    .ui__block-heading-text {
+        padding: 0 0.5rem;
+        display: inline-block;
+        background-color: lightgray;
     }
 
-        .icon-image__svg {
-            top: 50%;
-            position: relative;
-            -webkit-transform: translateY(-50%);
-                transform: translateY(-50%);
-        }
-
-    .icon-details {
-        padding: 0.2rem;
-        color: white;
-        background-color: #3a3a3a;
+    .ui__block-heading:before,
+    .ui__block-heading:after {
+        content: "";
+        left: 0;
+        top: 50%;
+        width: 100%;
+        height: 1px;
+        background-color: #aaa;
+        display: block;
+        z-index: -1;
+        position: absolute;
     }
 
-    .icons__icon:hover:hover .icon-details {
-        background-color: #1c1c1c;
+    .ui__block {
+        margin-bottom: 15px;
+        padding: 15px;
+        box-shadow: 1px 1px 10px #aaa;
+        background-color: white;
     }
-
-        .icon-details__name {
-            font-weight: bold;
-        }
-
-        .icon-details__size {
-            font-size: 0.8rem;
-        }
 
 </style>
+
 <!-- screen styles -->
+
+<!-- print styles -->
+<!-- print styles -->
 
 <!-- scripts -->
 <!-- scripts -->
@@ -98,8 +79,368 @@
     
     <!-- svg icon sprites -->
         <!-- inject:svg --><!-- endinject -->
-        <!-- inject:json --><!-- endinject -->
     <!-- svg icon sprites -->
+
+    <div class="ui">
+
+        <!-- fonts -->
+        <h5 class="ui__block-heading"><span class="ui__block-heading-text">Fonts</span></h5>
+        <div class="ui__block">
+            
+            <h5 style="font-family: opensans;">Opensans</h5>
+            <p style="font-family: opensans;">
+            <span style="font-weight: 300;">light</span>, Normal, <b>Bold</b>, <i>Italic</i>
+            </p>
+
+            <h5 style="font-family: oswald;">Oswald</h5>
+            <p style="font-family: oswald;">
+            <span style="font-weight: 300;">light</span>, Normal, <b>Bold</b>, <i>Italic</i>
+            </p>
+
+            <h5 style="font-family: oswald-book;">Oswald Book</h5>
+            <p style="font-family: oswald-book;">
+            <span style="font-weight: 300;">light</span>, Normal, <b>Bold</b>, <i>Italic</i>
+            </p>
+
+        </div>
+        <!-- fonts -->
+
+        <!-- links -->
+        <h5 class="ui__block-heading"><span class="ui__block-heading-text">links</span></h5>
+        <div class="ui__block">
+            
+            <p>
+            <a href="#">Link</a>, <a href="#">Link hover</a>, <a href="#">Link active</a>, <a href="#">Link visited</a>
+            </p>
+
+        </div>
+        <!-- links -->
+
+        <!-- headings -->
+        <h5 class="ui__block-heading"><span class="ui__block-heading-text">Headings</span></h5>
+        <div class="ui__block">
+            <h1>Heading H1</h1>
+            <h2>Heading H2</h2>
+            <h3>Heading H3</h3>
+            <h4>Heading H4</h4>
+            <h5>Heading H5</h5>
+            <h6>Heading H6</h6>
+        </div>
+        <!-- headings -->
+
+        <!-- paragraphs -->
+        <h5 class="ui__block-heading"><span class="ui__block-heading-text">Paragraphs</span></h5>
+        <div class="ui__block">
+            <p>
+            Fermentum neque, sed ultrices dui. Sed ut lorem vel magna fermentum eleifend non ac
+            erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
+            Curae; Nunc odio lorem, ultrices at metus in, ullamcorper fringilla libero.
+            </p>
+
+            <p>
+            Curabitur et nulla sed elit eleifend malesuada cursus a massa. In hac habitasse platea
+            dictumst. Duis at dignissim quam. Curabitur tincidunt massa nec mauris malesuada, vitae
+            dictum ante fermentum.
+            </p>
+
+            <p>
+            Vestibulum lacinia eleifend dui nec sagittis. Aenean tempor
+            tempus tortor, eget pretium est malesuada vel. Etiam elementum neque ut nunc placerat
+            aliquam. Phasellus lorem nisi, condimentum in elit mollis, molestie interdum nisi. 
+            </p>
+
+        </div>
+        <!-- paragraphs -->
+
+        <!-- lists -->
+        <h5 class="ui__block-heading"><span class="ui__block-heading-text">Lists</span></h5>
+        <div class="ui__block">
+            
+            <h5>Unordered list</h5>
+            <ul>
+                <li>
+                Fermentum neque, sed ultrices dui.
+                </li>
+                <li>
+                Sed ut lorem vel magna fermentum eleifend non acerat. 
+                Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere.
+                </li>
+                <li>
+                Curabitur et nulla sed elit eleifend malesuada cursus a massa.
+                </li>
+                <li>
+                Pellentesque pulvinar ex eu felis pretium, nec tristique mi facilisis. Nulla laoreet
+                purus nec.
+                </li>
+            </ul>
+
+            <h5>Nested unordered list</h5>
+            <ul>
+                <li>
+                <p>Curabitur et nulla sed elit eleifend.</p>
+                <p>tristique mi facilisis. Nulla laoreet purus nec.</p>
+                </li>
+                <li>
+                <p>Curabitur tincidunt massa nec mauris malesuada.</p>
+                
+                <ul>
+                    <li>In hac habitasse platea dictumst.</li>
+                    <li>Curabitur et nulla sed elit eleifend malesuada</li>
+                    <li>In hac habitasse platea dictumst.</li>
+                </ul>
+
+                <ol>
+                    <li>In hac habitasse platea dictumst.</li>
+                    <li>Curabitur et nulla sed elit eleifend malesuada</li>
+                    <li>In hac habitasse platea dictumst.</li>
+                </ol>
+
+                </li>
+
+                <li>
+                <p>Curabitur et nulla sed elit eleifend malesuada cursus a massa.</p>
+                </li>
+
+                <li>
+                <ul>
+                    <li>In hac habitasse platea dictumst.</li>
+                    <li>Curabitur et nulla sed elit eleifend malesuada</li>
+                    <li>In hac habitasse platea dictumst.</li>
+                </ul>
+                </li>
+
+                <li>
+                <p>Pellentesque pulvinar ex eu felis pretium, nec tristique mi facilisis.</p>
+                </li>
+            </ul>
+
+            <h5>Ordered list</h5>
+            <ol>
+                <li>
+                Ut non ullamcorper orci, quis porta orci. Integer mauris mauris,
+                dapibus nec dapibus in, tincidunt id dolor.
+                </li>
+                <li>
+                Donec orci lectus, finibus ut tortor a, tempor luctus lorem.
+                Aliquam non lobortis lectus.
+                </li>
+                <li>
+                Integer et ex ullamcorper, blandit sem sit amet, consectetur risus.
+                </li>
+                <li>
+                Etiam elementum neque ut nunc placerat aliquam.
+                </li>
+            </ol>
+
+            <h5>Nested ordered list</h5>
+            <ol>
+                <li>
+                <p>Curabitur et nulla sed elit eleifend.</p>
+                <p>tristique mi facilisis. Nulla laoreet purus nec.</p>
+                </li>
+                <li>
+                <p>Curabitur tincidunt massa nec mauris malesuada.</p>
+                
+                <ul>
+                    <li>In hac habitasse platea dictumst.</li>
+                    <li>Curabitur et nulla sed elit eleifend malesuada</li>
+                    <li>In hac habitasse platea dictumst.</li>
+                </ul>
+
+                <ol>
+                    <li>In hac habitasse platea dictumst.</li>
+                    <li>Curabitur et nulla sed elit eleifend malesuada</li>
+                    <li>In hac habitasse platea dictumst.</li>
+                </ol>
+
+                </li>
+
+                <li>
+                <p>Curabitur et nulla sed elit eleifend malesuada cursus a massa.</p>
+                </li>
+
+                <li>
+                <ul>
+                    <li>In hac habitasse platea dictumst.</li>
+                    <li>Curabitur et nulla sed elit eleifend malesuada</li>
+                    <li>In hac habitasse platea dictumst.</li>
+                </ul>
+                </li>
+
+                <li>
+                <p>Pellentesque pulvinar ex eu felis pretium, nec tristique mi facilisis.</p>
+                </li>
+            </ol>
+
+            <h5>Definition list</h5>
+            <dl>
+            
+                <dt>Fermentum</dt>
+                <dd>
+                    <p>
+                    Fermentum neque, sed ultrices dui.
+                    </p>
+
+                    <p>
+                    Vestibulum lacinia eleifend dui nec sagittis. Aenean tempor
+                    tempus tortor
+                    </p>
+
+                </dd>
+
+                <dt>Eleifend</dt>
+                <dd>
+                    <p>
+                    Sed ut lorem vel magna fermentum eleifend non acerat. 
+                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere.
+                    </p>
+
+                    <p>
+                    Eget pretium est malesuada vel. Etiam elementum neque ut nunc placerat
+                    aliquam. Phasellus lorem nisi.
+                    </p>
+
+                    <p>
+                    condimentum in elit mollis, molestie interdum nisi. 
+                    </p>
+                </dd>
+
+                <dt>Malesuada</dt>
+                <dd>
+                    <p>
+                    Curabitur et nulla sed eddt eleifend malesuada cursus a massa.
+                    </p>
+                </dd>
+
+                <dt>Tristique mi faciddsis</dt>
+                <dd>
+                    <p>
+                    Pellentesque pulvinar ex eu fedds pretium, nec tristique mi faciddsis. Nulla laoreet
+                    purus nec.
+                    </p>
+                </dd>
+
+            </dl>
+
+        </div>
+        <!-- lists -->
+
+        <!-- headings and paragraphs -->
+        <h5 class="ui__block-heading"><span class="ui__block-heading-text">Headings &amp; Paragraphs/Lists</span></h5>
+        <div class="ui__block">
+            <h1>Heading H1</h1>
+
+            <p>
+            Fermentum neque, sed ultrices dui. Sed ut lorem vel magna fermentum eleifend non ac
+            erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
+            Curae; Nunc odio lorem, ultrices at metus in, ullamcorper fringilla libero.
+            </p>
+
+            <h2>Heading H2</h2>
+
+            <p>
+            Curabitur et nulla sed elit eleifend malesuada cursus a massa. In hac habitasse platea
+            dictumst. Duis at dignissim quam. Curabitur tincidunt massa nec mauris malesuada, vitae
+            dictum ante fermentum.
+            </p>
+
+            <ul>
+                <li>
+                    <p>In hac habitasse platea dictumst.</p>
+                </li>
+                <li>
+                    <p>Curabitur et nulla sed elit eleifend malesuada</p>
+                </li>
+                <li>
+                    <p>In hac habitasse platea dictumst.</p>
+                </li>
+            </ul>
+
+            <p>
+            Pellentesque pulvinar ex eu felis pretium, nec tristique mi facilisis. Nulla laoreet
+            purus nec elementum dictum.
+            </p>
+
+            <p>
+            Ut non ullamcorper orci, quis porta orci. Integer mauris mauris,
+            dapibus nec dapibus in, tincidunt id dolor. Integer et ex ullamcorper, blandit sem sit
+            amet, consectetur risus.
+            </p>
+
+            <p>
+            Donec orci lectus, finibus ut tortor a, tempor luctus lorem.
+            Aliquam non lobortis lectus. Integer dignissim augue nunc, vel consectetur nisl dapibus
+            sed. Nam in nisi orci.
+            </p>
+
+            <p>
+            Integer lacinia tellus ac dolor ullamcorper posuere. Donec
+            malesuada arcu tellus, in pellentesque dui consequat eu.
+            </p>
+
+            <h3>Heading H3</h3>
+
+            <ul>
+                <li>
+                Fermentum neque, sed ultrices dui.
+                </li>
+                <li>
+                Sed ut lorem vel magna fermentum eleifend non acerat. 
+                Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere.
+                </li>
+                <li>
+                Curabitur et nulla sed elit eleifend malesuada cursus a massa.
+                </li>
+                <li>
+                Pellentesque pulvinar ex eu felis pretium, nec tristique mi facilisis. Nulla laoreet
+                purus nec.
+                </li>
+            </ul>
+
+            <h4>Heading H4</h4>
+
+            <ol>
+                <li>
+                Ut non ullamcorper orci, quis porta orci. Integer mauris mauris,
+                dapibus nec dapibus in, tincidunt id dolor.
+                </li>
+                <li>
+                Donec orci lectus, finibus ut tortor a, tempor luctus lorem.
+                Aliquam non lobortis lectus.
+                </li>
+                <li>
+                Integer et ex ullamcorper, blandit sem sit amet, consectetur risus.
+                </li>
+                <li>
+                Etiam elementum neque ut nunc placerat aliquam.
+                </li>
+            </ol>
+
+
+        </div>
+        <!-- headings and paragraphs -->
+
+        <!-- forms -->
+        <h5 class="ui__block-heading"><span class="ui__block-heading-text">Forms</span></h5>
+        <div class="ui__block">
+            <h5>Text fields</h5>
+            <h5>Text Area fields</h5>
+            <h5>Select fields</h5>
+            <h5>Radio buttons</h5>
+            <h5>Checkboxes</h5>
+            <h5>Buttons</h5>
+        </div>
+        <!-- forms -->
+
+        <!-- texts -->
+        <h5 class="ui__block-heading"><span class="ui__block-heading-text">Texts</span></h5>
+        <div class="ui__block">
+            <h5>Bold text</h5>
+            <h5>Italic text</h5>
+        </div>
+        <!-- texts -->
+
+    </div>
 
 </body>
 </html>
