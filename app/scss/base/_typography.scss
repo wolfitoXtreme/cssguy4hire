@@ -2,49 +2,144 @@
 // typography
 //
 
+$_heading-tags: h1, h2, h3, h4, h5, h6;
+$_text-block-tags: p, ul, ol, dl, pre, address, blockquote;
+$_all-text-block-tags: join($_heading-tags, $_text-block-tags);
+
 html {
     font-family: unquote($default-font + ', ' + $default-font-fallback);
 }
 
-// headings
-h1, h2, h3, h4, h5, h6 {
+// remove first and last contained elements margins
+* > *{
+    
     &:first-child {
         margin-top: 0;
     }
-}
 
-h1 {
-    margin-bottom: prem(16px, 16px);
-}
-
-h2 {
-    margin-bottom: prem(10px, 16px);
-}
-
-h3 {
-    margin-bottom: prem(8px, 16px);
-}
-
-h4 {
-    margin-bottom: prem(5px, 16px);
-}
-
-h5 {
-    margin-bottom: prem(4px, 16px);
-}
-
-h6 {
-    margin-bottom: prem(4px, 16px);
-}
-
-// paragraphs
-p {
-    margin-top: 0;
     &:last-child {
         margin-bottom: 0;
     }
 }
 
+// headings
+h1, h2, h3, h4, h5, h6 {
+    font-family: unquote($title-font + ', ' + $default-font-fallback);
+    text-transform: uppercase;
+    
+    // any block element following a heading tag
+    @for $i from 1 through length($_all-text-block-tags) {
+
+        & + #{nth($_all-text-block-tags, $i)} {
+            margin-top: prem(4px);
+        }
+    }
+
+}
+
+h1 {
+    margin: prem($font-size-huge / 2) 0 0;
+    font-size: prem($font-size-huge);
+}
+
+h2 {
+    margin: prem($font-size-xx-large / 2) 0 0;
+    font-size: prem($font-size-xx-large);
+}
+
+h3 {
+    margin: prem($font-size-x-large / 2) 0 0;
+    font-size: prem($font-size-x-large);
+}
+
+h4 {
+    margin: prem($font-size-large / 2) 0 0;
+    font-size: prem($font-size-large);
+}
+
+h5 {
+    margin: prem($font-size-medium / 2) 0 0;
+    font-size: prem($font-size-medium);
+}
+
+h6 {
+    margin: prem($font-size-small / 2) 0 0;
+    font-size: prem($font-size-small);
+}
+
+// paragraphs
+p {
+    margin: prem(16px) 0;
+
+    // any heading block element following a paragraph tag
+    @for $i from 1 through length($_heading-tags) {
+        & + #{nth($_heading-tags, $i)} {
+            margin-top: prem(34px);
+        }
+    }
+
+}
+
+// lists
+%lists {
+    margin: prem(16px) 0;
+
+    // any heading block element following a list tag
+    @for $i from 1 through length($_heading-tags) {
+        & + #{nth($_heading-tags, $i)} {
+            margin-top: prem(34px);
+        }
+    }
+
+    // nested lists nad paragraphs
+    & p,
+    & ul,
+    & ol {
+        &:first-child,
+        &:last-child {
+            margin-bottom: prem(16px);
+        }
+    }
+
+    p:only-child {
+        margin: 0;
+    }
+}
+
+
+ul {
+    padding: 0 0 0 prem(22px);
+    @extend %lists;
+}
+
+ol {
+    padding: 0 0 0 prem(22px);
+    @extend %lists;
+}
+
+dt {
+    @extend %lists;
+}
+
+li {
+    margin-bottom: prem(8px);
+    p:only-child {
+        padding: 0;
+    }
+}
+
+dt {
+    @extend li;
+}
+
+dd {
+    margin-left: prem(22px);
+    @extend li;
+}
+
 hr {
     @include hidden;
 }
+
+
+

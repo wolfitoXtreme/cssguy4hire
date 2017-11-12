@@ -43,7 +43,7 @@
 }
 
 // convert pixels to em
-@function pem($pxVal, $base: $fSize_base) {
+@function pem($pxVal, $base: $font-size-default) {
     
     $pxVal: strip-units($pxVal);
     $base: strip-units($base);
@@ -52,7 +52,7 @@
 }
 
 // convert pixels to rem
-@function prem($pxVal, $base: $fSize_base) {
+@function prem($pxVal, $base: $font-size-default) {
     $pxVal: strip-units($pxVal);
     $base: strip-units($base);
     

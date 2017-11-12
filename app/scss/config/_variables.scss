@@ -1,8 +1,12 @@
 // 
-// variables
+// global variables
 //
 
 $debug: false !default;
+
+// 
+// fonts
+// ----------------
 
 // font families
 $fonts: (
@@ -25,5 +29,16 @@ $default-font: opensans;
 $default-font-fallback: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 // default title
-// $title-font: nth($fonts, 4);
 $title-font: oswald;
+
+// font sizes
+$font-size-tiny:        7px;
+$font-size-xx-small:    9px;
+$font-size-x-small:     11px;
+$font-size-small:       13px;
+$font-size-medium:      16px;
+$font-size-large:       20px;
+$font-size-x-large:     24px;
+$font-size-xx-large:    28px;
+$font-size-huge:        32px;
+$font-size-default:     $font-size-medium;
