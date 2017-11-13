@@ -8,10 +8,8 @@ window.fontsReady = false;
 WebFont.load({
     custom: {
         families: [
-            'opensans-regular',
-            //'opensans-bold',
-            'oswald-regular',
-            'oswald-bold',
+            'opensans',
+            'oswald',
             'oswald-book'
         ], 
         urls : ['css/fonts.css']
@@ -29,9 +27,9 @@ WebFont.load({
         console.log('loading font: ' + familyName);
     },
     fontactive: function(familyName, fvd) {
-        console.log('font: ' + familyName + 'loaded');
+        console.log('font: ' + familyName + ' loaded');
     },
     fontinactive: function(familyName, fvd) {
-        console.log('font: ' + familyName + 'inactive');
+        console.log('font: ' + familyName + ' inactive');
     }
 });

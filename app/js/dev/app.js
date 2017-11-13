@@ -94,17 +94,15 @@ $(function() {
     }
 
     // Initialize app after fonts loading
-    fontDelay(app.init());
+    fontDelay();
 
     // font delay
-    function fontDelay(execFunction) {
+    function fontDelay() {
 
         var checkFontsCount = 0,
             checkFonts = setInterval(function() {
 
                 checkFontsCount += 1;
-
-                console.log('checking fonts...' + window.fontsReady);
                 
                 if(typeof window.fontsReady !== 'undefined') {
 
@@ -112,11 +110,11 @@ $(function() {
                        'TEST FONTS LOADING', [
                            'checkFontsCount = ' + checkFontsCount,
                            'fontsReady = ' + window.fontsReady
-                       ], false
+                       ], true
                     );
                 
-                    if(window.fontsReady !== false) {
-                        execFunction;
+                    if(window.fontsReady === true) {
+                        app.init();
                         clearInterval(checkFonts);
                     }
                 }
