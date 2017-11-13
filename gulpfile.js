@@ -49,7 +49,6 @@ gulp.task('default', [
     'svg-icons',
     'images',
     'html',
-    'ui-reference',
     'watch',
     'browserSync'
 ]);
