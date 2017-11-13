@@ -8,7 +8,7 @@ module.exports = function(gulp, task, plugins, config) {
         gulp.task(task, ['svg-icons-data'], function() {
 
             // build HTML from JSON file
-            function buildDemoHtml(file) {
+            var buildDemoHtml = function(file) {
                 
                 var iconsDemo = '',
                     icons = JSON.parse(file.contents);
@@ -40,7 +40,18 @@ module.exports = function(gulp, task, plugins, config) {
                 return iconsDemo;
             }
 
-            return gulp.src(config.paths.reference + 'templates/icons-reference-src.html')
+            // filtering file name
+            var renameFile = function(file, t) {
+                var fileName = file.path.slice(file.path.lastIndexOf('\\') + 1, file.path.lastIndexOf('-src'));
+                console.log('renaming -> ' + fileName);
+                
+                return t.through(plugins.rename, [fileName + '.html']);
+            }
+
+            return gulp.src([
+                    config.paths.reference + 'templates/reference-icons-src.html',
+                    config.paths.reference + 'templates/reference-ui-src.html'
+                ])
                 
                 // inject SVG sprites
                 .pipe(plugins.inject(gulp.src(config.paths.icons + 'icons.svg'), {
@@ -56,7 +67,8 @@ module.exports = function(gulp, task, plugins, config) {
                     }
                 }))
 
-                .pipe(plugins.rename('icons-reference.html'))
+                // .pipe(plugins.rename('icons-reference.html'))
+                .pipe(plugins.tap(renameFile))
                 .pipe(gulp.dest(config.paths.reference))
 
                 .on('end', function(){

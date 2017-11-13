@@ -6,12 +6,23 @@ module.exports = function(gulp, task, plugins, config) {
        
         gulp.task(task, function () {
 
+            // filtering destination of files
+            var destFile = function(file, t) {
+                var fileName = file.path.slice(file.path.lastIndexOf('\\') + 1, file.path.lastIndexOf('.')),
+                    destination = fileName !== 'reference' ? config.paths.js : config.paths.reference + 'js/';
+               
+                console.log('destination for -> ' + fileName);
+                
+                return t.through(gulp.dest, [destination]);
+            }
+
             return gulp.src([
                         config.paths.js + 'dev/app.js', 
-                        config.paths.js + 'dev/webfont.js'
+                        config.paths.js + 'dev/webfont.js',
+                        config.paths.js + 'dev/reference.js'
                 ], {read: false})
                 .pipe(plugins.tap(function (file) {
-                    console.log(file.path);
+                    plugins.gutil.log(plugins.gutil.colors.yellow('bundle -> ' + file.path));
                     // replace file contents with browserify's bundle stream
                     file.contents = plugins.browserify(file.path, {
                             debug: false
@@ -21,7 +32,8 @@ module.exports = function(gulp, task, plugins, config) {
                     );
 
                 }))
-                .pipe(gulp.dest(config.paths.js))
+                .pipe(plugins.tap(destFile))
+                
                 // omit error already set by browserify
                 .on('error', function(error){
                     this.emit('end');

@@ -10,7 +10,8 @@ module.exports = function(gulp, task, plugins, config) {
             var files = [
                 config.paths.templates + '*.html',
                 config.paths.js + '*.js',
-                config.paths.css + '*.css'
+                config.paths.css + '*.css',
+                config.paths.reference + 'css/*.css'
             ];
 
             plugins.browserSync.init(files, {

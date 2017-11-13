@@ -7,7 +7,7 @@ module.exports = function(gulp, task, plugins, config) {
         gulp.task(task, ['images-data'], function () {
 
             // build HTML from JSON file
-            function buildDemoHtml(file) {
+            var buildDemoHtml = function(file) {
                 
                 var imagesDemo = '',
                     imgs = JSON.parse(file.contents);
@@ -42,7 +42,7 @@ module.exports = function(gulp, task, plugins, config) {
                 return imagesDemo;
             }
 
-            return gulp.src(config.paths.reference + 'templates/imgs-reference-src.html')
+            return gulp.src(config.paths.reference + 'templates/reference-imgs-src.html')
 
                 // inject generated demo
                 .pipe(plugins.inject(gulp.src(config.paths.config + 'images.json'), {
@@ -50,7 +50,7 @@ module.exports = function(gulp, task, plugins, config) {
                       return buildDemoHtml(file);
                     }
                 }))
-                .pipe(plugins.rename('imgs-reference.html'))
+                .pipe(plugins.rename('reference-imgs.html'))
                 .pipe(gulp.dest(config.paths.reference))
 
                 .on('end', function(){

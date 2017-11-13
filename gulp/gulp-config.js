@@ -42,7 +42,7 @@ var paths = {
         this.icons = this.img + this.dirs.icons;
         this.fonts = this.dirs.dest + this.dirs.fonts;
         this.templates = this.dirs.dest + this.dirs.templates;
-        this.reference = this.dirs.dest + this.dirs.reference;
+        this.reference = this.dirs.src + this.dirs.reference;
         this.config = this.dirs.dest + this.dirs.config;
         
         // server paths
