@@ -1,0 +1,199 @@
+// 
+// Reference Styles
+//
+
+html, body {
+    height: 100%;
+}
+
+// ui
+.ui {
+    padding: prem(15px);
+    min-height: 100%;
+    background-color: lightgray;
+
+    // ui__block
+    &__block {
+        margin-bottom: prem(15px);
+        padding: prem(15px);
+        box-shadow: 1px 1px 10px #aaa;
+        background-color: white;
+
+        // ui__block-heading
+        &-heading {
+            margin: 0 0 prem(8px);
+            padding: 0 prem(24px);
+            letter-spacing: prem(8px);
+            text-transform: uppercase;
+            position: relative;
+            z-index: 0;
+
+            &:after,
+            &:before {
+                content: "";
+                left: 0;
+                top: 50%;
+                width: 100%;
+                height: 1px;
+                background-color: #aaa;
+                display: block;
+                z-index: -1;
+                position: absolute;
+            }
+
+            // ui__block-heading-text
+            &-text {
+                padding: 0 prem(8px);
+                display: inline-block;
+                background-color: lightgray;
+            }
+        }
+    }
+}
+
+
+// icons
+.icons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    // icon__icon
+    &__icon {
+        margin: prem(4px);
+        text-align: center;
+        border: 2px solid #3a3a3a;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+
+        &:hover {
+            border-color: #1c1c1c;
+        }
+    }
+}
+
+// icon
+.icon {
+    // icon-image
+    &-image {
+        margin: 0 auto;
+        padding: prem(8px);
+        width: 100%;
+        height: 100%;
+        position: relative;
+        background-color: #c9c9c9;
+
+        // icons__icon:hover icon-image
+        .icons__icon:hover & {
+            background-color: #aba8a8;
+        }
+
+        // icon-image__svg
+        &__svg {
+            top: 50%;
+            position: relative;
+            transform: translateY(-50%);
+        }
+    }
+
+    // icon-details
+    &-details {
+        padding: prem(4px);
+        color: white;
+        background-color: #3a3a3a;
+        
+        // icons__icon:hover icon-details
+        .icons__icon:hover & {
+            background-color: #1c1c1c;
+        }
+
+        // icon-details__name
+        &__name {
+            font-weight: bold;
+        }
+
+        // icon-details__size
+        &__size {
+            font-size: prem($font-size-x-small);
+        }
+    }
+}
+
+// images
+.images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+    // images__img
+    &__img {
+        margin: prem(4px);
+        text-align: center;
+        border: 2px solid #3a3a3a;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+
+        &:hover {
+            border-color: #1c1c1c;
+        }
+    }
+}
+
+// image
+.image {
+    margin: 0 auto;
+    height: 100%;
+    position: relative;
+    background-color: #c9c9c9;
+
+    // images__img:hover image
+    .images__img:hover:hover & {
+        background-color: #aba8a8;
+    }
+
+    // image__link
+    &__link {
+        padding: prem(8px);
+        height: 100%;
+        display: block;
+
+        &:link,
+        &:visited {
+        }
+    }
+
+    // image__img
+    &__img {
+        max-width: 150px;
+        height: auto;
+        top: 50%;
+        position: relative;
+        transform: translateY(-50%);
+    }
+
+    // image-details
+    &-details {
+        padding: prem(4px);
+        color: white;
+        background-color: #3a3a3a;
+
+        // images__img:hover image-details
+        .images__img:hover:hover & {
+            background-color: #1c1c1c;
+        }
+
+        // image-details__name
+        &__name {
+            font-weight: bold;
+        }
+
+        // image-details__src
+        // image-details__size
+        &__src,
+        &__size {
+            font-size: prem($font-size-x-small);
+        }
+    }
+}
