@@ -1,4 +1,8 @@
- // Configuration
+// 
+// CSSGuy4Hire - fonts
+// 
+
+// Configuration
 @import "config/variables";
 
 // 
@@ -9,7 +13,6 @@
 // 
 // fonts
 // 
-
 @each $font in map_keys($fonts) {
 
     @each $font-weight in map_keys(map-get($fonts, $font)) {
