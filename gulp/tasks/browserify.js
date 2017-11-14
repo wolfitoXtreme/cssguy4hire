@@ -10,9 +10,7 @@ module.exports = function(gulp, task, plugins, config) {
             var destFile = function(file, t) {
                 var fileName = file.path.slice(file.path.lastIndexOf('\\') + 1, file.path.lastIndexOf('.')),
                     destination = fileName !== 'reference' ? config.paths.js : config.paths.reference + 'js/';
-               
-                console.log('destination for -> ' + fileName);
-                
+
                 return t.through(gulp.dest, [destination]);
             }
 
@@ -22,7 +20,10 @@ module.exports = function(gulp, task, plugins, config) {
                         config.paths.js + 'dev/reference.js'
                 ], {read: false})
                 .pipe(plugins.tap(function (file) {
-                    plugins.gutil.log(plugins.gutil.colors.yellow('bundle -> ' + file.path));
+
+                    // log processed file
+                    plugins.gutil.log(plugins.gutil.colors.yellow('browseryfy: bundle -> ' + file.path));
+                    
                     // replace file contents with browserify's bundle stream
                     file.contents = plugins.browserify(file.path, {
                             debug: false

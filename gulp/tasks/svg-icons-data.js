@@ -38,10 +38,6 @@ module.exports = function(gulp, task, plugins, config) {
                 .on('end', function(){
                     // log task
                     config.functions.taskEnd(task);
-
-                    // TODO - check if this is having any effect at all
-                    // run browserify and compass to refresh icons inclusion
-                    gulp.start(['browserify', 'compass']);
                 })
         });
 

@@ -56,10 +56,6 @@ module.exports = function(gulp, task, plugins, config) {
                 .on('end', function(){
                     // log task
                     config.functions.taskEnd(task);
-
-                    // TODO - check if this is having any effect at all
-                    // run compass to refresh CSS images data
-                    gulp.start(['compass']);
                 });
         });
     }
