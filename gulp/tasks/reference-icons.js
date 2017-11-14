@@ -49,8 +49,7 @@ module.exports = function(gulp, task, plugins, config) {
             }
 
             return gulp.src([
-                    config.paths.reference + 'templates/reference-icons-src.html',
-                    config.paths.reference + 'templates/reference-ui-src.html'
+                    config.paths.reference + 'templates/reference-icons-src.html'
                 ])
                 
                 // inject SVG sprites

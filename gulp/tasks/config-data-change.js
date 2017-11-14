@@ -14,8 +14,8 @@ module.exports = function(gulp, task, plugins, config) {
                     // log task
                     config.functions.taskEnd(task);
                     
-                    // run 'browserify' and 'compass-vars' to reflect changes
-                    gulp.start(['browserify', 'compass-vars']);
+                    // run 'browserify', 'compass-vars', and 'reference' to reflect changes
+                    gulp.start(['browserify', 'compass-vars', 'reference']);
                 });
         });
     }
