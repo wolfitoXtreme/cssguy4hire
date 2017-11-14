@@ -47,17 +47,18 @@ module.exports = function(gulp, task, plugins, config) {
                         colorValue =  colors[color];
                     
                     var colorsHTML = 
-                        '<div class="colors__color bg-color-' + colorName + '">'  + 
-                            '<div class="color-details">' + 
-                                '<div class="color-details__name">' + colorName + '</div>' + 
-                                '<div class="color-details__value">(' + colorValue + ')</div>' + 
+                        '<div class="ref-colors__color">'  + 
+                            '<div class="ref-color-sample bg-color-' + colorName + '"></div>' + 
+                            '<div class="ref-color-detail">' + 
+                                '<div class="ref-color-detail__name">' + colorName + '</div>' + 
+                                '<div class="ref-color-detail__value">(' + colorValue + ')</div>' + 
                             '</div>' +
                         '</div>';
 
                     colorsDemo += colorsHTML;
                 }
 
-                colorsDemo = '<div class="colors">' + colorsDemo + '</div>';
+                colorsDemo = '<div class="ref-colors">' + colorsDemo + '</div>';
 
                 return colorsDemo;
             }
