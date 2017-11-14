@@ -1,0 +1,11 @@
+{
+    "tiny":     "7px",
+    "xx-small": "9px",
+    "x-small":  "11px",
+    "small":    "13px",
+    "medium":   "16px",
+    "large":    "20px",
+    "x-large":  "24px",
+    "xx-large": "28px",
+    "huge":     "32px"
+}
