@@ -1,8 +1,8 @@
 {
-    "white":    "#fff",
-    "black":    "#000",
-    "red":      "#ff0000",
-    "yellow":   "#ffff00",
-    "blue":     "#0000ff",
-    "test":     "#f0f0f0"
+    "dark-goldenrod":   "#b99a00",
+    "lucky-point":      "#262f50",
+    "dark-slate-blue":  "#533e87",
+    "myrtle":           "#264c2a",
+    "antique-brass":    "#6f4721",
+    "siren":            "#6f283b"
 }

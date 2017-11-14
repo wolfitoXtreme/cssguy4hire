@@ -7,7 +7,7 @@ module.exports = function(gulp, task, plugins, config) {
 
         gulp.task(task, function() {
             
-            var files = ['breakpoints', 'icons', 'images', 'font-sizes', 'colors'],
+            var files = ['breakpoints', 'icons', 'images', 'font-sizes', 'colors', 'colors-default'],
                 processed = 0;
 
             return plugins.merge(files.map(function(file) {
