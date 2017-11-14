@@ -8,6 +8,7 @@ $_all-text-block-tags: join($_heading-tags, $_text-block-tags);
 
 html {
     font-family: unquote($default-font + ', ' + $default-font-fallback);
+    font-size: $font-size-default;
 }
 
 // remove first and last contained elements margins

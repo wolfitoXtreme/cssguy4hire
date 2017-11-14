@@ -52,7 +52,7 @@
 }
 
 // convert pixels to rem
-@function prem($pxVal, $base: $font-size-default) {
+@function prem($pxVal, $base: 16px) {
     $pxVal: strip-units($pxVal);
     $base: strip-units($base);
     

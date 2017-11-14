@@ -5,6 +5,15 @@
 $debug: false !default;
 
 // 
+// configuration
+// ----------------
+@import 'config/breakpoints'; // modifications -> manual: app/config/breakpoints.json
+@import 'config/icons'; // modifications -> automated: running gulp
+@import 'config/images'; // modifications -> automated: running gulp
+@import 'config/font-sizes'; // modifications -> manual: app/config/font-sizes.json
+@import 'config/colors'; // modifications -> manual: app/config/colors.json
+
+// 
 // fonts
 // ----------------
 
@@ -31,14 +40,28 @@ $default-font-fallback: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill S
 // default title
 $title-font: oswald;
 
-// font sizes
-$font-size-tiny:        7px;
-$font-size-xx-small:    9px;
-$font-size-x-small:     11px;
-$font-size-small:       13px;
-$font-size-medium:      16px;
-$font-size-large:       20px;
-$font-size-x-large:     24px;
-$font-size-xx-large:    28px;
-$font-size-huge:        32px;
+// font sizes (mirrors _font-sizes.scss values)
+$font-size-tiny:        nth(map-get($font-sizes, tiny), 1);
+$font-size-xx-small:    nth(map-get($font-sizes, xx-small), 1);
+$font-size-x-small:     nth(map-get($font-sizes, x-small), 1);
+$font-size-small:       nth(map-get($font-sizes, small), 1);
+$font-size-medium:      nth(map-get($font-sizes, medium), 1);
+$font-size-large:       nth(map-get($font-sizes, large), 1);
+$font-size-x-large:     nth(map-get($font-sizes, x-large), 1);
+$font-size-xx-large:    nth(map-get($font-sizes, xx-large), 1);
+$font-size-huge:        nth(map-get($font-sizes, huge), 1);
+
+//  default font size
 $font-size-default:     $font-size-medium;
+
+
+// 
+// colors
+// ----------------
+
+// color names (mirrors _colors.scss values)
+$white:     nth(map-get($colors, white), 1);
+$black:     nth(map-get($colors, black), 1);
+$red:       nth(map-get($colors, red), 1);
+$yellow:    nth(map-get($colors, yellow), 1);
+$blue:      nth(map-get($colors, blue), 1);

@@ -11,9 +11,11 @@ app/config/auth.json
 # Compiled files
 app/config/icons.json
 app/config/images.json
+app/scss/config/_breakpoints.scss
 app/scss/config/_icons.scss
 app/scss/config/_images.scss
-app/scss/config/_breakpoints.scss
+app/scss/config/_font-sizes.scss
+app/scss/config/_colors.scss
 app/css/
 app/js/app.js
 app/js/webfont.js
