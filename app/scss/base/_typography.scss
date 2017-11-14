@@ -142,5 +142,17 @@ hr {
     @include hidden;
 }
 
+// font family classes
+@each $font in map_keys($fonts) {
+    
+    .font-#{$font} {
+        font-family: $font;
+    }
+}
 
-
+// font sizes classes
+@each $size in map_keys($font-sizes) {
+    .font-size-#{$size} {
+        font-size: prem(nth(map-get($font-sizes, $size), 1));
+    }
+}
