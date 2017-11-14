@@ -1,11 +1,11 @@
 'use strict';
 
-// generate icons reference file
+// generate icons reference for template files (reference-icons.html, reference-ui.html)
 module.exports = function(gulp, task, plugins, config) {
 
     return function() {
 
-        gulp.task(task, ['svg-icons-data'], function() {
+        gulp.task(task, function() {
 
             // build HTML from JSON file
             var buildDemoHtml = function(file) {
@@ -67,7 +67,6 @@ module.exports = function(gulp, task, plugins, config) {
                     }
                 }))
 
-                // .pipe(plugins.rename('icons-reference.html'))
                 .pipe(plugins.tap(renameFile))
                 .pipe(gulp.dest(config.paths.reference))
 

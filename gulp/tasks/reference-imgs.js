@@ -4,7 +4,7 @@
 module.exports = function(gulp, task, plugins, config) {
     
     return function() {
-        gulp.task(task, ['images-data'], function () {
+        gulp.task(task, function () {
 
             // build HTML from JSON file
             var buildDemoHtml = function(file) {

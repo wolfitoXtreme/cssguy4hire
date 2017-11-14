@@ -1,11 +1,11 @@
 'use strict';
 
-// images tasks sequence
+// reference tasks sequence
 module.exports = function(gulp, task, plugins, config) {
     
     return function() {
         gulp.task(task, function (callback) {
-            plugins.runSequence(['images-min', 'images-data'],
+            plugins.runSequence(['reference-icons', 'reference-imgs', 'reference-ui'],
                 callback
             );
         });
