@@ -10,6 +10,9 @@ module.exports = function(gulp, task, plugins, config) {
             gulp.watch([
                 config.paths.js + 'dev/*.js'
             ], ['browserify']);
+
+            // configuration files watcher 
+            gulp.watch(config.paths.config + '**/*.json', ['config-data-change']);
             
             // compass watcher
             gulp.watch(config.paths.sass + '**/*.scss', ['compass']);
