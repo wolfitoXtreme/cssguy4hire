@@ -6,6 +6,10 @@ html, body {
     height: 100%;
 }
 
+// 
+// ui -layout
+// 
+
 // ui
 .ui {
     padding: prem(15px);
@@ -49,10 +53,62 @@ html, body {
             }
         }
     }
+
+    // ui-inner-block 
+    &-inner-block{
+        margin-bottom: prem(28px);
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+    }
+}
+
+// 
+// fonts
+//
+
+// ref-fsizes
+.ref-fsizes {
+
+    // ref-fsizes__size
+    &__size {
+        margin-bottom: prem(10px);
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+// ref-fsize
+.ref-fsize {
+
+    // ref-fize-text
+    &-text {
+        margin-bottom: prem(1px);
+    }
+
+    // ref-fsize-detail
+    &-detail {
+        font: prem($font-size-x-small) unquote($default-font);
+
+        // ref-fsize-detail__name
+        &__name {
+            display: inline-block;
+        }
+        
+        // ref-fsize-detail__value
+        &__value {
+            padding-left: prem(3px);
+            display: inline-block;
+        }
+    }
 }
 
 
+// 
 // icons
+// 
 .icons {
     display: flex;
     justify-content: center;
@@ -120,7 +176,9 @@ html, body {
     }
 }
 
+// 
 // images
+// 
 .images {
     display: flex;
     flex-wrap: wrap;
