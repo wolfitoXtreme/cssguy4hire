@@ -1,0 +1,25 @@
+// 
+// colors
+//
+
+// default colors
+@each $color in map_keys($colors-default) {
+    .color-#{$color} {
+        color: nth(map-get($colors-default, $color), 1);
+    }
+
+    .bg-color-#{$color} {
+        background-color: nth(map-get($colors-default, $color), 1);
+    }
+}
+
+// project colors
+@each $color in map_keys($colors) {
+    .color-#{$color} {
+        color: nth(map-get($colors, $color), 1);
+    }
+
+    .bg-color-#{$color} {
+        background-color: nth(map-get($colors, $color), 1);
+    }
+}
