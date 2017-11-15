@@ -1,7 +1,11 @@
 {
-    "white":            "#fff",
     "black":            "#000",
+    "nero":             "#1c1c1c",
+    "charcoal":         "#434343",
+    "dim-grey":         "#616161",
     "dark-grey":        "#aaaaaa",
-    "light-grey":       "#d3d3d3",
-    "very-light-grey":  "#cfcfcf"
+    "light-grey":       "#c9c9c9",
+    "very-light-grey":  "#d3d3d3",
+    "gainsboro":        "#e5e5e5",
+    "white":            "#ffffff"
 }

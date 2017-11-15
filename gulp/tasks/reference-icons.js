@@ -20,22 +20,22 @@ module.exports = function(gulp, task, plugins, config) {
                         iconHeight = iconDimensions[1];
                     
                     var iconHTML = 
-                        '<div class="icons__icon">'  + 
-                            '<div class="icon-image">' + 
-                                '<svg class="icon-image__svg" style="width: ' + iconWidth + '; height:' + iconHeight + ';">' +
+                        '<div class="ref-thumb-grid__item">'  + 
+                            '<div class="ref-thumb ref-thumb--img">' + 
+                                '<svg class="ref-thumb__item-img ref-thumb__item-img--icon" style="width: ' + iconWidth + '; height:' + iconHeight + ';">' +
                                 '<use xlink:href="#' + icon + '" />' +
                                 '</svg>' +
                             '</div>' +
-                            '<div class="icon-details">' + 
-                                '<div class="icon-details__name">' + icon + '</div>' + 
-                                '<div class="icon-details__size">' + iconWidth + ' - ' + iconHeight + '</div>' + 
+                            '<div class="ref-thumb-detail">' + 
+                                '<div class="ref-thumb-detail__name">' + icon + '</div>' + 
+                                '<div class="ref-thumb-detail__value">' + iconWidth + ' - ' + iconHeight + '</div>' + 
                             '</div>' +
                         '</div>';
 
                     iconsDemo += iconHTML;
                 }
 
-                iconsDemo = '<div class="icons">' + iconsDemo + '</div>';
+                iconsDemo = '<div class="ref-thumb-grid">' + iconsDemo + '</div>';
 
                 return iconsDemo;
             }
@@ -43,8 +43,7 @@ module.exports = function(gulp, task, plugins, config) {
             // filtering file name
             var renameFile = function(file, t) {
                 var fileName = file.path.slice(file.path.lastIndexOf('\\') + 1, file.path.lastIndexOf('-src'));
-                console.log('renaming -> ' + fileName);
-                
+
                 return t.through(plugins.rename, [fileName + '.html']);
             }
 

@@ -21,23 +21,23 @@ module.exports = function(gulp, task, plugins, config) {
                         imgHeight = imgData[1];
                     
                     var imgHTML = 
-                        '<div class="images__img">'  + 
-                            '<div class="image">' + 
-                                '<a href="../img/' + imgSrc + '" target="_blank" class="image__link">' + 
-                                    '<img class="image__img" src="../img/' + imgSrc + '" width="' + imgWidth + '" height="' + imgHeight + '">' +
+                        '<div class="ref-thumb-grid__item">'  + 
+                            '<div class="ref-thumb ref-thumb--img">' + 
+                                '<a href="../img/' + imgSrc + '" target="_blank" class="ref-thumb__item ref-thumb__item--link">' + 
+                                    '<img class="ref-thumb__item-img" src="../img/' + imgSrc + '" width="' + imgWidth + '" height="' + imgHeight + '">' +
                                 '</a>' +
                             '</div>' +
-                            '<div class="image-details">' + 
-                                '<div class="image-details__name">' + img + '</div>' + 
-                                '<div class="image-details__src">(' + imgSrc + ')</div>' + 
-                                '<div class="image-details__size">' + imgWidth + ' - ' + imgHeight + '</div>' + 
+                            '<div class="ref-thumb-detail">' + 
+                                '<div class="ref-thumb-detail__name">' + img + '</div>' + 
+                                '<div class="ref-thumb-detail__value">(' + imgSrc + ')</div>' + 
+                                '<div class="ref-thumb-detail__value">' + imgWidth + ' - ' + imgHeight + '</div>' + 
                             '</div>' +
                         '</div>';
 
                     imagesDemo += imgHTML;
                 }
 
-                imagesDemo = '<div class="images">' + imagesDemo + '</div>';
+                imagesDemo = '<div class="ref-thumb-grid">' + imagesDemo + '</div>';
 
                 return imagesDemo;
             }

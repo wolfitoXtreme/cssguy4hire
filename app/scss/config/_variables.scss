@@ -65,11 +65,15 @@ $font-size-default:     $font-size-medium;
 // ----------------
 
 // defaul color names (mirrors _colors-default.scss values)
-$white:             nth(map-get($colors-default, white), 1);
 $black:             nth(map-get($colors-default, black), 1);
+$nero:              nth(map-get($colors-default, nero), 1);
+$charcoal:          nth(map-get($colors-default, charcoal), 1);
+$dim-grey:          nth(map-get($colors-default, dim-grey), 1);
 $dark-grey:         nth(map-get($colors-default, dark-grey), 1);
 $light-grey:        nth(map-get($colors-default, light-grey), 1);
 $very-light-grey:   nth(map-get($colors-default, very-light-grey), 1);
+$gainsboro:         nth(map-get($colors-default, gainsboro), 1);
+$white:             nth(map-get($colors-default, white), 1);
 
 // project color names (mirrors _colors.scss values)
 $dark-goldenrod:    nth(map-get($colors, dark-goldenrod), 1);
