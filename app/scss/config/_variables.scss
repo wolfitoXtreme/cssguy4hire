@@ -7,11 +7,12 @@ $debug: false !default;
 // 
 // configuration
 // ----------------
-@import 'config/breakpoints'; // modifications -> manual: app/config/breakpoints.json
-@import 'config/icons'; // modifications -> automated: running gulp
-@import 'config/images'; // modifications -> automated: running gulp
-@import 'config/font-sizes'; // modifications -> manual: app/config/font-sizes.json
-@import 'config/colors'; // modifications -> manual: app/config/colors.json
+@import 'config/breakpoints'; // modifications -> editing app/config/breakpoints.json
+@import 'config/icons'; // modifications -> adding/deleting source files
+@import 'config/images'; // modifications -> adding/deleting source files
+@import 'config/font-sizes'; // modifications -> editing app/config/font-sizes.json
+@import 'config/colors-default'; // modifications -> editing app/config/colors-default.json
+@import 'config/colors'; // modifications -> manual: editing app/config/colors.json
 
 // 
 // fonts
@@ -50,6 +51,10 @@ $font-size-large:       nth(map-get($font-sizes, large), 1);
 $font-size-x-large:     nth(map-get($font-sizes, x-large), 1);
 $font-size-xx-large:    nth(map-get($font-sizes, xx-large), 1);
 $font-size-huge:        nth(map-get($font-sizes, huge), 1);
+$font-size-x-huge:      nth(map-get($font-sizes, x-huge), 1);
+$font-size-xx-huge:     nth(map-get($font-sizes, xx-huge), 1);
+$font-size-masive:      nth(map-get($font-sizes, masive), 1);
+$font-size-humongous:   nth(map-get($font-sizes, humongous), 1);
 
 //  default font size
 $font-size-default:     $font-size-medium;
@@ -59,9 +64,17 @@ $font-size-default:     $font-size-medium;
 // colors
 // ----------------
 
-// color names (mirrors _colors.scss values)
-$white:     nth(map-get($colors, white), 1);
-$black:     nth(map-get($colors, black), 1);
-$red:       nth(map-get($colors, red), 1);
-$yellow:    nth(map-get($colors, yellow), 1);
-$blue:      nth(map-get($colors, blue), 1);
+// defaul color names (mirrors _colors-default.scss values)
+$white:             nth(map-get($colors-default, white), 1);
+$black:             nth(map-get($colors-default, black), 1);
+$dark-grey:         nth(map-get($colors-default, dark-grey), 1);
+$light-grey:        nth(map-get($colors-default, light-grey), 1);
+$very-light-grey:   nth(map-get($colors-default, very-light-grey), 1);
+
+// project color names (mirrors _colors.scss values)
+$dark-goldenrod:    nth(map-get($colors, dark-goldenrod), 1);
+$lucky-point:       nth(map-get($colors, lucky-point), 1);
+$dark-slate-blue:   nth(map-get($colors, dark-slate-blue), 1);
+$myrtle:            nth(map-get($colors, myrtle), 1);
+$antique-brass:     nth(map-get($colors, antique-brass), 1);
+$siren:             nth(map-get($colors, siren), 1);
