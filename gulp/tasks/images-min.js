@@ -23,7 +23,7 @@ module.exports = function(gulp, task, plugins, config) {
                     }),
                     plugins.imagemin.svgo({
                         plugins: [
-                            {removeViewBox: true},
+                            {removeViewBox: false},
                             {cleanupIDs: false}
                         ]
                     })
