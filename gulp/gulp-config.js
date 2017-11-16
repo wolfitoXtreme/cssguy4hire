@@ -90,17 +90,21 @@ var config = {
             port: authFile.port,
             user: authFile.user,
             password: authFile.password,
-            parallel: 10,
+            parallel: 50,
+            maxConnections: 100,
+            // debug: plugins.gutil.log,
             // log: null
             log: plugins.gutil.log
         }),
         upload: function(source, path) {
 
-            plugins.gutil.log(plugins.gutil.colors.green('uploading files to server!! -> ' + source));
+            plugins.gutil.log(plugins.gutil.colors.green('server: uploading files!! -> ' + source + '||' + path));
 
             // set sourse
             var setSource = function () {
-                return gulp.src(source);
+                return gulp.src(source, {
+                    buffer: true
+                });
             }
 
             // check for new files
