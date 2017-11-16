@@ -36,6 +36,9 @@ gulp.task('watch', config.functions.getTask(gulp, 'watch', plugins, config));
 // browserSync
 gulp.task('browserSync', config.functions.getTask(gulp, 'browserSync', plugins, config));
 
+// fonts
+gulp.task('fonts', config.functions.getTask(gulp, 'fonts', plugins, config));
+
 // config data change
 gulp.task('config-data-change', config.functions.getTask(gulp, 'config-data-change', plugins, config));
 
@@ -55,6 +58,7 @@ gulp.task('default', [
     'compass', 
     'svg-icons',
     'images',
+    'fonts',
     'html',
     'watch',
     'browserSync'
