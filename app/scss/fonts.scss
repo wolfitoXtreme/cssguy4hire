@@ -21,11 +21,9 @@
 
         @font-face {
             font-family: '#{$font}';
-            src: url('../fonts/#{$_font-name}.eot');
-            src: url('../fonts/#{$_font-name}.eot?#iefix') format('embedded-opentype'),
+            src: url('../fonts/#{$_font-name}.woff2') format('woff2'),
                  url('../fonts/#{$_font-name}.woff') format('woff'),
-                 url('../fonts/#{$_font-name}.ttf') format('truetype'),
-                 url('../fonts/#{$_font-name}.svg##{$_font-name}') format('svg');
+                 url('../fonts/#{$_font-name}.ttf') format('truetype');
             font-weight: $font-weight;
             font-style: normal;
         }
