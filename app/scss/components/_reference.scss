@@ -87,11 +87,17 @@ html, body {
 
     // ref-fize-text
     &-text {
-        margin-bottom: prem(1px);
+        padding-bottom: prem(4px); // prevent font sample bottom cropping
+        max-width: 100%;
+        height: auto;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     // ref-fsize-detail
     &-detail {
+        margin-top: prem(-6px);
         font: prem($font-size-x-small) unquote($default-font);
 
         // ref-fsize-detail__name
@@ -133,7 +139,7 @@ html, body {
         position: relative;
 
         &:hover {
-            border-color: $dark-grey;
+            border-color: $dim-grey;
         }
 
         // ref-thumb-grid__item--color

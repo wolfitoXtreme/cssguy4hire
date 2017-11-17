@@ -88,7 +88,7 @@ module.exports = function(gulp, task, plugins, config) {
                     }
                 }))
 
-                // inject 'default colors' generated demo
+                // inject 'project colors' generated demo
                 .pipe(plugins.inject(gulp.src(config.paths.config + 'colors.json'), {
                     starttag: '<!-- inject:colors -->',
                     transform: function (filepath, file) {
