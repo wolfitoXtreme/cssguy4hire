@@ -30,9 +30,6 @@ gulp.task('images', config.functions.getTask(gulp, 'images', plugins, config));
     gulp.task('images-data', ['images-min'], config.functions.getTask(gulp, 'images-data', plugins, config));
     // gulp.task('images-reference', ['images-data'], config.functions.getTask(gulp, 'images-reference', plugins, config));
 
-// watch
-gulp.task('watch', config.functions.getTask(gulp, 'watch', plugins, config));
-
 // browserSync
 gulp.task('browserSync', config.functions.getTask(gulp, 'browserSync', plugins, config));
 
@@ -52,10 +49,12 @@ gulp.task('reference', config.functions.getTask(gulp, 'reference', plugins, conf
 // html change
 gulp.task('html', config.functions.getTask(gulp, 'html', plugins, config));
 
+// watch
+gulp.task('watch', ['svg-icons', 'images'], config.functions.getTask(gulp, 'watch', plugins, config));
+
 // default task
 gulp.task('default', [
     'browserify',
-    'compass', 
     'svg-icons',
     'images',
     'fonts',
