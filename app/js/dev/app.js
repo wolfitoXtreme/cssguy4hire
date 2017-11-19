@@ -67,7 +67,6 @@ $(function() {
             // test onScreenTest
             $(window).on({
                 'resize.test': function(event) {
-                    $('.main').height($(window).height());
 
                     onScreenTest.test(
                        'TEST WINDOW RESIZE', [
@@ -110,7 +109,7 @@ $(function() {
                        'TEST FONTS LOADING', [
                            'checkFontsCount = ' + checkFontsCount,
                            'fontsReady = ' + window.fontsReady
-                       ], true
+                       ], false
                     );
                 
                     if(window.fontsReady === true) {
