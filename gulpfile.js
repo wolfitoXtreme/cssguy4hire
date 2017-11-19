@@ -16,7 +16,7 @@ gulp.task('browserify', config.functions.getTask(gulp, 'browserify', plugins, co
 
 // compass
 gulp.task('compass', ['compass-vars'], config.functions.getTask(gulp, 'compass', plugins, config));
-    gulp.task('compass-vars', config.functions.getTask(gulp, 'compass-vars', plugins, config));
+    gulp.task('compass-vars', ['images', 'svg-icons'], config.functions.getTask(gulp, 'compass-vars', plugins, config));
 
 // svg-icons
 gulp.task('svg-icons', config.functions.getTask(gulp, 'svg-icons', plugins, config));
