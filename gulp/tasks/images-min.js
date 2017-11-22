@@ -14,9 +14,9 @@ module.exports = function(gulp, task, plugins, config) {
                     }),
                     plugins.jpegrecompress({
                         accurate: true,
-                        quality: 'low',
-                        min: 5,
-                        max: 30
+                        quality: 'high', // low, medium, high, veryhigh
+                        min: 65,
+                        max: 90
                     }),
                     plugins.imagemin.optipng({
                         optimizationLevel: 5 // 0 - 7
