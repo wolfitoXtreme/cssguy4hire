@@ -13,6 +13,9 @@ module.exports = function(gulp, task, plugins, config) {
             return plugins.merge(files.map(function(file) {
 
                 return plugins.fs.createReadStream(config.paths.config + file + '.json')
+                    .on('error', function(error){
+                        config.functions.handleError(task, error, this);
+                    })
                     .pipe(plugins.jsonSass({
                         prefix: '$' + file + ': '
                     }))
