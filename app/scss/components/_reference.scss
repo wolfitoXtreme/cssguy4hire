@@ -201,7 +201,7 @@ html, body {
 .ref-thumb-detail {
     margin: 0 -1px -1px;
     padding: prem(4px);
-    font-size: prem($font-size-xx-small);
+    font-size: prem($font-size-tiny);
     border-top: 1px solid $very-light-grey;
     flex-grow: 1;
 
@@ -215,6 +215,8 @@ html, body {
     // ref-thumb-detail__name
     &__name {
         padding-bottom: prem(4px);
+        font-weight: bold;
+        line-height: 1;
         text-transform: uppercase;
     }
     

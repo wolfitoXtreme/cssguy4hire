@@ -59,6 +59,7 @@ gulp.task('default', [
     'images',
     'fonts',
     'html',
+    'reference',
     'watch',
     'browserSync'
 ]);
