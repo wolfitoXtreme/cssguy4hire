@@ -31,12 +31,20 @@ $(function() {
             slider.init();
 
             // test enquire
-            enquire.register('screen and (min-width:' + breakpoints.get('xsmall') + ') and (max-width:' + breakpoints.get('small') + ')', {
+            enquire.register('screen and (min-width:' + breakpoints.get('xx-small') + ') and (max-width:' + breakpoints.get('x-small') + ')', {
                 match : function() {
-                    console.log('Breaking point ' + 'xsmall' + ' reached!');
+                    console.log('Breaking point ' + 'xx-small' + ' reached!');
                 },
                 unmatch : function() {
-                    console.log('Breaking point ' + 'xsmall' + ' exit!');
+                    console.log('Breaking point ' + 'xx-small' + ' exit!');
+                }
+            })
+            enquire.register('screen and (min-width:' + breakpoints.get('x-small') + ') and (max-width:' + breakpoints.get('small') + ')', {
+                match : function() {
+                    console.log('Breaking point ' + 'x-small' + ' reached!');
+                },
+                unmatch : function() {
+                    console.log('Breaking point ' + 'x-small' + ' exit!');
                 }
             })
             .register('screen and (min-width:' + breakpoints.get('small') + ') and (max-width:' + breakpoints.get('medium') + ')', {
@@ -61,6 +69,13 @@ $(function() {
                 },
                 unmatch : function() {
                     console.log('Breaking point ' + 'large' + ' exit!');
+                }
+            }).register('screen and (min-width:' + breakpoints.get('x-small') + ') and (max-width:' + breakpoints.get('small') + ') and (orientation: landscape)', {
+                match : function() {
+                    console.log('Breaking point ' + 'x-small landscape' + ' reached!');
+                },
+                unmatch : function() {
+                    console.log('Breaking point ' + 'x-small landscape' + ' exit!');
                 }
             });
 

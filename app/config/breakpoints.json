@@ -1,6 +1,7 @@
 {
-    "xsmall": "0px",
-    "small": "530px",
-    "medium":"700px",
-    "large":"1024px"
+    "xx-small":     "0px",
+    "x-small":      "320px",
+    "small":        "360px",
+    "medium":       "768px",
+    "large":        "1024px"
 }
