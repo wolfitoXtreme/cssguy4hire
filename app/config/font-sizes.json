@@ -1,11 +1,24 @@
 {
-    "tiny":     "8px",
-    "xx-small": "10px",
-    "x-small":  "12px",
-    "small":    "14px",
-    "medium":   "16px",
-    "large":    "20px",
-    "x-large":  "24px",
-    "xx-large": "28px",
-    "huge":     "32px"
+    "micro":           "9",
+    "tiny":            "10",
+    "xxx-small":       "12",
+    "xx-small":        "13",
+    "x-small":         "14",
+    "small":           "15",
+    "normal":          "16",
+    "medium":          "18",
+    "medium-large":    "20",
+    "large":           "21",
+    "x-large":         "22",
+    "xx-large":        "23",
+    "xxx-large":       "26",
+    "huge":            "27",
+    "x-huge":          "28",
+    "xx-huge":         "36",
+    "xxx-huge":        "41",
+    "massive":         "52",
+    "gigantic":        "72",
+    "humongous":       "90"
 }
+
+

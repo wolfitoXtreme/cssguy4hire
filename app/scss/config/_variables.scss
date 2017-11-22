@@ -44,19 +44,26 @@ $default-font-fallback: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill S
 $title-font: oswald;
 
 // font sizes (mirrors _font-sizes.scss values)
-$font-size-tiny:        nth(map-get($font-sizes, tiny), 1);
-$font-size-xx-small:    nth(map-get($font-sizes, xx-small), 1);
-$font-size-x-small:     nth(map-get($font-sizes, x-small), 1);
-$font-size-small:       nth(map-get($font-sizes, small), 1);
-$font-size-medium:      nth(map-get($font-sizes, medium), 1);
-$font-size-large:       nth(map-get($font-sizes, large), 1);
-$font-size-x-large:     nth(map-get($font-sizes, x-large), 1);
-$font-size-xx-large:    nth(map-get($font-sizes, xx-large), 1);
-$font-size-huge:        nth(map-get($font-sizes, huge), 1);
-$font-size-x-huge:      nth(map-get($font-sizes, x-huge), 1);
-$font-size-xx-huge:     nth(map-get($font-sizes, xx-huge), 1);
-$font-size-masive:      nth(map-get($font-sizes, masive), 1);
-$font-size-humongous:   nth(map-get($font-sizes, humongous), 1);
+$font-size-micro:           nth(map-get($font-sizes, micro), 1);
+$font-size-tiny:            nth(map-get($font-sizes, tiny), 1);
+$font-size-xxx-small:       nth(map-get($font-sizes, xxx-small), 1);
+$font-size-xx-small:        nth(map-get($font-sizes, xx-small), 1);
+$font-size-x-small:         nth(map-get($font-sizes, x-small), 1);
+$font-size-small:           nth(map-get($font-sizes, small), 1);
+$font-size-normal:          nth(map-get($font-sizes, normal), 1);
+$font-size-medium:          nth(map-get($font-sizes, medium), 1);
+$font-size-medium-large:    nth(map-get($font-sizes, medium-large), 1);
+$font-size-large:           nth(map-get($font-sizes, large), 1);
+$font-size-x-large:         nth(map-get($font-sizes, x-large), 1);
+$font-size-xx-large:        nth(map-get($font-sizes, xx-large), 1);
+$font-size-xxx-large:       nth(map-get($font-sizes, xxx-large), 1);
+$font-size-huge:            nth(map-get($font-sizes, huge), 1);
+$font-size-x-huge:          nth(map-get($font-sizes, x-huge), 1);
+$font-size-xx-huge:         nth(map-get($font-sizes, xx-huge), 1);
+$font-size-xxx-huge:        nth(map-get($font-sizes, xxx-huge), 1);
+$font-size-masive:          nth(map-get($font-sizes, masive), 1);
+$font-size-gigantic:        nth(map-get($font-sizes, gigantic), 1);
+$font-size-humongous:       nth(map-get($font-sizes, humongous), 1);
 
 //  default font size
 $font-size-default:     $font-size-medium;
@@ -82,5 +89,5 @@ $dark-goldenrod:    nth(map-get($colors, dark-goldenrod), 1);
 $lucky-point:       nth(map-get($colors, lucky-point), 1);
 $dark-slate-blue:   nth(map-get($colors, dark-slate-blue), 1);
 $myrtle:            nth(map-get($colors, myrtle), 1);
-$antique-brass:     nth(map-get($colors, antique-brass), 1);
+$falu-red:          nth(map-get($colors, falu-red), 1);
 $siren:             nth(map-get($colors, siren), 1);
