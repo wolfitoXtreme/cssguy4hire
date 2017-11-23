@@ -7,8 +7,39 @@ html, body {
 }
 
 body {
+    color: $black; // override default color (for legibility)
+
     // test mediaQueries
     @include queryInfo();
+}
+
+// overrides
+h1, h2, h3, h4, h5, h6 {
+    color: $black; // override default color (for legibility)
+    text-shadow: none; // remove default shadows
+}
+
+ul li {
+    // bullets
+    &:before {
+        background-color: $black;
+        box-shadow: none;
+    }
+
+    // bullets - second level
+    ul li {
+        &:before {
+            border-color: $black;
+        }
+    }
+
+    // bullets - third level
+    ul li ul li {
+        &:before {
+            background-color: $black;
+        }
+    }
+
 }
 
 // 
@@ -33,6 +64,7 @@ body {
             margin: 0 0 prem(8px);
             padding: 0 prem(24px);
             letter-spacing: pem(8px);
+            line-height: 1.2;
             text-transform: uppercase;
             position: relative;
             z-index: 0;
