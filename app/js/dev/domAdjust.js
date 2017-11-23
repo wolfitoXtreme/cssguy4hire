@@ -18,7 +18,8 @@ var domAdjust = {
             .html(domAdjust.header.html())
             .attr({
                 'id' : domAdjust.header.attr('id'),
-                'title' : domAdjust.header.attr('title')
+                'title' : domAdjust.header.attr('title'),
+                'class' : domAdjust.header.attr('class')
             })
             // .addClass('cover')
             .prependTo(domAdjust.wrapper);
