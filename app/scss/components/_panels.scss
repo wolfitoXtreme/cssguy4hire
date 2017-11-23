@@ -11,10 +11,10 @@
 }
 
 // image test
-@each $image in map_keys($imgs) {
+@each $image in map_keys($images) {
     .#{$image} {
-        width: #{nth(map-get($imgs, $image), 1)};
-        height: #{nth(map-get($imgs, $image), 2)};
+        width: #{nth(map-get($images, $image), 1)};
+        height: #{nth(map-get($images, $image), 2)};
     }
 }
 
@@ -31,8 +31,8 @@
 
 .img-single-test {
     // stretch by percentage
-    $_img-width: nth(map-get($imgs, img-04), 1);
-    $_img-height: nth(map-get($imgs, img-04), 2);
+    $_img-width: nth(map-get($images, img-04), 1);
+    $_img-height: nth(map-get($images, img-04), 2);
     $_new-size: stretchByPercentage($_img-width, $_img-height, 21.16402%);
 
     width: nth($_new-size, 1);
@@ -42,8 +42,8 @@
 
 .img-single-test-b {
     // stretch by size
-    $_img-width: nth(map-get($imgs, img-04), 1);
-    $_img-height: nth(map-get($imgs, img-04), 2);
+    $_img-width: nth(map-get($images, img-04), 1);
+    $_img-height: nth(map-get($images, img-04), 2);
     $_new-height: 200px;
     $_new-width: stretchBySize($_img-height, $_img-width, $_new-height);
     
@@ -55,8 +55,8 @@
 
 .img-single-test-c {
     // stretch by size
-    $_img-width: nth(map-get($imgs, img-03), 1);
-    $_img-height: nth(map-get($imgs, img-03), 2);
+    $_img-width: nth(map-get($images, img-03), 1);
+    $_img-height: nth(map-get($images, img-03), 2);
     $_new-width: 250px;
     $_new-height: stretchBySize($_img-width, $_img-height, $_new-width);
     
