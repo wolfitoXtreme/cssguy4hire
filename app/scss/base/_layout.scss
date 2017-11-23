@@ -36,32 +36,48 @@ body {
 
 // panel
 .panel {
-    padding: prem(12px);
+    padding: prem(14px) prem(48px);
     width: 100%;
     height: 100%;
     position: relative;
 
-    // border: 5px dashed black;
-    background-color: lightgreen;
-
-    &:nth-child(2) {
-        background-color: darken(lightgreen, 10%);
+    // panel--cover
+    &--cover {
+        background-color: $dark-goldenrod;
     }
 
-    &:nth-child(3) {
-        background-color: darken(lightgreen, 20%);
+    // panel--about
+    &--about {
+        background-color: $lucky-point;
     }
 
-    &:nth-child(4) {
-        background-color: darken(lightgreen, 30%);
+    // panel--skills
+    &--skills {
+        background-color: $dark-slate-blue;
     }
 
-    &:nth-child(5) {
-        background-color: darken(lightgreen, 40%);
+    // panel--roles
+    &--roles {
+        background-color: $myrtle;
     }
 
-    &:nth-child(6) {
-        background-color: darken(lightgreen, 50%);
+    // panel--work
+    &--work {
+        background-color: $falu-red;
+    }
+
+    // panel--contact
+    &--contact {
+        background-color: $siren;
+    }
+
+    // panel__detail
+    &__detail {
+        left: 0;
+        top: 50%;
+        width: 100%;
+        position: absolute;
+        transform: translateY(-50%);
     }
 
 }

@@ -1,11 +1,13 @@
 // 
 // Work Panel Styles
 //
-.work {
-    @extend .skills;
+.work-slider {
+    @extend .skills-slider;
 
-    // skills__item
+    background-color: $falu-red;
+
+    // work-slider__item
     &__item {
-        @extend .skills__item;
+        @extend .skills-slider__item;
     }
 }
