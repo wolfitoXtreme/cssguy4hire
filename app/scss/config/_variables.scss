@@ -3,6 +3,7 @@
 //
 
 $debug: false !default;
+$debug: true;
 
 // 
 // configuration
@@ -40,8 +41,8 @@ $fonts: (
 $default-font: opensans;
 $default-font-fallback: Frutiger, "Frutiger Linotype", Univers, Calibri, "Gill Sans", "Gill Sans MT", "Myriad Pro", Myriad, "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-// default title
-$title-font: oswald;
+// default heading fonts
+$heading-font: oswald;
 
 // font sizes (mirrors _font-sizes.scss values)
 $font-size-micro:           nth(map-get($font-sizes, micro), 1);
@@ -61,13 +62,12 @@ $font-size-huge:            nth(map-get($font-sizes, huge), 1);
 $font-size-x-huge:          nth(map-get($font-sizes, x-huge), 1);
 $font-size-xx-huge:         nth(map-get($font-sizes, xx-huge), 1);
 $font-size-xxx-huge:        nth(map-get($font-sizes, xxx-huge), 1);
-$font-size-masive:          nth(map-get($font-sizes, masive), 1);
+$font-size-massive:          nth(map-get($font-sizes, massive), 1);
 $font-size-gigantic:        nth(map-get($font-sizes, gigantic), 1);
 $font-size-humongous:       nth(map-get($font-sizes, humongous), 1);
 
 //  default font size
-$font-size-default:     $font-size-medium;
-
+$font-size-default:     $font-size-xx-small;
 
 // 
 // colors
