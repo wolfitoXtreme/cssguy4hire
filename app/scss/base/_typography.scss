@@ -8,7 +8,26 @@ $_all-text-block-tags: join($_heading-tags, $_text-block-tags);
 
 html {
     font-family: unquote($default-font + ', ' + $default-font-fallback);
-    font-size: prem($font-size-normal);
+    font-size: pem($font-size-default);
+}
+
+body {
+    font-size: prem($font-size-xx-small);
+    letter-spacing: -0.028em;
+    line-height: 1.2;
+
+    @include breakpoint(map-get($breakpoints, small)) {
+        font-size: prem($font-size-small);
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+        font-size: prem($font-size-normal);
+        letter-spacing: -0.04em;
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+        font-size: prem($font-size-x-large);
+    }
 }
 
 // remove first and last contained elements margins
@@ -25,72 +44,207 @@ html {
 
 // headings
 h1, h2, h3, h4, h5, h6 {
-    font-family: unquote($title-font + ', ' + $default-font-fallback);
+    font-family: $heading-font;
     text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: -0.03em;
     
-    // any block element following a heading tag
-    @for $i from 1 through length($_all-text-block-tags) {
+    // any heading element following a heading block
+    @for $i from 1 through length($_heading-tags) {
 
-        & + #{nth($_all-text-block-tags, $i)} {
-            margin-top: prem(4px);
+        & + #{nth($_heading-tags, $i)} {
+            margin-top: 0;
+            background-color: red;
+
+            @include breakpoint(map-get($breakpoints, small)) {
+               margin-top: prem(3px);
+            }
+
+            @include breakpoint(map-get($breakpoints, large)) {
+                margin-top: prem(4px);
+            }
         }
     }
 
+    // any text block element following a heading block
+    @for $i from 1 through length($_text-block-tags) {
+
+        & + #{nth($_text-block-tags, $i)} {
+            margin-top: prem(5px);
+
+            @include breakpoint(map-get($breakpoints, medium)) {
+                margin-top: prem(9px);
+            }
+
+            @include breakpoint(map-get($breakpoints, large)) {
+                margin-top: prem(11px);
+            }
+        }
+    }
 }
 
 h1 {
-    margin: prem($font-size-huge / 2) 0 0;
-    font-size: prem($font-size-huge);
+    margin: prem($font-size-xxx-huge / 2) 0 0;
+    font-size: prem($font-size-xxx-huge);
+
+    @include breakpoint(map-get($breakpoints, small)) {
+        margin: prem($font-size-massive / 2) 0 0;
+        font-size: prem($font-size-massive);
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+        margin: prem($font-size-gigantic / 2) 0 0;
+        font-size: prem($font-size-gigantic);
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+        margin: prem($font-size-humongous / 2) 0 0;
+        font-size: prem($font-size-humongous);
+    }
 }
 
 h2 {
-    margin: prem($font-size-xx-large / 2) 0 0;
-    font-size: prem($font-size-xx-large);
+    margin: prem($font-size-xx-huge / 2) 0 0;
+    font-size: prem($font-size-xx-huge);
+
+    @include breakpoint(map-get($breakpoints, small)) {
+        margin: prem($font-size-xxx-huge / 2) 0 0;
+        font-size: prem($font-size-xxx-huge);
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+        margin: prem($font-size-massive / 2) 0 0;
+        font-size: prem($font-size-massive);
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+        margin: prem($font-size-gigantic / 2) 0 0;
+        font-size: prem($font-size-gigantic);
+    }
 }
 
 h3 {
-    margin: prem($font-size-x-large / 2) 0 0;
-    font-size: prem($font-size-x-large);
+    margin: prem($font-size-huge / 2) 0 0;
+    font-size: prem($font-size-huge);
+
+    @include breakpoint(map-get($breakpoints, small)) {
+        margin: prem($font-size-x-huge / 2) 0 0;
+        font-size: prem($font-size-x-huge);
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+        margin: prem($font-size-xxx-huge / 2) 0 0;
+        font-size: prem($font-size-xxx-huge);
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+        margin: prem($font-size-massive / 2) 0 0;
+        font-size: prem($font-size-massive);
+    }
 }
 
 h4 {
     margin: prem($font-size-large / 2) 0 0;
     font-size: prem($font-size-large);
+    font-weight: 400;
+    letter-spacing: -0.05em;
+
+    @include breakpoint(map-get($breakpoints, small)) {
+        margin: prem($font-size-xx-large / 2) 0 0;
+        font-size: prem($font-size-xx-large);
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+        margin: prem($font-size-huge / 2) 0 0;
+        font-size: prem($font-size-huge);
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+        margin: prem($font-size-xx-huge / 2) 0 0;
+        font-size: prem($font-size-xx-huge);
+    }
 }
 
 h5 {
-    margin: prem($font-size-medium / 2) 0 0;
-    font-size: prem($font-size-medium);
+    margin: prem($font-size-normal / 2) 0 0;
+    font-size: prem($font-size-normal);
+    // font-weight: 400;
+    // letter-spacing: -0.05em;
+
+    @include breakpoint(map-get($breakpoints, small)) {
+        margin: prem($font-size-medium / 2) 0 0;
+        font-size: prem($font-size-medium);
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+        margin: prem($font-size-medium-large / 2) 0 0;
+        font-size: prem($font-size-medium-large);
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+        margin: prem($font-size-xxx-large / 2) 0 0;
+        font-size: prem($font-size-xxx-large);
+    }
 }
 
 h6 {
-    margin: prem($font-size-small / 2) 0 0;
-    font-size: prem($font-size-small);
+    margin: prem($font-size-xx-small / 2) 0 0;
+    font-size: prem($font-size-xx-small);
+    // font-weight: 400;
+    // letter-spacing: -0.05em;
+
+    @include breakpoint(map-get($breakpoints, small)) {
+        margin: prem($font-size-small / 2) 0 0;
+        font-size: prem($font-size-small);
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+        margin: prem($font-size-medium / 2) 0 0;
+        font-size: prem($font-size-medium);
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+        margin: prem($font-size-x-large / 2) 0 0;
+        font-size: prem($font-size-x-large);
+    }
+}
+
+// default texts
+%default-texts {
+    margin: prem(16px) 0;
+
+    // any heading block element following a text block
+    @for $i from 1 through length($_heading-tags) {
+        & + #{nth($_heading-tags, $i)} {
+            margin-top: prem(12px);
+            background-color: pink;
+
+            @include breakpoint(map-get($breakpoints, small)) {
+                margin-top: prem(18px);
+                background-color: lightblue;
+            }
+
+            @include breakpoint(map-get($breakpoints, medium)) {
+                margin-top: prem(24px);
+                background-color: lightcoral;
+            }
+
+            @include breakpoint(map-get($breakpoints, large)) {
+                margin-top: prem(34px);
+                background-color: green;
+            }
+        }
+    }
 }
 
 // paragraphs
 p {
-    margin: prem(16px) 0;
-
-    // any heading block element following a paragraph tag
-    @for $i from 1 through length($_heading-tags) {
-        & + #{nth($_heading-tags, $i)} {
-            margin-top: prem(34px);
-        }
-    }
-
+    @extend %default-texts;
 }
 
 // lists
 %lists {
-    margin: prem(16px) 0;
-
-    // any heading block element following a list tag
-    @for $i from 1 through length($_heading-tags) {
-        & + #{nth($_heading-tags, $i)} {
-            margin-top: prem(34px);
-        }
-    }
+    @extend %default-texts;
 
     // nested lists nad paragraphs
     & p,
@@ -144,7 +298,7 @@ hr {
 
 // bold texts
 b, strong {
-    font-weight: 600;
+    font-weight: 600; // matches semi-bold weight
 } 
 
 // font family classes
