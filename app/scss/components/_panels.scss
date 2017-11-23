@@ -72,24 +72,50 @@
 // 
 .panel {
     // panel layout styles defined as part of _layout.scss
+    color: $white;
+
+    // panel-heading
+    &-heading {
+        color: $orange-peel;
+        text-shadow: -2px -2px 0 rgba(0, 0, 0, 0.30);
+    }
+
+    // panel-title
+    &-title {
+        color: $orange-peel;
+    }
+
+    // panel-content
+    &-content {
+        margin: 0;
+    }
 
     // bottom title
     &:after {
         content: attr(title);
-        right: 0;
-        bottom: 0;
-        font-weight: bold;
-        font-size: prem(60px);
-        letter-spacing: -0.1rem;
+        right: -0.05em;
+        bottom: -0.2em;
+        max-width: 100%;
+        font: bold #{prem(90px)}/1 oswald;
+        letter-spacing: -0.03em;
+        word-spacing: -0.06em;
         text-transform: uppercase;
+        white-space: nowrap;
         position: absolute;
         display: block;
-    }
+        opacity: 0.04;
 
-    // panel__signature
-    &__signature {
-        left: 0;
-        bottom: 0;
-        position: absolute;
+        @include breakpoint(map-get($breakpoints, small)) {
+            font-size: prem(102px);
+        }
+
+        @include breakpoint(map-get($breakpoints, medium)) {
+            font-size: prem(148px);
+        }
+
+        @include breakpoint(map-get($breakpoints, large)) {
+            font-size: prem(200px);
+        }
+
     }
 }
