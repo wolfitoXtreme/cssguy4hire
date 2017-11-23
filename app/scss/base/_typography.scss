@@ -16,7 +16,8 @@ html {
 body {
     font-size: prem($font-size-xx-small);
     letter-spacing: -0.028em;
-    line-height: 1.2;
+    line-height: $line-height-default;
+    color: $white;
 
     @include breakpoint(map-get($breakpoints, small)) {
         font-size: prem($font-size-small);
@@ -44,19 +45,21 @@ body {
     }
 }
 
+// 
 // headings
+// 
 h1, h2, h3, h4, h5, h6 {
     font-family: $heading-font;
     text-transform: uppercase;
     line-height: 1;
     letter-spacing: -0.03em;
+    color: $orange-peel;
     
     // any heading element following a heading block
     @for $i from 1 through length($_heading-tags) {
 
         & + #{nth($_heading-tags, $i)} {
             margin-top: 0;
-            background-color: red;
 
             @include breakpoint(map-get($breakpoints, small)) {
                margin-top: prem(3px);
@@ -88,6 +91,7 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
     margin: prem($font-size-xxx-huge / 2) 0 0;
     font-size: prem($font-size-xxx-huge);
+    text-shadow: -2px -2px 0 rgba(0, 0, 0, 0.30);
 
     @include breakpoint(map-get($breakpoints, small)) {
         margin: prem($font-size-massive / 2) 0 0;
@@ -108,6 +112,7 @@ h1 {
 h2 {
     margin: prem($font-size-xx-huge / 2) 0 0;
     font-size: prem($font-size-xx-huge);
+    text-shadow: -2px -2px 0 rgba(0, 0, 0, 0.30);
 
     @include breakpoint(map-get($breakpoints, small)) {
         margin: prem($font-size-xxx-huge / 2) 0 0;
@@ -219,7 +224,6 @@ h6 {
     @for $i from 1 through length($_heading-and-block-tags) {
         & + #{nth($_heading-and-block-tags, $i)} {
             margin-top: prem(12px);
-            background-color: pink;
 
             @include breakpoint(map-get($breakpoints, small)) {
                 margin-top: prem(18px);
@@ -239,16 +243,36 @@ h6 {
     }
 }
 
+// 
 // paragraphs
+// 
 p {
     @extend %default-texts;
 }
 
+// 
+// lists
+//
+
 // lists
 %lists {
+    padding: 0 0 0 prem(11px);
+    list-style: none;
     @extend %default-texts;
 
-    // nested lists nad paragraphs
+    @include breakpoint(map-get($breakpoints, small)) {
+        padding: 0 0 0 prem(13px);
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+        padding: 0 0 0 prem(15px);
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+        padding: 0 0 0 prem(20px);
+    }
+
+    // nested lists and paragraphs
     & p,
     & ul,
     & ol {
@@ -263,35 +287,157 @@ p {
     }
 }
 
+// list - items
+%list-items {
+    margin: 0 0 prem(5px);
 
-ul {
-    padding: 0 0 0 prem(22px);
-    @extend %lists;
-}
-
-ol {
-    padding: 0 0 0 prem(22px);
-    @extend %lists;
-}
-
-dt {
-    @extend %lists;
-}
-
-li {
-    margin-bottom: prem(8px);
     p:only-child {
         padding: 0;
     }
 }
 
+
+ul {
+    @extend %lists;
+}
+
+ol {
+    @extend %lists;
+}
+
+dl {
+    @extend %lists;
+}
+
+li {
+    position: relative;
+
+    @extend %list-items;
+}
+
+ul li {
+    // bullets
+    &:before {
+        $_bullet-size: prem(7px);
+
+        content: "";
+        margin-top: -($_bullet-size / 2);
+        top: (1em * $line-height-default) / 2;
+        left: prem(-11px);
+        width: $_bullet-size;
+        height: $_bullet-size;
+        border-radius: 100%;
+        display: block;
+        position: absolute;
+        background-color: $orange-peel;
+        box-shadow: -1px -1px 0 0 rgba(0, 0, 0, 0.21);
+
+        @include breakpoint(map-get($breakpoints, small)) {
+            $_bullet-size: prem(8px);
+            
+            margin-top: -($_bullet-size / 2);
+            left: prem(-13px);
+            width: $_bullet-size;
+            height: $_bullet-size;
+        }
+
+        @include breakpoint(map-get($breakpoints, medium)) {
+            $_bullet-size: prem(10px);
+            
+            margin-top: -($_bullet-size / 2);
+            left: prem(-15px);
+            width: $_bullet-size;
+            height: $_bullet-size;
+        }
+
+        @include breakpoint(map-get($breakpoints, large)) {
+            $_bullet-size: prem(12px);
+            
+            margin-top: -($_bullet-size / 2);
+            left: prem(-20px);
+            width: $_bullet-size;
+            height: $_bullet-size;
+        }
+    }
+
+    // bullets - second level
+    ul li {
+        &:before {
+            $_bullet-size: prem(5px);
+
+            margin-top: -($_bullet-size / 2);
+            width: $_bullet-size;
+            height: $_bullet-size;
+            border: 1px solid $orange-peel;
+            background-color: transparent;
+            box-shadow: none;
+
+            @include breakpoint(map-get($breakpoints, small)) {
+                $_bullet-size: prem(6px);
+                
+                margin-top: -($_bullet-size / 2);
+                width: $_bullet-size;
+                height: $_bullet-size;
+            }
+
+            @include breakpoint(map-get($breakpoints, medium)) {
+                $_bullet-size: prem(8px);
+                
+                margin-top: -($_bullet-size / 2);
+                width: $_bullet-size;
+                height: $_bullet-size;
+            }
+
+            @include breakpoint(map-get($breakpoints, large)) {
+                $_bullet-size: prem(10px);
+                
+                margin-top: -($_bullet-size / 2);
+                width: $_bullet-size;
+                height: $_bullet-size;
+                border-width: 2px;
+            }
+        }
+
+
+    }
+
+    // bullets - third level
+    ul li ul li {
+        &:before {
+            $_bullet-size: prem(1px);
+
+            height: $_bullet-size;
+            margin-top: -($_bullet-size / 2);
+            border-radius: 0;
+            border-style: none;
+            background-color: $orange-peel;
+
+            @include breakpoint(map-get($breakpoints, medium)) {
+                $_bullet-size: prem(2px);
+                
+                height: $_bullet-size;
+                margin-top: -($_bullet-size / 2);
+            }
+
+            @include breakpoint(map-get($breakpoints, large)) {
+                $_bullet-size: prem(2px);
+                
+                height: $_bullet-size;
+                margin-top: -($_bullet-size / 2);
+            }
+
+        }
+    }
+
+}
+
 dt {
-    @extend li;
+    font-weight: bold;
+    @extend %list-items;
 }
 
 dd {
-    margin-left: prem(22px);
-    @extend li;
+    @extend %list-items;
 }
 
 hr {

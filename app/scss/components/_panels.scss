@@ -256,12 +256,9 @@
 // 
 .panel {
     // panel layout styles defined as part of _layout.scss
-    color: $white;
 
     // panel-heading
     &-heading {
-        color: $orange-peel;
-        text-shadow: -2px -2px 0 rgba(0, 0, 0, 0.30);
     }
 
     // panel-title
