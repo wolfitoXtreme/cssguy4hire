@@ -3,8 +3,10 @@
 //
 
 $_heading-tags: h1, h2, h3, h4, h5, h6;
-$_text-block-tags: p, ul, ol, dl, pre, address, blockquote;
-$_all-text-block-tags: join($_heading-tags, $_text-block-tags);
+$_text-block-tags: p, ul, ol, dl, pre, address, blockquote, table;
+$_block-tags: article, aside, canvas, div, fieldset, figure, form, hgroup, output, section, video;
+$_text-block-and-block-tags: join($_text-block-tags, $_block-tags);
+$_heading-and-block-tags: join($_heading-tags, $_block-tags);
 
 html {
     font-family: unquote($default-font + ', ' + $default-font-fallback);
@@ -66,10 +68,10 @@ h1, h2, h3, h4, h5, h6 {
         }
     }
 
-    // any text block element following a heading block
-    @for $i from 1 through length($_text-block-tags) {
+    // any text block or block element following a heading block
+    @for $i from 1 through length($_text-block-and-block-tags) {
 
-        & + #{nth($_text-block-tags, $i)} {
+        & + #{nth($_text-block-and-block-tags, $i)} {
             margin-top: prem(5px);
 
             @include breakpoint(map-get($breakpoints, medium)) {
@@ -213,9 +215,9 @@ h6 {
 %default-texts {
     margin: prem(16px) 0;
 
-    // any heading block element following a text block
-    @for $i from 1 through length($_heading-tags) {
-        & + #{nth($_heading-tags, $i)} {
+    // any heading or block element following a text block
+    @for $i from 1 through length($_heading-and-block-tags) {
+        & + #{nth($_heading-and-block-tags, $i)} {
             margin-top: prem(12px);
             background-color: pink;
 
