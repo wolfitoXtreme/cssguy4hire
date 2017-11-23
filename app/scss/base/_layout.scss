@@ -2,17 +2,11 @@
 // layout
 //
 
-// override debug mode
-$debug: true;
-
 // set breakpoints to EMS
 @include breakpoint-set('to ems', true);
 
 html, body {
     height: 100%;
-
-    // test mediaQueries
-    @include queryInfo();
 }
 
 body {
@@ -21,7 +15,11 @@ body {
         overflow: hidden;
     }
 
-    transition: all 300ms ease-in 0ms;
+    // transition: all 300ms ease-in 0ms;
+
+    // test mediaQueries
+    @include queryInfo();
+
 }
 
 
