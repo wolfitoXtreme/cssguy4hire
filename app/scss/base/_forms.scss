@@ -1,0 +1,244 @@
+// 
+// forms
+// 
+
+// form layout
+.form {
+
+    // form-row
+    &-row {
+
+    }
+
+    // form-column
+    &-column {
+
+    }
+
+    // form-field
+    &-field {
+        padding-bottom: prem(6px);
+    }
+
+    // form-buttons
+    &-buttons {
+
+    }
+
+}
+
+// field sets
+fieldset {
+    padding: 0;
+    border-style: none;
+}
+
+// legend 
+legend {
+    @include hidden;
+}
+
+// labels
+label {
+    font-weight: 600;
+    opacity: 0.8;
+    font-size: prem($font-size-micro);
+    text-transform: uppercase;
+    @include hidden;
+
+    @include breakpoint(map-get($breakpoints, small)) {
+        font-size: prem($font-size-xxx-small);
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+        font-size: prem($font-size-xx-small);
+        letter-spacing: -0.04em;
+        @include unhidden(false);
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+        font-size: prem($font-size-normal);
+    }
+
+}
+
+// legend
+legend {
+
+}
+
+// fieldset
+fieldset {
+
+}
+
+
+// 
+// fields
+// 
+
+%fields {
+    margin: 0;
+    padding: prem(5px) prem(8px) prem(6px);
+    width: 100%;
+    font-family: unquote($default-font + ', ' + $default-font-fallback);
+    font-weight: 300;
+    color: $field-color;
+    border: 2px solid $field-border-color;
+    border-radius: 5px;
+    line-height: $line-height-default;
+    background-color: $field-bg-color;
+    @include no-highlight;
+
+    &:hover,
+    &:focus {
+        border-color: $field-hover-border-color;
+    }
+
+    &:focus {
+        background-color: $field-active-bg-color;
+    }
+
+    &::placeholder {
+        color: $dark-grey;
+    }
+
+    &:hover::placeholder {
+        color: $field-hover-color;
+    }
+}
+
+%input-buttons {
+    @include no-highlight;
+    @include hidden;
+
+    // show labels hidden by default
+    & ~ label {
+        @include unhidden;
+    }
+}
+
+// common input fields
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+input[type="number"],
+input[type="password"] {
+    @extend %fields;
+}
+
+// not in scope
+input[type="file"] {}
+input[type="range"] {}
+input[type="search"] {}
+input[type="date"] {}
+input[type="datetime-local"] {}
+input[type="month"] {}
+input[type="week"] {}
+input[type="time"] {}
+input[type="url"] {}
+input[type="color"] {}
+
+// radio buttons
+input[type="radio"] {
+    @extend %input-buttons;
+
+    // radio button icons
+    & + label {
+        $_icon-size: prem(14px);
+        $_gap: prem(3px);
+
+        padding: 0 prem(2px) prem(4px) $_icon-size + $_gap;
+        display: inline-block;
+        position: relative;
+        overflow: visible;
+
+        &:before,
+        &:after {
+            content: "";
+            left: 0;
+            margin-top: -($_icon-size / 2);
+            top: (1em * $line-height-default) / 2;
+            width: $_icon-size;
+            height: $_icon-size;
+            display: block;
+            border: 2px solid lighten($field-border-color, 10%);
+            border-radius: 100%;
+            position: absolute;
+        }
+
+        &:after {
+            $_icon-inner-size: prem(6px);
+
+            margin-top: -($_icon-inner-size / 2);
+            left: ($_icon-size - $_icon-inner-size) / 2;
+            width: $_icon-inner-size;
+            height: $_icon-inner-size;
+            background-color: lighten($field-border-color, 30%);
+            border-style: none;
+        }
+
+        &:hover {
+            &:before {
+                border-color: $field-hover-border-color;
+            }
+            &:after {
+                background-color: $field-hover-border-color;
+            }
+        }
+    }
+
+    &:checked {
+        // radio button icons
+        & + label {
+            color: $field-active-color;
+            &:before {
+                border-color: $field-active-border-color;
+            }
+            &:after {
+                background-color: $field-active-border-color;
+            }
+        }
+    }
+}
+
+// checkbox buttons
+input[type="checkbox"] {
+    @extend input[type="radio"];
+    & + label {
+        &:before,
+        &:after {
+            border-radius: 0;
+        }
+    }
+
+}
+
+// text areas
+textarea {
+    height: prem((($font-size-default *  $line-height-default) * 5) + (13)); // five lines
+    @extend %fields;
+}
+
+// select
+select {
+    appearance: none;
+    -moz-appearance: none; // Firefox appearance
+    @extend %fields;
+
+    // remove drop down arrow for IE
+    &::-ms-expand {
+        display: none;
+    }
+
+    &:invalid {
+        color: $dark-grey;
+    }
+
+}
+
+// options
+option option[value=""][disabled] {
+    display: none;
+}
+

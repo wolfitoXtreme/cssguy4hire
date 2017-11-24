@@ -99,3 +99,17 @@ $oil:               nth(map-get($colors, oil), 1);
 $moon-yellow:       nth(map-get($colors, moon-yellow), 1);
 $orange-peel:       nth(map-get($colors, orange-peel), 1);
 $safety-orange:     nth(map-get($colors, safety-orange), 1);
+
+// form elements colors
+$field-color:                   $black;
+$field-bg-color:                $gainsboro;
+$field-border-color:            $dim-grey;
+$field-hover-color:             $field-color;
+$field-hover-bg-color:          $white;
+$field-hover-border-color:      $black;
+$field-active-color:            $black;
+$field-active-bg-color:         $white;
+$field-active-border-color:     $black;
+
+// error color
+$error-color: $safety-orange;
