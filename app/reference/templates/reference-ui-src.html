@@ -480,12 +480,67 @@
         <!-- forms -->
         <h4 class="ui__block-heading"><span class="ui__block-heading-text">Forms</span></h4>
         <div class="ui__block">
-            <h5>Text fields</h5>
-            <h5>Text Area fields</h5>
-            <h5>Select fields</h5>
-            <h5>Radio buttons</h5>
-            <h5>Checkboxes</h5>
-            <h5>Buttons</h5>
+            
+            <form action="">
+                
+                <fieldset>
+                    <legend>form fields</legend>
+
+                    <div class="form-row">
+                        <h5>Text fields</h5>
+                        <div class="form-field">
+                            <label for="text-input">Text input field</label>
+                            <input type="text" name="text-input-name" id="text-input" placeholder="Text input">
+                        </div>
+
+                        <h5>Text Area fields</h5>
+                        <div class="form-field">
+                            <label for="text-area">Text-area field</label>
+                            <textarea id="text-area" name="text-area-name" placeholder="Text-area field"></textarea>
+                        </div>
+
+                        <h5>Select fields</h5>
+                        <div class="form-field">
+                            <label for="select-field">Select field</label>
+                            <select id="select-field" name="select-field-name" required>
+                                <option value="" disabled selected>choose an option</option>
+                                <option value="option A">option A</option>
+                                <option value="option B">option B</option>
+                                <option value="option C">option C</option>
+                                <option value="option D">option D</option>
+                            </select>
+                        </div>
+
+                        <h5>Radio buttons</h5>
+                        <div class="form-field">
+                            <input type="radio" id="input-radio-A" name="input-radio-name">
+                            <label for="input-radio-A">Radio button field A</label>
+                            <input type="radio" id="input-radio-B" name="input-radio-name">
+                            <label for="input-radio-B">Radio button field B</label>
+                            <input type="radio" id="input-radio-C" name="input-radio-name">
+                            <label for="input-radio-C">Radio button field C</label>
+                        </div>
+
+                        <h5>Check-boxes</h5>
+                        <div class="form-field">
+                            <input type="checkbox" id="input-checkbox-A" name="input-checkbox-name">
+                            <label for="input-checkbox-A">Check-box button field A</label>
+                            <input type="checkbox" id="input-checkbox-B" name="input-checkbox-name">
+                            <label for="input-checkbox-B">Check-box button field A</label>
+                            <input type="checkbox" id="input-checkbox-C" name="input-checkbox-name">
+                            <label for="input-checkbox-C">Check-box button field A</label>
+                        </div>
+
+                    </div>
+
+                </fieldset>
+                
+                <h5>Buttons</h5>
+                <button type="submit">Submit</button>
+                <button type="reset">Reset</button>
+
+            </form>
+
         </div>
         <!-- forms -->
 
