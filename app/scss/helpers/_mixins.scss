@@ -46,6 +46,24 @@
     @include hidden($extend: false);
 }
 
+// unhidden
+@mixin unhidden($extend: true) {
+    @if $extend {
+        @extend %unhidden;
+    } @else {
+        width: auto;
+        height: auto;
+        position: static;
+        overflow: auto;
+        visibility: visible;
+    }
+}
+
+// unhidden placeholder
+%unhidden {
+    @include unhidden($extend: false);
+}
+
 // clear fix
 @mixin clearFix($extend: true) {
     @if $extend {
@@ -80,4 +98,20 @@
 // remove text placeholder
 %remove-text {
     @include remove-text($extend: false);
+}
+
+// no highlight
+@mixin no-highlight($extend: true) {
+    @if $extend {
+        @extend %no-highlight;
+    } @else {
+        outline: 0;
+        outline-style: none;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+}
+
+// remove text placeholder
+%no-highlight {
+    @include no-highlight($extend: false);
 }
