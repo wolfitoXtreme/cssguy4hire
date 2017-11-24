@@ -13,13 +13,18 @@ body {
     @include queryInfo();
 }
 
+// 
 // overrides
+// 
+
+// headings
 h1, h2, h3, h4, h5, h6 {
     color: $black; // override default color (for legibility)
     text-shadow: none; // remove default shadows
 }
 
-ul li {
+// unordered lists items
+ul > li {
     // bullets
     &:before {
         background-color: $black;
@@ -27,20 +32,27 @@ ul li {
     }
 
     // bullets - second level
-    ul li {
+    ul > li {
         &:before {
             border-color: $black;
         }
     }
 
     // bullets - third level
-    ul li ul li {
+    ul > li > ul > li {
         &:before {
             background-color: $black;
         }
     }
-
 }
+
+// ordered lits items
+ol > li {
+    &:before {
+        color: $black;
+    }
+}
+
 
 // 
 // ui -layout

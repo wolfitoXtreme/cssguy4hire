@@ -227,17 +227,17 @@ h6 {
 
             @include breakpoint(map-get($breakpoints, small)) {
                 margin-top: prem(18px);
-                background-color: lightblue;
+                // background-color: lightblue;
             }
 
             @include breakpoint(map-get($breakpoints, medium)) {
                 margin-top: prem(24px);
-                background-color: lightcoral;
+                // background-color: lightcoral;
             }
 
             @include breakpoint(map-get($breakpoints, large)) {
                 margin-top: prem(34px);
-                background-color: green;
+                // background-color: green;
             }
         }
     }
@@ -302,7 +302,9 @@ ul {
 }
 
 ol {
+    counter-reset: li-counter;
     @extend %lists;
+
 }
 
 dl {
@@ -311,11 +313,11 @@ dl {
 
 li {
     position: relative;
-
     @extend %list-items;
 }
 
-ul li {
+// unordered lists items
+ul > li {
     // bullets
     &:before {
         $_bullet-size: prem(7px);
@@ -361,7 +363,7 @@ ul li {
     }
 
     // bullets - second level
-    ul li {
+    ul > li {
         &:before {
             $_bullet-size: prem(5px);
 
@@ -402,7 +404,7 @@ ul li {
     }
 
     // bullets - third level
-    ul li ul li {
+    ul > li > ul > li {
         &:before {
             $_bullet-size: prem(1px);
 
@@ -429,6 +431,40 @@ ul li {
         }
     }
 
+}
+
+// ordered lits items
+ol > li {
+    &:before {
+        content: counter(li-counter) ". ";
+        counter-increment: li-counter;
+        left: prem(-17px);
+        top: 0.36em;
+        width: prem(13px);
+        font: normal 0.8em/1 oswald;
+        color: $orange-peel;
+        text-align: right;
+        display: block;
+        position: absolute;
+
+        @include breakpoint(map-get($breakpoints, small)) {
+            left: prem(-19px);
+            width: prem(15px);
+        }
+
+        @include breakpoint(map-get($breakpoints, medium)) {
+            top: 0.46em;
+            left: prem(-24px);
+            width: prem(20px);
+        }
+
+        @include breakpoint(map-get($breakpoints, large)) {
+            left: prem(-40px);
+            width: prem(32px);
+        }
+
+
+    }
 }
 
 dt {
