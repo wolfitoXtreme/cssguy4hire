@@ -40,10 +40,14 @@ legend {
 
 // labels
 label {
+    padding-left: prem(3px);
     font-weight: 600;
     opacity: 0.8;
     font-size: prem($font-size-micro);
+    letter-spacing: -0.028em;
     text-transform: uppercase;
+    line-height: 1.1;
+    display: inline-block;
     @include hidden;
 
     @include breakpoint(map-get($breakpoints, small)) {
@@ -51,24 +55,29 @@ label {
     }
 
     @include breakpoint(map-get($breakpoints, medium)) {
+        padding-left: prem(6px);
         font-size: prem($font-size-xx-small);
         letter-spacing: -0.04em;
         @include unhidden(false);
     }
 
     @include breakpoint(map-get($breakpoints, large)) {
+        padding-left: prem(7px);
         font-size: prem($font-size-normal);
     }
 
-}
-
-// legend
-legend {
-
-}
-
-// fieldset
-fieldset {
+    // sibling fields
+    & + input[type="text"],
+    & + input[type="tel"],
+    & + input[type="email"],
+    & + input[type="number"],
+    & + input[type="password"],
+    & + textarea,
+    & + select {
+        @include breakpoint(map-get($breakpoints, medium)) {
+            margin-top: -1px;
+        }
+    }
 
 }
 
@@ -89,6 +98,17 @@ fieldset {
     line-height: $line-height-default;
     background-color: $field-bg-color;
     @include no-highlight;
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+        padding: prem(6px) prem(8px) prem(7px);
+        border-radius: 6px;
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+        padding: prem(9px) prem(14px) prem(11px);
+        border-width: 3px;
+        border-radius: 7px;
+    }
 
     &:hover,
     &:focus {
@@ -146,19 +166,19 @@ input[type="radio"] {
     // radio button icons
     & + label {
         $_icon-size: prem(14px);
+        $_icon-inner-size: prem(6px);
         $_gap: prem(3px);
 
         padding: 0 prem(2px) prem(4px) $_icon-size + $_gap;
-        display: inline-block;
+        line-height: $line-height-default;
         position: relative;
-        overflow: visible;
 
         &:before,
         &:after {
             content: "";
             left: 0;
             margin-top: -($_icon-size / 2);
-            top: (1em * $line-height-default) / 2;
+            top: (0.9em * ($line-height-default)) / 2;
             width: $_icon-size;
             height: $_icon-size;
             display: block;
@@ -168,8 +188,6 @@ input[type="radio"] {
         }
 
         &:after {
-            $_icon-inner-size: prem(6px);
-
             margin-top: -($_icon-inner-size / 2);
             left: ($_icon-size - $_icon-inner-size) / 2;
             width: $_icon-inner-size;
@@ -186,6 +204,60 @@ input[type="radio"] {
                 background-color: $field-hover-border-color;
             }
         }
+
+        @include breakpoint(map-get($breakpoints, small)) {
+            padding-right: prem(5px);
+        }
+
+        @include breakpoint(map-get($breakpoints, medium)) {
+            $_icon-size: prem(16px);
+            $_icon-inner-size: prem(8px);
+            
+            padding-right: prem(7px);
+            padding-left: $_icon-size + $_gap;
+
+            &:before,
+            &:after {
+                margin-top: -($_icon-size / 2);
+                width: $_icon-size;
+                height: $_icon-size;
+                border-width: 2px;
+            }
+
+            &:after {
+                margin-top: -($_icon-inner-size / 2);
+                left: ($_icon-size - $_icon-inner-size) / 2;
+                width: $_icon-inner-size;
+                height: $_icon-inner-size;
+                background-color: lighten($field-border-color, 30%);
+            }
+        }
+
+        @include breakpoint(map-get($breakpoints, large)) {
+            $_icon-size: prem(18px);
+            $_icon-inner-size: prem(10px);
+            
+            padding-right: prem(9px);
+            padding-left: $_icon-size + $_gap;
+
+            &:before,
+            &:after {
+                margin-top: -($_icon-size / 2);
+                width: $_icon-size;
+                height: $_icon-size;
+                border-width: 2px;
+            }
+
+            &:after {
+                margin-top: -($_icon-inner-size / 2);
+                left: ($_icon-size - $_icon-inner-size) / 2;
+                width: $_icon-inner-size;
+                height: $_icon-inner-size;
+                background-color: lighten($field-border-color, 30%);
+            }
+        }
+
+
     }
 
     &:checked {
@@ -217,7 +289,22 @@ input[type="checkbox"] {
 // text areas
 textarea {
     height: prem((($font-size-default *  $line-height-default) * 5) + (13)); // five lines
+    overflow-x: hidden;
+    resize: none;
     @extend %fields;
+
+    @include breakpoint(map-get($breakpoints, small)) {
+        height: prem((($font-size-small *  $line-height-default) * 5) + (15)); // five lines
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+        height: prem((($font-size-normal *  $line-height-default) * 5) + (17)); // five lines
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+        height: prem((($font-size-x-large *  $line-height-default) * 5) + (24)); // five lines
+    }
+
 }
 
 // select
@@ -233,8 +320,11 @@ select {
 
     &:invalid {
         color: $dark-grey;
+        &:hover,
+        &:focus {
+            color: $field-hover-color;
+        }
     }
-
 }
 
 // options
