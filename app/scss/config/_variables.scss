@@ -112,15 +112,23 @@ $link-colors: (
 );
 
 // form elements colors
-$field-color:                   $black;
-$field-bg-color:                $gainsboro;
-$field-border-color:            $dim-grey;
-$field-hover-color:             $field-color;
-$field-hover-bg-color:          $white;
-$field-hover-border-color:      $black;
-$field-active-color:            $black;
-$field-active-bg-color:         $white;
-$field-active-border-color:     $black;
+$field-colors: (
+    field: (
+        color:          $black,
+        background:     $gainsboro,
+        border:         $dim-grey
+    ),
+    hover: (
+        color:          $black,
+        background:     $white,
+        border:         $black
+    ),
+    active: (
+        color:          $black,
+        background:     $white,
+        border:         $black
+    )
+);
 
 // error color
 $error-color: $safety-orange;

@@ -91,11 +91,11 @@ label {
     width: 100%;
     font-family: unquote($default-font + ', ' + $default-font-fallback);
     font-weight: 300;
-    color: $field-color;
-    border: 2px solid $field-border-color;
+    color: map-deep-get($field-colors, field, color);
+    border: 2px solid map-deep-get($field-colors, field, border);
     border-radius: 5px;
     line-height: $line-height-default;
-    background-color: $field-bg-color;
+    background-color: map-deep-get($field-colors, field, background);
     @include no-highlight;
 
     @include breakpoint(map-get($breakpoints, medium)) {
@@ -111,11 +111,11 @@ label {
 
     &:hover,
     &:focus {
-        border-color: $field-hover-border-color;
+        border-color: map-deep-get($field-colors, hover, border);
     }
 
     &:focus {
-        background-color: $field-active-bg-color;
+        background-color: map-deep-get($field-colors, active, background);
     }
 
     &::placeholder {
@@ -123,7 +123,7 @@ label {
     }
 
     &:hover::placeholder {
-        color: $field-hover-color;
+        color: map-deep-get($field-colors, hover, color);
     }
 }
 
@@ -181,7 +181,7 @@ input[type="radio"] {
             width: $_icon-size;
             height: $_icon-size;
             display: block;
-            border: 2px solid lighten($field-border-color, 10%);
+            border: 2px solid lighten(map-deep-get($field-colors, field, border), 10%);
             border-radius: 100%;
             position: absolute;
         }
@@ -191,7 +191,7 @@ input[type="radio"] {
             left: ($_icon-size - $_icon-inner-size) / 2;
             width: $_icon-inner-size;
             height: $_icon-inner-size;
-            background-color: lighten($field-border-color, 30%);
+            background-color: lighten(map-deep-get($field-colors, field, border), 30%);
             border-style: none;
         }
         
@@ -199,11 +199,11 @@ input[type="radio"] {
         .no-touchevents &:hover {
             
             &:before {
-                border-color: $field-hover-border-color;
+                border-color: map-deep-get($field-colors, hover, border);
             }
 
             &:after {
-                background-color: $field-hover-border-color;
+                background-color: map-deep-get($field-colors, hover, border);
             }
         }
 
@@ -231,7 +231,6 @@ input[type="radio"] {
                 left: ($_icon-size - $_icon-inner-size) / 2;
                 width: $_icon-inner-size;
                 height: $_icon-inner-size;
-                background-color: lighten($field-border-color, 30%);
             }
         }
 
@@ -255,7 +254,6 @@ input[type="radio"] {
                 left: ($_icon-size - $_icon-inner-size) / 2;
                 width: $_icon-inner-size;
                 height: $_icon-inner-size;
-                background-color: lighten($field-border-color, 30%);
             }
         }
 
@@ -265,12 +263,12 @@ input[type="radio"] {
     &:checked {
         // radio button icons
         & + label {
-            color: $field-active-color;
+            color: map-deep-get($field-colors, field, color);
             &:before {
-                border-color: $field-active-border-color;
+                border-color: map-deep-get($field-colors, active, border);
             }
             &:after {
-                background-color: $field-active-border-color;
+                background-color: map-deep-get($field-colors, active, border);
             }
         }
     }
@@ -305,7 +303,6 @@ textarea {
     @include breakpoint(map-get($breakpoints, large)) {
         height: prem((($font-size-x-large *  $line-height-default) * 5) + (24)); // five lines
     }
-
 }
 
 // select
@@ -317,14 +314,6 @@ select {
     // remove drop down arrow for IE
     &::-ms-expand {
         display: none;
-    }
-
-    &:invalid {
-        color: $dark-grey;
-        &:hover,
-        &:focus {
-            color: $field-hover-color;
-        }
     }
 }
 
