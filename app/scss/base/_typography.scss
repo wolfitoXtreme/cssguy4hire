@@ -485,6 +485,38 @@ b, strong {
     font-weight: 600; // matches semi-bold weight
 } 
 
+// links
+a {
+    &:link {
+        color: map-get($link-colors, link);
+    }
+    &:visited {
+        color: map-get($link-colors, visited);
+    }
+    &:hover {
+        color: map-get($link-colors, hover);
+    }
+    &:active {
+        color: map-get($link-colors, active);
+    }
+
+}
+
+// link color classes
+@each $color in map_keys($link-colors) {
+    .link-color-#{$color} {
+        color: map-get($link-colors, $color);
+
+        // force color states
+        &:link,
+        &:visited,
+        &:hover,
+        &:active {
+            color: map-get($link-colors, $color);
+        }
+    }
+}
+
 // font family classes
 @each $font in map_keys($fonts) {
     

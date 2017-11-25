@@ -99,6 +99,17 @@ $oil:               nth(map-get($colors, oil), 1);
 $moon-yellow:       nth(map-get($colors, moon-yellow), 1);
 $orange-peel:       nth(map-get($colors, orange-peel), 1);
 $safety-orange:     nth(map-get($colors, safety-orange), 1);
+$tawny:             nth(map-get($colors, tawny), 1);
+$radical-red:       nth(map-get($colors, radical-red), 1);
+$husk:              nth(map-get($colors, husk), 1);
+
+// link colors
+$link-colors: (
+    'link':         $orange-peel,
+    'visited':      $husk,
+    'hover':        $tawny,
+    'active':       $radical-red
+);
 
 // form elements colors
 $field-color:                   $black;
