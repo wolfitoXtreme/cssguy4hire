@@ -132,3 +132,23 @@ $field-colors: (
 
 // error color
 $error-color: $safety-orange;
+
+// button colors
+$btn-colors: (
+    default: (
+        color:                  $black,
+        background:             $gainsboro,
+        border:                 rgba($black, 0.32),
+        hover-color:            $black,
+        hover-background:       $white,
+        hover-border:           $black
+    ),
+    reset: (
+        color:                  rgba($black, 0.32),
+        background:             $gainsboro,
+        border:                 rgba($black, 0.10),
+        hover-color:            $black,
+        hover-background:       $white,
+        hover-border:           $black
+    )
+)

@@ -22,7 +22,9 @@
 
     // form-buttons
     &-buttons {
-
+        margin: 0 prem(-4px); // allows containing buttons margins to fit with the layout
+        font-size: 0;
+        line-height: 0;
     }
 
 }
@@ -325,5 +327,72 @@ option option[value=""][disabled] {
 // buttons
 button, 
 .button {
+    margin: prem(4px);
+    padding: prem(11px) prem(21px) prem(7px);
+    font: normal #{prem($font-size-xx-small)}/#{$line-height-default} oswald;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: map-deep-get($btn-colors, default, color);
+    letter-spacing: -0.030em;
+    display: inline-block;
+    cursor: pointer;
+    border: 2px solid map-deep-get($btn-colors, default, border);
+    border-radius: 5px;
+    background-color: map-deep-get($btn-colors, default, background);
+    transition: transform 40ms ease-in 0ms;
+    @include no-highlight;
+    
+    @include breakpoint(map-get($breakpoints, small)) {
+        padding-left: prem(23px);
+        padding-right: prem(23px);
+        font-size: prem($font-size-small);
+    }
 
+    @include breakpoint(map-get($breakpoints, medium)) {
+        padding: prem(12px) prem(29px) prem(8px);
+        font-size: prem($font-size-normal);
+        border-radius: 6px;
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+        padding: prem(18px) prem(39px) prem(14px);
+        font-size: prem($font-size-x-large);
+        border-width: 3px;
+        border-radius: 7px;
+    }
+
+    &:link,
+    &:visited {
+        color: map-deep-get($btn-colors, default, color);
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+        border-color: map-deep-get($btn-colors, default, hover-border);
+        background-color: map-deep-get($btn-colors, default, hover-background);
+    }
+
+    &:active,
+    &:focus {
+        transform: scale(0.95);
+    }
+
+    &[type="reset"] {
+        color: map-deep-get($btn-colors, reset, color);
+        border-color: map-deep-get($btn-colors, reset, border);
+        
+        &:link,
+        &:visited {
+            color: map-deep-get($btn-colors, reset, color);
+        }
+
+        &:hover,
+        &:active,
+        &:focus {
+            color: map-deep-get($btn-colors, reset, hover-color);
+            border-color: map-deep-get($btn-colors, reset, hover-border);
+            background-color: map-deep-get($btn-colors, reset, hover-background);
+        }
+    }
 }
