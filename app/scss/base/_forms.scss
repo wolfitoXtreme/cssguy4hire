@@ -78,7 +78,6 @@ label {
             margin-top: -1px;
         }
     }
-
 }
 
 
@@ -195,11 +194,14 @@ input[type="radio"] {
             background-color: lighten($field-border-color, 30%);
             border-style: none;
         }
-
-        &:hover {
+        
+        // hover state change only for non touch devices (sticky hover)
+        .no-touchevents &:hover {
+            
             &:before {
                 border-color: $field-hover-border-color;
             }
+
             &:after {
                 background-color: $field-hover-border-color;
             }
@@ -283,7 +285,6 @@ input[type="checkbox"] {
             border-radius: 0;
         }
     }
-
 }
 
 // text areas
@@ -332,3 +333,8 @@ option option[value=""][disabled] {
     display: none;
 }
 
+// buttons
+button, 
+.button {
+
+}
