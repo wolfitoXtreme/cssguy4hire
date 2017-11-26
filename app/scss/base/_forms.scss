@@ -324,11 +324,44 @@ option option[value=""][disabled] {
     display: none;
 }
 
+
+// 
 // buttons
-button, 
+// 
+
+
+// default buttons
+button {
+    @extend .button;
+
+    &[type="reset"] {
+        color: map-deep-get($btn-colors, reset, color);
+        border-color: map-deep-get($btn-colors, reset, border);
+        
+        &:link,
+        &:visited {
+            color: map-deep-get($btn-colors, reset, color);
+        }
+
+        &:hover,
+        &:active,
+        &:focus {
+            color: map-deep-get($btn-colors, reset, hover-color);
+            border-color: map-deep-get($btn-colors, reset, hover-border);
+            background-color: map-deep-get($btn-colors, reset, hover-background);
+        }
+    }
+}
+
+// button
 .button {
+    $_padding-x-small:  prem(11px) prem(21px) prem(7px);
+    $_padding-small:    prem(12px) prem(23px) prem(7px);
+    $_padding-medium:   prem(13px) prem(29px) prem(8px);
+    $_padding-large:    prem(19px) prem(39px) prem(13px);
+
     margin: prem(4px);
-    padding: prem(11px) prem(21px) prem(7px);
+    padding: $_padding-x-small;
     font: normal #{prem($font-size-xx-small)}/#{$line-height-default} oswald;
     text-transform: uppercase;
     text-decoration: none;
@@ -343,19 +376,18 @@ button,
     @include no-highlight;
     
     @include breakpoint(map-get($breakpoints, small)) {
-        padding-left: prem(23px);
-        padding-right: prem(23px);
+        padding: $_padding-small;
         font-size: prem($font-size-small);
     }
 
     @include breakpoint(map-get($breakpoints, medium)) {
-        padding: prem(12px) prem(29px) prem(8px);
+        padding: $_padding-medium;
         font-size: prem($font-size-normal);
         border-radius: 6px;
     }
 
     @include breakpoint(map-get($breakpoints, large)) {
-        padding: prem(18px) prem(39px) prem(14px);
+        padding: $_padding-large;
         font-size: prem($font-size-x-large);
         border-width: 3px;
         border-radius: 7px;
@@ -378,21 +410,81 @@ button,
         transform: scale(0.95);
     }
 
-    &[type="reset"] {
-        color: map-deep-get($btn-colors, reset, color);
-        border-color: map-deep-get($btn-colors, reset, border);
+    // button-icon
+    &-icon {
+        $_icon-width: nth(map-get($icons, ui-button-arrow), 1);
+        $_icon-height: nth(map-get($icons, ui-button-arrow), 2);
+        $_new-width: 6px;
+        $_new-height: stretchBySize($_icon-width, $_icon-height, $_new-width);
+        $_new-padding-right: nth($_padding-x-small, 2) + prem($_new-width - 2);
         
-        &:link,
-        &:visited {
-            color: map-deep-get($btn-colors, reset, color);
+        padding-right: $_new-padding-right;
+        position: relative;
+
+        // button-icon__icon
+        &__icon {
+            margin: (-$_new-height / 2) (-($_new-width - 2) / 2) 0 0;
+            right: ($_new-padding-right / 2);
+            top: 50%;
+            width: $_new-width;
+            height: $_new-height;
+            display: block;
+            position: absolute;
+            fill: map-deep-get($btn-colors, default, icon);
+
+            // button-icon:hover button-icon
+            .button-icon:hover & {
+                fill: map-deep-get($btn-colors, default, hover-icon);
+            }
+
         }
 
-        &:hover,
-        &:active,
-        &:focus {
-            color: map-deep-get($btn-colors, reset, hover-color);
-            border-color: map-deep-get($btn-colors, reset, hover-border);
-            background-color: map-deep-get($btn-colors, reset, hover-background);
+        @include breakpoint(map-get($breakpoints, small)) {
+            $_new-width: 7px;
+            $_new-height: stretchBySize($_icon-width, $_icon-height, $_new-width);
+            $_new-padding-right: nth($_padding-small, 2) + prem($_new-width - 2);
+
+            padding-right: $_new-padding-right;
+
+            // button-icon__icon
+            &__icon {
+                margin: (-$_new-height / 2) (-($_new-width - 2) / 2) 0 0;
+                right: ($_new-padding-right / 2);
+                width: $_new-width;
+                height: $_new-height;
+            }
+        }
+
+        @include breakpoint(map-get($breakpoints, medium)) {
+            $_new-width: 7px;
+            $_new-height: stretchBySize($_icon-width, $_icon-height, $_new-width);
+            $_new-padding-right: nth($_padding-medium, 2) + prem($_new-width - 2);
+
+            padding-right: $_new-padding-right;
+
+            // button-icon__icon
+            &__icon {
+                margin: (-$_new-height / 2) (-($_new-width - 2) / 2) 0 0;
+                right: ($_new-padding-right / 2);
+                width: $_new-width;
+                height: $_new-height;
+            }
+        }
+
+        @include breakpoint(map-get($breakpoints, large)) {
+            $_new-width: 10px;
+            $_new-height: stretchBySize($_icon-width, $_icon-height, $_new-width);
+            $_new-padding-right: nth($_padding-large, 2) + prem($_new-width - 2);
+
+            padding-right: $_new-padding-right;
+
+            // button-icon__icon
+            &__icon {
+                margin: (-$_new-height / 2) (-($_new-width - 2) / 2) 0 0;
+                right: ($_new-padding-right / 2);
+                width: $_new-width;
+                height: $_new-height;
+            }
         }
     }
 }

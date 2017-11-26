@@ -139,9 +139,11 @@ $btn-colors: (
         color:                  $black,
         background:             $gainsboro,
         border:                 rgba($black, 0.32),
+        icon:                   rgba($black, 0.32),
         hover-color:            $black,
         hover-background:       $white,
-        hover-border:           $black
+        hover-border:           $black,
+        hover-icon:             $black
     ),
     reset: (
         color:                  rgba($black, 0.32),
