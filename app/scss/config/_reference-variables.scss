@@ -1,0 +1,45 @@
+// 
+// reference variables
+// overrides project variables for consistency purposes
+// within the references UI file
+// 
+
+// form elements colors
+$field-colors: (
+    field: (
+        color:          $black,
+        background:     $gainsboro,
+        border:         $dim-grey
+    ),
+    hover: (
+        color:          $black,
+        background:     $white,
+        border:         $black
+    ),
+    active: (
+        color:          $black,
+        background:     $white,
+        border:         $black
+    )
+);
+// button colors
+$btn-colors: (
+    default: (
+        color:                  $black,
+        background:             $gainsboro,
+        border:                 rgba($black, 0.32),
+        icon:                   rgba($black, 0.32),
+        hover-color:            $black,
+        hover-background:       $white,
+        hover-border:           $black,
+        hover-icon:             $black
+    ),
+    reset: (
+        color:                  rgba($black, 0.32),
+        background:             $gainsboro,
+        border:                 rgba($black, 0.10),
+        hover-color:            $black,
+        hover-background:       $white,
+        hover-border:           $black
+    )
+)

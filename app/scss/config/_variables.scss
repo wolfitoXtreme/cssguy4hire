@@ -93,7 +93,10 @@ $lucky-point:       nth(map-get($colors, lucky-point), 1);
 $dark-slate-blue:   nth(map-get($colors, dark-slate-blue), 1);
 $myrtle:            nth(map-get($colors, myrtle), 1);
 $falu-red:          nth(map-get($colors, falu-red), 1);
+$turkish-rose:      nth(map-get($colors, turkish-rose), 1);
+$scarlett:          nth(map-get($colors, scarlett), 1);
 $siren:             nth(map-get($colors, siren), 1);
+$pohutukawa:        nth(map-get($colors, pohutukawa), 1);
 $eternity:          nth(map-get($colors, eternity), 1);
 $oil:               nth(map-get($colors, oil), 1);
 $moon-yellow:       nth(map-get($colors, moon-yellow), 1);
@@ -114,19 +117,19 @@ $link-colors: (
 // form elements colors
 $field-colors: (
     field: (
-        color:          $black,
-        background:     $gainsboro,
-        border:         $dim-grey
+        color:          $white,
+        background:     $pohutukawa,
+        border:         $turkish-rose
     ),
     hover: (
-        color:          $black,
+        color:          $white,
         background:     $white,
-        border:         $black
+        border:         rgba($white, 0.7)
     ),
     active: (
-        color:          $black,
-        background:     $white,
-        border:         $black
+        color:          $white,
+        background:     $scarlett,
+        border:         rgba($white, 0.7)
     )
 );
 
