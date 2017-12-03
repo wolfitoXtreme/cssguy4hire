@@ -16,7 +16,8 @@ var domAdjust = require('./domAdjust'),
     svgIcons = require('./svgIcons'),
     panelNav = require('./panelNav'),
     slider = require('./slider'),
-    onScreenTest = require('./onScreenTest');
+    onScreenTest = require('./onScreenTest'),
+    forms = require('./forms');
 
 // app
 $(function() {
@@ -29,6 +30,7 @@ $(function() {
             svgIcons.init();
             panelNav.init();
             slider.init();
+            forms.init();
 
             // test enquire
             enquire.register('screen and (min-width:' + breakpoints.get('xx-small') + ') and (max-width:' + breakpoints.get('x-small') + ')', {

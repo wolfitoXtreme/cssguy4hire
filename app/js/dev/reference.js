@@ -8,7 +8,8 @@ require('modernizr');
 var WebFont = require('webfontloader');
 
 // load project modules
-var onScreenTest = require('./onScreenTest');
+var onScreenTest = require('./onScreenTest'),
+    forms = require('./forms');
 
 window.fontsReady = false;
 
@@ -48,6 +49,7 @@ $(function() {
     var reference = {
         init: function() {
             console.log('reference js is initialized');
+            forms.init();
         }
     }
 

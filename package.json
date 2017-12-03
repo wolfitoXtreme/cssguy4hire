@@ -22,7 +22,8 @@
     "enquire": "./node_modules/enquire.js/dist/enquire.min.js",
     "touchswipe": "./node_modules/jquery-touchswipe/jquery.touchSwipe.js",
     "mousewheel": "./node_modules/jquery-mousewheel/jquery.mousewheel.js",
-    "slick": "./app/js/dev/lib/slick.min.js"
+    "slick": "./app/js/dev/lib/slick.min.js",
+    "selectbox": "./app/js/dev/lib/jquery.selectBox.js"
   },
   "browserify-shim": {
     "jquery": "$",
@@ -59,6 +60,7 @@
     "gulp-util": "^3.0.8",
     "image-size": "^0.6.1",
     "imagemin-jpeg-recompress": "^5.1.0",
+    "ismobilejs": "^0.4.1",
     "jquery-mousewheel": "^3.1.13",
     "jquery-touchswipe": "^1.6.15",
     "json-sass": "^1.3.5",
