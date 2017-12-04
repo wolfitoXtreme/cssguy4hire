@@ -219,3 +219,17 @@ $_arrow-width:          23px;
 .selectBox-inline.selectBox-disabled .selectBox-options a {
     background-color: transparent !important;
 }
+
+.selectBox-mobile-wrapper {
+    position: relative;
+    display: inline-block;
+
+    select {
+        position: absolute;
+        z-index: 1;
+        background-color: pink;
+        border-color: pink;
+        opacity: 0;
+        display: inline-block !important;
+    }
+}
