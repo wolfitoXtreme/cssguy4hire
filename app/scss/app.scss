@@ -16,12 +16,6 @@
 @import 'helpers/helpers';
 
 // 
-// lib
-// 
-@import 'lib/slick';
-@import 'lib/selectbox';
-
-// 
 // Base
 // 
 @import 'base/normalize';
@@ -29,6 +23,12 @@
 @import 'base/typography';
 @import 'base/forms';
 @import 'base/colors';
+
+// 
+// lib
+// 
+@import 'lib/slick';
+@import 'lib/selectbox';
 
 // 
 // Components
