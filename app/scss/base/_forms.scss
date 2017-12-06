@@ -90,7 +90,7 @@ label {
 %fields {
     margin: 0;
     padding: prem(5px) prem(8px) prem(6px);
-    width: prem(200px);
+    width: prem(220px);
     font-family: unquote($default-font + ', ' + $default-font-fallback);
     font-weight: 300;
     color: map-deep-get($field-colors, field, color);
