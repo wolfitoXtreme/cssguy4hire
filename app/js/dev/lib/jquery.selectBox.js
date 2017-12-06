@@ -158,7 +158,11 @@
         } else {
             // Dropdown controls
             var label = $('<span class="selectBox-label" />'),
-                arrow = $('<span class="selectBox-arrow" />');
+                arrow = $('<span class="selectBox-arrow" />'),
+                arrowIcon = $('<svg class="selectBox-arrow__icon" width="0" height="0"><use xlink:href="#ui-select-arrow" /></svg>');
+
+            // include arrow icon
+            arrowIcon.appendTo(arrow);
 
             // Update label
             label.attr('class', this.getLabelClass()).html(this.getLabelHtml());
