@@ -8,6 +8,8 @@ $_border-color-active:  map-deep-get($field-colors, active, border);
 $_border-width:         2px;
 $_bg-color:             map-deep-get($field-colors, field, background);
 $_bg-color-active:      map-deep-get($field-colors, active, background);
+$_icon-color:           map-deep-get($btn-colors, default, icon);
+$_icon-color-active:    map-deep-get($btn-colors, default, hover-icon);
 $_arrow-width:          23px;
 
 // selectBox-dropdown
@@ -29,26 +31,27 @@ $_arrow-width:          23px;
         color: $_color;
     }
 
-    &:focus,
-    &:focus .selectBox-arrow {
-        border-color: $_border-color;
-    }
-
     &.wide {
         width: 100% !important;
     }
+    
+    // selectBox-dropdown selectBox-menuShowing
+    &.selectBox-menuShowing {
+        border-color: $_border-color-active;
 
-    // selectBox-dropdown selectBox-menuShowing-bottom
-    &.selectBox-menuShowing-bottom {
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-    }
+        // selectBox-dropdown selectBox-menuShowing-bottom
+        &-bottom {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
 
-    // selectBox-dropdown selectBox-menuShowing-top
-    &.selectBox-menuShowing-top {
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-    }
+        // selectBox-dropdown selectBox-menuShowing-top
+        &-top {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+    }    
+
 }
 
 // selectBox-label 
@@ -68,8 +71,46 @@ $_arrow-width:          23px;
     right: 0;
     width: prem($_arrow-width);
     height: 100%;
-    background: url(jquery.selectBox-arrow.gif) 50% center no-repeat;
     border-left: 1px solid $_border-color;
+
+    // selectBox-dropdown:hover selectBox-arrow
+    .selectBox-dropdown:hover &,
+    .selectBox-dropdown:focus & {
+        border-color: $_border-color-active;
+    }
+
+    // selectBox-arrow__icon
+    &__icon {
+        $_icon-width: nth(map-get($icons, ui-select-arrow), 1);
+        $_icon-height: nth(map-get($icons, ui-select-arrow), 2);
+        $_new-width: 12px;
+        $_new-height: stretchBySize($_icon-width, $_icon-height, $_new-width);
+
+        margin: (-$_new-height / 2) (-($_new-width - 2) / 2) 0;
+        top: 50%;
+        right: 50%;
+        width: $_new-width;
+        height: $_new-height;
+        display: block;
+        position: absolute;
+        fill: $_icon-color;
+        @include transitions($default-duration, ease-out, 0ms, (
+            transform,
+            fill
+        ));
+
+        // selectBox-dropdown:hover selectBox-arrow__icon
+        .selectBox-dropdown:hover &,
+        .selectBox-dropdown:focus & {
+            fill: $_icon-color-active;
+        }
+
+        // selectBox-menuShowing selectBox-arrow__icon
+        .selectBox-menuShowing & {
+            transform: rotate(180deg);
+            fill: $_icon-color-active;
+        }
+    }
 }
 
 // selectBox-dropdown-menu

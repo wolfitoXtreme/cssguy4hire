@@ -139,21 +139,25 @@ $error-color: $safety-orange;
 // button colors
 $btn-colors: (
     default: (
-        color:                  $black,
-        background:             $gainsboro,
-        border:                 rgba($black, 0.32),
-        icon:                   rgba($black, 0.32),
-        hover-color:            $black,
-        hover-background:       $white,
-        hover-border:           $black,
-        hover-icon:             $black
+        color:                  $white,
+        background:             $siren,
+        border:                 rgba($white, 0.32),
+        icon:                   rgba($white, 0.32),
+        hover-color:            $white,
+        hover-background:       rgba($white, 0.08),
+        hover-border:           rgba($white, 0.7),
+        hover-icon:             rgba($white, 0.7)
     ),
     reset: (
-        color:                  rgba($black, 0.32),
-        background:             $gainsboro,
-        border:                 rgba($black, 0.10),
-        hover-color:            $black,
-        hover-background:       $white,
-        hover-border:           $black
+        color:                  rgba($white, 0.32),
+        background:             $siren,
+        border:                 rgba($white, 0.10),
+        hover-color:            $white,
+        hover-background:       rgba($white, 0.08),
+        hover-border:           $white
     )
-)
+);
+
+// default transitions
+$default-duration: 300ms;
+$default-delay: 100ms;

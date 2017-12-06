@@ -188,7 +188,7 @@ input[type="radio"] {
             width: $_icon-size;
             height: $_icon-size;
             display: block;
-            border: 2px solid lighten(map-deep-get($field-colors, field, border), 10%);
+            border: 2px solid map-deep-get($field-colors, field, border);
             border-radius: 100%;
             position: absolute;
         }
@@ -198,7 +198,7 @@ input[type="radio"] {
             left: ($_icon-size - $_icon-inner-size) / 2;
             width: $_icon-inner-size;
             height: $_icon-inner-size;
-            background-color: lighten(map-deep-get($field-colors, field, border), 30%);
+            background-color: rgba(map-deep-get($field-colors, field, border), 0.4);
             border-style: none;
         }
         

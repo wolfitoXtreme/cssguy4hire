@@ -115,3 +115,23 @@
 %no-highlight {
     @include no-highlight($extend: false);
 }
+
+// transitions
+@mixin transitions($duration, $timingFunction, $delay, $properties:all){
+    
+        $propsAndTime: ();
+        
+        @each $prop in $properties {
+            
+            // @if $prop == 'transform' {
+            //     $prop: $prop;
+            // }
+
+            $prop: $prop;
+            
+            $propsAndTime: append($propsAndTime, ($prop $duration $timingFunction $delay), comma);
+        }
+        
+        transition: $propsAndTime;
+
+}
