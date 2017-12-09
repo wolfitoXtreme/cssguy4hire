@@ -2,7 +2,16 @@
 
 var selectbox = require('selectbox'),
     debounce = require('lodash/debounce'),
-    isMobile = require('ismobilejs');
+    isMobile = require('ismobilejs'),
+    perfectScrollbar = require('perfectScrollbar');
+
+
+var perfectScrollbarOptions = {
+    minScrollbarLength: 15,
+    maxScrollbarLength: 60,
+    suppressScrollX: true,
+    scrollYMarginOffset: 0
+};
 
 // 
 // initialize selectFields
@@ -15,10 +24,10 @@ var selectFields = {
         }
         this.isMobile = isMobile.phone;
 
-        console.log('isMobile = ' + this.isMobile);
-           
+        // initialize only if there are selects present
         if(this.selects.length) {
             // if mobile, create wrapper for native select and selectBox replacement
+            // otherwise initialize selectBox
             if(this.isMobile) {
                 this.selects.each(function(i){
                     var $select = $(this),
@@ -29,14 +38,19 @@ var selectFields = {
                     $select.before($selectWrapper);
                     $select.appendTo($selectWrapper);
 
+                    // initialize mobile behavior
                     selectFields.mobile($select);
                 });
             }
             else {
                 // initialize selectBox plugin
                 this.selects.selectBox(this.selectBoxOptions);
-                // handle resizing for non mobile devices
-                this.resize();
+
+                // handle open/close events
+                this.selects.each(function(i) {
+                    selectFields.selectOpen($(this));
+                });
+
             }
         }
     },
@@ -72,25 +86,29 @@ var selectFields = {
 
     },
 
-    // resize events to update options width
-    resize: function() {
-        $(window).on({
-            'resize.select.debounce': debounce(
-                function() {
-                    console.log('resizing!!');
-                    
-                    // refresh select options width on resize
-                    selectFields.selects.next('.selectBox-dropdown').each(function(i){
-                        var $options = $(this).data('selectBox-options'),
-                            optionsWidth = $(this).innerWidth() >= $options.innerWidth() ? $(this).innerWidth() + 'px' : 'auto';
+    selectOpen: function(select) {
+        var $select = select;
 
-                        $options.width(optionsWidth);
+        $select.on({
+            'open': function(event) {
 
-                        console.log($options.length);
+                var $dropDown = $select.next('.selectBox-dropdown'),
+                    $options = $dropDown.data('selectBox-options'),
+                    optionsWidth = $dropDown.innerWidth() >= $options.innerWidth() ? $dropDown.innerWidth() + 'px' : 'auto';
 
-                    });
-                }
-            , 200),
+                $options.width(optionsWidth);
+
+                // initialize scrollbar
+                $options.css('overflow', 'hidden').perfectScrollbar(perfectScrollbarOptions);
+
+            },
+            'close': function(event) {
+                var $dropDown = $select.next('.selectBox-dropdown'),
+                    $options = $dropDown.data('selectBox-options');
+
+                // destroy scrollbar
+                $options.perfectScrollbar('destroy');
+            }
         });
     }
 }
