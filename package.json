@@ -23,7 +23,8 @@
     "touchswipe": "./node_modules/jquery-touchswipe/jquery.touchSwipe.js",
     "mousewheel": "./node_modules/jquery-mousewheel/jquery.mousewheel.js",
     "slick": "./app/js/dev/lib/slick.min.js",
-    "selectbox": "./app/js/dev/lib/jquery.selectBox.js"
+    "selectbox": "./app/js/dev/lib/jquery.selectBox.js",
+    "perfectScrollbar": "./app/js/dev/lib/perfect-scrollbar.jquery.min.js"
   },
   "browserify-shim": {
     "jquery": "$",
