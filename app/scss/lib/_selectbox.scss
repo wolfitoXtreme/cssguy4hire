@@ -56,6 +56,8 @@ $_arrow-width:          23px;
 
 // selectBox-label 
 .selectBox-label {
+    margin-bottom: prem(-2px);
+    padding-bottom: prem(2px);
     width: calc(100% - #{prem($_arrow-width)}) !important;
     vertical-align: top;
     display: inline-block;
@@ -192,7 +194,7 @@ $_arrow-width:          23px;
     }
 
     a {
-        padding: prem(2px) prem(2px) prem(2px) prem(8px);
+        padding: prem(2px) prem(18px) prem(2px) prem(8px);
         color: $_color;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -200,11 +202,11 @@ $_arrow-width:          23px;
         display: block;
 
         @include breakpoint(map-get($breakpoints, medium)) {
-            padding: prem(3px) prem(3px) prem(3px) prem(8px);
+            padding: prem(3px) prem(18px) prem(3px) prem(8px);
         }
         
         @include breakpoint(map-get($breakpoints, large)) {
-            padding: prem(4px) prem(4px) prem(4px) prem(14px);
+            padding: prem(4px) prem(18px) prem(4px) prem(14px);
         }
 
         &:link,
