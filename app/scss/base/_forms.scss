@@ -120,11 +120,13 @@ label {
         background-color: map-deep-get($field-colors, active, background);
     }
 
-    &::placeholder {
+    &::placeholder, 
+    &.placeholder {
         color: $dark-grey;
     }
 
-    &:hover::placeholder {
+    &:hover::placeholder,
+    &:hover.placeholder {
         color: map-deep-get($field-colors, hover, color);
     }
 

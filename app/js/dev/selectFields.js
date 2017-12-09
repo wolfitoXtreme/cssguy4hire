@@ -26,6 +26,7 @@ var selectFields = {
 
         // initialize only if there are selects present
         if(this.selects.length) {
+            
             // if mobile, create wrapper for native select and selectBox replacement
             // otherwise initialize selectBox
             if(this.isMobile) {
@@ -50,8 +51,29 @@ var selectFields = {
                 this.selects.each(function(i) {
                     selectFields.selectOpen($(this));
                 });
-
             }
+
+            // set placeholder
+            this.selects.each(function(i){
+                selectFields.setPlaceholder($(this));
+            });
+
+        }
+    },
+
+    // set placeholder
+    setPlaceholder: function(select, remove) {
+
+        var $select = select,
+            $dropDown = $select.next('.selectBox-dropdown'),
+            currentVal = $select.find(':selected').val(),
+            placeholderClass = 'placeholder';
+
+        if(currentVal === '' && remove !== true) {
+            $select.add($dropDown ).addClass(placeholderClass);
+        }
+        else if(currentVal !== '' || remove == true) {
+            $select.add($dropDown ).removeClass(placeholderClass);
         }
     },
 
@@ -63,7 +85,7 @@ var selectFields = {
             $dropDown = $('<div class="selectBox-dropdown" />'),
             $arrowIcon = $('<svg class="selectBox-arrow__icon" width="0" height="0"><use xlink:href="#ui-select-arrow" /></svg>'),
             selectClass = $select.attr('class');
-        
+
         // include arrow icon
         $arrowIcon.appendTo($arrow);
 
@@ -76,16 +98,28 @@ var selectFields = {
         // add label value
         $label.text($select.find(':selected').text());
 
+
         // handle on change events
         $select.on({
             'change': function(event) {
-                var currentValue = $select.find(':selected').text();
-                $label.text(currentValue);
+                var currentOption = $select.find(':selected').text();
+                $label.text(currentOption);
+            },
+            'focus': function(event) {
+                console.log('click');
+
+                // remove placeholder class
+                selectFields.setPlaceholder($select, true);
+            },
+            'blur': function(event) {
+                // set placeholder
+                selectFields.setPlaceholder($select);
             }
         });
 
     },
 
+    // refresh size and scrollbar when opened
     selectOpen: function(select) {
         var $select = select;
 
@@ -108,6 +142,9 @@ var selectFields = {
 
                 // destroy scrollbar
                 $options.perfectScrollbar('destroy');
+
+                // set placeholder
+                selectFields.setPlaceholder($select);
             }
         });
     }
