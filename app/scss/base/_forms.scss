@@ -112,11 +112,13 @@ label {
     }
 
     &:hover,
-    &:focus {
+    &:focus,
+    &.focus {
         border-color: map-deep-get($field-colors, hover, border);
     }
 
-    &:focus {
+    &:focus,
+    &.focus {
         background-color: map-deep-get($field-colors, active, background);
     }
 

@@ -106,14 +106,17 @@ var selectFields = {
                 $label.text(currentOption);
             },
             'focus': function(event) {
-                console.log('click');
 
                 // remove placeholder class
                 selectFields.setPlaceholder($select, true);
+
+                $select.next($dropDown).addClass('focus');
             },
             'blur': function(event) {
                 // set placeholder
                 selectFields.setPlaceholder($select);
+
+                $select.next($dropDown).removeClass('focus');
             }
         });
 
