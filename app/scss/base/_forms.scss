@@ -122,6 +122,7 @@ label {
         background-color: map-deep-get($field-colors, active, background);
     }
 
+    // placeholder (native control and replacement. ex. selectBox)
     &::placeholder, 
     &.placeholder {
         color: $dark-grey;
@@ -267,8 +268,6 @@ input[type="radio"] {
                 height: $_icon-inner-size;
             }
         }
-
-
     }
 
     &:checked {
@@ -297,10 +296,12 @@ input[type="checkbox"] {
 }
 
 // text areas
-textarea {
+textarea,
+.textarea {
     height: prem((($font-size-default *  $line-height-default) * 5) + (13)); // five lines
     overflow-x: hidden;
     resize: none;
+    
     @extend %fields;
 
     @include breakpoint(map-get($breakpoints, small)) {
@@ -313,6 +314,57 @@ textarea {
 
     @include breakpoint(map-get($breakpoints, large)) {
         height: prem((($font-size-x-large *  $line-height-default) * 5) + (24)); // five lines
+    }
+}
+
+// text area replacement
+.textarea {
+    overflow: hidden;
+    position: relative;
+    @extend %fields;
+
+    &.focus {
+        border-color: map-deep-get($field-colors, hover, border);
+        background-color: map-deep-get($field-colors, active, background);
+    }
+
+    // textarea-wrapper
+    &-wrapper {
+        position: relative;
+        display: inline-block;
+
+        // hide real text area
+        textarea {
+            display: none;
+        }
+    }
+
+    // textarea__place-holder
+    &__place-holder {
+        padding: prem(5px) prem(8px) prem(6px); // padding matches filed paddings
+        top: 0;
+        left: 0;
+        position: absolute;
+        z-index: 0;
+        display: none;
+
+        @include breakpoint(map-get($breakpoints, medium)) {
+            padding: prem(6px) prem(8px) prem(7px);
+        }
+        
+        @include breakpoint(map-get($breakpoints, large)) {
+            padding: prem(9px) prem(14px) prem(11px);
+        }
+    }
+    
+    // textarea__box-editable
+    &__box-editable {
+        height: 100%;
+        width: 100%;
+        z-index: 1;
+        position: relative;
+        display: inline-block;
+        @include no-highlight;
     }
 }
 
