@@ -1,11 +1,10 @@
 'use strict';
 
 var selectbox = require('selectbox'),
-    debounce = require('lodash/debounce'),
     isMobile = require('ismobilejs'),
     perfectScrollbar = require('perfectScrollbar');
 
-
+// perfectScrollbar default Options
 var perfectScrollbarOptions = {
     minScrollbarLength: 15,
     maxScrollbarLength: 60,
