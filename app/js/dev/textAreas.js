@@ -105,8 +105,8 @@ var textAreaFields = {
                                             .replace(/<\/div>/g, '\n')
                                             .replace(/&nbsp;/g, ' ')
                                             .replace(/<br>/g, '\n')
-                                            .replace(/<p>/g, '\n')
-                                            .replace(/<\/p>/g, '\n');
+                                            .replace(/<p>/g, '') // IE inserting content
+                                            .replace(/<\/p>/g, '\n'); // IE inserting content
 
                             $textarea.val(outputText);
                             $textareaBox.perfectScrollbar('update');

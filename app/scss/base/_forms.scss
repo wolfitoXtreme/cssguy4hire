@@ -363,12 +363,20 @@ textarea,
     
     // textarea__box-editable
     &__box-editable {
-        height: 100%;
+        min-height: 100%;
         width: 100%;
         z-index: 1;
         position: relative;
-        display: inline-block;
+        display: block;
+        word-break: break-all; // force break long lines of text
         @include no-highlight;
+
+        // IE inserts content as paragraphs
+        p {
+            margin: 0;
+            padding: 0;
+        }
+
     }
 }
 
