@@ -17,6 +17,7 @@ var perfectScrollbarOptions = {
 // 
 var selectFields = {
     init: function() {
+        this.forms = $('form');
         this.selects = $('select');
         this.selectBoxOptions = {
             mobile: true
@@ -25,37 +26,80 @@ var selectFields = {
 
         // initialize only if there are selects present
         if(this.selects.length) {
-            
+
             // if mobile, create wrapper for native select and selectBox replacement
             // otherwise initialize selectBox
             if(this.isMobile) {
-                this.selects.each(function(i){
-                    var $select = $(this),
-                        $selectClass = $select.attr('class'),
-                        $selectWrapper = $('<div class="selectBox-mobile-wrapper" />').addClass($selectClass);
 
-                    // add wrapper and include select inside
-                    $select.before($selectWrapper);
-                    $select.appendTo($selectWrapper);
+                this.forms.each(function(i){
 
-                    // initialize mobile behavior
-                    selectFields.mobile($select);
+                    var $form = $(this),
+                        $selects = $form.find('select');
+
+                    $selects.each(function(j){
+                        var $select = $(this),
+                            $selectClass = $select.attr('class'),
+                            $selectWrapper = $('<div class="selectBox-mobile-wrapper" />').addClass($selectClass);
+
+                        // add wrapper and include select inside
+                        $select.before($selectWrapper);
+                        $select.appendTo($selectWrapper);
+
+                        // initialize mobile behavior
+                        selectFields.mobile($select);
+
+                    });
+
+                    // set placeholder
+                    $selects.each(function(i){
+                        selectFields.setPlaceholder($(this));
+                    });
+
+                    // handle form reset
+                    $form.on({
+                        'reset.selects': function(event) {
+                            console.log('reset.selects, selects =' + $selects.length);
+
+                            var waitForClean = setTimeout(function() {
+                                $selects.trigger('change');
+                            }, 10);
+                        }
+                    });
                 });
             }
             else {
-                // initialize selectBox plugin
-                this.selects.selectBox(this.selectBoxOptions);
+                this.forms.each(function(i){
 
-                // handle open/close events
-                this.selects.each(function(i) {
-                    selectFields.selectOpen($(this));
+                    var $form = $(this),
+                        $selects = $form.find('select');
+
+                    $selects.each(function(j){
+                        var $select = $(this);
+
+                        // initialize selectBox plugin
+                        $select.selectBox(selectFields.selectBoxOptions);
+
+                        // handle open/close events
+                        selectFields.selectOpen($select);
+
+                        // set placeholder
+                        selectFields.setPlaceholder($select);
+
+                        // handle form reset
+                        $form.on({
+                            'reset.selects': function(event) {
+                                console.log('reset.selects, selects =' + $('selects').length);
+
+                                var waitForClean = setTimeout(function() {
+                                    $select.selectBox('refresh');
+                                    $select.trigger('close'); // will update the placeholder
+                                }, 10);
+                            }
+                        });
+
+                    });
                 });
             }
-
-            // set placeholder
-            this.selects.each(function(i){
-                selectFields.setPlaceholder($(this));
-            });
 
         }
     },
@@ -69,10 +113,10 @@ var selectFields = {
             placeholderClass = 'placeholder';
 
         if(currentVal === '' && remove !== true) {
-            $select.add($dropDown ).addClass(placeholderClass);
+            $select.add($dropDown).addClass(placeholderClass);
         }
         else if(currentVal !== '' || remove == true) {
-            $select.add($dropDown ).removeClass(placeholderClass);
+            $select.add($dropDown).removeClass(placeholderClass);
         }
     },
 
@@ -103,6 +147,10 @@ var selectFields = {
             'change': function(event) {
                 var currentOption = $select.find(':selected').text();
                 $label.text(currentOption);
+
+                // set placeholder
+                selectFields.setPlaceholder($select);
+                console.log('select changed!');
             },
             'focus': function(event) {
 
