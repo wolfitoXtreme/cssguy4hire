@@ -405,25 +405,7 @@ option option[value=""][disabled] {
 
 // default buttons
 button {
-    @extend .button;
-
-    &[type="reset"] {
-        color: map-deep-get($btn-colors, reset, color);
-        border-color: map-deep-get($btn-colors, reset, border);
-        
-        &:link,
-        &:visited {
-            color: map-deep-get($btn-colors, reset, color);
-        }
-
-        &:hover,
-        &:active,
-        &:focus {
-            color: map-deep-get($btn-colors, reset, hover-color);
-            border-color: map-deep-get($btn-colors, reset, hover-border);
-            background-color: map-deep-get($btn-colors, reset, hover-background);
-        }
-    }
+    // dropped in favor of .button class name
 }
 
 // button
@@ -560,4 +542,24 @@ button {
             }
         }
     }
+
+    // reset button
+    &[type="reset"] {
+        color: map-deep-get($btn-colors, reset, color);
+        border-color: map-deep-get($btn-colors, reset, border);
+        
+        &:link,
+        &:visited {
+            color: map-deep-get($btn-colors, reset, color);
+        }
+
+        &:hover,
+        &:active,
+        &:focus {
+            color: map-deep-get($btn-colors, reset, hover-color);
+            border-color: map-deep-get($btn-colors, reset, hover-border);
+            background-color: map-deep-get($btn-colors, reset, hover-background);
+        }
+    }
+
 }
