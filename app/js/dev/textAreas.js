@@ -22,17 +22,6 @@ var textAreaFields = {
         this.isMobile = isMobile.phone;
         this.textareaBoxes = $([]); // empty collection
 
-
-        $('.js-test').on({
-            'click': function(event) {
-                event.preventDefault();
-
-                $('.textarea__box-editable').css({
-                    'background-color': 'pink'
-                }).scrollTop(0);
-            }
-        });
-
         // initialize only if there are textarea fields present, and not on moblie
         if(this.textAreas.length && !this.isMobile) {
 
@@ -164,8 +153,8 @@ var textAreaFields = {
                 
                 // handle form reset
                 $form.on({
-                    'reset': function(event) {
-                        console.log($form.data('formBoxEditables').length);
+                    'reset.textAreas': function(event) {
+                        console.log('reset.textAreas, textAreas =' + $form.data('formBoxEditables').length);
                         var $boxEditables = $form.data('formBoxEditables');
 
                         $boxEditables.each(function(j){
@@ -199,7 +188,7 @@ var textAreaFields = {
 
             });
 
-            // update scroll bars on resize
+            // update scroll bars on resize for all instances
             this.resize(this.textareaBoxes);
 
         }
