@@ -319,9 +319,12 @@ textarea,
 
 // text area replacement
 .textarea {
+    @extend %fields;
+    
+    padding-right: prem(18px); // room for scrollbar
     overflow: hidden;
     position: relative;
-    @extend %fields;
+    
 
     &.focus {
         border-color: map-deep-get($field-colors, hover, border);
@@ -341,7 +344,8 @@ textarea,
 
     // textarea__place-holder
     &__place-holder {
-        padding: prem(5px) prem(8px) prem(6px); // padding matches filed paddings
+        // all paddings match filed paddings, right 18px is room for scrollbar
+        padding: prem(5px) prem(18px) prem(6px) prem(8px);
         top: 0;
         left: 0;
         position: absolute;
