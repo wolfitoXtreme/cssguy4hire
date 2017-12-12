@@ -16,11 +16,12 @@ $_arrow-width:          23px;
 // selectBox-dropdown
 .selectBox-dropdown {
     min-width: prem(150px);
-    position: relative;
     text-decoration: none;
     text-align: left;
     outline: none;
     display: inline-block;
+    position: relative;
+    // z-index: 2; // avoids shadow overlapping
     cursor: default;
 
     @extend %fields;
@@ -122,7 +123,6 @@ $_arrow-width:          23px;
 
 // selectBox-dropdown-menu
 .selectBox-dropdown-menu {
-    position: absolute;
     z-index: 99999;
     max-height: prem(200px);
     min-height: 1rem;
@@ -130,6 +130,9 @@ $_arrow-width:          23px;
     border-radius: 5px;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
+    position: absolute;
+    // z-index: 1; // avoids shadow overlapping
+    // box-shadow: map-deep-get($field-colors, active, shadow);
     background: $_bg-color-active;
 
     @include breakpoint(map-get($breakpoints, medium)) {

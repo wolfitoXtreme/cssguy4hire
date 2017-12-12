@@ -119,6 +119,7 @@ label {
 
     &:focus,
     &.focus {
+        // box-shadow: map-deep-get($field-colors, active, shadow);
         background-color: map-deep-get($field-colors, active, background);
     }
 
@@ -140,8 +141,11 @@ label {
 }
 
 %input-buttons {
+    position: absolute;
+    outline: none;
+    opacity: 0;
+    z-index: -1;
     @include no-highlight;
-    @include hidden;
 
     // show labels hidden by default
     & ~ label {
@@ -215,7 +219,7 @@ input[type="radio"] {
             }
 
             &:after {
-                // background-color: map-deep-get($field-colors, hover, border);
+                // some styling...
             }
         }
 
@@ -270,6 +274,7 @@ input[type="radio"] {
         }
     }
 
+    // checked state
     &:checked {
         // radio button icons
         & + label {
@@ -279,6 +284,23 @@ input[type="radio"] {
             }
             &:after {
                 background-color: map-deep-get($field-colors, active, border);
+            }
+        }
+    }
+
+    // focus state
+    &:focus {
+        + label {
+            $_scale: scale(1.12);
+            
+            &:before {
+                border-color: map-deep-get($field-colors, hover, border);
+                // box-shadow: map-deep-get($field-colors, active, shadow);
+                transform: $_scale;
+            }
+
+            &:after {
+                transform: $_scale;
             }
         }
     }

@@ -129,7 +129,8 @@ $field-colors: (
     active: (
         color:          $white,
         background:     $scarlett,
-        border:         rgba($white, 0.7)
+        border:         rgba($white, 0.7),
+        shadow:         2px 2px 4px 0 rgba($scarlett, 0.4) // pass the whole shadow parameters
     )
 );
 

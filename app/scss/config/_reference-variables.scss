@@ -19,7 +19,8 @@ $field-colors: (
     active: (
         color:          $black,
         background:     $white,
-        border:         $black
+        border:         $black,
+        shadow:         2px 2px 2px 0 rgba($black, 0.4) // pass the whole shadow parameters
     )
 );
 // button colors
