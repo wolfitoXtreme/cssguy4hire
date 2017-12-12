@@ -332,7 +332,7 @@ ul > li {
         display: block;
         position: absolute;
         background-color: $orange-peel;
-        box-shadow: -1px -1px 0 0 rgba(0, 0, 0, 0.21);
+        box-shadow: -1px -1px 0 0 rgba($black, 0.21);
 
         @include breakpoint(map-get($breakpoints, small)) {
             $_bullet-size: prem(8px);
