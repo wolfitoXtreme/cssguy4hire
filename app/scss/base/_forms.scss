@@ -141,10 +141,8 @@ label {
 }
 
 %input-buttons {
-    position: absolute;
     outline: none;
-    opacity: 0;
-    z-index: -1;
+    @include hidden;
     @include no-highlight;
 
     // show labels hidden by default
@@ -323,7 +321,6 @@ textarea,
     height: prem((($font-size-default *  $line-height-default) * 5) + (13)); // five lines
     overflow-x: hidden;
     resize: none;
-    
     @extend %fields;
 
     @include breakpoint(map-get($breakpoints, small)) {
