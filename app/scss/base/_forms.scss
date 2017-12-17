@@ -343,8 +343,7 @@ textarea,
     padding-right: prem(18px); // room for scrollbar
     overflow: hidden;
     position: relative;
-    
-
+  
     &.focus {
         border-color: map-deep-get($field-colors, hover, border);
         background-color: map-deep-get($field-colors, active, background);

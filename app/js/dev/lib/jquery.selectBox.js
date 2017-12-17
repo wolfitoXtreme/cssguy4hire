@@ -478,11 +478,11 @@
             , heightToTop = pos.top - scrollPos
             , heightToBottom = $(window).height() - ( heightToTop + controlHeight )
             , posTop = (heightToTop > heightToBottom) && (settings.keepInViewport == null ? true : settings.keepInViewport)
-            , width = control.innerWidth() >= options.innerWidth() ? control.innerWidth() + 'px' : 'auto'
+            // , width = control.innerWidth() >= options.innerWidth() ? control.innerWidth() + 'px' : 'auto'
+            , width = control.innerWidth()
             , top = posTop
                   ? pos.top - optionsHeight + borderTopWidth + topPositionCorrelation
                   : pos.top + controlHeight - borderBottomWidth - bottomPositionCorrelation;
-
 
         // If the height to top and height to bottom are less than the max-height
         if(heightToTop < maxHeight&& heightToBottom < maxHeight){
@@ -1026,7 +1026,10 @@
         if (self.data('icon')) {
             a.attr('rel', self.val()).html('<i class="fa fa-'+self.data('icon')+' fa-fw fa-lg"></i> '+self.text());
         } else {
-            a.attr('rel', self.val()).text(self.text());
+            a.attr({
+                'rel': self.val(),
+                'title': self.text()
+            }).text(self.text());
         }
         li.append(a);
         if (self.attr('disabled')) {

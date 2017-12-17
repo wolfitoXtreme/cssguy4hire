@@ -182,6 +182,15 @@ $_arrow-width:          23px;
             display: none;
         }
 
+        // adjusting first and last items
+        &:first-child a {
+            padding-top: prem(4px)
+        }
+
+        &:last-of-type a {
+            padding-bottom: prem(10px)
+        }
+
         // hover
         &.selectBox-hover a {
             background-color: $_bg-color;
@@ -190,7 +199,7 @@ $_arrow-width:          23px;
         // selected
         &.selectBox-selected a {
             color: $white;
-            background-color: $_color;
+            background-color: rgba($_color, 0.4);
         }
 
         // disabled
@@ -199,34 +208,40 @@ $_arrow-width:          23px;
             background-color: transparent;
         }
 
+        a {
+            padding: prem(2px) prem(18px) prem(4px) prem(8px);
+            color: $_color;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            display: block;
+
+            &:last-child a {
+                padding-bottom: prem(11px)
+            }
+
+            @include breakpoint(map-get($breakpoints, medium)) {
+                padding: prem(3px) prem(18px) prem(5px) prem(8px);
+            }
+            
+            @include breakpoint(map-get($breakpoints, large)) {
+                padding: prem(4px) prem(18px) prem(5px) prem(14px);
+            }
+
+            &:link,
+            &:visited {
+                color: $_color;
+            }
+
+            &:active,
+            &:hover {
+                color: $_color;
+            }
+
+        }
     }
 
-    a {
-        padding: prem(2px) prem(18px) prem(2px) prem(8px);
-        color: $_color;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        display: block;
 
-        @include breakpoint(map-get($breakpoints, medium)) {
-            padding: prem(3px) prem(18px) prem(3px) prem(8px);
-        }
-        
-        @include breakpoint(map-get($breakpoints, large)) {
-            padding: prem(4px) prem(18px) prem(4px) prem(14px);
-        }
-
-        &:link,
-        &:visited {
-            color: $_color;
-        }
-
-        &:active,
-        &:hover {
-            color: $_color;
-        }
-    }
 
     // selectBox-options-top
     &-top {
