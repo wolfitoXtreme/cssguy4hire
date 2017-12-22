@@ -1,0 +1,87 @@
+// 
+// Home Panel Styles
+//
+
+// site-heading
+.site-heading {
+    padding-bottom: prem(15px);
+}
+
+// site-logo
+.site-logo {
+    padding: 0 getPercentageFrom(11px, 224px);
+    // background-color: lightblue;
+
+
+    // site-logo__img-set
+    &__img-set {
+        $_img-width: nth(map-get($images, logo), 1);
+        $_img-height: nth(map-get($images, logo), 2);
+
+        padding: 0 0 percentageHeightRatio($_img-width, $_img-height);
+        width: 100%;
+        height: 0;
+        position: relative;
+        transition: padding $default-duration ease-out 0ms;
+
+        // background-color: lightgreen;
+        @include breakpoint((orientation landscape)) {
+            $_img-width: nth(map-get($images, logo-landscape), 1);
+            $_img-height: nth(map-get($images, logo-landscape), 2);
+
+            padding: 0 0 percentageHeightRatio($_img-width, $_img-height);
+        }
+
+    }
+
+    // site-logo-img
+    &-img {
+        left: 50%;
+        top: 50%;
+        width: 100%;
+        // width: getPercentageFrom(202px, 224px);
+        height: auto;
+        display: block;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        @include transitions($default-duration, ease-out, 0ms, (
+            width,
+            height,
+            opacity
+        ));
+
+        // background-color: lightcoral;
+
+        @include breakpoint((orientation landscape)) {
+            opacity: 0;
+            width: 0;
+        }
+
+        // site-logo__img--landscape
+        &--landscape {
+            opacity: 0;
+            width: 0;
+            
+            @include breakpoint((orientation landscape)) {
+                opacity: 1;
+                width: 100%;
+                height: auto;
+            }
+        }
+    }
+}
+
+// cover
+.cover {
+
+    // cover__content
+    &__content {
+        font-size: prem($font-size-medium);
+        letter-spacing: -0.028em;
+        line-height: 1.1;
+        color: $oil;
+        text-align: center;
+        text-shadow: 1px 1px 0 #fad41c;
+    }
+
+}

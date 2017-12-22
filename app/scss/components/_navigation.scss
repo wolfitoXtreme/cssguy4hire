@@ -2,8 +2,83 @@
 // navigation styles
 // 
 
+
+// menu-toggle
+%icon-hidden {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+}
+
+%icon-visible {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    opacity: 1;
+}
+
+.menu-toggle {
+    $_button-width: prem(42px);
+    $_button-height: prem(42px);
+
+    padding: 0 prem(2px) 0 prem(1px);
+    right: prem(12px);
+    top: prem(7px);
+    width: $_button-width;
+    height: $_button-height;
+    border-style: none;
+    position: absolute;
+    background-color: transparent;
+    
+    // background-color: pink;
+    @include no-highlight;
+    
+
+    // menu-toggle__icon-set
+    &__icon-set {
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: relative;
+
+        // background-color: lightcoral;
+        @include remove-text;
+    }
+
+    // menu-toggle-icon
+    &-icon {
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: auto;
+        position: absolute;
+        transform: translateY(-50%);
+
+        &--hover,
+        &--close,
+        &--close-hover {
+            @extend %icon-hidden;
+        }
+
+    }
+
+    &:hover,
+    &:focus {
+        .menu-toggle-icon {
+            @extend %icon-hidden;
+
+            &--hover {
+                @extend %icon-visible;
+            }
+        }
+    }
+
+}
+
 // main menu
-.nav-mein-menu {
+.nav-main-menu {
+    display: none;
 }
 
 // utilities menu
