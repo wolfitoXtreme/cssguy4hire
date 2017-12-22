@@ -72,6 +72,7 @@ $font-size-default:     $font-size-xx-small;
 // line-height default
 $line-height-default: 1.2;
 
+
 // 
 // colors
 // ----------------
@@ -159,6 +160,20 @@ $btn-colors: (
     )
 );
 
+
+// 
+// transitions
+// ----------------
+
 // default transitions
 $default-duration: 300ms;
 $default-delay: 100ms;
+
+
+// 
+// layout
+// ----------------
+$panel-padding-x-small: 0 48px;
+$panel-padding-small:   0 48px;
+$panel-padding-medium:  0 48px;
+$panel-padding-large:   0 48px;

@@ -3,11 +3,11 @@
 // 
 
 // test text {
-.test-text {
-    font-size: prem(18px);
-    letter-spacing: -0.028em;
-    line-height: 1.05;
-}
+// .test-text {
+//     font-size: prem(18px);
+//     letter-spacing: -0.028em;
+//     line-height: 1.05;
+// }
 
 // icon test
 @each $icon in map_keys($icons) {
@@ -26,117 +26,87 @@
 }
 
 
-.icon-single-test {
-    $_icon-width: nth(map-get($icons, icon-04), 1);
-    $_icon-height: nth(map-get($icons, icon-04), 2);
-    $_new-size: stretchByPercentage($_icon-width, $_icon-height, 45%);
+// .icon-single-test {
+//     $_icon-width: nth(map-get($icons, icon-04), 1);
+//     $_icon-height: nth(map-get($icons, icon-04), 2);
+//     $_new-size: stretchByPercentage($_icon-width, $_icon-height, 45%);
 
-    width: nth($_new-size, 1);
-    height: nth($_new-size, 2);
+//     width: nth($_new-size, 1);
+//     height: nth($_new-size, 2);
 
-    background-color: pink;
-    font-size: $font-size-xx-small;
+//     background-color: pink;
+//     font-size: $font-size-xx-small;
 
-    &:hover {
-        fill: $white;
-        background-color: red;
-    }
-}
+//     &:hover {
+//         fill: $white;
+//         background-color: red;
+//     }
+// }
 
-.logo-test {
-    padding: 0 prem(15px);
-    width: 50%;
+// .test-menu-icon {
+//     $_icon-width: nth(map-get($icons, icon-07), 1);
+//     $_icon-height: nth(map-get($icons, icon-07), 2);
+//     $_new-size: stretchByPercentage($_icon-width, $_icon-height, 80%);
 
-    &__img {
-        width: 100%;
-        max-width: prem(700px);
-        height: auto;
+//     margin: prem(10px);
+//     width: nth($_new-size, 1);
+//     height: nth($_new-size, 2);
 
-        @include breakpoint((orientation landscape)) {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
+//     &__icon {
+//         width: nth($_new-size, 1);
+//         height: nth($_new-size, 2);
+//         position: absolute;
+//         transition: opacity 300ms ease-in 0ms;
 
-        &--landscape {
-            opacity: 0;
-            width: 0;
-            height: 0;
-            
-            @include breakpoint((orientation landscape)) {
-                opacity: 1;
-                width: 100%;
-                height: auto;
-            }
-        }
-
-    }
-}
-
-.test-menu-icon {
-    $_icon-width: nth(map-get($icons, icon-07), 1);
-    $_icon-height: nth(map-get($icons, icon-07), 2);
-    $_new-size: stretchByPercentage($_icon-width, $_icon-height, 80%);
-
-    margin: prem(10px);
-    width: nth($_new-size, 1);
-    height: nth($_new-size, 2);
-
-    &__icon {
-        width: nth($_new-size, 1);
-        height: nth($_new-size, 2);
-        position: absolute;
-        transition: opacity 300ms ease-in 0ms;
-
-        .test-menu-icon:hover & {
-            opacity: 0;
-        }
+//         .test-menu-icon:hover & {
+//             opacity: 0;
+//         }
         
-        &--hover {
-            opacity: 0;
-            .test-menu-icon:hover & {
-                opacity: 1;
-            }
-        }
-    }
-}
+//         &--hover {
+//             opacity: 0;
+//             .test-menu-icon:hover & {
+//                 opacity: 1;
+//             }
+//         }
+//     }
+// }
 
-.img-single-test {
-    // stretch by percentage
-    $_img-width: nth(map-get($images, img-04), 1);
-    $_img-height: nth(map-get($images, img-04), 2);
-    $_new-size: stretchByPercentage($_img-width, $_img-height, 21.16402%);
+// .img-single-test {
+//     // stretch by percentage
+//     $_img-width: nth(map-get($images, img-04), 1);
+//     $_img-height: nth(map-get($images, img-04), 2);
+//     $_new-size: stretchByPercentage($_img-width, $_img-height, 21.16402%);
 
-    width: nth($_new-size, 1);
-    height: nth($_new-size, 2);
-    background-color: red;
-}
+//     width: nth($_new-size, 1);
+//     height: nth($_new-size, 2);
+//     background-color: red;
+// }
 
-.img-single-test-b {
-    // stretch by size
-    $_img-width: nth(map-get($images, img-04), 1);
-    $_img-height: nth(map-get($images, img-04), 2);
-    $_new-height: 200px;
-    $_new-width: stretchBySize($_img-height, $_img-width, $_new-height);
+// .img-single-test-b {
+//     // stretch by size
+//     $_img-width: nth(map-get($images, img-04), 1);
+//     $_img-height: nth(map-get($images, img-04), 2);
+//     $_new-height: 200px;
+//     $_new-width: stretchBySize($_img-height, $_img-width, $_new-height);
     
-    content: getPercentageFrom($_new-height, $_img-height);
-    width: $_new-width;
-    height: $_new-height;
-    background-color: red;
-}
+//     content: getPercentageFrom($_new-height, $_img-height);
+//     width: $_new-width;
+//     height: $_new-height;
+//     background-color: red;
+// }
 
-.img-single-test-c {
-    // stretch by size
-    $_img-width: nth(map-get($images, img-03), 1);
-    $_img-height: nth(map-get($images, img-03), 2);
-    $_new-width: 250px;
-    $_new-height: stretchBySize($_img-width, $_img-height, $_new-width);
+// .img-single-test-c {
+//     // stretch by size
+//     $_img-width: nth(map-get($images, img-03), 1);
+//     $_img-height: nth(map-get($images, img-03), 2);
+//     $_new-width: 250px;
+//     $_new-height: stretchBySize($_img-width, $_img-height, $_new-width);
     
-    content: getPercentageFrom($_new-width, $_img-width);
-    width: $_new-width;
-    height: $_new-height;
-    background-color: red;
-}
+//     content: getPercentageFrom($_new-width, $_img-width);
+//     width: $_new-width;
+//     height: $_new-height;
+//     background-color: red;
+// }
 
 .img-masking {
     $_device-set-width: 224px;
@@ -269,6 +239,8 @@
     // panel-content
     &-content {
         margin: 0;
+        
+        // background-color: pink;
     }
 
     // bottom title
