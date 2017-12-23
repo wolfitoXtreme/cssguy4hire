@@ -9,6 +9,8 @@
 
 // site-logo
 .site-logo {
+    $_transition-duration: 450ms;
+
     padding: 0 getPercentageFrom(11px, 224px);
     // background-color: lightblue;
 
@@ -22,7 +24,7 @@
         width: 100%;
         height: 0;
         position: relative;
-        transition: padding $default-duration ease-out 0ms;
+        transition: padding $_transition-duration ease-out 0ms;
 
         // background-color: lightgreen;
         @include breakpoint((orientation landscape)) {
@@ -44,7 +46,7 @@
         display: block;
         position: absolute;
         transform: translate(-50%, -50%);
-        @include transitions($default-duration, ease-out, 0ms, (
+        @include transitions($_transition-duration, ease-out, 0ms, (
             width,
             height,
             opacity
@@ -81,7 +83,7 @@
         line-height: 1.1;
         color: $oil;
         text-align: center;
-        text-shadow: 1px 1px 0 #fad41c;
+        text-shadow: 1px 1px 0 $turbo;
     }
 
 }
