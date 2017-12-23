@@ -90,6 +90,8 @@ $white:             nth(map-get($colors-default, white), 1);
 
 // project color names (mirrors _colors.scss values)
 $dark-goldenrod:    nth(map-get($colors, dark-goldenrod), 1);
+$moon-yellow:       nth(map-get($colors, moon-yellow), 1);
+$turbo:             nth(map-get($colors, turbo), 1);
 $lucky-point:       nth(map-get($colors, lucky-point), 1);
 $dark-slate-blue:   nth(map-get($colors, dark-slate-blue), 1);
 $myrtle:            nth(map-get($colors, myrtle), 1);
@@ -100,7 +102,6 @@ $siren:             nth(map-get($colors, siren), 1);
 $pohutukawa:        nth(map-get($colors, pohutukawa), 1);
 $eternity:          nth(map-get($colors, eternity), 1);
 $oil:               nth(map-get($colors, oil), 1);
-$moon-yellow:       nth(map-get($colors, moon-yellow), 1);
 $orange-peel:       nth(map-get($colors, orange-peel), 1);
 $safety-orange:     nth(map-get($colors, safety-orange), 1);
 $tawny:             nth(map-get($colors, tawny), 1);
