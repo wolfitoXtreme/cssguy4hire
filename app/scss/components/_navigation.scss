@@ -2,23 +2,9 @@
 // navigation styles
 // 
 
-
 // menu-toggle
-%icon-hidden {
-    width: 0;
-    height: 0;
-    overflow: hidden;
-    opacity: 0;
-}
-
-%icon-visible {
-    width: 100%;
-    height: auto;
-    overflow: visible;
-    opacity: 1;
-}
-
 .menu-toggle {
+    $_transition-duration: $default-duration;
     $_button-width: prem(42px);
     $_button-height: prem(42px);
 
@@ -28,26 +14,67 @@
     width: $_button-width;
     height: $_button-height;
     border-style: none;
+    cursor: pointer;
     position: absolute;
+    overflow: hidden;
     background-color: transparent;
-    
-    // background-color: pink;
     @include no-highlight;
-    
+    @include remove-text;
 
-    // menu-toggle__icon-set
-    &__icon-set {
+    &:active {
+        transform: scale(0.95);
+    }
+    
+    // menu-toggle__icons
+    &__icons {
+        top: 50%;
+        left: 50%;
         width: 100%;
         height: 100%;
         display: block;
-        position: relative;
+        position: absolute;
+        z-index: 1;
+        overflow: visible;
+        opacity: 1;
+        transform: translate(-50%, -50%);
 
-        // background-color: lightcoral;
-        @include remove-text;
+        @include transitions($_transition-duration, ease-out, 0ms, (
+            width,
+            height,
+            opacity
+        ));
+
+        // menu-toggle--active menu-toggle__icons
+        .menu-toggle--active & {
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            opacity: 0;
+        }
+
+        // menu-toggle__icons--close
+        &--close {
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            opacity: 0;
+            z-index: 0;
+
+            // background-color: orange;
+
+            // menu-toggle--active menu-toggle__icons--close
+            .menu-toggle--active & {
+                width: 100%;
+                height: 100%;
+                overflow: visible;
+                opacity: 1;
+            }
+        }
     }
 
     // menu-toggle-icon
     &-icon {
+        padding: 0 prem(2px) 0 prem(1px);
         top: 50%;
         left: 0;
         width: 100%;
@@ -55,25 +82,50 @@
         position: absolute;
         transform: translateY(-50%);
 
-        &--hover,
-        &--close,
-        &--close-hover {
-            @extend %icon-hidden;
+        // menu-toggle:hover menu-toggle-icon
+        // menu-toggle:focus menu-toggle-icon
+        // menu-toggle:active menu-toggle-icon
+        .menu-toggle:hover &,
+        .menu-toggle:focus &, 
+        .menu-toggle:active & {
+            opacity: 0;
         }
 
-    }
+        // menu-toggle-icon--hover
+        &--hover {
+            opacity: 0;
+            
+            // menu-toggle:hover menu-toggle-icon--hover
+            // menu-toggle:focus menu-toggle-icon--hover
+            // menu-toggle:active menu-toggle-icon--hover
+            .menu-toggle:hover &,
+            .menu-toggle:focus &, 
+            .menu-toggle:active & {
+                opacity: 1;
+            }
+        }
 
-    &:hover,
-    &:focus {
-        .menu-toggle-icon {
-            @extend %icon-hidden;
+        // menu-toggle-icon--close
+        // menu-toggle-icon--close-hover
+        &--close,
+        &--close-hover {
+            padding: 0 prem(8px) 0 prem(6px);
+        }
 
-            &--hover {
-                @extend %icon-visible;
+        // menu-toggle-icon--close-hover
+        &--close-hover {
+            opacity: 0;
+
+            // menu-toggle:hover menu-toggle-icon--close-hover
+            // menu-toggle:focus menu-toggle-icon--close-hover
+            // menu-toggle:active menu-toggle-icon--close-hover
+            .menu-toggle:hover &,
+            .menu-toggle:focus &, 
+            .menu-toggle:active & {
+                opacity: 1;
             }
         }
     }
-
 }
 
 // main menu
@@ -138,6 +190,7 @@
         }
 
         // avoid firing hash navigation
+        // js nav-panel__link
         .js & {
             pointer-events: none;
         }

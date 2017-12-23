@@ -7,10 +7,11 @@ require('touchswipe');
 require('mousewheel')($);
 
 // require installed modules
-var enquire = require('enquire');
+// modules here...
 
 // load project modules
 var domAdjust = require('./domAdjust'),
+    mobileNav = require('./mobileNav'),
     emailProtector = require('./emailProtector'),
     breakpoints = require('./breakpoints'),
     svgIcons = require('./svgIcons'),
@@ -25,61 +26,12 @@ $(function() {
     var app = {
         init: function() {
             domAdjust.init();
+            mobileNav.init();
             emailProtector.init();
-            breakpoints.init();
             svgIcons.init();
             panelNav.init();
             slider.init();
             forms.init();
-
-            // test enquire
-            enquire.register('screen and (min-width:' + breakpoints.get('xx-small') + ') and (max-width:' + breakpoints.get('x-small') + ')', {
-                match : function() {
-                    console.log('Breaking point ' + 'xx-small' + ' reached!');
-                },
-                unmatch : function() {
-                    console.log('Breaking point ' + 'xx-small' + ' exit!');
-                }
-            })
-            enquire.register('screen and (min-width:' + breakpoints.get('x-small') + ') and (max-width:' + breakpoints.get('small') + ')', {
-                match : function() {
-                    console.log('Breaking point ' + 'x-small' + ' reached!');
-                },
-                unmatch : function() {
-                    console.log('Breaking point ' + 'x-small' + ' exit!');
-                }
-            })
-            .register('screen and (min-width:' + breakpoints.get('small') + ') and (max-width:' + breakpoints.get('medium') + ')', {
-                match : function() {
-                    console.log('Breaking point ' + 'small' + ' reached!');
-                },
-                unmatch : function() {
-                    console.log('Breaking point ' + 'small' + ' exit!');
-                }
-            })
-            .register('screen and (min-width:' + breakpoints.get('medium') + ') and (max-width:' + breakpoints.get('large') + ')', {
-                match : function() {
-                    console.log('Breaking point ' + 'medium' + ' reached!');
-                },
-                unmatch : function() {
-                    console.log('Breaking point ' + 'medium' + ' exit!');
-                }
-            })
-            .register('screen and (min-width:' + breakpoints.get('large') + ')', {
-                match : function() {
-                    console.log('Breaking point ' + 'large' + ' reached!');
-                },
-                unmatch : function() {
-                    console.log('Breaking point ' + 'large' + ' exit!');
-                }
-            }).register('screen and (min-width:' + breakpoints.get('x-small') + ') and (max-width:' + breakpoints.get('small') + ') and (orientation: landscape)', {
-                match : function() {
-                    console.log('Breaking point ' + 'x-small landscape' + ' reached!');
-                },
-                unmatch : function() {
-                    console.log('Breaking point ' + 'x-small landscape' + ' exit!');
-                }
-            });
 
             // test onScreenTest
             $(window).on({

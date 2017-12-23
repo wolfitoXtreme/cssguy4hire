@@ -14,8 +14,19 @@ var breakpoints = {
         }        
         return this.breakpoints;
     },
-    get: function(bp) {
-        return this.breakpoints[bp];
+
+    // get breakpoint key
+    get: function(bp, limit) {
+        if(limit) {
+            var value = parseInt(this.breakpoints[bp]),
+                units = this.breakpoints[bp].replace(/[\d\.]/g, ''),
+                limited = (value - 1) + units;
+
+            return limited;
+        }
+        else {
+            return this.breakpoints[bp];
+        }
     }
 }
 
