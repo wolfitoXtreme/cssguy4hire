@@ -21,6 +21,18 @@
     @include no-highlight;
     @include remove-text;
 
+    // background-color: pink;
+
+    @include breakpoint(map-get($breakpoints, small)) {
+        $_button-width: prem(46px);
+        $_button-height: prem(46px);
+
+        right: prem(14px);
+        top: prem(9px);
+        width: $_button-width;
+        height: $_button-height;
+    }
+
     &:active {
         transform: scale(0.95);
     }
