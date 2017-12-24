@@ -5,6 +5,14 @@
 // site-heading
 .site-heading {
     padding-bottom: prem(15px);
+
+    @include breakpoint(map-get($breakpoints, small)) {
+        padding-bottom: prem(19px);
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+        padding-bottom: prem(23px);
+    }
 }
 
 // site-logo
@@ -14,6 +22,17 @@
     padding: 0 getPercentageFrom(11px, 224px);
     // background-color: lightblue;
 
+    @include breakpoint(map-get($breakpoints, medium)) {
+        padding: 0;
+    }
+
+    // setting site-logo width to accommodate portrait logo on large landscape screens, see below
+    @include breakpoint(map-get($breakpoints, large) (min-height 768px) (orientation landscape)) {
+        $_target-width: getPercentageFrom(424px, 740px); // logo width, available space (1024px - paddings 142px * 2) - from design 
+        
+        margin: 0 auto;
+        width: $_target-width;
+    }
 
     // site-logo__img-set
     &__img-set {
@@ -32,6 +51,15 @@
             $_img-height: nth(map-get($images, logo-landscape), 2);
 
             padding: 0 0 percentageHeightRatio($_img-width, $_img-height);
+        }
+
+        // although landscape, switch to 'portrait logo set' depending on screen height, see below and above
+        @include breakpoint(map-get($breakpoints, large) (min-height 768px) (orientation landscape)) {
+            $_img-width: nth(map-get($images, logo), 1);
+            $_img-height: nth(map-get($images, logo), 2);
+            
+            padding: 0 0 percentageHeightRatio($_img-width, $_img-height);
+            width: 100%;
         }
 
     }
@@ -59,7 +87,7 @@
             width: 0;
         }
 
-        // site-logo__img--landscape
+        // site-logo-img--landscape
         &--landscape {
             opacity: 0;
             width: 0;
@@ -68,6 +96,20 @@
                 opacity: 1;
                 width: 100%;
                 height: auto;
+            }
+        }
+
+        // although landscape, switch to 'portrait logo' depending on screen height, see above
+        @include breakpoint(map-get($breakpoints, large) (min-height 768px) (orientation landscape)) {
+            opacity: 1;
+            width: 100%;
+
+            // background-color: pink;
+
+            // site-logo-img--landscape
+            &--landscape {
+                opacity: 0;
+                width: 0;
             }
         }
     }
@@ -84,6 +126,22 @@
         color: $oil;
         text-align: center;
         text-shadow: 1px 1px 0 $turbo;
+
+        @include breakpoint(map-get($breakpoints, small)) {
+            font-size: prem($font-size-medium-large);
+            letter-spacing: -0.032em;
+        }
+
+        @include breakpoint(map-get($breakpoints, medium)) {
+            padding: 0 prem(52px);
+        }
+
+        @include breakpoint(map-get($breakpoints, large)) {
+            padding: 0 prem(80px);
+            font-size: prem($font-size-xxx-large);
+            letter-spacing: -0.040em;
+        }
+
     }
 
 }
