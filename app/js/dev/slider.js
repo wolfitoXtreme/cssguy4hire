@@ -2,7 +2,8 @@
 
 var throttle = require('lodash/throttle'),
     debounce = require('lodash/debounce'),
-    slick = require('slick');
+    slick = require('slick'),
+    panelNav = require('./panelNav');
 
 // Default slider options
 // If additional breakpoints configuration is needed, it will be passed as a data attribute
@@ -28,10 +29,9 @@ var options = {
 //
 var slider = {
     init: function() {
-        
         this.sliders = $('.js-slider');
 
-        slider.sliders.each(function(i) {
+        this.sliders.each(function(i) {
             
             var $slider = $(this),
                 settings = $slider.data('slider-settings'),
@@ -40,7 +40,7 @@ var slider = {
 
             $slider.options = options;
 
-            // if there are any breakpoins defined
+            // if there are any breakpoints defined
             if(breakpoints) {
                 console.log('breakpoints found!!');
                 for (var breakpoint in breakpoints) {
@@ -62,18 +62,23 @@ var slider = {
             //     console.log('slides = > ' + $slider.data('slides').length);
             // }).slick($slider.options);
 
-            $slider.slick($slider.options);
+            // slider methods
+            $slider.on('init', function(slick) {
+                
+                var $items = $(this).find('li'),
+                    $focusables = $(':focusable', this).add($items);
 
+                // set tab navigation (calling panelNav method)
+                panelNav.tabNavigation($focusables);
+            });
+
+            // initialize slider
+            $slider.slick($slider.options);
         });
 
-        // slider.sliders.each(function(i) {
-        //     var $current = $(this);
-        //     console.log('........' + $current.slides.length);
-        // });
-
+        // initialize methods
         slider.resize(slider.sliders);
         slider.matchSize(slider.sliders);
-
     },
 
     // update panel navigation on resize
@@ -93,7 +98,6 @@ var slider = {
             , 100)
         });
     },
-
 
     // resize panels and container to match window size
     matchSize: function(sliders) {
