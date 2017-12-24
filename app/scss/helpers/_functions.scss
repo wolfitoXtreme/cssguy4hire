@@ -55,8 +55,14 @@
 @function prem($pxVal, $base: 16px) {
     $pxVal: strip-units($pxVal);
     $base: strip-units($base);
-    
-    @return $pxVal / $base * 1rem;
+
+    // return pixel or rem value
+    @if $debug == true {
+        @return $pxVal * 1px;
+    }
+    @else {
+        @return $pxVal / $base * 1rem;
+    }
 }
 
 // get percentage from (return unitless value)

@@ -19,9 +19,7 @@ body {
 
     // test mediaQueries
     @include queryInfo();
-
 }
-
 
 // main
 .main {
@@ -77,14 +75,40 @@ body {
             map-get($breakpoints, x-small)
         );
 
+        margin: 0 auto;
         padding: 0 $_hSpace;
-        left: 0;
+        left: 50%;
         top: 50%;
         width: 100%;
         position: absolute;
-        transform: translateY(-50%);
-    }
+        transform: translate(-50%, -50%);
 
+        @include breakpoint(map-get($breakpoints, small)) {
+            $_hSpace: getPercentageFrom(
+                nth($panel-padding-small, 2), 
+                map-get($breakpoints, small)
+            );
+
+            padding: 0 $_hSpace;
+        }
+
+        @include breakpoint(map-get($breakpoints, medium)) {
+            $_hSpace: getPercentageFrom(
+                nth($panel-padding-medium, 2), 
+                map-get($breakpoints, medium)
+            );
+
+            padding: 0 $_hSpace;
+        }
+
+        @include breakpoint(map-get($breakpoints, large)) {
+            $_hSpace: nth($panel-padding-large, 2);
+
+            padding: 0 $_hSpace;
+            max-width: prem($site-max-width);
+        }
+
+    }
 }
 
 .footer {
