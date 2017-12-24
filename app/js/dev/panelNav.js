@@ -12,6 +12,7 @@ var panelNav = {
         this.panels =           $('.panel', panelNav.wrapper);
         // TODO - Arrow navigation already removed by CSS
         this.panelArrows =      $('.js-nav-panel', panelNav.panels);
+        this.focusables =       $(':focusable', panelNav.panels);
         this.panelHeight =      $('body').height();
         this.currentPanel =     0;
         this.maxPanels =        $(panelNav.panels).length;
@@ -43,12 +44,19 @@ var panelNav = {
         };
 
         console.log('supports3D => ' + panelNav.supports3D);
+        console.log('focusables => ' + panelNav.focusables.length);
 
         // initialize methods
         panelNav.matchSize();
         panelNav.resize();
         panelNav.swipe(panelNav.wrapper);
         panelNav.mousewheel(panelNav.wrapper);
+
+        // disable any focusable elements that are not in scope
+        $('.js-disable-focus').attr('tabindex', -1);
+
+        // set tab navigation
+        panelNav.tabNavigation(this.focusables);
 
     //prevent transition end event propagation
     // $('body *').on({
@@ -133,11 +141,13 @@ var panelNav = {
 
     },
 
+    // go to previous panel
     previousPanel: function () {
         panelNav.currentPanel = Math.max(panelNav.currentPanel - 1, 0);
         panelNav.scrollPanels(panelNav.panelHeight * panelNav.currentPanel, panelNav.panelSpeed, 'previousPanel');
     },
 
+    // go to next panel
     nextPanel: function() {
 
         panelNav.currentPanel = Math.min(panelNav.currentPanel + 1, panelNav.maxPanels - 1);
@@ -153,6 +163,22 @@ var panelNav = {
         );
     },
 
+    // go to panel
+    gotoPanel: function(leap) {
+        panelNav.currentPanel = leap;
+        panelNav.scrollPanels(panelNav.panelHeight * panelNav.currentPanel, panelNav.panelSpeed, 'gotoPanel');
+
+        console.log(
+            '-------\n' +
+            'GOTO PANEL' + 
+            'currentPanel = ' + panelNav.currentPanel + '\n' +
+            'maxPanels = ' + panelNav.maxPanels + '\n' +
+            'panelSpeed = ' + panelNav.panelSpeed + '\n' +
+            '-------\n'
+        );
+
+    },
+
     // update panels position on drag
     scrollPanels: function(distance, duration, movement) {
 
@@ -161,7 +187,7 @@ var panelNav = {
 
         console.log(
             '///////////\n' +
-            'scrollPanels distance = ' +  value +  '\n' +
+            'scrollPanels distance = ' +  value + '||' + movement +'\n' +
             '///////////'
         );
         
@@ -243,6 +269,30 @@ var panelNav = {
             }
         });
 
+    },
+
+    // tab navigation
+    tabNavigation: function(focusables) {
+        var $focusables = focusables;
+
+        $focusables.on({
+            'focus' : function(event){
+                $('html, body').scrollTop(0);
+
+                setTimeout(function() {
+                    var $target = $(event.target),
+                        $parentPanel = $target.closest('.panel'),
+                        parentIndex = $parentPanel.index(),
+                        currentPanel = panelNav.currentPanel;
+
+                    // if focused element not inside current panel 
+                    if(parentIndex !== currentPanel) {
+                        panelNav.gotoPanel(parentIndex);
+                    }
+
+                }, 5);
+            }
+        });
     }
 }
 

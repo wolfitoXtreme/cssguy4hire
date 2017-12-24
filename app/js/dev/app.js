@@ -2,6 +2,7 @@
 
 // require non-CommonJS files 
 require('jquery');
+require('jquery-ui');
 require('modernizr');
 require('touchswipe');
 require('mousewheel')($);
