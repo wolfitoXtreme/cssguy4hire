@@ -71,12 +71,14 @@
     @if $extend {
         @extend %clearFix;
     } @else {
-        content: " ";
-        display: block;
-        clear: both;
-        height: 0;
-        overflow: hidden;
-        visibility: hidden;  
+        &:after {
+            content: " ";
+            display: block;
+            clear: both;
+            height: 0;
+            overflow: hidden;
+            visibility: hidden;
+        }
     }
 }
 

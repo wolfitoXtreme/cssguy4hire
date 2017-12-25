@@ -2,6 +2,7 @@
 // navigation styles
 // 
 
+
 // menu-toggle
 .menu-toggle {
     $_transition-duration: $default-duration;
@@ -140,10 +141,159 @@
     }
 }
 
+// 
 // main menu
+// ----------------
+
+// nav-main-menu
 .nav-main-menu {
-    display: none;
+    // display: none;
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+        text-align: center;
+        display: block;
+    }
+
+    // main-menu__list
+    &__list {
+        margin: 0;
+        padding: 0;
+    }
 }
+
+// main-menu
+.main-menu {
+
+
+    background-color: pink;
+    // display: inline-block;
+    // @include clearFix;
+    @include breakpoint(map-get($breakpoints, medium)) {
+        display: flex;
+        justify-content: center;
+    }
+
+    // main-menu__item
+    &__item {
+        margin: 0;
+        // float:left;
+        // display: inline-block;
+
+        background-color: lightblue;
+
+        @include breakpoint(map-get($breakpoints, medium)) {
+            margin: 0 prem(10px);
+
+            &:nth-child(2) {
+                margin-left: 0;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+
+        @include breakpoint(map-get($breakpoints, large)) {
+            margin: 0 prem(12px);
+        }
+
+        &:before {
+            display: none;
+        }
+
+        // main-menu__item--home
+        &--home {
+            @include breakpoint(map-get($breakpoints, medium)) {
+                @include hidden(false);
+            }
+        }
+
+        // main-menu__item-link
+        &-link {
+            padding: prem(19px) 0 prem(13px);
+            font: normal #{prem($font-size-normal)}/#{$line-height-default} oswald;
+            letter-spacing: 0;
+            text-align: center;
+            text-transform: uppercase;
+            text-decoration: none;
+            display: block;
+            border-bottom: 1px solid rgba($white, 0.2);
+
+            @include breakpoint(map-get($breakpoints, medium)) {
+                padding: 0 prem(4px);
+                font-family: oswald-book;
+                font-size: prem($font-size-medium);
+                border-style: none;
+            }
+
+            @include breakpoint(map-get($breakpoints, large)) {
+                padding: 0 prem(8px);
+                font-size: prem($font-size-x-huge);
+            }
+
+            &:link,
+            &:visited {
+                color: $white;
+                background-color: $charcoal;
+                @include breakpoint(map-get($breakpoints, medium)) {
+                    color: $eternity;
+                    background-color: transparent;
+                }
+            }
+
+            &:active,
+            &:hover,
+            &:focus {
+                color: $nero;
+                background-color: $white;
+                @include breakpoint(map-get($breakpoints, medium)) {
+                    color: $white;
+                    background-color: transparent;
+                }
+            }
+        }
+
+        // main-menu__item-icon
+        &-icon {
+            // icons are squares at this moment
+            // therefore these calculations are not needed,
+            // this is just for demonstration purposes 
+            $_icon-width: nth(map-get($icons, ui-icon-menu-about), 2);
+            $_icon-height: nth(map-get($icons, ui-icon-menu-about), 2);
+
+            fill: $eternity;
+            display: none;
+
+            @include breakpoint(map-get($breakpoints, medium)) {
+                margin: 0 auto prem(3px);
+                width: prem($_icon-width);
+                height: prem($_icon-height);
+                display: block;
+
+                .main-menu__item-link:hover &,
+                .main-menu__item-link:active &,
+                .main-menu__item-link:focus & {
+                    fill: $white;
+                }
+            }
+
+            @include breakpoint(map-get($breakpoints, large)) {
+                $_new-width: 72px;
+                $_new-height: stretchBySize($_icon-width, $_icon-height, $_new-width);
+
+                width: prem($_new-width);
+                height: prem($_new-height);
+            }
+
+        }
+
+        // main-menu__item-text
+        &-text {
+            font-weight: normal;
+        }
+    }
+}
+
 
 // utilities menu
 .nav-util-menu {
