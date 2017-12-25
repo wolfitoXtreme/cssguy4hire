@@ -487,6 +487,8 @@ b, strong {
 
 // links
 a {
+    @include no-highlight;
+
     &:link {
         color: map-get($link-colors, link);
     }
