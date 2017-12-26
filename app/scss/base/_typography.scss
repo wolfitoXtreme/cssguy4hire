@@ -498,7 +498,8 @@ a {
     &:hover {
         color: map-get($link-colors, hover);
     }
-    &:active {
+    &:active,
+    &:focus {
         color: map-get($link-colors, active);
     }
 
