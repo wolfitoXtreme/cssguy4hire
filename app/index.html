@@ -37,7 +37,7 @@
     <!-- SVG icon sprites -->
 
     <!-- HEADER -->
-    <header id="header" class="js-header panel panel--cover" title="">
+    <header id="home" class="js-header panel panel--cover" title="">
 
         <div class="cover panel__detail">
             
@@ -71,9 +71,9 @@
             </article>
 
             <!-- main menu -->
-            <nav class="nav-main-menu">
+            <nav class="js-nav-main-menu nav-main-menu">
                 
-                <h5 class="hidden">Main menu:</h5>
+                <h5 class="nav-main-menu__heading">Main menu:</h5>
                 
                 <ul class="nav-main-menu__list main-menu">
                 <li class="main-menu__item main-menu__item--home">
@@ -81,35 +81,35 @@
                         <strong class="main-menu__item-text">home</strong>
                     </a>
                 </li>
-                <li class="main-menu__item main-menu__item--about">
+                <li class="main-menu__item">
                     <a href="#about" title="about" class="main-menu__item-link">
                         <svg class="main-menu__item-icon" width="0" height="0">
                             <use xlink:href="#ui-icon-menu-about" />
                         </svg><strong class="main-menu__item-text">about</strong>
                     </a>
                 </li>
-                <li class="main-menu__item main-menu__item--skills">
+                <li class="main-menu__item">
                     <a href="#skills" title="skills" class="main-menu__item-link">
                         <svg class="main-menu__item-icon" width="0" height="0">
                             <use xlink:href="#ui-icon-menu-skills" />
                         </svg><strong class="main-menu__item-text">skills</strong>
                     </a>
                 </li>
-                <li class="main-menu__item main-menu__item--roles">
+                <li class="main-menu__item">
                     <a href="#roles" title="roles" class="main-menu__item-link">
                         <svg class="main-menu__item-icon" width="0" height="0">
                             <use xlink:href="#ui-icon-menu-roles" />
                         </svg><strong class="main-menu__item-text">roles</strong>
                     </a>
                 </li>
-                <li class="main-menu__item main-menu__item--work">
+                <li class="main-menu__item">
                     <a href="#work" title="work" class="main-menu__item-link">
                         <svg class="main-menu__item-icon" width="0" height="0">
                             <use xlink:href="#ui-icon-menu-work" />
                         </svg><strong class="main-menu__item-text">work</strong>
                     </a>
                 </li>
-                <li class="main-menu__item main-menu__item--contact">
+                <li class="main-menu__item">
                     <a href="#contact" title="contact" class="main-menu__item-link">
                         <svg class="main-menu__item-icon" width="0" height="0">
                             <use xlink:href="#ui-icon-menu-contact" />
@@ -122,23 +122,65 @@
             <!-- main menu -->
                     
             <!-- utilities menu -->
-            <nav class="nav-util-menu">
+            <nav class="js-nav-util-menu nav-util-menu">
                 
-                <h5>Find me on:</h5>
+                <h5 class="nav-util-menu__heading">Find me on:</h5>
                 
-                <ul class="util-menu">
-                <li class="util-menu__item"><a href="https://github.com/" title="GitHub" target="_blank">GitHub</a></li>
-                <li class="util-menu__item"><a href="https://www.linkedin.com/" title="LinkedIn" target="_blank">LinkedIn</a></li>
-                <li class="util-menu__item"><a href="http://codepen.io/" title="CodePen" target="_blank">CodePen</a></li>
-                <li class="util-menu__item"><a href="http://stackoverflow.com/" title="Stack Overflow" target="_blank">Stack Overflow</a></li>
-                <li class="util-menu__item"><a href="https://www.behance.net/" title="Bēhance" target="_blank">Bēhance</a></li>
-                <li class="util-menu__item"><a href="cv_en.pdf" title="Resume" target="_blank">Resume</a></li>
+                <ul class="nav-util-menu__list util-menu">
+                <li class="util-menu__item">
+                    <a href="https://github.com/" title="GitHub" target="_blank" class="util-menu__item-link">
+                        <svg class="util-menu__item-icon" width="0" height="0">
+                            <use xlink:href="#ui-icon-util-github" />
+                        </svg><span class="util-menu__item-text">GitHub</span>
+                    </a>
+                </li>
+                <li class="util-menu__item">
+                    <a href="https://www.linkedin.com/" title="LinkedIn" target="_blank" class="util-menu__item-link">
+                        <svg class="util-menu__item-icon" width="0" height="0">
+                            <use xlink:href="#ui-icon-util-linkedin" />
+                        </svg><span class="util-menu__item-text">LinkedIn</span>
+                    </a>
+                </li>
+                <li class="util-menu__item">
+                    <a href="http://codepen.io/" title="CodePen" target="_blank" class="util-menu__item-link">
+                        <svg class="util-menu__item-icon" width="0" height="0">
+                            <use xlink:href="#ui-icon-util-codepen" />
+                        </svg><span class="util-menu__item-text">CodePen</span>
+                    </a>
+                </li>
+                <li class="util-menu__item">
+                    <a href="http://stackoverflow.com/" title="Stack Overflow" target="_blank" class="util-menu__item-link">
+                        <svg class="util-menu__item-icon" width="0" height="0">
+                            <use xlink:href="#ui-icon-util-stackoverflow" />
+                        </svg><span class="util-menu__item-text">Stack Overflow</span>
+                    </a>
+                </li>
+                <li class="util-menu__item">
+                    <a href="https://www.behance.net/" title="Bēhance" target="_blank" class="util-menu__item-link">
+                        <svg class="util-menu__item-icon" width="0" height="0">
+                            <use xlink:href="#ui-icon-util-behance" />
+                        </svg><span class="util-menu__item-text">Bēhance</span>
+                    </a>
+                </li>
+                <li class="util-menu__item">
+                    <a href="cv_en.pdf" title="Resume" target="_blank" class="util-menu__item-link">
+                        <svg class="util-menu__item-icon" width="0" height="0">
+                            <use xlink:href="#ui-icon-util-cv" />
+                        </svg><span class="util-menu__item-text">Resume</span>
+                    </a>
+                </li>
                 </ul>
                 
-                <h5>Change your language:</h5>
+                <h5 class="nav-util-menu__heading">Change your language:</h5>
                 
-                <ul class="lang-menu">
-                <li class="lang-menu__item"><a href="#" title="Español">Español</a></li>
+                <ul class="nav-util-menu__list util-menu util-menu--lang">
+                <li class="util-menu__item">
+                    <a href="#" title="Español" class="util-menu__item-link util-menu__item-link--lang">
+                        <svg class="util-menu__item-icon util-menu__item-icon--lang" width="0" height="0">
+                            <use xlink:href="#ui-icon-util-lang-es" />
+                        </svg><span class="util-menu__item-text">Español</span>
+                    </a>
+                </li>
                 </ul>
                 
             </nav>
@@ -190,7 +232,7 @@
 
             <!-- section navigation -->
             <p class="js-nav-panel nav-panel">
-                <a href="#header" class="nav-panel__link nav-panel__link--prev" title="Previous">Previous</a>
+                <a href="#home" class="nav-panel__link nav-panel__link--prev" title="Previous">Previous</a>
                 <a href="#skills" class="nav-panel__link" title="Next">Next</a>
             </p>
             <!-- section navigation -->
@@ -336,12 +378,12 @@
                                 <div class="img-masking-inner">
                                     <div class="img-masking__set">
                                         <span class="img-masking-large">
-                                            <img class="img-09 img-masking-large__img" src="img/img-09.jpg" alt="">
-                                            <img class="img-11 img-masking-large__device" src="img/img-11.svg" alt="">
+                                            <img class="img-09 img-masking-large__img" src="img/img-09.jpg" height="220" alt="">
+                                            <img class="img-11 img-masking-large__device" src="img/img-11.svg" width="0" height="0" alt="">
                                         </span>
                                         <span class="img-masking-mobile">
-                                            <img class="img-12 img-masking-mobile__img" src="img/img-12.jpg" alt="">
-                                            <img class="img-10 img-masking-mobile__device" src="img/img-10.svg" alt="">
+                                            <img class="img-12 img-masking-mobile__img" src="img/img-12.jpg" height="220" alt="">
+                                            <img class="img-10 img-masking-mobile__device" src="img/img-10.svg" width="0" height="0" alt="">
                                         </span>
                                     </div>
                                 </div>
