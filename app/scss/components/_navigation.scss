@@ -2,7 +2,6 @@
 // navigation styles
 // 
 
-
 // menu-toggle
 .menu-toggle {
     $_transition-duration: $default-duration;
@@ -21,8 +20,6 @@
     background-color: transparent;
     @include no-highlight;
     @include remove-text;
-
-    // background-color: pink;
 
     @include breakpoint(map-get($breakpoints, small)) {
         $_button-width: prem(46px);
@@ -95,9 +92,7 @@
         position: absolute;
         transform: translateY(-50%);
 
-        // menu-toggle:hover menu-toggle-icon
-        // menu-toggle:focus menu-toggle-icon
-        // menu-toggle:active menu-toggle-icon
+        // menu-toggle:hover menu-toggle-icon...
         .menu-toggle:hover &,
         .menu-toggle:focus &, 
         .menu-toggle:active & {
@@ -108,9 +103,7 @@
         &--hover {
             opacity: 0;
             
-            // menu-toggle:hover menu-toggle-icon--hover
-            // menu-toggle:focus menu-toggle-icon--hover
-            // menu-toggle:active menu-toggle-icon--hover
+            // menu-toggle:hover menu-toggle-icon--hover...
             .menu-toggle:hover &,
             .menu-toggle:focus &, 
             .menu-toggle:active & {
@@ -129,9 +122,7 @@
         &--close-hover {
             opacity: 0;
 
-            // menu-toggle:hover menu-toggle-icon--close-hover
-            // menu-toggle:focus menu-toggle-icon--close-hover
-            // menu-toggle:active menu-toggle-icon--close-hover
+            // menu-toggle:hover menu-toggle-icon--close-hover...
             .menu-toggle:hover &,
             .menu-toggle:focus &, 
             .menu-toggle:active & {
@@ -145,13 +136,69 @@
 // main menu
 // ----------------
 
+$_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
+
+%menu-headings {
+    margin: 0;
+    padding: prem(8px) 0 prem(5px);
+    font: 300 #{prem($font-size-tiny)}/#{$line-height-default} opensans;
+    letter-spacing: 0.08em;
+    text-align: center;
+    color: rgba($white, 0.8);
+    background-color: darken($nero, 3%);
+    @include breakpoint(map-get($breakpoints, medium)) {
+        @include hidden(false);
+    }
+}
+
+%menu-item-links {
+    padding: $_menu-item-links-padding;
+    font: normal #{prem($font-size-normal)}/#{$line-height-default} oswald;
+    letter-spacing: 0;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid rgba($white, 0.2);
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+        border-style: none;
+    }
+
+    &:link,
+    &:visited {
+        color: $white;
+        background-color: $nero;
+        @include breakpoint(map-get($breakpoints, medium)) {
+            color: $eternity;
+            background-color: transparent;
+        }
+    }
+
+    &:active,
+    &:hover,
+    &:focus {
+        color: $nero;
+        background-color: $white;
+        @include breakpoint(map-get($breakpoints, medium)) {
+            color: $white;
+            background-color: transparent;
+        }
+    }
+}
+
 // nav-main-menu
 .nav-main-menu {
-    // display: none;
+    display: none;
 
     @include breakpoint(map-get($breakpoints, medium)) {
         text-align: center;
         display: block;
+    }
+
+    // nav-main-menu__heading
+    &__heading {
+        @extend %menu-headings;
     }
 
     // main-menu__list
@@ -163,38 +210,29 @@
 
 // main-menu
 .main-menu {
-
-
-    background-color: pink;
-    // display: inline-block;
-    // @include clearFix;
+    border-top: 1px solid rgba($white, 0.2);
     @include breakpoint(map-get($breakpoints, medium)) {
         display: flex;
         justify-content: center;
+        border-style: none;
     }
 
     // main-menu__item
     &__item {
         margin: 0;
-        // float:left;
-        // display: inline-block;
 
         background-color: lightblue;
 
         @include breakpoint(map-get($breakpoints, medium)) {
-            margin: 0 prem(10px);
+            margin: 0 0 0 prem(20px);
 
             &:nth-child(2) {
                 margin-left: 0;
             }
-
-            &:last-child {
-                margin-right: 0;
-            }
         }
 
         @include breakpoint(map-get($breakpoints, large)) {
-            margin: 0 prem(12px);
+            margin: 0 0 0 prem(24px);
         }
 
         &:before {
@@ -210,14 +248,7 @@
 
         // main-menu__item-link
         &-link {
-            padding: prem(19px) 0 prem(13px);
-            font: normal #{prem($font-size-normal)}/#{$line-height-default} oswald;
-            letter-spacing: 0;
-            text-align: center;
-            text-transform: uppercase;
-            text-decoration: none;
-            display: block;
-            border-bottom: 1px solid rgba($white, 0.2);
+            @extend %menu-item-links;
 
             @include breakpoint(map-get($breakpoints, medium)) {
                 padding: 0 prem(4px);
@@ -229,27 +260,6 @@
             @include breakpoint(map-get($breakpoints, large)) {
                 padding: 0 prem(8px);
                 font-size: prem($font-size-x-huge);
-            }
-
-            &:link,
-            &:visited {
-                color: $white;
-                background-color: $charcoal;
-                @include breakpoint(map-get($breakpoints, medium)) {
-                    color: $eternity;
-                    background-color: transparent;
-                }
-            }
-
-            &:active,
-            &:hover,
-            &:focus {
-                color: $nero;
-                background-color: $white;
-                @include breakpoint(map-get($breakpoints, medium)) {
-                    color: $white;
-                    background-color: transparent;
-                }
             }
         }
 
@@ -270,6 +280,7 @@
                 height: prem($_icon-height);
                 display: block;
 
+                // main-menu__item-link:hover main-menu__item-icon...
                 .main-menu__item-link:hover &,
                 .main-menu__item-link:active &,
                 .main-menu__item-link:focus & {
@@ -295,12 +306,245 @@
 }
 
 
+// 
 // utilities menu
+// ----------------
+
+// nav-util-menu
 .nav-util-menu {
     display: none;
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+        right: prem(24px);
+        top: prem(18px);
+        display: flex;
+        position: absolute;
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+        right: prem(30px);
+        top: prem(22px);
+    }
+    
+    // nav-util-menu--internal
+    &--internal {
+        display: none;
+        @include breakpoint(map-get($breakpoints, medium)) {
+            display: flex;
+        }
+    }
+
+    // nav-util-menu__heading
+    &__heading {
+        @extend %menu-headings;
+    }
+
+    // nav-util-menu__list
+    &__list {
+        margin: 0;
+        padding: 0;
+    }
 }
 
+// util-menu
+.util-menu {
+    border-top: 1px solid rgba($white, 0.2);
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+        padding-right: prem(5px);
+        display: flex;
+        border-style: none;
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+        padding-right: prem(6px);
+    }
+
+    // util-menu--lang
+    &--lang {
+        @include breakpoint(map-get($breakpoints, medium)) {
+            padding: 0 0 0 prem(6px);
+            position: relative;
+
+            &:before {
+                content: "";
+                left: 0;
+                top: 0;
+                width: 0;
+                height: 100%;
+                position: absolute;
+                border-left: 1px dotted rgba($oil, 0.5);
+            }
+        }
+
+        @include breakpoint(map-get($breakpoints, large)) {
+            padding: 0 0 0 prem(7px);
+
+            &:before {
+                border-width: 2px;
+            }
+        }
+    }
+    
+    // util-menu__item
+    &__item {
+        $_icon-width: 27px;
+        $_icon-height: 27px;
+
+        margin: 0;
+
+        @include breakpoint(map-get($breakpoints, medium)) {
+            margin: 0 0 0 prem(4px);
+
+            &:first-child {
+                margin-left: 0;
+            }
+        }
+
+        @include breakpoint(map-get($breakpoints, large)) {
+            margin: 0 0 0 prem(5px);
+        }
+
+        &:before {
+            display: none;
+        }
+
+        // util-menu__item-link
+        &-link {
+            $_padding-side: nth($_menu-item-links-padding, 2) + prem($_icon-width) + prem(5px);
+            
+            @extend %menu-item-links;
+            padding-right: $_padding-side;
+            padding-left: $_padding-side;
+
+            @include breakpoint(map-get($breakpoints, medium)) {
+                padding: prem(1px) 0;
+            }
+
+            @include breakpoint(map-get($breakpoints, large)) {
+                padding: prem(2px) 0 prem(1px);
+            }
+
+            // util-menu__item-link--lang
+            &--lang {
+                @include breakpoint(map-get($breakpoints, medium)) {
+                    padding-bottom: 0;
+                }
+            }
+
+        }
+
+        // util-menu__item-icon
+        &-icon {
+            right: nth($_menu-item-links-padding, 2);
+            top: 50%;
+            margin-top: prem(-$_icon-height / 2);
+            width: prem($_icon-width);
+            height: prem($_icon-height);
+            display: block;
+            position: absolute;
+            fill: $white;
+            
+            // util-menu__item-link:hover util-menu__item-icon...
+            .util-menu__item-link:hover &,
+            .util-menu__item-link:active &,
+            .util-menu__item-link:focus & {
+                fill: $nero;
+            }
+
+            @include breakpoint(map-get($breakpoints, medium)) {
+                $_icon-width: 32px;
+                $_icon-height: 32px;
+
+                margin: 0;
+                width: prem($_icon-width);
+                height: prem($_icon-height);
+                position: static;
+                fill: $eternity;
+                
+                // util-menu__item-link:hover util-menu__item-icon...
+                .util-menu__item-link:hover &,
+                .util-menu__item-link:active &,
+                .util-menu__item-link:focus & {
+                    fill: $white;
+                }
+            }
+
+            @include breakpoint(map-get($breakpoints, large)) {
+                $_new-width: 42px;
+                $_new-height: 42px;
+
+                width: prem($_new-width);
+                height: prem($_new-height);
+            }
+            
+            // util-menu__item-icon--lang
+            &--lang {
+                $_icon-width: nth(map-get($icons, ui-icon-util-lang-es), 2);
+                $_icon-height: nth(map-get($icons, ui-icon-util-lang-es), 2);
+                $_new-width: 28px;
+                $_new-height: stretchBySize($_icon-width, $_icon-height, $_new-width);
+
+                margin-top: prem(-$_new-height / 2);
+                width: prem($_new-width);
+                height: prem($_new-height);
+
+                @include breakpoint(map-get($breakpoints, medium)) {
+                    margin-top: 0;
+                    width: prem($_icon-width);
+                    height: prem($_icon-height);
+                }
+
+                @include breakpoint(map-get($breakpoints, large)) {
+                    $_new-width: 43px;
+                    $_new-height: stretchBySize($_icon-width, $_icon-height, $_new-width);
+
+                    width: prem($_new-width);
+                    height: prem($_new-height);
+                }
+
+            }
+        }
+
+        // util-menu__item-text
+        &-text {
+            @include breakpoint(map-get($breakpoints, medium)) {
+                @include hidden(false);
+            }
+        }
+    }
+}
+
+// 
+// mobile menu
+// ----------------
+
+// nav-mobile
+.nav-mobile {
+    right: 0;
+    top: 0;
+    width: prem(220px);
+    height: 100%;
+    overflow: hidden;
+    position: fixed;
+    z-index: 1;
+    background-color: $nero;
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+        right: prem(-220px);
+    }
+
+    // nav-mobile__menu
+    &__menu {
+        display: block;
+    }
+}
+
+// 
 // panel navigation
+// ----------------
+
+// nav-panel
 .nav-panel {
     margin: 0;
     padding: 0;
