@@ -28,14 +28,23 @@
     // background-color: lightblue;
 
     @include breakpoint(map-get($breakpoints, medium)) {
+        margin: 0 auto;
         padding: 0;
+        max-width: prem(452px);
+    }
+
+    @include breakpoint(map-get($breakpoints, medium) (orientation landscape)) {
+        max-width: none;
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+        max-width: prem(800px);
     }
 
     // setting site-logo width to accommodate portrait logo on large landscape screens, see below
     @include breakpoint(map-get($breakpoints, large) (min-height 768px) (orientation landscape)) {
-        $_target-width: getPercentageFrom(424px, 740px); // logo width, available space (1024px - paddings 142px * 2) - from design 
+        $_target-width: getPercentageFrom(424px, 740px); // logo width, available space (1024px - 142px paddings  * 2) - from design 
         
-        margin: 0 auto;
         width: $_target-width;
     }
 
