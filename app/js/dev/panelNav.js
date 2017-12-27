@@ -10,8 +10,8 @@ var panelNav = {
     init: function() {
         this.wrapper =          $('.js-panels');
         this.panels =           $('.panel', panelNav.wrapper);
-        // TODO - Arrow navigation already removed by CSS
-        this.panelArrows =      $('.js-nav-panel', panelNav.panels);
+        this.panelArrows =      $('.js-nav-panel-prev', panelNav.panels)
+                                .add('.js-nav-panel-next', panelNav.panels);
         this.focusables =       $(':focusable', panelNav.panels);
         this.panelHeight =      $('body').height();
         this.currentPanel =     0;
@@ -51,12 +51,9 @@ var panelNav = {
         panelNav.resize();
         panelNav.swipe(panelNav.wrapper);
         panelNav.mousewheel(panelNav.wrapper);
-
-        // disable any focusable elements that are not in scope
-        $('.js-disable-focus').attr('tabindex', -1);
-
-        // set tab navigation
         panelNav.tabNavigation(this.focusables);
+        panelNav.arrowNavigation();
+
 
     //prevent transition end event propagation
     // $('body *').on({
@@ -95,7 +92,7 @@ var panelNav = {
     // swipe status
     swipeStatus: function(event, phase, direction, distance) {
 
-        //If we are moving before swipe, and we are going L or R in X mode, or U or D in Y mode then drag.
+        // If we are moving before swipe, and we are going L or R in X mode, or U or D in Y mode then drag.
         if (phase == 'move' && (direction == 'up' || direction == 'down')) {
             var duration = 0;
 
@@ -109,17 +106,17 @@ var panelNav = {
     
             if (direction == 'up') {
                 console.log('swipeStatus UP');
-                panelNav.scrollPanels((panelNav.panelHeight * panelNav.currentPanel) + distance, duration, 'normalUP');
+                panelNav.scrollPanels((panelNav.panelHeight * panelNav.currentPanel) + distance, duration, 'swipeStatus-up');
             }
             else if (direction == 'down') {
                 console.log('swipeStatus DOWN');
-                panelNav.scrollPanels((panelNav.panelHeight * panelNav.currentPanel) - distance, duration, 'normalDOWN');
+                panelNav.scrollPanels((panelNav.panelHeight * panelNav.currentPanel) - distance, duration, 'swipeStatus-down');
             }
     
         }
         else if (phase == 'cancel') {
             console.log('swipeStatus CANCEL');
-            panelNav.scrollPanels(panelNav.panelHeight * panelNav.currentPanel, panelNav.panelSpeed, 'CANCEL');
+            panelNav.scrollPanels(panelNav.panelHeight * panelNav.currentPanel, panelNav.panelSpeed, 'swipeStatus-cancel');
         }
         else if (phase == 'end') {
             console.log('swipeStatus END');
@@ -130,14 +127,25 @@ var panelNav = {
                 panelNav.nextPanel();
             }
             else {
-                panelNav.scrollPanels(panelNav.panelHeight * panelNav.currentPanel, panelNav.panelSpeed, 'END');
+                panelNav.scrollPanels(panelNav.panelHeight * panelNav.currentPanel, panelNav.panelSpeed, 'swipeStatus-end');
             }
-            
-            console.log('PHASE END');
-            
+
+            console.log(
+                '-------\n' +
+                'PANELNAV - PHASE END \n' +
+                'currentPanel = ' + panelNav.currentPanel + '\n' +
+                '-------\n'
+            );
         }
         
         var swippeDistance = distance;
+
+        console.log(
+            '-------\n' +
+            'PANELNAV - SWIPESTATUS \n' +
+            'phase = ' + phase + '\n' +
+            '-------\n'
+        );
 
     },
 
@@ -151,7 +159,7 @@ var panelNav = {
     nextPanel: function() {
 
         panelNav.currentPanel = Math.min(panelNav.currentPanel + 1, panelNav.maxPanels - 1);
-        panelNav.scrollPanels(panelNav.panelHeight * panelNav.currentPanel, panelNav.panelSpeed, 'nextPane');
+        panelNav.scrollPanels(panelNav.panelHeight * panelNav.currentPanel, panelNav.panelSpeed, 'nextPanel');
 
         console.log(
             '-------\n' +
@@ -170,34 +178,131 @@ var panelNav = {
 
         console.log(
             '-------\n' +
-            'GOTO PANEL' + 
+            'PANELNAV - GOTO PANEL \n' + 
             'currentPanel = ' + panelNav.currentPanel + '\n' +
             'maxPanels = ' + panelNav.maxPanels + '\n' +
             'panelSpeed = ' + panelNav.panelSpeed + '\n' +
             '-------\n'
         );
-
     },
 
     // update panels position on drag
     scrollPanels: function(distance, duration, movement) {
 
         //inverse the number we set in the css
-        var value = (distance < 0 ? '' : '-') + Math.abs(distance).toString();
+        var value = (distance < 0 ? '' : '-') + Math.abs(distance).toString(),
+            $panelWrapper = this.wrapper,
+            $panels = this.panels,
+            $panelArrows = this.panelArrows;
 
         console.log(
-            '///////////\n' +
-            'scrollPanels distance = ' +  value + '||' + movement +'\n' +
-            '///////////'
+            '-------\n' +
+            'PANELNAV - SCROLLPANELS \n' + 
+            'distance = ' +  value + '||' + movement +'\n' +
+            'currentPanel = ' + panelNav.currentPanel + '\n' +
+            '-------\n'
         );
         
         //choose transform method and transition duration
         var cssTransition = panelNav.supports3D === true ? 'translate3d(0, ' + value + 'px, 0)' : 'translate(0,' + value + 'px)',
             transitionDuration = (duration / 1000).toFixed(1) + 's';
     
-        panelNav.wrapper.css({
+        $panelWrapper.css({
             'transition-duration' : transitionDuration,
             'transform' : cssTransition
+        }).on({
+            'transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd' : function(event) {
+                var $target = $(event.target)[0];
+                
+                if(movement === 'previousPanel' || movement === 'nextPanel') {
+
+                    // set focus on panel then remove it, 
+                    // therefore allowing tab navigation from current panel
+                    $panels.eq(panelNav.currentPanel).attr('tabindex', 1).focus().blur().removeAttr('tabindex', -1);
+
+                    // remove active simulated state from arrows
+                    $panelArrows.removeClass('nav-panel__link--active');
+
+                    console.log(
+                        '-------\n' +
+                        'PANELNAV - TRANSITION END \n' + 
+                        'target = ' + $target.tagName + '\n' +
+                        'movement = ' + movement + '\n' +
+                        'currentPanel = ' + panelNav.currentPanel + '\n' +
+                        '-------\n'
+                    );
+                }
+
+                $panelWrapper.off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+                
+            }
+        });
+    },
+
+    // tab navigation
+    tabNavigation: function(focusables) {
+        var $focusables = focusables;
+
+        $focusables.on({
+            'focus' : function(event){
+                $('html, body').scrollTop(0);
+
+                setTimeout(function() {
+                    var $target = $(event.target),
+                        $parentPanel = $target.closest('.panel'),
+                        parentIndex = $parentPanel.index(),
+                        currentPanel = panelNav.currentPanel;
+
+                    // if focused element not inside current panel 
+                    if(parentIndex !== currentPanel) {
+                        panelNav.gotoPanel(parentIndex);
+                    }
+
+                }, 5);
+            }
+        });
+    },
+
+    // arrow navigation
+    arrowNavigation: function() {
+        var $panelArrows = this.panelArrows,
+            prevArrow = '.js-nav-panel-prev',
+            nextArrow = '.js-nav-panel-next';
+
+        $panelArrows.on({
+            'click': function(event) {
+                event.preventDefault();
+
+                // simulate active state on ENTER key press
+                $(this).addClass('nav-panel__link--active');
+
+                if($(this).is(prevArrow)) {
+                    panelNav.previousPanel();
+                }
+                else {
+                    panelNav.nextPanel();
+                }
+            }
+        });
+
+    },
+
+    // control panels with mousewheel
+    mousewheel: function(panelWrapper) {
+
+        panelWrapper.on({
+            'mousewheel': function(event) {
+                console.log('event.deltaY = ' + event.deltaY);
+                
+                if(event.deltaY < 0) {
+                    panelNav.previousPanel();
+                }
+                else if(event.deltaY > 0) {
+                     panelNav.nextPanel();
+                }
+
+                // console.log('slickCurrentSlide =' + $(panelNav.wrapper).slick('slickCurrentSlide'));
+            }
         });
 
     },
@@ -208,8 +313,6 @@ var panelNav = {
         var targetWidth = $('body').width(),
             targetHeight = window.innerHeight > $('body').height ? window.innerHeight : $('body').height();
 
-
-        
         // adjust wrapper dimensions
         panelNav.wrapper.css({
             'width': targetWidth,
@@ -248,50 +351,6 @@ var panelNav = {
                     // $(panelNav.wrapper).slick('setPosition');
                 }
             , 100)
-        });
-    },
-
-    // control panels with mousewheel
-    mousewheel: function(panelWrapper) {
-
-        panelWrapper.on({
-            'mousewheel': function(event) {
-                console.log('event.deltaY = ' + event.deltaY);
-                
-                if(event.deltaY < 0) {
-                    panelNav.previousPanel();
-                }
-                else if(event.deltaY > 0) {
-                     panelNav.nextPanel();
-                }
-
-                // console.log('slickCurrentSlide =' + $(panelNav.wrapper).slick('slickCurrentSlide'));
-            }
-        });
-
-    },
-
-    // tab navigation
-    tabNavigation: function(focusables) {
-        var $focusables = focusables;
-
-        $focusables.on({
-            'focus' : function(event){
-                $('html, body').scrollTop(0);
-
-                setTimeout(function() {
-                    var $target = $(event.target),
-                        $parentPanel = $target.closest('.panel'),
-                        parentIndex = $parentPanel.index(),
-                        currentPanel = panelNav.currentPanel;
-
-                    // if focused element not inside current panel 
-                    if(parentIndex !== currentPanel) {
-                        panelNav.gotoPanel(parentIndex);
-                    }
-
-                }, 5);
-            }
         });
     }
 }
