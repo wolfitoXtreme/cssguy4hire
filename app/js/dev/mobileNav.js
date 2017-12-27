@@ -136,11 +136,16 @@ var mobileNav = {
 
     // open menu
     openMenu: function() {
-        var $menuToggle = this.menuToggle;
+        var $menuToggle = this.menuToggle,
+            $mobilePanel = this.mobilePanel;
 
         console.log('mobile navigation click/mouse up');
         
         $menuToggle.toggleClass(this.activeClass).blur();
+
+        // open 'mobileMenu'
+        $mobilePanel.toggle();
+
     }
 
 }

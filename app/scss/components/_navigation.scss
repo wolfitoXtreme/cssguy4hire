@@ -132,6 +132,7 @@
     }
 }
 
+
 // 
 // main menu
 // ----------------
@@ -515,20 +516,24 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
     }
 }
 
+
 // 
 // mobile menu
 // ----------------
 
 // nav-mobile
 .nav-mobile {
+    $_panel-width: prem(220px);
+    // right: -$_panel-width;
     right: 0;
     top: 0;
-    width: prem(220px);
+    width: $_panel-width;
     height: 100%;
     overflow: hidden;
     position: fixed;
     z-index: 1;
     background-color: $nero;
+    display: none;
 
     @include breakpoint(map-get($breakpoints, medium)) {
         right: prem(-220px);
@@ -539,6 +544,7 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
         display: block;
     }
 }
+
 
 // 
 // panel navigation
