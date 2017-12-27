@@ -221,9 +221,6 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
     // main-menu__item
     &__item {
         margin: 0;
-
-        background-color: lightblue;
-
         @include breakpoint(map-get($breakpoints, medium)) {
             margin: 0 0 0 prem(20px);
 
@@ -243,7 +240,7 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
         // main-menu__item--home
         &--home {
             @include breakpoint(map-get($breakpoints, medium)) {
-                @include hidden(false);
+                display: none;
             }
         }
 
@@ -557,54 +554,84 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
 
     // nav-panel__link
     &__link {
-        $_icon-width: prem(40px);
-        $_icon-height: $_icon-width;
-        $_icon-border-width: 10px;
+        $_icon-width: prem(42px);
+        $_icon-height: prem(42px);
+        $_icon-border-width: 3px;
 
+        margin-left: -($_icon-width / 2);
         left: 50%;
-        bottom: prem(10px);
-        transform: translateX(-50%);
+        bottom: prem(7px);
+        width: $_icon-width;
+        height: $_icon-height;
         position: absolute;
-        
         @extend %remove-text;
+        @include transitions($default-duration, ease-out, 0ms, (
+            transform,
+            opacity
+        ));
 
         &:before {
             content: "";
             left: 0;
-            top: -$_icon-border-width;
-            width: $_icon-width;
-            height: $_icon-height;
-            border: $_icon-border-width solid darkslategrey;
-            border-bottom-style: none;
-            border-left-style: none;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border: $_icon-border-width solid $white;
+            border-radius: 100%;
             display: block;
-            transform: rotate(135deg);
-            transform-origin: center center;
             position: absolute;
+            opacity: 0.5;
         }
 
-        &:after {
-            content: "";
-            width: $_icon-width;
-            height: $_icon-height;
-            display: block;
+        &:link,
+        &:visited {
+            transform: scale(0.0);
+            opacity: 0;
+        }
+
+
+        // nav-panel__link--active
+        &:hover,
+        &:active,
+        &--active {
+            &:before {
+                opacity: 1;
+            }
+        }
+
+        &:focus {
+            transform: scale(1);
+            opacity: 1;
         }
 
         // nav-panel__link--prev
         &--prev {
-            top: prem(10px);
+            top: prem(7px);
             bottom: auto;
+        }
+    }
 
-            &:before {
-                top: $_icon-border-width;
-                transform: rotate(-45deg);
-            }
+    // nav-panel__icon
+    &__icon {
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        fill: $white;
+        opacity: 0.5;
+
+        // nav-panel__link--prev nav-panel__icon
+        .nav-panel__link--prev & {
+            transform: rotate(180deg);
         }
 
-        // avoid firing hash navigation
-        // js nav-panel__link
-        .js & {
-            pointer-events: none;
+
+        // nav-panel__link--active nav-panel__icon
+        .nav-panel__link:hover &,
+        .nav-panel__link:active &,
+        .nav-panel__link--active & {
+            opacity: 1;
         }
     }
 }
