@@ -21,9 +21,9 @@ var domAdjust = {
             .addClass('nav-util-menu--internal')
             .prependTo(domAdjust.panels);
 
-        // apply all original 'header' characteristics to 'cover'
+        // append 'header' contents and apply all characteristics to 'cover'
+        domAdjust.header.children().appendTo(domAdjust.cover);
         domAdjust.cover
-            .html(domAdjust.header.html())
             .attr({
                 'id' : domAdjust.header.attr('id'),
                 'title' : domAdjust.header.attr('title'),
