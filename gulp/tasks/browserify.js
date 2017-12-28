@@ -33,6 +33,21 @@ module.exports = function(gulp, task, plugins, config) {
                     );
 
                 }))
+
+                // .pipe(plugins.buffer())
+                // .pipe(plugins.uglify({
+                //     compress: {
+                //         sequences: true,
+                //         dead_code: true,
+                //         conditionals: true,
+                //         booleans: true,
+                //         unused: true,
+                //         if_return: true,
+                //         join_vars: true,
+                //         drop_console: true
+                //     }
+                // }))
+                
                 .pipe(plugins.tap(destFile))
                 
                 // omit error already set by browserify

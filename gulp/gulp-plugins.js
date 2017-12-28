@@ -31,6 +31,7 @@ var plugins = {
     // utilities
     tap: require('gulp-tap'),
     fs: require('fs'),
+    buffer: require('vinyl-buffer'),
     source: require('vinyl-source-stream'),
     merge: require('merge-stream'),
     lazypipe: require('lazypipe'),
