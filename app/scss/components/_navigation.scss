@@ -367,18 +367,25 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
             &:before {
                 content: "";
                 left: 0;
-                top: 0;
+                top: 0px;
                 width: 0;
-                height: 100%;
+                height: prem(34px);
                 position: absolute;
+                border-style: none;
                 border-left: 1px dotted rgba($oil, 0.5);
+
+                // nav-util-menu--internal util-menu--lang:before
+                .nav-util-menu--internal & {
+                    border-color: rgba($white, 0.2);
+                }
             }
         }
 
         @include breakpoint(map-get($breakpoints, large)) {
-            padding: 0 0 0 prem(7px);
+            padding: 0 0 0 prem(8px);
 
             &:before {
+                height: prem(46px);
                 border-width: 2px;
             }
         }
@@ -442,7 +449,7 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
             display: block;
             position: absolute;
             fill: $white;
-            
+
             // util-menu__item-link:hover util-menu__item-icon...
             .util-menu__item-link:hover &,
             .util-menu__item-link:active &,
@@ -459,13 +466,27 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
                 height: prem($_icon-height);
                 position: static;
                 fill: $eternity;
-                
+
                 // util-menu__item-link:hover util-menu__item-icon...
                 .util-menu__item-link:hover &,
                 .util-menu__item-link:active &,
                 .util-menu__item-link:focus & {
                     fill: $white;
                 }
+
+                // nav-util-menu--internal util-menu__item-icon
+                .nav-util-menu--internal & {
+                    fill: $white;
+                    opacity: 0.4;
+                }
+
+                // nav-util-menu--internal util-menu__item-link:hover util-menu__item-icon...
+                .nav-util-menu--internal .util-menu__item-link:hover &,
+                .nav-util-menu--internal .util-menu__item-link:active &,
+                .nav-util-menu--internal .util-menu__item-link:focus & {
+                    opacity: 0.8;
+                }
+
             }
 
             @include breakpoint(map-get($breakpoints, large)) {
@@ -583,6 +604,35 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
             opacity: 0.5;
         }
 
+        @include breakpoint(map-get($breakpoints, small)) {
+            $_icon-width: prem(46px);
+            $_icon-height: prem(46px);
+
+            margin-left: -($_icon-width / 2);
+            width: $_icon-width;
+            height: $_icon-height;
+            bottom: prem(9px);
+        }
+
+        @include breakpoint(map-get($breakpoints, medium)) {
+            bottom: prem(10px);
+        }
+
+        @include breakpoint(map-get($breakpoints, large)) {
+            $_icon-width: prem(60px);
+            $_icon-height: prem(60px);
+            $_icon-border-width: 4px;
+
+            margin-left: -($_icon-width / 2);
+            width: $_icon-width;
+            height: $_icon-height;
+            bottom: prem(12px);
+
+            &:before {
+                border-width: $_icon-border-width;
+            }
+        }
+
         &:link,
         &:visited {
             transform: scale(0.0);
@@ -608,6 +658,15 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
         &--prev {
             top: prem(7px);
             bottom: auto;
+            @include breakpoint(map-get($breakpoints, small)) {
+                top: prem(9px);
+            }
+            @include breakpoint(map-get($breakpoints, medium)) {
+                top: prem(10px);
+            }
+            @include breakpoint(map-get($breakpoints, large)) {
+                top: prem(12px);
+            }
         }
     }
 
