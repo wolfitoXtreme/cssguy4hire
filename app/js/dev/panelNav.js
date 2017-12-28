@@ -46,6 +46,11 @@ var panelNav = {
         console.log('supports3D => ' + panelNav.supports3D);
         console.log('focusables => ' + panelNav.focusables.length);
 
+        panelNav.panels.prepend($('<span class="js-focus-dummy hidden" tabindex="0" />'));
+        panelNav.focusables = panelNav.focusables.add('.js-focus-dummy');
+
+        console.log('focusables => ' + panelNav.focusables.length);
+
         // initialize methods
         panelNav.matchSize();
         panelNav.resize();
@@ -53,7 +58,6 @@ var panelNav = {
         panelNav.mousewheel(panelNav.wrapper);
         panelNav.tabNavigation(this.focusables);
         panelNav.arrowNavigation();
-
 
     //prevent transition end event propagation
     // $('body *').on({
@@ -216,9 +220,13 @@ var panelNav = {
                 
                 if(movement === 'previousPanel' || movement === 'nextPanel') {
 
-                    // set focus on panel then remove it, 
+                    // set focus on focus dummy
                     // therefore allowing tab navigation from current panel
-                    $panels.eq(panelNav.currentPanel).attr('tabindex', 1).focus().blur().removeAttr('tabindex', -1);
+                    $panels.eq(panelNav.currentPanel).children().filter(
+                        function(index) {
+                            return $(this).is('.js-focus-dummy');
+                        }
+                    ).focus();
 
                     // remove active simulated state from arrows
                     $panelArrows.removeClass('nav-panel__link--active');
