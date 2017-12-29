@@ -162,4 +162,20 @@
 
     }
 
+    // cover-disposable
+    // not rendered in certain screen sizes
+    &-disposable {
+        @include breakpoint(map-get($breakpoints, x-small) (max-height 250px)) {
+            @include hidden(false);
+        }
+
+        @include breakpoint(map-get($breakpoints, medium) (max-height 450px)) {
+            @include hidden(false);
+        }
+
+        @include breakpoint(map-get($breakpoints, large) (max-height 560px)) {
+            @include hidden(false);
+        }
+
+    }
 }
