@@ -35,8 +35,8 @@ var domAdjust = {
         // remove original 'header'
         domAdjust.header.remove();
 
-        // TODO -- add signature logo to all panels
-        domAdjust.signature.attr('class', 'panel__signature');
+        // add signature logo to all panels
+        domAdjust.signature.appendTo(domAdjust.panels);
 
         // relocate 'contact' panel
         domAdjust.contact.appendTo('body');
