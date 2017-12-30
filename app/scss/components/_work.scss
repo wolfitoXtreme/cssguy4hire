@@ -1,13 +1,9 @@
 // 
 // Work Panel Styles
 //
-.work-slider {
-    @extend .skills-slider;
 
-    background-color: $falu-red;
-
-    // work-slider__item
-    &__item {
-        @extend .skills-slider__item;
-    }
+// work
+.work {
+    padding: 0;
+    max-width: none;
 }
