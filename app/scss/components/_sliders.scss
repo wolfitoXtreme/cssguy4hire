@@ -11,6 +11,7 @@
     // slider screen bleed, headings should maintain this padding
     &-heading {
         margin: 0 auto;
+        @extend %panel-hpadding;
     }
 
     // slider__item
@@ -24,6 +25,8 @@
 
         // slider__item-content
         &-content {
+            // max-width: prem(800px);
+            @extend %panel-hpadding;
         }
     }
 
