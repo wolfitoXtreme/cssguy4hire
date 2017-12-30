@@ -34,6 +34,36 @@ body {
     }
 }
 
+%panel-hpadding {
+    $_hSpace: getPercentageFrom(
+        nth($panel-padding-x-small, 2), 
+        map-get($breakpoints, x-small)
+    );
+    padding: 0 $_hSpace;
+    @include breakpoint(map-get($breakpoints, small)) {
+        $_hSpace: getPercentageFrom(
+            nth($panel-padding-small, 2), 
+            map-get($breakpoints, small)
+        );
+
+        padding: 0 $_hSpace;
+    }
+    @include breakpoint(map-get($breakpoints, medium)) {
+        $_hSpace: getPercentageFrom(
+            nth($panel-padding-medium, 2), 
+            map-get($breakpoints, medium)
+        );
+
+        padding: 0 $_hSpace;
+    }
+    @include breakpoint(map-get($breakpoints, large)) {
+        $_hSpace: nth($panel-padding-large, 2);
+
+        padding: 0 $_hSpace;
+        max-width: prem($site-max-width);
+    }
+}
+
 // panel
 .panel {
     width: 100%;
@@ -42,44 +72,13 @@ body {
 
     // panel__detail
     &__detail {
-        $_hSpace: getPercentageFrom(
-            nth($panel-padding-x-small, 2), 
-            map-get($breakpoints, x-small)
-        );
-
         margin: 0 auto;
-        padding: 0 $_hSpace;
         left: 50%;
         top: 50%;
         width: 100%;
         position: absolute;
         transform: translate(-50%, -50%);
-
-        @include breakpoint(map-get($breakpoints, small)) {
-            $_hSpace: getPercentageFrom(
-                nth($panel-padding-small, 2), 
-                map-get($breakpoints, small)
-            );
-
-            padding: 0 $_hSpace;
-        }
-
-        @include breakpoint(map-get($breakpoints, medium)) {
-            $_hSpace: getPercentageFrom(
-                nth($panel-padding-medium, 2), 
-                map-get($breakpoints, medium)
-            );
-
-            padding: 0 $_hSpace;
-        }
-
-        @include breakpoint(map-get($breakpoints, large)) {
-            $_hSpace: nth($panel-padding-large, 2);
-
-            padding: 0 $_hSpace;
-            max-width: prem($site-max-width);
-        }
-
+        @extend %panel-hpadding;
     }
 }
 
