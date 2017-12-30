@@ -1,0 +1,61 @@
+// 
+// sliders default styles
+//
+
+// slider
+.slider {
+    padding: 0;
+
+    // slider-heading
+    // padding removed from container 'panel__detail' to accommodate
+    // slider screen bleed, headings should maintain this padding
+    &-heading {
+        margin: 0 auto;
+    }
+
+    // slider__item
+    &__item {
+        padding: 0;
+        position: relative;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        background-color: pink;
+
+        // slider__item-content
+        &-content {
+        }
+    }
+
+    // slider-arrows
+    &-arrows {
+        margin: auto;
+        top: 50%;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 0;
+        position: absolute;
+        background-color: orange;
+        max-width: prem($site-max-width);
+
+
+        // slider-arrows__arrow
+        &__arrow {
+            // top: 50%;
+            left: 0;
+            position: absolute;
+            z-index: 1;
+            background-color: lightblue;
+
+            // slider-arrows__arrow--next
+            &--next {
+                right: 0;
+                left: auto;
+            }
+        }
+    }
+
+
+}
+

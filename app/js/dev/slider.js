@@ -20,8 +20,8 @@ var options = {
     centerPadding: 0,
     mobileFirst: true,
     responsive: [],
-    prevArrow: '<a href="#" class="">previous</a>',
-    nextArrow: '<a href="#" class="">next</a>'
+    prevArrow: '<a href="#" class="slider-arrows__arrow">previous</a>',
+    nextArrow: '<a href="#" class="slider-arrows__arrow slider-arrows__arrow--next">next</a>'
 }
 
 // 
@@ -66,7 +66,12 @@ var slider = {
             $slider.on('init', function(slick) {
                 
                 var $items = $(this).find('li'),
+                    $arrowsContainer = $('<div class="slider-arrows" />'),
                     $focusables = $(':focusable', this).add($items);
+
+                // wrap slider arrows inside a container
+                $(this).children('.slider-arrows__arrow').appendTo($arrowsContainer);
+                $arrowsContainer.appendTo($(this))
 
                 // set tab navigation (calling panelNav method)
                 panelNav.tabNavigation($focusables);
