@@ -2,29 +2,8 @@
 // Skills Panel Styles
 //
 
+// skills
 .skills {
     padding: 0;
-}
-
-
-// skills-slider
-.skills-slider {
-    padding: 0;
-    list-style: none;
-    background-color: $dark-slate-blue;
-
-    // skills-slider__item
-    &__item {
-        padding: 0 prem(10px);
-        position: relative;
-        display: flex !important;
-        align-items: center;
-        justify-content: center;
-        background-color: red;
-        
-        // skills-slider__item-content
-        &-content {
-            max-width: prem(800px);
-        }
-    }
+    max-width: none;
 }
