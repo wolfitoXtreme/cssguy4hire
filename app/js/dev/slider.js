@@ -20,8 +20,18 @@ var options = {
     centerPadding: 0,
     mobileFirst: true,
     responsive: [],
-    prevArrow: '<a href="#" class="slider-arrows__arrow">previous</a>',
-    nextArrow: '<a href="#" class="slider-arrows__arrow slider-arrows__arrow--next">next</a>'
+    prevArrow:  '<a href="#" class="slider-arrows__arrow">' +
+                   '<svg class="slider-arrows__icon" width="0" height="0">' +
+                        '<use xlink:href="#ui-icon-slider-arrow" />' +
+                    '</svg>' +
+                    'previous' + 
+                '</a>',
+    nextArrow: '<a href="#" class="slider-arrows__arrow slider-arrows__arrow--next">' +
+                   '<svg class="slider-arrows__icon" width="0" height="0">' +
+                        '<use xlink:href="#ui-icon-slider-arrow" />' +
+                    '</svg>' + 
+                    'next' + 
+                '</a>'
 }
 
 // 
