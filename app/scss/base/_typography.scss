@@ -256,21 +256,9 @@ p {
 
 // lists
 %lists {
-    padding: 0 0 0 prem(11px);
+    padding: 0;
     list-style: none;
     @extend %default-texts;
-
-    @include breakpoint(map-get($breakpoints, small)) {
-        padding: 0 0 0 prem(13px);
-    }
-
-    @include breakpoint(map-get($breakpoints, medium)) {
-        padding: 0 0 0 prem(15px);
-    }
-
-    @include breakpoint(map-get($breakpoints, large)) {
-        padding: 0 0 0 prem(20px);
-    }
 
     // nested lists and paragraphs
     & p,
@@ -290,6 +278,17 @@ p {
 // list - items
 %list-items {
     margin: 0 0 prem(5px);
+    padding: 0 0 0 prem(11px);
+
+    @include breakpoint(map-get($breakpoints, small)) {
+        padding: 0 0 0 prem(13px);
+    }
+    @include breakpoint(map-get($breakpoints, medium)) {
+        padding: 0 0 0 prem(15px);
+    }
+    @include breakpoint(map-get($breakpoints, large)) {
+        padding: 0 0 0 prem(20px);
+    }
 
     p:only-child {
         padding: 0;
@@ -325,7 +324,7 @@ ul > li {
         content: "";
         margin-top: -($_bullet-size / 2);
         top: (1em * $line-height-default) / 2;
-        left: prem(-11px);
+        left: 0;
         width: $_bullet-size;
         height: $_bullet-size;
         border-radius: 100%;
@@ -338,7 +337,6 @@ ul > li {
             $_bullet-size: prem(8px);
             
             margin-top: -($_bullet-size / 2);
-            left: prem(-13px);
             width: $_bullet-size;
             height: $_bullet-size;
         }
@@ -347,7 +345,6 @@ ul > li {
             $_bullet-size: prem(10px);
             
             margin-top: -($_bullet-size / 2);
-            left: prem(-15px);
             width: $_bullet-size;
             height: $_bullet-size;
         }
@@ -356,7 +353,6 @@ ul > li {
             $_bullet-size: prem(12px);
             
             margin-top: -($_bullet-size / 2);
-            left: prem(-20px);
             width: $_bullet-size;
             height: $_bullet-size;
         }
@@ -438,7 +434,7 @@ ol > li {
     &:before {
         content: counter(li-counter) ". ";
         counter-increment: li-counter;
-        left: prem(-17px);
+        left: prem(-6px);
         top: 0.36em;
         width: prem(13px);
         font: normal 0.8em/1 oswald;
@@ -448,22 +444,19 @@ ol > li {
         position: absolute;
 
         @include breakpoint(map-get($breakpoints, small)) {
-            left: prem(-19px);
             width: prem(15px);
         }
 
         @include breakpoint(map-get($breakpoints, medium)) {
             top: 0.46em;
-            left: prem(-24px);
+            left: prem(-9px);
             width: prem(20px);
         }
 
         @include breakpoint(map-get($breakpoints, large)) {
-            left: prem(-40px);
+            left: prem(-20px);
             width: prem(32px);
         }
-
-
     }
 }
 
