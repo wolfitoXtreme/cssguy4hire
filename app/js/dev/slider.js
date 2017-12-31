@@ -73,18 +73,20 @@ var slider = {
             // }).slick($slider.options);
 
             // slider methods
-            $slider.on('init', function(slick) {
-                
-                var $items = $(this).find('li'),
-                    $arrowsContainer = $('<div class="slider-arrows" />'),
-                    $focusables = $(':focusable', this).add($items);
+            $slider.on({
+                'init': function(slick) {
 
-                // wrap slider arrows inside a container
-                $(this).children('.slider-arrows__arrow').appendTo($arrowsContainer);
-                $arrowsContainer.appendTo($(this))
+                    var $items = $(this).find('li'),
+                        $arrowsContainer = $('<div class="slider-arrows" />'),
+                        $focusables = $(':focusable', this).add($items);
 
-                // set tab navigation (calling panelNav method)
-                panelNav.tabNavigation($focusables);
+                    // wrap slider arrows inside a container
+                    $(this).children('.slider-arrows__arrow').appendTo($arrowsContainer);
+                    $arrowsContainer.appendTo($(this))
+
+                    // set tab navigation (calling panelNav method)
+                    panelNav.tabNavigation($focusables);
+                }
             });
 
             // initialize slider
