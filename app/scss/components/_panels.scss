@@ -295,21 +295,8 @@
     }
 
     @include breakpoint($site-max-width (min-height 760px) (orientation landscape)) {
-        content: "test";
-
         background-position: 0 bottom, center 18%;
-        &:before {
-            content: "";
-            left: 0;
-            top: 0;
-            width: 100px;
-            height: 100px;
-            background-color: red;
-            display: block;
-            position: absolute;
-        }
     }
-
 
     // panel--cover
     &--cover {
