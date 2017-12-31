@@ -8,54 +8,17 @@
     max-width: none;
 }
 
-// skills-list
-.skills-list {
-    @include breakpoint((orientation landscape)) {
-        column-count: 2;
-        column-gap: prem(18px);
-    }
-
-    @include breakpoint(map-get($breakpoints, small)) {
-        column-gap: prem(22px);
-    }
-    
-    // set two columns for 600px and beyond
-    @include breakpoint(prem(600px)) {
-        column-count: 2;
-    }
-
-    @include breakpoint(map-get($breakpoints, medium)) {
-        column-gap: prem(30px);
-    }
-
-    @include breakpoint(map-get($breakpoints, large)) {
-        column-gap: prem(40px);
-    }
-
-    @include breakpoint($site-max-width (orientation landscape)) {
-        column-gap: prem(80px);
-    }
-    
-    // skills-list__item
-    &__item {
-        width: 100%;
-        display: inline-block;
-        break-inside: avoid;
-    }
-
-}
-
 // skills-expertise
 .skills-expertise {
     margin-bottom: 0;
-    @extend .skills-list;
+    @extend .column-list;
     @include clearFix;
 
     // skills-expertise__item
     &__item {
         margin: 0;
         padding: 0;
-        @extend .skills-list__item;
+        @extend .column-list__item;
 
         // remove default bullet list
         &:before {
@@ -72,7 +35,6 @@
         // skills-expertise__item-dots
         &-dots {
             float: right;
-            // background-color: blue;
         }
     }
 }
@@ -128,6 +90,5 @@
             width: $_dot-width;
             height: $_dot-height;
         }
-
     }
 }
