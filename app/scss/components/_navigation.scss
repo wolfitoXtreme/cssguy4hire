@@ -221,6 +221,7 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
     // main-menu__item
     &__item {
         margin: 0;
+        padding: 0;
         @include breakpoint(map-get($breakpoints, medium)) {
             margin: 0 0 0 prem(20px);
 
@@ -397,6 +398,7 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
         $_icon-height: 27px;
 
         margin: 0;
+        padding: 0;
 
         @include breakpoint(map-get($breakpoints, medium)) {
             margin: 0 0 0 prem(4px);
