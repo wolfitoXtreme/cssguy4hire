@@ -177,7 +177,7 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
     }
 
     &:active,
-    &:hover,
+    .no-touchevents &:hover, // touch devices sticky hover fix
     &:focus {
         color: $nero;
         background-color: $white;
@@ -280,7 +280,7 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
                 display: block;
 
                 // main-menu__item-link:hover main-menu__item-icon...
-                .main-menu__item-link:hover &,
+                .no-touchevents .main-menu__item-link:hover &, // touch devices sticky hover fix
                 .main-menu__item-link:active &,
                 .main-menu__item-link:focus & {
                     fill: $white;

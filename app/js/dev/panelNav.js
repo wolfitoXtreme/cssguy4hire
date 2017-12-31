@@ -12,6 +12,7 @@ var panelNav = {
         this.panels =           $('.panel', panelNav.wrapper);
         this.panelArrows =      $('.js-nav-panel-prev', panelNav.panels)
                                 .add('.js-nav-panel-next', panelNav.panels);
+        this.panelLinks =       $('.js-nav-main-menu a');
         this.focusables =       $(':focusable', panelNav.panels);
         this.panelHeight =      $('body').height();
         this.currentPanel =     0;
@@ -56,6 +57,7 @@ var panelNav = {
         panelNav.resize();
         panelNav.swipe(panelNav.wrapper);
         panelNav.mousewheel(panelNav.wrapper);
+        panelNav.linkNavigation(this.panelLinks);
         panelNav.tabNavigation(this.focusables);
         panelNav.arrowNavigation();
 
@@ -176,9 +178,9 @@ var panelNav = {
     },
 
     // go to panel
-    gotoPanel: function(leap) {
+    gotoPanel: function(leap, movement) {
         panelNav.currentPanel = leap;
-        panelNav.scrollPanels(panelNav.panelHeight * panelNav.currentPanel, panelNav.panelSpeed, 'gotoPanel');
+        panelNav.scrollPanels(panelNav.panelHeight * panelNav.currentPanel, panelNav.panelSpeed, movement);
 
         console.log(
             '-------\n' +
@@ -218,7 +220,7 @@ var panelNav = {
             'transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd' : function(event) {
                 var $target = $(event.target)[0];
                 
-                if(movement === 'previousPanel' || movement === 'nextPanel') {
+                if(movement === 'previousPanel' || movement === 'nextPanel' || movement == 'linkNavigation') {
 
                     // set focus on focus dummy
                     // therefore allowing tab navigation from current panel
@@ -247,6 +249,29 @@ var panelNav = {
         });
     },
 
+    // link navigation
+    linkNavigation: function(links) {
+        var $links = links;
+            
+
+        $links.on({
+            'click': function(event) {
+                var $link = $(this),
+                    linkIndex = $link.closest('li').index();
+                
+                event.preventDefault();
+
+
+
+                console.log('linkNavigation, linkIndex = ' + linkIndex);
+                setTimeout(function() {
+                    panelNav.gotoPanel(linkIndex, 'linkNavigation');
+                }, 5);
+                
+            }
+        });
+    },
+
     // tab navigation
     tabNavigation: function(focusables) {
         var $focusables = focusables;
@@ -263,7 +288,7 @@ var panelNav = {
 
                     // if focused element not inside current panel 
                     if(parentIndex !== currentPanel) {
-                        panelNav.gotoPanel(parentIndex);
+                        panelNav.gotoPanel(parentIndex, 'tabNavigation');
                     }
 
                 }, 5);
