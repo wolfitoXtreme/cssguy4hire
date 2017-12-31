@@ -7,3 +7,127 @@
     padding: 0;
     max-width: none;
 }
+
+// skills-list
+.skills-list {
+    @include breakpoint((orientation landscape)) {
+        column-count: 2;
+        column-gap: prem(18px);
+    }
+
+    @include breakpoint(map-get($breakpoints, small)) {
+        column-gap: prem(22px);
+    }
+    
+    // set two columns for 600px and beyond
+    @include breakpoint(prem(600px)) {
+        column-count: 2;
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+        column-gap: prem(30px);
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+        column-gap: prem(40px);
+    }
+
+    @include breakpoint($site-max-width (orientation landscape)) {
+        column-gap: prem(80px);
+    }
+    
+    // skills-list__item
+    &__item {
+        width: 100%;
+        display: inline-block;
+        break-inside: avoid;
+    }
+
+}
+
+// skills-expertise
+.skills-expertise {
+    margin-bottom: 0;
+    @extend .skills-list;
+    @include clearFix;
+
+    // skills-expertise__item
+    &__item {
+        margin: 0;
+        padding: 0;
+        @extend .skills-list__item;
+
+        // remove default bullet list
+        &:before {
+            display: none;
+        }
+        
+        // skills-expertise__item-text
+        &-text {
+            padding: 0 prem(8px) 0 0;
+            max-width: 60%;
+            display: inline-block;
+        }
+        
+        // skills-expertise__item-dots
+        &-dots {
+            float: right;
+            // background-color: blue;
+        }
+    }
+}
+
+// expertise-dots
+.expertise-dots {
+    padding: prem(2px) 0 prem(3px) 0;
+    display: block;
+
+    // expertise-dots__dot
+    &__dot {
+        $_dot-width: prem(12px);
+        $_dot-height: $_dot-width;
+        
+        margin-left: prem(3px);
+        width: $_dot-width;
+        height: $_dot-height;
+        border-radius: 100%;
+        display: inline-block;
+        opacity: 0.24;
+        border: 2px solid $white;
+
+        &:first-child {
+            margin: 0;
+        }
+        
+        // expertise-dots__dot--fulfilled
+        &--fulfilled {
+            background-color: $white;
+        }
+
+        @include breakpoint(map-get($breakpoints, small)) {
+            $_dot-width: prem(13px);
+            $_dot-height: $_dot-width;
+            
+            width: $_dot-width;
+            height: $_dot-height;
+        }
+
+        @include breakpoint(map-get($breakpoints, medium)) {
+            $_dot-width: prem(15px);
+            $_dot-height: $_dot-width;
+            
+            margin-left: prem(4px);
+            width: $_dot-width;
+            height: $_dot-height;
+        }
+
+        @include breakpoint(map-get($breakpoints, large)) {
+            $_dot-width: prem(20px);
+            $_dot-height: $_dot-width;
+
+            width: $_dot-width;
+            height: $_dot-height;
+        }
+
+    }
+}
