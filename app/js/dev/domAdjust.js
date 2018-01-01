@@ -6,7 +6,7 @@ var domAdjust = {
         this.header =       $('.js-header'); // original Header
         this.wrapper =      $('.js-panels');
         this.panels =       $('.panel', this.wrapper);
-        this.contact =      $('.js-contact', this.wrapper);
+        this.formPanel =    $('.js-form-panel', this.wrapper);
         this.cover =        this.panels.eq(0).clone().empty();
         this.signature =    $('.js-footer').find('.footer-signature').clone();
         this.hidden =       $('.js-hidden');
@@ -39,7 +39,7 @@ var domAdjust = {
         domAdjust.signature.appendTo(domAdjust.panels);
 
         // relocate 'contact' panel
-        domAdjust.contact.appendTo('body');
+        domAdjust.formPanel.appendTo('body');
 
         // hide all non required markup
         domAdjust.hidden.hide();
