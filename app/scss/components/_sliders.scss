@@ -4,14 +4,34 @@
 
 // slider
 .slider {
+    margin: 0;
     padding: 0;
 
     // slider-heading
+    // slider-details
     // padding removed from container 'panel__detail' to accommodate
     // slider screen bleed, headings should maintain this padding
-    &-heading {
+    &-heading,
+    &-details {
         margin: 0 auto;
         @extend %panel-hpadding;
+    }
+    
+    // slider-details
+    &-details {
+        margin-bottom: prem(10px);
+        
+        @include breakpoint(map-get($breakpoints, small)) {
+            margin-bottom: prem(12px);
+        }
+
+        @include breakpoint(map-get($breakpoints, medium)) {
+            margin-bottom: prem(14px);
+        }
+
+        @include breakpoint(map-get($breakpoints, medium)) {
+            margin-bottom: prem(16px);
+        }
     }
 
     // slider__item
