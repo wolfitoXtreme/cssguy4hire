@@ -268,8 +268,8 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
             // icons are squares at this moment
             // therefore these calculations are not needed,
             // this is just for demonstration purposes 
-            $_icon-width: nth(map-get($icons, ui-icon-menu-about), 2);
-            $_icon-height: nth(map-get($icons, ui-icon-menu-about), 2);
+            $_icon-width: nth(map-get($icons, icon-about), 2);
+            $_icon-height: nth(map-get($icons, icon-about), 2);
 
             fill: $eternity;
             display: none;
@@ -502,8 +502,8 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
             
             // util-menu__item-icon--lang
             &--lang {
-                $_icon-width: nth(map-get($icons, ui-icon-util-lang-es), 2);
-                $_icon-height: nth(map-get($icons, ui-icon-util-lang-es), 2);
+                $_icon-width: nth(map-get($icons, icon-lang-es), 2);
+                $_icon-height: nth(map-get($icons, icon-lang-es), 2);
                 $_new-width: 28px;
                 $_new-height: stretchBySize($_icon-width, $_icon-height, $_new-width);
 

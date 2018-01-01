@@ -21,19 +21,19 @@ var mobileNav = {
             '<button class="js-menu-toggle menu-toggle" title="menu">' + 
                 '<span class="menu-toggle__icons">' +
                     '<svg class="menu-toggle-icon">' +
-                        '<use xlink:href="#ui-icon-nav" />' +
+                        '<use xlink:href="#icon-nav" />' +
                     '</svg> ' +
                     '<svg class="menu-toggle-icon menu-toggle-icon--hover">' +
-                        '<use xlink:href="#ui-icon-nav-hover" />' +
+                        '<use xlink:href="#icon-nav-hover" />' +
                     '</svg>' +
                 '</span>' +
 
                 '<span class="menu-toggle__icons menu-toggle__icons--close">' +
                     '<svg class="menu-toggle-icon menu-toggle-icon--close">' +
-                        '<use xlink:href="#ui-icon-nav-close" />' +
+                        '<use xlink:href="#icon-nav-close" />' +
                     '</svg> ' +
                     '<svg class="menu-toggle-icon menu-toggle-icon--close-hover">' +
-                        '<use xlink:href="#ui-icon-nav-close-hover" />' +
+                        '<use xlink:href="#icon-nav-close-hover" />' +
                     '</svg>' +
                 '</span>' +
                 'menu' +

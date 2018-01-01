@@ -89,8 +89,8 @@ $_arrow-width:          23px;
 
     // selectBox-arrow__icon
     &__icon {
-        $_icon-width: nth(map-get($icons, ui-select-arrow), 1);
-        $_icon-height: nth(map-get($icons, ui-select-arrow), 2);
+        $_icon-width: nth(map-get($icons, icon-select-arrow), 1);
+        $_icon-height: nth(map-get($icons, icon-select-arrow), 2);
         $_new-width: 12px;
         $_new-height: stretchBySize($_icon-width, $_icon-height, $_new-width);
 

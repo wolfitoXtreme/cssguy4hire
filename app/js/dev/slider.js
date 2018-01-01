@@ -22,13 +22,13 @@ var options = {
     responsive: [],
     prevArrow:  '<a href="#" class="slider-arrows__arrow">' +
                    '<svg class="slider-arrows__icon" width="0" height="0">' +
-                        '<use xlink:href="#ui-icon-slider-arrow" />' +
+                        '<use xlink:href="#icon-slider-arrow" />' +
                     '</svg>' +
                     'previous' + 
                 '</a>',
     nextArrow: '<a href="#" class="slider-arrows__arrow slider-arrows__arrow--next">' +
                    '<svg class="slider-arrows__icon" width="0" height="0">' +
-                        '<use xlink:href="#ui-icon-slider-arrow" />' +
+                        '<use xlink:href="#icon-slider-arrow" />' +
                     '</svg>' + 
                     'next' + 
                 '</a>'

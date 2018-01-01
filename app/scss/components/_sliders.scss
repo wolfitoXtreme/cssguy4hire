@@ -51,8 +51,8 @@
 
     // slider-arrows
     &-arrows {
-        $_icon-width: nth(map-get($icons, ui-icon-slider-arrow), 1);
-        $_icon-height: nth(map-get($icons, ui-icon-slider-arrow), 2);
+        $_icon-width: nth(map-get($icons, icon-slider-arrow), 1);
+        $_icon-height: nth(map-get($icons, icon-slider-arrow), 2);
         $_arrow-padding: prem(4px);
         $_arrow-width: prem($_icon-width) + ($_arrow-padding * 2);
         $_arrrow-height: prem($_icon-height) + ($_arrow-padding * 2);

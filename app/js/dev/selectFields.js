@@ -126,7 +126,7 @@ var selectFields = {
             $label = $('<span class="selectBox-label" />'),
             $arrow = $('<span class="selectBox-arrow" />'),
             $dropDown = $('<div class="selectBox-dropdown" />'),
-            $arrowIcon = $('<svg class="selectBox-arrow__icon" width="0" height="0"><use xlink:href="#ui-select-arrow" /></svg>'),
+            $arrowIcon = $('<svg class="selectBox-arrow__icon" width="0" height="0"><use xlink:href="#icon-select-arrow" /></svg>'),
             selectClass = $select.attr('class');
 
         // include arrow icon

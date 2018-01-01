@@ -485,8 +485,8 @@ button {
 
     // button-icon
     &-icon {
-        $_icon-width: nth(map-get($icons, ui-button-arrow), 1);
-        $_icon-height: nth(map-get($icons, ui-button-arrow), 2);
+        $_icon-width: nth(map-get($icons, icon-button-arrow), 1);
+        $_icon-height: nth(map-get($icons, icon-button-arrow), 2);
         $_new-width: 6px;
         $_new-height: stretchBySize($_icon-width, $_icon-height, $_new-width);
         $_new-padding-right: nth($_padding-x-small, 2) + prem($_new-width - 2);
