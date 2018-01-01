@@ -233,7 +233,8 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
         @include breakpoint(map-get($breakpoints, large)) {
             margin: 0 0 0 prem(24px);
         }
-
+        
+        // remove default bullet list
         &:before {
             display: none;
         }
