@@ -1,13 +1,33 @@
 // 
 // Contact Panel Styles
 //
-.contact-panel {
-    .js & {
-        left: 0;
-        top: 0;
-        position: fixed;
+
+// contact
+.contact {
+
+}
 
 
-        display: none;
+// nav-contact-menu
+.nav-contact-menu {
+
+    // nav-contact-menu__list
+    &__list {
+        margin: 0;
+    }
+}
+
+// contact-menu
+.contact-menu {
+
+    // contact-menu__item
+    &__item {
+        margin: 0;
+        padding: 0;
+        
+        // remove default bullet list
+        &:before {
+            display: none;
+        }
     }
 }
