@@ -54,8 +54,7 @@
         height: $_dot-height;
         border-radius: 100%;
         display: inline-block;
-        opacity: 0.24;
-        border: 2px solid $white;
+        border: 2px solid rgba($white, 0.24);
 
         &:first-child {
             margin: 0;
@@ -63,7 +62,7 @@
         
         // expertise-dots__dot--fulfilled
         &--fulfilled {
-            background-color: $white;
+            background-color: rgba($white, 0.24);
         }
 
         @include breakpoint(map-get($breakpoints, small)) {
