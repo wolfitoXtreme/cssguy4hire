@@ -221,6 +221,14 @@ h6 {
 %default-texts {
     margin: prem(16px) 0;
 
+    @include breakpoint(map-get($breakpoints, small)) {
+        margin: prem(18px) 0;
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+        margin: prem(22px) 0;
+    }
+
     // any heading or block element following a text block
     @for $i from 1 through length($_heading-and-block-tags) {
         & + #{nth($_heading-and-block-tags, $i)} {
@@ -288,6 +296,7 @@ p {
         padding: 0 0 0 prem(15px);
     }
     @include breakpoint(map-get($breakpoints, large)) {
+        margin: 0 0 prem(9px);
         padding: 0 0 0 prem(20px);
     }
 
@@ -295,7 +304,6 @@ p {
         padding: 0;
     }
 }
-
 
 ul {
     @extend %lists;
