@@ -4,12 +4,23 @@
 
 // contact
 .contact {
-
 }
 
 
 // nav-contact-menu
 .nav-contact-menu {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    @include breakpoint((orientation landscape)) {
+        justify-content: flex-start;
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+        flex-flow: column;
+    }
 
     // nav-contact-menu__list
     &__list {
@@ -17,17 +28,167 @@
     }
 }
 
-// contact-menu
-.contact-menu {
+// get-in-touch
+.get-in-touch {
+    margin-right: prem(-4px); // adjusts to button margins
+    margin-left: prem(-4px); // adjusts to button margins
+    text-align: center;
+    flex-shrink: 0;
 
-    // contact-menu__item
+    // get-in-touch__item
     &__item {
         margin: 0;
         padding: 0;
+
+        // remove default bullet list
+        &:before {
+            display: none;
+        }
+    }
+}
+
+// contact-menu
+.contact-menu {
+    margin: prem(7px) prem(12px) ;
+    flex-shrink: 0;
+    font-size: 0;
+    line-height: 0;
+    text-align: center;
+
+    // background-color: lightblue;
+    @include breakpoint((orientation landscape)) {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    @include breakpoint(map-get($breakpoints, small)) {
+        margin: prem(10px) prem(14px);
+        @include breakpoint((orientation landscape)) {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+        margin: prem(10px) prem(18px);
+        @include breakpoint((orientation landscape)) {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+        margin: prem(20px) 0;
+    }
+
+
+    // contact-menu__item
+    &__item {
+        $_icon-width: 30px;
+        $_icon-height: 30px;
+
+        margin: 0 0 0 prem(2px);
+        padding: 0;
+        display: inline-block;
+
+        &:first-child {
+            margin-left: 0;
+        }
         
         // remove default bullet list
         &:before {
             display: none;
+        }
+
+        // contact-menu__item-link
+        &-link {
+            width: prem($_icon-width);
+            height: prem($_icon-height);
+            display: inline-block;
+            @include remove-text;
+        }
+
+        // contact-menu__item-icon
+        &-icon {
+            left: 0;
+            top: 0;
+            width: 100%;
+            position: absolute;
+
+            width: prem($_icon-width);
+            height: prem($_icon-height);
+            fill: $white;
+            opacity: 0.4;
+                
+            // contact-menu__item-link:link contact-menu__item-icon...
+            .contact-menu__item-link:link &,
+            .contact-menu__item-link:visited & {
+                opacity: 0.4;
+            }
+
+            // contact-menu__item-link:hover contact-menu__item-icon...
+            .contact-menu__item-link:hover &,
+            .contact-menu__item-link:active &,
+            .contact-menu__item-link:focus & {
+                opacity: 0.8;
+            }
+        }
+
+        @include breakpoint(map-get($breakpoints, small)) {
+            $_icon-width: 33px;
+            $_icon-height: 33px;
+
+            margin: 0 0 0 prem(4px);
+
+            // contact-menu__item-link
+            &-link {
+                width: prem($_icon-width);
+                height: prem($_icon-height);
+            }
+
+            // contact-menu__item-icon
+            &-icon {
+                width: prem($_icon-width);
+                height: prem($_icon-height);
+            }
+        }
+
+        @include breakpoint(map-get($breakpoints, medium)) {
+            $_icon-width: 46px;
+            $_icon-height: 46px;
+
+            margin: 0 0 0 prem(5px);
+
+            // contact-menu__item-link
+            &-link {
+                width: prem($_icon-width);
+                height: prem($_icon-height);
+            }
+
+            // contact-menu__item-icon
+            &-icon {
+                width: prem($_icon-width);
+                height: prem($_icon-height);
+            }
+        }
+
+        @include breakpoint(map-get($breakpoints, large)) {
+            $_icon-width: 64px;
+            $_icon-height: 64px;
+
+            margin: 0 0 0 prem(9px);
+
+            // contact-menu__item-link
+            &-link {
+                width: prem($_icon-width);
+                height: prem($_icon-height);
+            }
+
+            // contact-menu__item-icon
+            &-icon {
+                width: prem($_icon-width);
+                height: prem($_icon-height);
+            }
         }
     }
 }
