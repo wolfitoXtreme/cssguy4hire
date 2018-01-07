@@ -4,20 +4,83 @@
 
 // form layout
 .form {
+    $_field-padding-bottom: prem(6px);
+
+    @include breakpoint(map-get($breakpoints, small)) {
+         $_field-padding-bottom: prem(7px);
+    }
+
+    // form-description
+    &-description {
+        margin-bottom: prem(8px);
+    }
 
     // form-row
     &-row {
-
+        @include clearFix;
     }
 
     // form-column
     &-column {
+        $_target-width: getPercentageFrom(350px, 740px); // column width, - from design (large screen)
+        
+        margin-left: 100% - ($_target-width * 2);
+        width: $_target-width;
+        float: left;
 
+        &:first-child {
+            margin-left: 0;
+        }
+        
+        // form-column form-column__textarea-tall
+        // force textArea height
+        & &__textarea-tall {
+            $_oposite-fields: 4;
+            $_field-height: 30px;
+            
+            @include breakpoint((orientation landscape)) {
+                height: ($_field-height * $_oposite-fields) + 
+                        ($_field-padding-bottom * ($_oposite-fields - 1));
+
+                @include breakpoint(map-get($breakpoints, small)) {
+                    $_field-height: 33px;
+
+                    height: ($_field-height * $_oposite-fields) + 
+                            ($_field-padding-bottom * ($_oposite-fields - 1));
+                }
+
+                @include breakpoint(map-get($breakpoints, medium)) {
+                    $_field-height: 36px;
+                    $_label-height: 17px;
+
+                    height: ($_field-height * $_oposite-fields) + 
+                            ($_label-height * ($_oposite-fields - 1)) +
+                            ($_field-padding-bottom * ($_oposite-fields - 1));
+                }
+
+                @include breakpoint(map-get($breakpoints, large)) {
+                    $_field-height: 52px;
+                    $_label-height: 21px;
+
+                    height: ($_field-height * $_oposite-fields) + 
+                            ($_label-height * ($_oposite-fields - 1)) +
+                            ($_field-padding-bottom * ($_oposite-fields - 1));
+                }
+            }
+        }
+
+        @include breakpoint((orientation portrait)) {
+            @include breakpoint(map-get($breakpoints, x-small) map-get($breakpoints, medium)) {
+                margin-left: 0;
+                width: 100%;
+                float: none;
+            }
+        }
     }
 
     // form-field
     &-field {
-        padding-bottom: prem(6px);
+        padding-bottom: $_field-padding-bottom;
     }
 
     // form-buttons
@@ -25,19 +88,28 @@
         margin: 0 prem(-4px); // allows containing buttons margins to fit with the layout
         font-size: 0;
         line-height: 0;
+        text-align: right;
     }
 
 }
 
 // field sets
 fieldset {
+    margin: 0;
     padding: 0;
+    min-width: 0; // force contents to keep layout when whitespace is set to 'no-wrap'
     border-style: none;
 }
 
 // legend 
 legend {
     @include hidden;
+
+    // remove next sibling margin
+    + * {
+        margin-top: 0;
+    }
+
 }
 
 // labels
@@ -49,7 +121,7 @@ label {
     letter-spacing: -0.028em;
     text-transform: uppercase;
     line-height: 1.1;
-    display: inline-block;
+    display: block;
     @include hidden;
 
     @include breakpoint(map-get($breakpoints, small)) {
@@ -57,28 +129,22 @@ label {
     }
 
     @include breakpoint(map-get($breakpoints, medium)) {
-        padding-left: prem(6px);
+        padding-bottom: prem(3px);
+        padding-left: prem(5px);
         font-size: prem($font-size-xx-small);
         letter-spacing: -0.04em;
         @include unhidden(false);
     }
 
     @include breakpoint(map-get($breakpoints, large)) {
+        padding-bottom: prem(4px);
         padding-left: prem(7px);
         font-size: prem($font-size-normal);
     }
-
-    // sibling fields
-    & + input[type="text"],
-    & + input[type="tel"],
-    & + input[type="email"],
-    & + input[type="number"],
-    & + input[type="password"],
-    & + textarea,
-    & + select {
-        @include breakpoint(map-get($breakpoints, medium)) {
-            margin-top: -1px;
-        }
+    
+    // label-inline
+    &.label-inline {
+        display: inline-block;
     }
 }
 
@@ -99,6 +165,10 @@ label {
     line-height: $line-height-default;
     background-color: map-deep-get($field-colors, field, background);
     @include no-highlight;
+
+    @include breakpoint(map-get($breakpoints, small)) {
+        padding: prem(4px) prem(8px) prem(7px);
+    }
 
     @include breakpoint(map-get($breakpoints, medium)) {
         padding: prem(6px) prem(8px) prem(7px);

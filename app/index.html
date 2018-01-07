@@ -797,45 +797,54 @@
             
 
                     <!-- contact form -->  
-                    <form action="." method="get">
+                    <form action="." method="get" class="form">
                      
                         <fieldset>
                         
                             <legend><strong>Contact form</strong></legend>
-                            
-                            <p>
-                                All fields are required *, thanks;)
-                            </p>
-                        
-                            <div class="field">
-                                <label for="name">Name: <br></label>
-                                <input type="text" id="name" name="name" size="30" value="" placeholder="enter your name" required>
+                            <div class="form-description">
+                                <p>
+                                    All fields are required *, thanks;)
+                                </p>
                             </div>
                             
-                            <div class="field">
-                                <label for="company">Company: <br></label>
-                                <input type="text" id="company" name="company" size="30" value="" placeholder="enter your company" required>
-                            </div>
-                            
-                            <div class="field">
-                                <label for="email">E-mail: <br></label>
-                                <input type="text" id="email" name="email" size="30" value="" placeholder="enter your e-mail" required>
-                            </div>
+                            <div class="form-row">
                                 
-                            <div class="field">
-                                <label for="subject">Subject: <br></label>
-                                <select id="subject" name="subject" required>
-                                    <option value="0">Pick a subject</option>
-                                    <option value="1">I'd like you to join our team.</option>
-                                    <option value="2">I have the right project for you.</option>
-                                    <option value="3">I need to learn some of this, can you teach me?.</option>
-                                    <option value="4">I'd like to have a beer with you.</option>
-                                </select>
-                            </div>
+                                <div class="form-column">
+                                    <div class="form-field">
+                                        <label for="name">Name: <br></label>
+                                        <input type="text" id="name" name="name" size="30" value="" placeholder="enter your name" class="wide" required>
+                                    </div>
+                                    
+                                    <div class="form-field">
+                                        <label for="company">Company: <br></label>
+                                        <input type="text" id="company" name="company" size="30" value="" placeholder="enter your company" class="wide" required>
+                                    </div>
+                                    
+                                    <div class="form-field">
+                                        <label for="email">E-mail: <br></label>
+                                        <input type="text" id="email" name="email" size="30" value="" placeholder="enter your e-mail" class="wide" required>
+                                    </div>
+                                    
+                                    <div class="form-field">
+                                        <label for="subject">Subject: <br></label>
+                                        <select id="subject" name="subject" class="wide" required>
+                                            <option value="0">Pick a subject</option>
+                                            <option value="1">I'd like you to join our team.</option>
+                                            <option value="2">I have the right project for you.</option>
+                                            <option value="3">I need to learn some of this, can you teach me?.</option>
+                                            <option value="4">I'd like to have a beer with you.</option>
+                                        </select>
+                                    </div>
+                                </div>
 
-                            <div class="field comment">
-                                <label for="id_comments">Comments: <br></label>
-                                <textarea id="id_comments" rows="8" cols="32" name="comments"  placeholder="enter your comments" required></textarea>
+                                <div class="form-column">
+                                    <div class="form-field comment">
+                                        <label for="id_comments">Comments: <br></label>
+                                        <textarea id="id_comments" rows="8" cols="32" name="comments"  placeholder="enter your comments" class="wide form-column__textarea-tall" required></textarea>
+                                    </div>
+                                </div>
+
                             </div>
 
                             <div class="hidden">
@@ -845,7 +854,7 @@
 
                         </fieldset>
                         
-                        <div>
+                        <div class="form-buttons">
                             <button type="reset" name="reset" value="reset" class="button"><span>reset</span></button>
                             <button type="submit" name="submit" value="submit" class="button"><span>submit</span></button>
                         </div>
