@@ -33,6 +33,10 @@ $_arrow-width:          23px;
         color: $_color;
     }
 
+    &:focus {
+        color: $_hover-color;
+    }
+
     &:hover .selectBox-label {
         color: $_hover-color;
     }
@@ -193,7 +197,13 @@ $_arrow-width:          23px;
 
         // hover
         &.selectBox-hover a {
-            background-color: $_bg-color;
+            &:link,
+            &:visited,
+            &:hover,
+            &:active {
+                color: $_hover-color;
+                background-color: $_bg-color;
+            }
         }
 
         // selected
@@ -210,7 +220,7 @@ $_arrow-width:          23px;
 
         a {
             padding: prem(2px) prem(18px) prem(4px) prem(8px);
-            color: $_color;
+            color: $_hover-color;
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
