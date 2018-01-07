@@ -1,3 +1,5 @@
+'use strict';
+
 // 
 // manipulate DOM to create desired layout
 //
