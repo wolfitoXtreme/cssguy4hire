@@ -594,7 +594,8 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
             opacity
         ));
 
-        &:before {
+        &:before,
+        &:after {
             content: "";
             left: 0;
             top: 0;
@@ -605,6 +606,22 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
             display: block;
             position: absolute;
             opacity: 0.5;
+        }
+        
+        // no JS support arrow
+        &:after {
+            .no-js & {
+                margin: auto;
+                right: 0;
+                bottom: 15%;
+                width: 50%;
+                height: 50%;
+                border-radius: 0;
+                border-width: $_icon-border-width * 2;
+                border-top-style: none;
+                border-left-style: none;
+                transform: rotate(45deg);
+            }
         }
 
         @include breakpoint(map-get($breakpoints, small)) {
@@ -638,8 +655,10 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
 
         &:link,
         &:visited {
-            transform: scale(0.0);
-            opacity: 0;
+            .js & {
+                transform: scale(0.0);
+                opacity: 0;
+            }
         }
 
 
@@ -670,6 +689,16 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
             @include breakpoint(map-get($breakpoints, large)) {
                 top: prem(12px);
             }
+            
+            // no JS support arrow (top arrow)
+            &:after {
+                .no-js & {
+                    top: 15%;
+                    bottom: 0;
+                    transform: rotate(-135deg);
+                }
+            }
+
         }
     }
 

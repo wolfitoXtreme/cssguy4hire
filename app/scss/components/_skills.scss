@@ -10,9 +10,12 @@
 
 // skills-expertise
 .skills-expertise {
-    margin-bottom: 0;
     @extend .column-list;
     @include clearFix;
+    
+    &:last-child {
+        margin-bottom: 0;
+    }
 
     // skills-expertise__item
     &__item {

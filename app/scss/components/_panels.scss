@@ -10,6 +10,8 @@
     $_bkg-image-2x: 'panel-bkg-2x.png';
     $_about-bkg-image: 'panel-about-bkg.jpg';
     $_img-width: nth(map-get($images, panel-bkg), 1);
+
+    overflow: hidden;
     background: url($image-url + $_bkg-image) 0 bottom repeat-x;
     background-size: prem(132px);
 
@@ -138,6 +140,7 @@
         position: absolute;
         display: block;
         opacity: 0.04;
+        pointer-events: none; // select trough this element
 
         @include breakpoint(map-get($breakpoints, small)) {
             font-size: prem(102px);
@@ -150,9 +153,5 @@
         @include breakpoint(map-get($breakpoints, large)) {
             font-size: prem(200px);
         }
-
     }
-
-
-
 }
