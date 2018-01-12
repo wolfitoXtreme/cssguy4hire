@@ -192,3 +192,45 @@
         }
     }
 }
+
+// form-panel
+.form-panel {
+    .js & {
+        $_transition-duration: 450ms;
+        
+        top: 0;
+        left: 100%;
+        position: absolute;
+        transition: left $_transition-duration ease-out 0ms;
+        
+        // form-panel--opening
+        &--opening {
+            left: 0%;
+        }
+
+        // form-panel--opened
+        &--opened {
+            position: relative;
+        }
+        
+        // form-panel-content-wrapper
+        &-content-wrapper {
+            padding-top: prem(30px);
+            padding-bottom: prem(30px);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            overflow: auto;
+        }
+        
+        // form-panel-close-btn
+        &-close-btn {
+            right: 0;
+            top: 0;
+            position: absolute;
+        }
+    }
+}

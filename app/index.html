@@ -680,7 +680,7 @@
 
 
         <!-- section (Contact) -->
-        <section id="contact" class="panel panel--contact" title="Contact">
+        <section id="contact" class="js-contact-panel panel panel--contact" title="Contact">
             <div class="panel__detail">
             
                 <h2 class="panel-heading">Contact</h2>
@@ -701,7 +701,7 @@
                         <!-- get in touch -->
                         <ul class="nav-contact-menu__list get-in-touch">
                             <li class="get-in-touch__item">
-                                <a href="#" class="button button-icon">
+                                <a href="#" class="js-open-contact-panel button button-icon">
                                     Get in touch
                                     <svg class="button-icon__icon" width="0" height="0">
                                         <use xlink:href="#icon-button-arrow" />
@@ -787,7 +787,7 @@
 
 
         <!-- section (Get in touch) -->
-        <section id="get-in-touch" class="js-form-panel panel panel--contact" title="Get in touch">
+        <section id="get-in-touch" class="js-form-panel panel panel--contact form-panel" title="Get in touch">
             
             <div class="panel__detail">
             
@@ -795,6 +795,11 @@
                 
                 <article class="panel-content">
             
+                    <button class="form-panel-close-btn" title="menu">
+                        <svg class="menu-toggle-icon">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-nav"></use>
+                        </svg>close
+                    </button>
 
                     <!-- contact form -->  
                     <form action="." method="get" class="form">
@@ -813,23 +818,23 @@
                                 <div class="form-column">
                                     <div class="form-field">
                                         <label for="name">Name: <br></label>
-                                        <input type="text" id="name" name="name" size="30" value="" placeholder="enter your name" class="wide" required>
+                                        <input type="text" id="name" name="name" size="30" value="" placeholder="enter your name"  autocomplete="off" required class="wide" >
                                     </div>
                                     
                                     <div class="form-field">
                                         <label for="company">Company: <br></label>
-                                        <input type="text" id="company" name="company" size="30" value="" placeholder="enter your company" class="wide" required>
+                                        <input type="text" id="company" name="company" size="30" value="" placeholder="enter your company" autocomplete="off" required class="wide" >
                                     </div>
                                     
                                     <div class="form-field">
                                         <label for="email">E-mail: <br></label>
-                                        <input type="text" id="email" name="email" size="30" value="" placeholder="enter your e-mail" class="wide" required>
+                                        <input type="email" id="email" name="email" size="30" value="" placeholder="enter your e-mail" autocomplete="off" required class="wide">
                                     </div>
                                     
                                     <div class="form-field">
                                         <label for="subject">Subject: <br></label>
                                         <select id="subject" name="subject" class="wide" required>
-                                            <option value="0">Pick a subject</option>
+                                            <option value="">Pick a subject</option>
                                             <option value="1">I'd like you to join our team.</option>
                                             <option value="2">I have the right project for you.</option>
                                             <option value="3">I need to learn some of this, can you teach me?.</option>
