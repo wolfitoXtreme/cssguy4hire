@@ -12,12 +12,7 @@ html, body {
 }
 
 body {
-    // helps panel navigation visuals
-    .js & {
-        overflow: hidden;
-    }
-
-    // transition: all 300ms ease-in 0ms;
+    overflow: hidden;
 
     // test mediaQueries
     @include queryInfo();
@@ -67,19 +62,20 @@ body {
 // panel
 .panel {
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 
     // panel__detail
     &__detail {
-        margin: 0 auto;
-        left: 50%;
-        top: 50%;
         width: 100%;
-        position: absolute;
-        transform: translate(-50%, -50%);
+        max-height: 100%;
         z-index: 1;
         @extend %panel-hpadding;
+
     }
 }
 
