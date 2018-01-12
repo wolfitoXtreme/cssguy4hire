@@ -18,6 +18,7 @@ var domAdjust = require('./domAdjust'),
     breakpoints = require('./breakpoints'),
     svgIcons = require('./svgIcons'),
     panelNav = require('./panelNav'),
+    contactPanel = require('./contactPanel'),
     skillsRating = require('./skillsRating'),
     slider = require('./slider'),
     onScreenTest = require('./onScreenTest'),
@@ -34,6 +35,7 @@ $(function() {
             emailProtector.init();
             svgIcons.init();
             panelNav.init();
+            contactPanel.init();
             skillsRating.init();
             slider.init();
             forms.init();
