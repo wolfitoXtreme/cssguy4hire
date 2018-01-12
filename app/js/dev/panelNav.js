@@ -26,7 +26,7 @@ var panelNav = {
             swipeStatus : panelNav.swipeStatus,
             allowPageScroll : 'none',
             threshold : 75,
-            excludedElements : 'label, button, input, select, option, textarea, .select, .textarea',
+            excludedElements : 'label, button, input, select, option, textarea', // default elements to exclude
             fallbackToMouseEvents : true,
             tap : function(event, target) {                
                 //console_log(

@@ -37,11 +37,12 @@ var domAdjust = {
         // remove original 'header'
         domAdjust.header.remove();
 
+        // relocate 'contact' panel
+        domAdjust.formPanel.wrapInner('<div class="form-panel-content-wrapper" />');
+        domAdjust.formPanel.appendTo('body');
+
         // add signature logo to all panels
         domAdjust.signature.appendTo(domAdjust.panels);
-
-        // relocate 'contact' panel
-        domAdjust.formPanel.appendTo('body');
 
         // hide all non required markup
         domAdjust.hidden.hide();
