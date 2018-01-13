@@ -1,7 +1,10 @@
 'use strict';
 
 var panelNav = require('./panelNav'),
-    onScreenTest = require('./onScreenTest');
+    onScreenTest = require('./onScreenTest'),
+    TweenLite = require('TweenLite'),
+    TimelineLite = require('TimelineLite'),
+    CSSPlugin = require('CSSPlugin');
 
 // 
 // Contact Panel 
@@ -10,7 +13,10 @@ var contactPanel = {
     init: function() {
         this.openBtn =      $('.js-open-contact-panel');
         this.formPanel =    $('.js-form-panel');
-        this.closeBtn = $('.form-panel-close-btn');
+        this.closeBtn =     $('.form-panel-close-btn');
+        this.initPos =      '100%';
+        this.easing =       'Sine';
+        this.duration =     0.5,
         this.isMoving =     false;
         this.isOpen =       false;
         
@@ -38,58 +44,55 @@ var contactPanel = {
             }
         });
 
-        // formPanel transition events
-        this.formPanel.hide().on({
-            'transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd' : function(event) {
-                var $formPanel = contactPanel.formPanel;
-
-                if($(event.target)[0] === $formPanel[0]) {
-                    contactPanel.isOpen = !contactPanel.isOpen;
-                    contactPanel.isMoving = false;
-
-                    console.log(
-                        'contactPanel transitionend on...' + $(event.target).attr('class') + '\n' +
-                        'isOpen = ' + contactPanel.isOpen
-                    );
-
-                    if(contactPanel.isOpen === true) {
-                        // hide panels
-                        panelNav.wrapper.add(panelNav.panels).hide();
-
-                        // set formPanel as opened
-                        $formPanel.addClass('form-panel--opened');
-                    }
-                    else {
-                        // trigger window resize to ensure any 'on resize' dependent objects are updated
-                        $(window).trigger('resize');
-                    }
-                }
-            }
-        });
-
+        this.formPanel.hide();
     },
 
     open: function() {
-        var $formPanel = contactPanel.formPanel;
+        var $formPanel = this.formPanel,
+            pos = '0%',
+            duration = this.duration,
+            easing = this.easing;
 
         $formPanel.show();
 
-        // delay setting opening class honoring CSS transition
-        setTimeout(function() {
-            $formPanel.addClass('form-panel--opening');
-        }, 5);
+        TweenLite.to($formPanel, duration, {
+            left: pos,
+            easing: easing,
+            onComplete: function() {
+                contactPanel.complete();
+                $formPanel.addClass('form-panel--opened');
+            }
+        });
     },
 
     close: function() {
-        var $formPanel = contactPanel.formPanel;
+        var $formPanel = this.formPanel,
+            pos = this.initPos,
+            duration = this.duration,
+            easing = this.easing;
 
-        // delay setting opening class honoring CSS transition
-        setTimeout(function() {
-            $formPanel.removeClass('form-panel--opening form-panel--opened');
-            panelNav.wrapper.add(panelNav.panels).show();
-        }, 5);
+        console.log('init pos was = ' + pos);
 
+        TweenLite.to($formPanel, duration, {
+            left: pos,
+            easing: easing,
+            onComplete: function() {
+                contactPanel.complete();
+                $formPanel.removeClass('form-panel--opened');
+                $formPanel.hide();
+            }
+        });
+    },
+
+    complete: function() {
+        var $formPanel = this.formPanel;
+
+        console.log('contactPanel.complete!!');
+        this.isMoving = false;
+        this.isOpen = !this.isOpen;
         
+        // remove residual inline animations styles
+        $formPanel.css({'left': ''});
     }
 }
 

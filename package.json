@@ -25,7 +25,10 @@
     "mousewheel": "./node_modules/jquery-mousewheel/jquery.mousewheel.js",
     "slick": "./app/js/dev/lib/slick.min.js",
     "selectbox": "./app/js/dev/lib/jquery.selectBox.js",
-    "perfectScrollbar": "./app/js/dev/lib/perfect-scrollbar.jquery.min.js"
+    "perfectScrollbar": "./app/js/dev/lib/perfect-scrollbar.jquery.min.js",
+    "TweenLite": "./node_modules/gsap/TweenLite.js",
+    "TimelineLite": "./node_modules/gsap/TimelineLite.js",
+    "CSSPlugin": "./node_modules/gsap/CSSPlugin.js"
   },
   "browserify-shim": {
     "jquery": "$",
