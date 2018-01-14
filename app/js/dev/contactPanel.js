@@ -15,7 +15,7 @@ var contactPanel = {
         this.formPanel =    $('.js-form-panel');
         this.closeBtn =     $('.form-panel-close-btn');
         this.initPos =      '100%';
-        this.easing =       'Sine';
+        this.easing =       'Power2.easeOut';
         this.duration =     0.5,
         this.isMoving =     false;
         this.isOpen =       false;
@@ -57,7 +57,7 @@ var contactPanel = {
 
         TweenLite.to($formPanel, duration, {
             left: pos,
-            easing: easing,
+            ease: easing,
             onComplete: function() {
                 contactPanel.complete();
                 $formPanel.addClass('form-panel--opened');
@@ -75,7 +75,7 @@ var contactPanel = {
 
         TweenLite.to($formPanel, duration, {
             left: pos,
-            easing: easing,
+            ease: easing,
             onComplete: function() {
                 contactPanel.complete();
                 $formPanel.removeClass('form-panel--opened');
