@@ -217,12 +217,89 @@
             position: absolute;
             overflow: auto;
         }
+    }
+    
+    // form-panel-close-btn
+    &-close-btn {
+        $_button-width: prem(36px);
+        $_button-height: prem(36px);
+        $_button-padding: prem(2px);
+
+        right: prem(11px);
+        top: prem(11px);
+        width: $_button-width;
+        height: $_button-height;
+        border-style: none;
+        cursor: pointer;
+        position: absolute;
+        opacity: 0.4;
+        display: block;
+        background-color: transparent;
+        @include no-highlight;
+        @include remove-text;
+
+        &:hover,
+        &:active,
+        &:focus {
+            opacity: 0.8;
+        }
         
-        // form-panel-close-btn
-        &-close-btn {
-            right: 0;
-            top: 0;
+        // form-panel-close-btn__icon
+        &__icon {
+            left: $_button-padding;
+            top: $_button-padding;
+            width: $_button-width - ($_button-padding * 2);
+            height: $_button-height - ($_button-padding * 2);
+            fill: $white;
             position: absolute;
+        }
+
+        @include breakpoint(map-get($breakpoints, small)) {
+            $_button-width: prem(40px);
+            $_button-height: prem(40px);
+
+            right: prem(13px);
+            top: prem(13px);
+            width: $_button-width;
+            height: $_button-height;
+
+            // form-panel-close-btn__icon
+            &__icon {
+                width: $_button-width - ($_button-padding * 2);
+                height: $_button-height - ($_button-padding * 2);
+            }
+        }
+
+        @include breakpoint(map-get($breakpoints, medium)) {
+            $_button-width: prem(44px);
+            $_button-height: prem(44px);
+
+            right: prem(15px);
+            top: prem(15px);
+            width: $_button-width;
+            height: $_button-height;
+
+            // form-panel-close-btn__icon
+            &__icon {
+                width: $_button-width - ($_button-padding * 2);
+                height: $_button-height - ($_button-padding * 2);
+            }
+        }
+
+        @include breakpoint(map-get($breakpoints, large)) {
+            $_button-width: prem(48px);
+            $_button-height: prem(48px);
+
+            right: prem(19px);
+            top: prem(19px);
+            width: $_button-width;
+            height: $_button-height;
+
+            // form-panel-close-btn__icon
+            &__icon {
+                width: $_button-width - ($_button-padding * 2);
+                height: $_button-height - ($_button-padding * 2);
+            }
         }
     }
 }

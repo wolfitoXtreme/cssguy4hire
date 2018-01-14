@@ -7,7 +7,7 @@ var domAdjust = {
     init: function() {
         this.header =       $('.js-header'); // original Header
         this.wrapper =      $('.js-panels');
-        this.panels =       $('.panel', this.wrapper);
+        this.panels =       $('.panel', this.wrapper).not('.form-panel');
         this.formPanel =    $('.js-form-panel', this.wrapper);
         this.cover =        this.panels.eq(0).clone().empty();
         this.signature =    $('.js-footer').find('.footer-signature').clone();
