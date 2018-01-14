@@ -42,9 +42,6 @@ var mobileNav = {
 
         console.log('mobileNav mobileMenus = ' + mobileNav.mobileMenus.length);
 
-        // initialize breakpoints
-        breakpoints.init();
-
         // setup breakpoint dependent behavior
         enquire.register('screen and (min-width:' + breakpoints.get('xx-small') + ') and (max-width:' + breakpoints.get('medium', true) + ')', {
             match : function() {
@@ -99,9 +96,7 @@ var mobileNav = {
                         'index': $(this).index(),
                         'parent' : $(this).parent()
                     });
-
                 });
-
             }
 
             // show 'menu toggle'
@@ -111,7 +106,6 @@ var mobileNav = {
             $mobileMenus.each(function(i){
                 $(this).addClass(menuClass).prependTo($mobilePanel);
             });
-
         }
         else {
             $menuToggle.hide();

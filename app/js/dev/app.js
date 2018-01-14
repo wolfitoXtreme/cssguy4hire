@@ -12,10 +12,10 @@ require('mousewheel')($);
 
 // load project modules
 var domAdjust = require('./domAdjust'),
+    breakpoints = require('./breakpoints'),
     deviceOrientation = require('./deviceOrientation'),
     mobileNav = require('./mobileNav'),
     emailProtector = require('./emailProtector'),
-    breakpoints = require('./breakpoints'),
     svgIcons = require('./svgIcons'),
     panelNav = require('./panelNav'),
     contactPanel = require('./contactPanel'),
@@ -30,6 +30,7 @@ $(function() {
     var app = {
         init: function() {
             domAdjust.init();
+            breakpoints.init();
             deviceOrientation.init();
             mobileNav.init();
             emailProtector.init();
