@@ -240,6 +240,8 @@ ol > li {
             
             // ref-thumb__item-img--icon
             &--icon {
+                min-width: prem(60px);
+                min-height: prem(60px);
                 max-width: none;
             }
         }
