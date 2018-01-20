@@ -4,8 +4,6 @@
 require('jquery');
 require('jquery-ui');
 require('modernizr');
-require('touchswipe');
-require('mousewheel')($);
 
 // require installed modules
 // modules here...
@@ -26,7 +24,6 @@ var domAdjust = require('./domAdjust'),
 
 // app
 $(function() {
-
     var app = {
         init: function() {
             domAdjust.init();
