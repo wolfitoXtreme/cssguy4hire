@@ -305,6 +305,106 @@ p {
     }
 }
 
+%bullets-level-1 {
+    $_bullet-size: prem(7px);
+
+    content: "";
+    margin-top: -($_bullet-size / 2);
+    top: (1em * $line-height-default) / 2;
+    left: 0;
+    width: $_bullet-size;
+    height: $_bullet-size;
+    border-radius: 100%;
+    display: block;
+    position: absolute;
+    background-color: $orange-peel;
+    box-shadow: -1px -1px 0 0 rgba($black, 0.21);
+
+    @include breakpoint(map-get($breakpoints, small)) {
+        $_bullet-size: prem(8px);
+        
+        margin-top: -($_bullet-size / 2);
+        width: $_bullet-size;
+        height: $_bullet-size;
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+        $_bullet-size: prem(10px);
+        
+        margin-top: -($_bullet-size / 2);
+        width: $_bullet-size;
+        height: $_bullet-size;
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+        $_bullet-size: prem(12px);
+        
+        margin-top: -($_bullet-size / 2);
+        width: $_bullet-size;
+        height: $_bullet-size;
+    }
+}
+
+%bullets-level-2 {
+    $_bullet-size: prem(5px);
+
+    margin-top: -($_bullet-size / 2);
+    width: $_bullet-size;
+    height: $_bullet-size;
+    border: 1px solid $orange-peel;
+    background-color: transparent;
+    box-shadow: none;
+
+    @include breakpoint(map-get($breakpoints, small)) {
+        $_bullet-size: prem(6px);
+        
+        margin-top: -($_bullet-size / 2);
+        width: $_bullet-size;
+        height: $_bullet-size;
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+        $_bullet-size: prem(8px);
+        
+        margin-top: -($_bullet-size / 2);
+        width: $_bullet-size;
+        height: $_bullet-size;
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+        $_bullet-size: prem(10px);
+        
+        margin-top: -($_bullet-size / 2);
+        width: $_bullet-size;
+        height: $_bullet-size;
+        border-width: 2px;
+    }
+}
+
+%bullets-level-3 {
+    $_bullet-size: prem(1px);
+
+    height: $_bullet-size;
+    margin-top: -($_bullet-size / 2);
+    border-radius: 0;
+    border-style: none;
+    background-color: $orange-peel;
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+        $_bullet-size: prem(2px);
+        
+        height: $_bullet-size;
+        margin-top: -($_bullet-size / 2);
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+        $_bullet-size: prem(2px);
+        
+        height: $_bullet-size;
+        margin-top: -($_bullet-size / 2);
+    }
+}
+
 ul {
     @extend %lists;
 }
@@ -328,114 +428,22 @@ li {
 ul > li {
     // bullets
     &:before {
-        $_bullet-size: prem(7px);
-
-        content: "";
-        margin-top: -($_bullet-size / 2);
-        top: (1em * $line-height-default) / 2;
-        left: 0;
-        width: $_bullet-size;
-        height: $_bullet-size;
-        border-radius: 100%;
-        display: block;
-        position: absolute;
-        background-color: $orange-peel;
-        box-shadow: -1px -1px 0 0 rgba($black, 0.21);
-
-        @include breakpoint(map-get($breakpoints, small)) {
-            $_bullet-size: prem(8px);
-            
-            margin-top: -($_bullet-size / 2);
-            width: $_bullet-size;
-            height: $_bullet-size;
-        }
-
-        @include breakpoint(map-get($breakpoints, medium)) {
-            $_bullet-size: prem(10px);
-            
-            margin-top: -($_bullet-size / 2);
-            width: $_bullet-size;
-            height: $_bullet-size;
-        }
-
-        @include breakpoint(map-get($breakpoints, large)) {
-            $_bullet-size: prem(12px);
-            
-            margin-top: -($_bullet-size / 2);
-            width: $_bullet-size;
-            height: $_bullet-size;
-        }
+        @extend %bullets-level-1;
     }
 
     // bullets - second level
     ul > li {
         &:before {
-            $_bullet-size: prem(5px);
-
-            margin-top: -($_bullet-size / 2);
-            width: $_bullet-size;
-            height: $_bullet-size;
-            border: 1px solid $orange-peel;
-            background-color: transparent;
-            box-shadow: none;
-
-            @include breakpoint(map-get($breakpoints, small)) {
-                $_bullet-size: prem(6px);
-                
-                margin-top: -($_bullet-size / 2);
-                width: $_bullet-size;
-                height: $_bullet-size;
-            }
-
-            @include breakpoint(map-get($breakpoints, medium)) {
-                $_bullet-size: prem(8px);
-                
-                margin-top: -($_bullet-size / 2);
-                width: $_bullet-size;
-                height: $_bullet-size;
-            }
-
-            @include breakpoint(map-get($breakpoints, large)) {
-                $_bullet-size: prem(10px);
-                
-                margin-top: -($_bullet-size / 2);
-                width: $_bullet-size;
-                height: $_bullet-size;
-                border-width: 2px;
-            }
+            @extend %bullets-level-2;
         }
-
-
     }
 
     // bullets - third level
     ul > li > ul > li {
         &:before {
-            $_bullet-size: prem(1px);
-
-            height: $_bullet-size;
-            margin-top: -($_bullet-size / 2);
-            border-radius: 0;
-            border-style: none;
-            background-color: $orange-peel;
-
-            @include breakpoint(map-get($breakpoints, medium)) {
-                $_bullet-size: prem(2px);
-                
-                height: $_bullet-size;
-                margin-top: -($_bullet-size / 2);
-            }
-
-            @include breakpoint(map-get($breakpoints, large)) {
-                $_bullet-size: prem(2px);
-                
-                height: $_bullet-size;
-                margin-top: -($_bullet-size / 2);
-            }
-
+            @extend %bullets-level-3;
         }
     }
-
 }
 
 // ordered lits items
