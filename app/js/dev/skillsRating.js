@@ -1,6 +1,6 @@
 'use strict';
 
-//,
+//
 // Add rating dots form a given 'skill' number
 // 
 var skillsRating = {
