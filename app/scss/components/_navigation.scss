@@ -313,6 +313,11 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
 // nav-util-menu
 .nav-util-menu {
     display: none;
+    
+    // hide if no JScript is loaded
+    .no-js & {
+        @include hidden();
+    }
 
     @include breakpoint(map-get($breakpoints, medium)) {
         right: prem(24px);
@@ -661,7 +666,6 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
             }
         }
 
-
         // nav-panel__link--active
         &:hover,
         &:active,
@@ -672,8 +676,10 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
         }
 
         &:focus {
-            transform: scale(1);
-            opacity: 1;
+            .js & {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
 
         // nav-panel__link--prev
