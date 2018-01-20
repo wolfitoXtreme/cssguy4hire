@@ -1,8 +1,7 @@
 'use strict';
 
 var enquire = require('enquire'),
-    breakpoints = require('./breakpoints'),
-    panelNav = require('./panelNav');
+    breakpoints = require('./breakpoints');
 
 // 
 // mobile navigation
@@ -83,9 +82,6 @@ var mobileNav = {
 
                 // replace menuToggle with appended collection
                 mobileNav.menuToggle = $panels.find('.js-menu-toggle');
-
-                // set tab navigation (calling panelNav method)
-                panelNav.tabNavigation(mobileNav.menuToggle);
 
                 // append 'mobileMenu'
                 $('body').prepend($mobilePanel);
