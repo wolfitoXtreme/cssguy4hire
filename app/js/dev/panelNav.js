@@ -1,7 +1,6 @@
 'use strict';
 
-var throttle = require('lodash/throttle'),
-    debounce = require('lodash/debounce');
+var Swiper = require('swiper');
 
 // 
 // Panel navigation
@@ -9,178 +8,85 @@ var throttle = require('lodash/throttle'),
 var panelNav = {
     init: function() {
         this.wrapper =          $('.js-panels');
-        this.panels =           $('.panel', panelNav.wrapper);
+        this.panels =           $('.panel', this.wrapper);
+        this.currentPanel =     0;
+        this.panelLinks =       $('.js-nav-main-menu a');
         this.panelArrows =      $('.js-nav-panel-prev', panelNav.panels)
                                 .add('.js-nav-panel-next', panelNav.panels);
-        this.panelLinks =       $('.js-nav-main-menu a');
-        this.focusables =       $(':focusable', panelNav.panels);
-        this.panelHeight =      $('body').height();
-        this.currentPanel =     0;
-        this.maxPanels =        $(panelNav.panels).length;
-        this.panelSpeed =       500;
-        this.swippeDistance =   0;
-        this.supports3D =       Modernizr.csstransforms3d === true ? true : false;
+        this.focusables =       $(':focusable', this.panels);
         this.options = {
-            triggerOnTouchEnd : true,
-            triggerOnTouchLeave : true,
-            swipeStatus : panelNav.swipeStatus,
-            allowPageScroll : 'none',
-            threshold : 75,
-            excludedElements : 'label, button, input, select, option, textarea', // default elements to exclude
-            fallbackToMouseEvents : true,
-            tap : function(event, target) {                
-                //console_log(
-                //    '||||||||||TAP|||||||||||||\n' +
-                //    'swippeDistance = ' + swippeDistance + '\n'+
-                //    'target.className = ' + target.className + '\n'+ 
-                //    target.tagName
-                //);
-                
-                //avoid firing of normal links during panes swipping
-                //if(target.className == 'normalLink' && swippeDistance < 2 && (event.which == 1 || event.which === 0)) {
-                //    triggerAnchor = target;
-                //    window.location.href = $(triggerAnchor).attr('href');
-                //}
+            wrapperClass: 'js-panels',
+            slideClass: 'panel',
+            direction: 'vertical',
+            // simulateTouch: false, // disables mouse touch simulation
+            setWrapperSize: false, // for flexbox compability fallback
+            speed: 400,
+            longSwipesRatio: 0.5,
+            longSwipesMs: 300,
+            resistance: true,
+            resistanceRatio: 0.85,
+            spaceBetween: 0,
+            keyboard: true,
+            effect :'slide', // slide, fade, cube, coverflow or flip
+            mousewheel: {
+                sensitivity: 10
+            },
+            on: {
+                slideChangeTransitionEnd: function() {
+                    var currentPanel = panelNav.panelSwiper.activeIndex,
+                        $panels = panelNav.panels;
+
+                    console.log('swiper end change, current is = ' + currentPanel);
+
+                    // set focus on focus dummy
+                    // therefore allowing tab navigation from current panel
+                    $panels.eq(currentPanel).children().filter(
+                        function(index) {
+                            return $(this).is('.js-focus-dummy');
+                        }
+                    ).focus();
+
+                    // set current panel
+                    panelNav.currentPanel = currentPanel;
+                }
             }
         };
-
-        console.log('supports3D => ' + panelNav.supports3D);
-        console.log('focusables => ' + panelNav.focusables.length);
+        this.panelSwiper = new Swiper('.panels-container', panelNav.options);
 
         panelNav.panels.prepend($('<span class="js-focus-dummy hidden" tabindex="0" />'));
         panelNav.focusables = panelNav.focusables.add('.js-focus-dummy');
 
-        console.log('focusables => ' + panelNav.focusables.length);
-
         // initialize methods
-        panelNav.matchSize();
-        panelNav.resize();
-        panelNav.swipe(panelNav.wrapper);
-        panelNav.mousewheel(panelNav.wrapper);
         panelNav.linkNavigation(this.panelLinks);
         panelNav.tabNavigation(this.focusables);
         panelNav.arrowNavigation();
-
-    //prevent transition end event propagation
-    // $('body *').on({
-    //     'transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd' : function(event) {
-    //         event.stopPropagation();
-            
-    //         //if(wRisize === true) {
-    //         //    fitSkills('on BODY transitionEnd');
-    //         //    fitProjects('on BODY transitionEnd');
-    //         //    wRisize =  false;
-    //         //}
-    //     }
-    // });
-
-        // initialize carousel type panel navigation
-        // $(panelNav.wrapper).slick({
-        //     dots: false,
-        //     infinite: false,
-        //     arrows: false,
-        //     vertical: true,
-        //     verticalSwiping: true,
-        //     speed: 300,
-        //     // touchThreshold: 800,
-        //     waitForAnimate: false
-        // });
-
-        // initialize mosewheel
-        
-    },
-
-    // swipe
-    swipe: function(panelWrapper) {
-        panelWrapper.swipe(panelNav.options);
-    },
-
-    // swipe status
-    swipeStatus: function(event, phase, direction, distance) {
-
-        // If we are moving before swipe, and we are going L or R in X mode, or U or D in Y mode then drag.
-        if (phase == 'move' && (direction == 'up' || direction == 'down')) {
-            var duration = 0;
-
-            console.log(
-                'currentPanel = ' + panelNav.currentPanel + '\n' +
-                'panelHeight = ' + panelNav.panelHeight + '\n' +
-                'distance = ' +  (panelNav.panelHeight * panelNav.currentPanel) + distance + '\n' +
-                'duration = ' + duration + '\n' +
-                'panelSpeed = ' + panelNav.panelSpeed
-            );
-    
-            if (direction == 'up') {
-                console.log('swipeStatus UP');
-                panelNav.scrollPanels((panelNav.panelHeight * panelNav.currentPanel) + distance, duration, 'swipeStatus-up');
-            }
-            else if (direction == 'down') {
-                console.log('swipeStatus DOWN');
-                panelNav.scrollPanels((panelNav.panelHeight * panelNav.currentPanel) - distance, duration, 'swipeStatus-down');
-            }
-    
-        }
-        else if (phase == 'cancel') {
-            console.log('swipeStatus CANCEL');
-            panelNav.scrollPanels(panelNav.panelHeight * panelNav.currentPanel, panelNav.panelSpeed, 'swipeStatus-cancel');
-        }
-        else if (phase == 'end') {
-            console.log('swipeStatus END');
-            if (direction == 'down') {
-                panelNav.previousPanel();
-            }
-            else if (direction == 'up') {
-                panelNav.nextPanel();
-            }
-            else {
-                panelNav.scrollPanels(panelNav.panelHeight * panelNav.currentPanel, panelNav.panelSpeed, 'swipeStatus-end');
-            }
-
-            console.log(
-                '-------\n' +
-                'PANELNAV - PHASE END \n' +
-                'currentPanel = ' + panelNav.currentPanel + '\n' +
-                '-------\n'
-            );
-        }
-        
-        var swippeDistance = distance;
-
-        console.log(
-            '-------\n' +
-            'PANELNAV - SWIPESTATUS \n' +
-            'phase = ' + phase + '\n' +
-            '-------\n'
-        );
-
     },
 
     // go to previous panel
     previousPanel: function () {
-        panelNav.currentPanel = Math.max(panelNav.currentPanel - 1, 0);
-        panelNav.scrollPanels(panelNav.panelHeight * panelNav.currentPanel, panelNav.panelSpeed, 'previousPanel');
+        // panelNav.currentPanel = Math.max(panelNav.currentPanel - 1, 0);
+        // panelNav.scrollPanels(panelNav.panelHeight * panelNav.currentPanel, panelNav.panelSpeed, 'previousPanel');
     },
 
     // go to next panel
     nextPanel: function() {
 
-        panelNav.currentPanel = Math.min(panelNav.currentPanel + 1, panelNav.maxPanels - 1);
-        panelNav.scrollPanels(panelNav.panelHeight * panelNav.currentPanel, panelNav.panelSpeed, 'nextPanel');
+        // panelNav.currentPanel = Math.min(panelNav.currentPanel + 1, panelNav.maxPanels - 1);
+        // panelNav.scrollPanels(panelNav.panelHeight * panelNav.currentPanel, panelNav.panelSpeed, 'nextPanel');
 
-        console.log(
-            '-------\n' +
-            'NEXTPANEL' + 
-            'currentPanel = ' + panelNav.currentPanel + '\n' +
-            'maxPanels = ' + panelNav.maxPanels + '\n' +
-            'panelSpeed = ' + panelNav.panelSpeed + '\n' +
-            '-------\n'
-        );
+        // console.log(
+        //     '-------\n' +
+        //     'NEXTPANEL' + 
+        //     'currentPanel = ' + panelNav.currentPanel + '\n' +
+        //     'maxPanels = ' + panelNav.maxPanels + '\n' +
+        //     'panelSpeed = ' + panelNav.panelSpeed + '\n' +
+        //     '-------\n'
+        // );
     },
 
     // go to panel
     gotoPanel: function(leap, movement) {
-        panelNav.currentPanel = leap;
-        panelNav.scrollPanels(panelNav.panelHeight * panelNav.currentPanel, panelNav.panelSpeed, movement);
+        this.panelSwiper.slideTo(leap, panelNav.options.speed);
 
         console.log(
             '-------\n' +
@@ -192,68 +98,10 @@ var panelNav = {
         );
     },
 
-    // update panels position on drag
-    scrollPanels: function(distance, duration, movement) {
-
-        //inverse the number we set in the css
-        var value = (distance < 0 ? '' : '-') + Math.abs(distance).toString(),
-            $panelWrapper = this.wrapper,
-            $panels = this.panels,
-            $panelArrows = this.panelArrows;
-
-        console.log(
-            '-------\n' +
-            'PANELNAV - SCROLLPANELS \n' + 
-            'distance = ' +  value + '||' + movement +'\n' +
-            'currentPanel = ' + panelNav.currentPanel + '\n' +
-            '-------\n'
-        );
-        
-        //choose transform method and transition duration
-        var cssTransition = panelNav.supports3D === true ? 'translate3d(0, ' + value + 'px, 0)' : 'translate(0,' + value + 'px)',
-            transitionDuration = (duration / 1000).toFixed(1) + 's';
-    
-        $panelWrapper.css({
-            'transition-duration' : transitionDuration,
-            'transform' : cssTransition
-        }).on({
-            'transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd' : function(event) {
-                var $target = $(event.target)[0];
-                
-                if(movement === 'previousPanel' || movement === 'nextPanel' || movement == 'linkNavigation') {
-
-                    // set focus on focus dummy
-                    // therefore allowing tab navigation from current panel
-                    $panels.eq(panelNav.currentPanel).children().filter(
-                        function(index) {
-                            return $(this).is('.js-focus-dummy');
-                        }
-                    ).focus();
-
-                    // remove active simulated state from arrows
-                    $panelArrows.removeClass('nav-panel__link--active');
-
-                    console.log(
-                        '-------\n' +
-                        'PANELNAV - TRANSITION END \n' + 
-                        'target = ' + $target.tagName + '\n' +
-                        'movement = ' + movement + '\n' +
-                        'currentPanel = ' + panelNav.currentPanel + '\n' +
-                        '-------\n'
-                    );
-                }
-
-                $panelWrapper.off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
-                
-            }
-        });
-    },
-
     // link navigation
     linkNavigation: function(links) {
         var $links = links;
             
-
         $links.on({
             'click': function(event) {
                 var $link = $(this),
@@ -261,13 +109,10 @@ var panelNav = {
                 
                 event.preventDefault();
 
-
-
                 console.log('linkNavigation, linkIndex = ' + linkIndex);
                 setTimeout(function() {
                     panelNav.gotoPanel(linkIndex, 'linkNavigation');
                 }, 5);
-                
             }
         });
     },
@@ -278,7 +123,7 @@ var panelNav = {
 
         $focusables.on({
             'focus' : function(event){
-                $('html, body').scrollTop(0);
+                $('html, body').scrollTop(0); // do we really need this?
 
                 setTimeout(function() {
                     var $target = $(event.target),
@@ -298,94 +143,53 @@ var panelNav = {
 
     // arrow navigation
     arrowNavigation: function() {
-        var $panelArrows = this.panelArrows,
-            prevArrow = '.js-nav-panel-prev',
-            nextArrow = '.js-nav-panel-next';
+        // var $panelArrows = this.panelArrows,
+        //     prevArrow = '.js-nav-panel-prev',
+        //     nextArrow = '.js-nav-panel-next';
 
-        $panelArrows.on({
-            'click': function(event) {
-                event.preventDefault();
+        // console.log('$panelArrows.length = ' + $panelArrows.length);
 
-                // simulate active state on ENTER key press
-                $(this).addClass('nav-panel__link--active');
+        // $panelArrows.on({
+        //     'click': function(event) {
+        //         event.preventDefault();
 
-                if($(this).is(prevArrow)) {
-                    panelNav.previousPanel();
-                }
-                else {
-                    panelNav.nextPanel();
-                }
-            }
-        });
+        //         var currentPanel = panelNav.currentPanel;
 
+        //         // simulate active state on ENTER key press
+        //         $(this).addClass('nav-panel__link--active');
+
+        //         console.log('currentPanel is ' + currentPanel);
+
+        //         if($(this).is(prevArrow)) {
+        //             console.log('prev!!');
+        //             panelNav.gotoPanel(currentPanel - 1, 'arrowNavigation');
+        //         }
+        //         else {
+        //             console.log('next!!');
+        //             panelNav.gotoPanel(currentPanel + 1, 'arrowNavigation');
+        //         }
+        //     }
+        // });
     },
 
     // control panels with mousewheel
     mousewheel: function(panelWrapper) {
 
-        panelWrapper.on({
-            'mousewheel': function(event) {
-                console.log('event.deltaY = ' + event.deltaY);
+        // panelWrapper.on({
+        //     'mousewheel': function(event) {
+        //         console.log('event.deltaY = ' + event.deltaY);
                 
-                if(event.deltaY < 0) {
-                    panelNav.previousPanel();
-                }
-                else if(event.deltaY > 0) {
-                     panelNav.nextPanel();
-                }
+        //         if(event.deltaY < 0) {
+        //             panelNav.gotoPanel(parentIndex, 'tabNavigation');
+        //         }
+        //         else if(event.deltaY > 0) {
+        //              panelNav.nextPanel();
+        //         }
 
-                // console.log('slickCurrentSlide =' + $(panelNav.wrapper).slick('slickCurrentSlide'));
-            }
-        });
-
+        //         // console.log('slickCurrentSlide =' + $(panelNav.wrapper).slick('slickCurrentSlide'));
+        //     }
+        // });
     },
-
-    // resize panels and container to match window size
-    matchSize: function() {
-
-        var targetWidth = $('body').width(),
-            targetHeight = window.innerHeight > $('body').height ? window.innerHeight : $('body').height();
-
-        // adjust wrapper dimensions
-        panelNav.wrapper.css({
-            'width': targetWidth,
-            'height': targetHeight * panelNav.maxPanels
-        });
-
-        // adjust panel dimensions
-        panelNav.panels.css({
-            'width': targetWidth,
-            'height': targetHeight,
-            'min-height' : 0
-        });
-
-        console.log(
-            'targetHeight = ' + targetHeight + '\n' + 
-            'maxPanels = ' + panelNav.maxPanels + '\n' + 
-            'targetHeight * maxPanels = ' +  (targetHeight * panelNav.maxPanels) + '\n' + 
-            'currentPanel = ' + panelNav.currentPanel
-        );
-
-        panelNav.panelHeight = targetHeight;
-        panelNav.scrollPanels(panelNav.panelHeight * panelNav.currentPanel, 0, 'matchBodySize');
-    },
-
-    // update panel navigation on resize
-    resize: function() {
-        $(window).on({
-            'resize.panelNav.debounce': debounce(
-                function() {
-                    panelNav.matchSize();
-                }
-            , 200),
-            'resize.panelNav.throttle': throttle(
-                function() { 
-                    panelNav.matchSize();
-                    // $(panelNav.wrapper).slick('setPosition');
-                }
-            , 100)
-        });
-    }
 }
 
 module.exports = panelNav;

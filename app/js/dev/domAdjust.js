@@ -6,6 +6,7 @@
 var domAdjust = {
     init: function() {
         this.header =       $('.js-header'); // original Header
+        this.container =    $('<div class="swiper-container panels-container" />'), // swipper container
         this.wrapper =      $('.js-panels');
         this.panels =       $('.panel', this.wrapper).not('.form-panel');
         this.formPanel =    $('.js-form-panel', this.wrapper);
@@ -36,6 +37,13 @@ var domAdjust = {
 
         // remove original 'header'
         domAdjust.header.remove();
+
+        // wrap 'wrapper' under 'container'
+        this.wrapper.before(this.container).appendTo(this.container);
+
+        // add swipper class names
+        // this.wrapper.addClass('swiper-wrapper');
+        // this.panels.add(this.cover).addClass('swiper-slide');
 
         // relocate 'contact' panel
         domAdjust.formPanel.wrapInner('<div class="form-panel-content-wrapper" />');
