@@ -24,9 +24,9 @@ body {
     position: relative;
 
     // helps panel navigation visuals
-    .js & {
-        overflow: hidden;
-    }
+    // .js & {
+    //     overflow: hidden;
+    // }
 }
 
 %panel-hpadding {
@@ -67,7 +67,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-
 
     // panel__detail
     &__detail {

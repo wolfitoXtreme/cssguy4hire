@@ -19,13 +19,21 @@
 
     // skills-expertise__item
     &__item {
-        margin: 0;
-        padding: 0;
         @extend .column-list__item;
 
-        // remove default bullet list
         &:before {
-            display: none;
+            @extend %bullets-level-1;
+        }
+        
+        // skills-expertise__item--no-bullet
+        &--no-bullet {
+            margin: 0;
+            padding: 0;
+
+            // remove default bullet list
+            &:before {
+                display: none;
+            }
         }
         
         // skills-expertise__item-text
