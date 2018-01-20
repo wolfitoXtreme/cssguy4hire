@@ -4,6 +4,8 @@
 
 // footer
 .footer {
+    visibility: hidden; // remove footer from been focusable
+
     // footer-signature
     &-signature {
         left: prem(14px);
@@ -23,7 +25,6 @@
             left: prem(30px);
             bottom: prem(21px);
         }
-
     }
 
     // footer-logo-img
