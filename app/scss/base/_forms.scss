@@ -36,20 +36,20 @@
         // force textArea height
         & &__textarea-tall {
             $_oposite-fields: 4;
-            $_field-height: 30px;
+            $_field-height: 29px;
 
             height: ($_field-height * $_oposite-fields) + 
                     ($_field-padding-bottom * ($_oposite-fields - 1));
 
             @include breakpoint(map-get($breakpoints, small)) {
-                $_field-height: 33px;
+                $_field-height: 32px;
 
                 height: ($_field-height * $_oposite-fields) + 
                         ($_field-padding-bottom * ($_oposite-fields - 1));
             }
 
             @include breakpoint(map-get($breakpoints, medium)) {
-                $_field-height: 36px;
+                $_field-height: 35px;
                 $_label-height: 17px;
 
                 height: ($_field-height * $_oposite-fields) + 
@@ -58,7 +58,7 @@
             }
 
             @include breakpoint(map-get($breakpoints, large)) {
-                $_field-height: 52px;
+                $_field-height: 50px;
                 $_label-height: 21px;
 
                 height: ($_field-height * $_oposite-fields) + 
@@ -176,28 +176,28 @@ label {
 
 %fields {
     margin: 0;
-    padding: prem(5px) prem(8px) prem(6px);
+    padding: prem(5px) prem(8px) prem(5px);
     width: prem(220px);
     font-family: unquote($default-font + ', ' + $default-font-fallback);
     font-weight: 300;
+    line-height: $line-height-default;
     color: map-deep-get($field-colors, field, color);
     border: 2px solid map-deep-get($field-colors, field, border);
     border-radius: 5px;
-    line-height: $line-height-default;
     background-color: map-deep-get($field-colors, field, background);
     @include no-highlight;
 
     @include breakpoint(map-get($breakpoints, small)) {
-        padding: prem(4px) prem(8px) prem(7px);
+        padding: prem(5px) prem(8px) prem(5px);
     }
 
     @include breakpoint(map-get($breakpoints, medium)) {
-        padding: prem(6px) prem(8px) prem(7px);
+        padding: prem(6px) prem(8px) prem(6px);
         border-radius: 6px;
     }
 
     @include breakpoint(map-get($breakpoints, large)) {
-        padding: prem(9px) prem(14px) prem(11px);
+        padding: prem(9px) prem(14px) prem(9px);
         border-width: 3px;
         border-radius: 7px;
     }
@@ -519,10 +519,10 @@ button {
 
 // button
 .button {
-    $_padding-x-small:  prem(11px) prem(21px) prem(7px);
-    $_padding-small:    prem(12px) prem(23px) prem(7px);
-    $_padding-medium:   prem(13px) prem(29px) prem(8px);
-    $_padding-large:    prem(19px) prem(39px) prem(13px);
+    $_padding-x-small:  prem(9px) prem(20px) prem(9px);
+    $_padding-small:    prem(9px) prem(23px) prem(9px);
+    $_padding-medium:   prem(11px) prem(29px) prem(11px);
+    $_padding-large:    prem(16px) prem(39px) prem(16px);
 
     margin: prem(4px);
     padding: $_padding-x-small;
