@@ -2,11 +2,6 @@
 // Contact Panel Styles
 //
 
-// contact
-.contact {
-}
-
-
 // nav-contact-menu
 .nav-contact-menu {
     display: flex;
@@ -197,6 +192,8 @@
 .form-panel {
     .js & {
         top: 0;
+        height: auto;
+        justify-content: flex-start;
         left: 100%;
         z-index: 10;
         position: absolute;
@@ -216,7 +213,8 @@
             justify-content: center;
             align-items: center;
             position: absolute;
-            overflow: auto;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
     }
     
