@@ -16,6 +16,7 @@
     border-style: none;
     cursor: pointer;
     position: absolute;
+    z-index: 20;
     overflow: hidden;
     background-color: transparent;
     @include no-highlight;
@@ -69,8 +70,6 @@
             overflow: hidden;
             opacity: 0;
             z-index: 0;
-
-            // background-color: orange;
 
             // menu-toggle--active menu-toggle__icons--close
             .menu-toggle--active & {
@@ -202,7 +201,7 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
         @extend %menu-headings;
     }
 
-    // main-menu__list
+    // nav-main-menu__list
     &__list {
         margin: 0;
         padding: 0;
@@ -295,7 +294,6 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
                 width: prem($_new-width);
                 height: prem($_new-height);
             }
-
         }
 
         // main-menu__item-text
@@ -444,7 +442,6 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
                     padding-bottom: 0;
                 }
             }
-
         }
 
         // util-menu__item-icon
@@ -459,8 +456,8 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
             fill: $white;
 
             // util-menu__item-link:hover util-menu__item-icon...
-            .util-menu__item-link:hover &,
-            .util-menu__item-link:active &,
+            .no-touchevents .util-menu__item-link:hover &,
+            .no-touchevents .util-menu__item-link:active &,
             .util-menu__item-link:focus & {
                 fill: $nero;
             }
@@ -550,8 +547,8 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
 // nav-mobile
 .nav-mobile {
     $_panel-width: prem(220px);
-    // right: -$_panel-width;
-    right: 0;
+
+    right: -$_panel-width;
     top: 0;
     width: $_panel-width;
     height: 100%;
@@ -568,6 +565,17 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
     // nav-mobile__menu
     &__menu {
         display: block;
+    }
+    
+    // Swipper elements added to the DOM
+    // nav-mobile-wrapper
+    &-wrapper {
+        // styles here if needed
+    }
+
+    // nav-mobile-inner
+    &-inner {
+        height: auto;
     }
 }
 
@@ -704,7 +712,6 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
                     transform: rotate(-135deg);
                 }
             }
-
         }
     }
 
@@ -722,7 +729,6 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
         .nav-panel__link--prev & {
             transform: rotate(180deg);
         }
-
 
         // nav-panel__link--active nav-panel__icon
         .nav-panel__link:hover &,

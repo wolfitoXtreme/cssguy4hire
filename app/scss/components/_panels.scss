@@ -5,9 +5,8 @@
 // panels-container
 // required 'swiper plugin' custom wrapper
 .panels-container {
-    min-height: 100%;
     height: 100%;
-    overflow: visible;
+    overflow: hidden;
 }
 
 // panels
@@ -67,7 +66,6 @@
             &--about {
                 background-image: url($image-url + $_bkg-image-2x), url($image-url + $_about-bkg-image);
             }
-
         }
     }
 
@@ -163,6 +161,22 @@
 
         @include breakpoint(map-get($breakpoints, large)) {
             font-size: prem(200px);
+        }
+    }
+
+    // panel__block-overlay
+    &__block-overlay {
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 10;
+        display: none;
+        
+        // panels-container--disabled panel__block-overlay
+        .panels-container--disabled & {
+            display: block;
         }
     }
 }
