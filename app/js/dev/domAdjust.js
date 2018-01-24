@@ -6,7 +6,7 @@
 var domAdjust = {
     init: function() {
         this.header =       $('.js-header'); // original Header
-        this.container =    $('<div class="swiper-container panels-container" />'), // swipper container
+        this.container =    $('<div class="js-panels-container swiper-container panels-container" />'), // swipper container
         this.wrapper =      $('.js-panels');
         this.panels =       $('.panel', this.wrapper).not('.form-panel');
         this.formPanel =    $('.js-form-panel', this.wrapper);
@@ -14,6 +14,7 @@ var domAdjust = {
         this.signature =    $('.js-footer').find('.footer-signature').clone();
         this.hidden =       $('.js-hidden');
         this.utilMenu =     $('.js-nav-util-menu');
+        this.blockOverlay = $('<div class="panel__block-overlay" />');
 
         console.log('Header ID -->' + domAdjust.header.attr('id'))
 
@@ -32,7 +33,6 @@ var domAdjust = {
                 'title' : domAdjust.header.attr('title'),
                 'class' : domAdjust.header.attr('class')
             })
-            // .addClass('cover')
             .prependTo(domAdjust.wrapper);
 
         // remove original 'header'
@@ -41,16 +41,15 @@ var domAdjust = {
         // wrap 'wrapper' under 'container'
         this.wrapper.before(this.container).appendTo(this.container);
 
-        // add swipper class names
-        // this.wrapper.addClass('swiper-wrapper');
-        // this.panels.add(this.cover).addClass('swiper-slide');
-
         // relocate 'contact' panel
         domAdjust.formPanel.wrapInner('<div class="form-panel-content-wrapper" />');
         domAdjust.formPanel.appendTo('body');
 
         // add signature logo to all panels
         domAdjust.signature.appendTo(domAdjust.panels);
+
+        // add blocker overlay to avoid user interaction while 'Mobile Navigation Panel' is open
+        domAdjust.panels.add(domAdjust.cover).prepend(this.blockOverlay);
 
         // hide all non required markup
         domAdjust.hidden.hide();

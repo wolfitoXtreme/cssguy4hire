@@ -12,9 +12,9 @@ require('modernizr');
 var domAdjust = require('./domAdjust'),
     breakpoints = require('./breakpoints'),
     deviceOrientation = require('./deviceOrientation'),
-    mobileNav = require('./mobileNav'),
     emailProtector = require('./emailProtector'),
     svgIcons = require('./svgIcons'),
+    mobileNav = require('./mobileNav'),
     panelNav = require('./panelNav'),
     contactPanel = require('./contactPanel'),
     skillsRating = require('./skillsRating'),
@@ -29,9 +29,9 @@ $(function() {
             domAdjust.init();
             breakpoints.init();
             deviceOrientation.init();
-            mobileNav.init();
             emailProtector.init();
             svgIcons.init();
+            mobileNav.init();
             panelNav.init();
             contactPanel.init();
             skillsRating.init();

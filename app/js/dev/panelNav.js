@@ -18,7 +18,7 @@ var panelNav = {
             wrapperClass: 'js-panels',
             slideClass: 'panel',
             direction: 'vertical',
-            // simulateTouch: false, // disables mouse touch simulation
+            slidesPerView: 1,
             setWrapperSize: false, // for flexbox compability fallback
             speed: 400,
             longSwipesRatio: 0.5,
@@ -51,7 +51,8 @@ var panelNav = {
                 }
             }
         };
-        this.panelSwiper = new Swiper('.panels-container', panelNav.options);
+        this.mobileNav; // Store Mobile Nav here
+        this.panelSwiper = new Swiper('.js-panels-container', panelNav.options);
 
         panelNav.panels.prepend($('<span class="js-focus-dummy hidden" tabindex="0" />'));
         panelNav.focusables = panelNav.focusables.add('.js-focus-dummy');
@@ -60,28 +61,8 @@ var panelNav = {
         panelNav.linkNavigation(this.panelLinks);
         panelNav.tabNavigation(this.focusables);
         panelNav.arrowNavigation();
-    },
 
-    // go to previous panel
-    previousPanel: function () {
-        // panelNav.currentPanel = Math.max(panelNav.currentPanel - 1, 0);
-        // panelNav.scrollPanels(panelNav.panelHeight * panelNav.currentPanel, panelNav.panelSpeed, 'previousPanel');
-    },
-
-    // go to next panel
-    nextPanel: function() {
-
-        // panelNav.currentPanel = Math.min(panelNav.currentPanel + 1, panelNav.maxPanels - 1);
-        // panelNav.scrollPanels(panelNav.panelHeight * panelNav.currentPanel, panelNav.panelSpeed, 'nextPanel');
-
-        // console.log(
-        //     '-------\n' +
-        //     'NEXTPANEL' + 
-        //     'currentPanel = ' + panelNav.currentPanel + '\n' +
-        //     'maxPanels = ' + panelNav.maxPanels + '\n' +
-        //     'panelSpeed = ' + panelNav.panelSpeed + '\n' +
-        //     '-------\n'
-        // );
+        console.log('panelNav, mobileNav = ' + this.mobileNav.isOpen);
     },
 
     // go to panel
@@ -100,7 +81,8 @@ var panelNav = {
 
     // link navigation
     linkNavigation: function(links) {
-        var $links = links;
+        var $links = links,
+            mobileNav = this.mobileNav;
             
         $links.on({
             'click': function(event) {
@@ -109,10 +91,17 @@ var panelNav = {
                 
                 event.preventDefault();
 
-                console.log('linkNavigation, linkIndex = ' + linkIndex);
-                setTimeout(function() {
+                console.log(
+                    'linkNavigation, linkIndex = ' + linkIndex + '\n' +
+                    'mobileNav.isOpen = ' + mobileNav.isOpen
+                );
+
+                if(!mobileNav.isOpen) {
                     panelNav.gotoPanel(linkIndex, 'linkNavigation');
-                }, 5);
+                }
+                else {
+                    mobileNav.switchMenu(linkIndex);
+                }
             }
         });
     },
