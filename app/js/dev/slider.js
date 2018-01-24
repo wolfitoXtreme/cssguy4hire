@@ -1,8 +1,6 @@
 'use strict';
 
-var throttle = require('lodash/throttle'),
-    debounce = require('lodash/debounce'),
-    Swiper = require('swiper');
+var Swiper = require('swiper');
 
 // 
 // Sliders
@@ -56,8 +54,6 @@ var slider = {
                 $sliderNext = $sliderArrows.children().last(),
                 sliderOptions = slider.options;
 
-
-
             // wrap slider and add class names
             $(this)./*addClass('swiper-wrapper').*/wrap('<div class="swiper-container slider-container ' + sliderClassName + '" />');
             $(this).children().addClass('swiper-slide');
@@ -80,42 +76,6 @@ var slider = {
         console.log('sliders.length = ' + this.sliders.length);
         console.log('sliders swipers.length = ' + slider.swipers.length);
         console.log('slider.swipers.slider_1 = ' + slider.swipers.slider_1);
-    },
-
-    // update panel navigation on resize
-    resize: function(sliders) {
-        $(window).on({
-            'resize.slider.debounce': debounce(
-                function() {
-                    $(sliders).slick('setPosition');
-                    slider.matchSize(sliders);
-                }
-            , 200),
-            'resize.slider.throttle': throttle(
-                function() { 
-                    $(sliders).slick('setPosition');
-                    slider.matchSize(sliders);
-                }
-            , 100)
-        });
-    },
-
-    // resize panels and container to match window size
-    matchSize: function(sliders) {
-        $(sliders).each(function(i) {
-
-            var $currentSlider = $(this),
-                $slides = $currentSlider.find('.slick-slide'),
-                slideHeight = 0;
-
-            $slides.css('height', 'auto');
-
-            $slides.each(function(j) {
-                slideHeight = ($(this).height() > slideHeight) ? $(this).height() : slideHeight;
-            });
-
-            $slides.css('height', slideHeight + 'px');
-        });
     }
 }
 
