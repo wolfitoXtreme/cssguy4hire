@@ -137,6 +137,8 @@
 // ----------------
 
 $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
+$_menu-item-shadow-colors-fg: rgba($black, 0.55) 0px, rgba($black, 0.18) 3px, rgba($black, 0) 8px;
+$_menu-item-shadow-colors-bg: rgba($black, 0.55) 0px, rgba($black, 0.45) 6px, rgba($black, 0) 20px;
 
 %menu-headings {
     margin: 0;
@@ -146,6 +148,9 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
     text-align: center;
     color: rgba($white, 0.8);
     background-color: darken($nero, 3%);
+    background-image: linear-gradient(90deg, $_menu-item-shadow-colors-fg), 
+                      linear-gradient(90deg, $_menu-item-shadow-colors-bg);
+
     @include breakpoint(map-get($breakpoints, medium)) {
         @include hidden(false);
     }
@@ -160,9 +165,12 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
     text-decoration: none;
     display: block;
     border-bottom: 1px solid rgba($white, 0.2);
+    background-image: linear-gradient(90deg, $_menu-item-shadow-colors-fg), 
+                      linear-gradient(90deg, $_menu-item-shadow-colors-bg);
 
     @include breakpoint(map-get($breakpoints, medium)) {
         border-style: none;
+        background-image: none;
     }
 
     &:link,
@@ -189,10 +197,14 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
 
 // nav-main-menu
 .nav-main-menu {
+    margin-top: -1px;
+    border-top: 1px solid rgba($white, 0.2);
     display: none;
 
     @include breakpoint(map-get($breakpoints, medium)) {
+        margin: 0;
         text-align: center;
+        border-style: none;
         display: block;
     }
 
@@ -221,8 +233,12 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
     &__item {
         margin: 0;
         padding: 0;
+        position: relative;
+
         @include breakpoint(map-get($breakpoints, medium)) {
             margin: 0 0 0 prem(20px);
+            // remove bg color for mobile menu arrow inheritance
+            background-color: transparent !important;
 
             &:nth-child(2) {
                 margin-left: 0;
@@ -242,6 +258,30 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
         &--home {
             @include breakpoint(map-get($breakpoints, medium)) {
                 display: none;
+            }
+        }
+        
+        // main-menu__item--active
+        &--active {
+            // $_bullet-width: 30px;
+            $_bullet-width: 40px;
+
+            &:before {
+                content: "";
+                margin-top: -($_bullet-width / 2);
+                margin-left: -($_bullet-width / 2);
+                top: 50%;
+                left: -1px;
+                width: $_bullet-width;
+                height: $_bullet-width;
+                display: block;
+                position: absolute;
+                border-radius: 0;
+                z-index: 2;
+                box-shadow: 0 0 4px 4px rgba($black, 0.35);
+                background-color: transparent;
+                transform: rotate(315deg);
+                background-color: inherit;
             }
         }
 
@@ -526,7 +566,6 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
                     width: prem($_new-width);
                     height: prem($_new-height);
                 }
-
             }
         }
 
@@ -547,6 +586,8 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
 // nav-mobile
 .nav-mobile {
     $_panel-width: prem(220px);
+    $_shadow-colors-fg: rgba($black, 1) 0px, rgba($black, 0.18) 3px, rgba($black, 0) 8px;
+    $_shadow-colors-bg: rgba($black, 0.55) 0px, rgba($black, 0.35) 6px, rgba($black, 0) 20px;
 
     right: -$_panel-width;
     top: 0;
@@ -555,8 +596,10 @@ $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
     overflow: hidden;
     position: fixed;
     z-index: 1;
-    background-color: $nero;
     display: none;
+    background-color: $nero;
+    // background-color: lightcoral;
+    background-image: linear-gradient(90deg, $_shadow-colors-fg), linear-gradient(90deg, $_shadow-colors-bg);
 
     @include breakpoint(map-get($breakpoints, medium)) {
         right: prem(-220px);

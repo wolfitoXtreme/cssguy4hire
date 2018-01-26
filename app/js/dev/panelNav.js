@@ -62,6 +62,17 @@ var panelNav = {
         panelNav.tabNavigation(this.focusables);
         panelNav.arrowNavigation();
 
+        // set mobile panel links background colors
+        this.panelLinks.each(function(i){
+            var panelIndex =  $(this).parent().index();
+
+            console.log('panelIndex = ' + panelIndex);
+
+            $(this).parent().css({
+                'background-color' : panelNav.panels.eq(panelIndex).css('background-color')
+            });
+        });
+
         console.log('panelNav, mobileNav = ' + this.mobileNav.isOpen);
     },
 

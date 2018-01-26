@@ -196,7 +196,6 @@ var mobileNav = {
             panelNav.panelSwiper.allowSlideNext = false;
             panelNav.panelSwiper.allowSlidePrev = false;
 
-            
             console.log('mobileNav.mobileNavSwiper = ' + mobileNav.mobileNavSwiper);
 
             // create swiper if doesn't exists
@@ -207,6 +206,13 @@ var mobileNav = {
                 console.log('mobileNav.mobileNavSwiper is defined!!');
                 mobileNav.mobileNavSwiper.update();
             }
+
+            // mark Mobile navigation Panel item as current one
+            this.highlight(panelNav.currentPanel);
+        }
+        else {
+            // unmark Mobile navigation Panel item from being current one
+            this.unhighlight(panelNav.currentPanel);
         }
         
         // animate mobilePanel and panelsContainer
@@ -249,6 +255,20 @@ var mobileNav = {
                 console.log('mobileNav isOpen = ' + mobileNav.isOpen);
             }
         });
+    },
+
+    highlight: function(currentPanel) {
+        var $currentItem  = panelNav.panelLinks.parent().eq(currentPanel);
+
+        $currentItem.addClass('main-menu__item--active');
+
+        console.log('current panel = ' + panelNav.panelLinks.parent().get(currentPanel));
+    },
+
+    unhighlight: function(currentPanel) {
+        var $currentItem  = panelNav.panelLinks.parent().eq(currentPanel);
+
+        $currentItem.removeClass('main-menu__item--active');
     }
 }
 
