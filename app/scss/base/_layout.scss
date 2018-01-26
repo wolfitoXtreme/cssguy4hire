@@ -13,6 +13,7 @@ html, body {
 
 body {
     overflow: hidden;
+    background-color: $dim-black;
 
     // test mediaQueries
     @include queryInfo();
@@ -20,13 +21,29 @@ body {
 
 // main
 .main {
-    height: 100%;
-    position: relative;
+    $_shadow-height: prem(20px);
+    $_shadow-colors: rgba($black, 0.85) 1%, rgba($black, 0.55) 25%, rgba($black, 0) 60%;
 
-    // helps panel navigation visuals
-    // .js & {
-    //     overflow: hidden;
-    // }
+    min-height: 100%;
+    position: relative;
+    background-color: pink;
+
+    &:before,
+    &:after {
+        content: "";
+        left: 0;
+        top: -$_shadow-height;
+        width: 100%;
+        height: $_shadow-height;
+        position: absolute;
+        background-image: linear-gradient(0deg, $_shadow-colors);
+    }
+
+    &:after {
+        top: auto;
+        bottom: -$_shadow-height;
+        background-image: linear-gradient(180deg, $_shadow-colors);
+    }
 }
 
 %panel-hpadding {
