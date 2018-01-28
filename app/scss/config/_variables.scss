@@ -80,7 +80,7 @@ $line-height-default: 1.2;
 
 // defaul color names (mirrors _colors-default.scss values)
 $black:             nth(map-get($colors-default, black), 1);
-$light-black:       nth(map-get($colors-default, dim-black), 1);
+$light-black:       nth(map-get($colors-default, light-black), 1);
 $nero:              nth(map-get($colors-default, nero), 1);
 $charcoal:          nth(map-get($colors-default, charcoal), 1);
 $dim-grey:          nth(map-get($colors-default, dim-grey), 1);
