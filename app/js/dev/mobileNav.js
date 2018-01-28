@@ -14,23 +14,26 @@ var enquire = require('enquire'),
 // 
 var mobileNav = {
     init: function() {
-        this.header =               $('.js-header');
+        // panels
         this.panelsContainer =      $('.js-panels-container'); // swipper container created on 'domAdjust'
-        this.panels =               $('.panel', this.panelsContainer).add(this.header);
-        this.mobilePanel =          $('<nav class="nav-mobile swiper-container" />');
-        this.mobilePanelWidth;
-        this.mobileNavWrapper =     $('<div class="nav-mobile-wrapper swiper-wrapper" />');
-        this.mobileNavInner =       $('<div class="nav-mobile-inner swiper-slide" />');
-        this.mobileMenus =          $('.js-nav-main-menu').add('.js-nav-util-menu');
+        this.panels =               $('.panel', this.panelsContainer);
+        
+        // mobile navigation panel
+        this.navPanel =             $('<nav class="nav-mobile swiper-container" />');
+        this.navPanelWidth;
+        this.navWrapper =           $('<div class="nav-mobile-wrapper swiper-wrapper" />');
+        this.navInner =             $('<div class="nav-mobile-inner swiper-slide" />');
+        this.menus =                $('.js-nav-main-menu').add('.js-nav-util-menu');
         this.menuClass =            'nav-mobile__menu';
-        this.activeClass =          'menu-toggle--active';
-        this.easing =               'Power2.easeOut';
-        this.duration =             0.5,
         this.menuExist =            false;
         this.isMoving =             false;
         this.isOpen =               false;
-        this.mobileNavSwiper;
-        this.options = {
+        
+        // swiper 
+        this.navSwiper;
+        this.easing =               'Power2.easeOut';
+        this.duration =             0.5,
+        this.swiperOptions = {
             direction: 'vertical',
             slidesPerView: 'auto',
             freeMode: true,
@@ -47,6 +50,9 @@ var mobileNav = {
                 sensitivity: 10
             }
         };
+
+        // toggle button
+        this.btnActiveClass =       'menu-toggle--active';
         this.menuToggle =           $( 
             '<button class="js-menu-toggle menu-toggle" title="menu">' + 
                 '<span class="menu-toggle__icons">' +
@@ -88,15 +94,13 @@ var mobileNav = {
 
     // enable or disable mobile navigation
     enable: function(activate) {
-        var $header = this.header,
-            $panels = this.panels,
+        var $panels = this.panels,
             $menuToggle = this.menuToggle,
-            $mobilePanel = this.mobilePanel,
-            $mobileNavWrapper = this.mobileNavWrapper,
-            $mobileNavInner = this.mobileNavInner,
-            $mobileMenus = this.mobileMenus,
-            menuClass = this.menuClass,
-            mobilePanelWidth = this.mobilePanelWidth;
+            $navPanel = this.navPanel,
+            $navWrapper = this.navWrapper,
+            $navInner = this.navInner,
+            $menus = this.menus,
+            menuClass = this.menuClass;
 
         if(activate === true) {
 
@@ -122,13 +126,13 @@ var mobileNav = {
                 mobileNav.menuToggle = $panels.find('.js-menu-toggle');
 
                 // append 'mobileMenu'
-                $mobilePanel.append($mobileNavWrapper.append($mobileNavInner)).prependTo('body');
-                mobilePanelWidth = mobileNav.mobilePanelWidth = $mobilePanel.width();
+                $navPanel.append($navWrapper.append($navInner)).prependTo('body');
+                mobileNav.navPanelWidth = $navPanel.width();
 
-                console.log('init - mobilePanelWidth = ' + mobileNav.mobilePanelWidth);
+                console.log('init - navPanelWidth = ' + mobileNav.navPanelWidth);
                 
                 // store current mobile menus indexes
-                $mobileMenus.each(function(i){
+                $menus.each(function(i){
                     $(this).data({
                         'index': $(this).index(),
                         'parent' : $(this).parent()
@@ -136,19 +140,19 @@ var mobileNav = {
                 });
             }
 
-            console.log('normal - mobilePanelWidth = ' + mobilePanelWidth);
+            console.log('normal - navPanelWidth = ' +  mobileNav.navPanelWidth);
 
             // show 'menu toggle'
             $menuToggle.show();
 
             // prepend mobile menus
-            $mobileMenus.each(function(i){
-                $(this).addClass(menuClass).prependTo($mobileNavInner);
+            $menus.each(function(i){
+                $(this).addClass(menuClass).prependTo($navInner);
             });
         }
         else {
             $menuToggle.hide();
-            $mobileMenus.each(function(i){
+            $menus.each(function(i){
                 var $parent = $(this).data('parent'),
                     index = $(this).data('index');
 
@@ -171,59 +175,99 @@ var mobileNav = {
         }
     },
 
-    // switch menu
+    // switch menu (open/close)
     switchMenu: function(navigateTo) {
         mobileNav.isMoving = true;
 
         var $menuToggle = this.menuToggle,
-            $mobilePanel = this.mobilePanel,
+            $navPanel = this.navPanel,
+            $navWrapper = this.navWrapper,
+            $navInner = this.navInner,
             $panelsContainer = this.panelsContainer,
-            targtPos = mobileNav.isOpen !== true ? [this.mobilePanelWidth, 0] : [0, -this.mobilePanelWidth],
+            $currentItem  = panelNav.panelLinks.parent().eq(panelNav.currentPanel),
+            targetPos = mobileNav.isOpen !== true ? [this.navPanelWidth, 0] : [0, -this.navPanelWidth],
             duration = this.duration,
             easing = this.easing;
         
-        $menuToggle.toggleClass(this.activeClass).blur();
+        $menuToggle.toggleClass(this.btnActiveClass).blur();
 
         console.log('navigateTo is ' + navigateTo);
 
         // Enable 'open state' features
         if(!mobileNav.isOpen) {
+
             // toggle 'mobileMenu' visibility ON
-            $mobilePanel.toggle();
+            $navPanel.toggle();
+
+            // gather info about mobile panels elements
+            // in order to displace the panel according
+            // to the navigated current panel
+            var headingHeight = $(this.menus[1]).children(':first-child').outerHeight(), // main menu heading height
+                wrapperHeight = $navWrapper.height(),
+                innerHeight = $navInner.height(),
+                diffHeight = innerHeight - wrapperHeight,
+                currentItemTop = $currentItem.position().top,
+                navDisplace = currentItemTop - headingHeight;
+
             $panelsContainer.addClass('panels-container--disabled');
             
             // disable panelNavigation
             panelNav.panelSwiper.allowSlideNext = false;
             panelNav.panelSwiper.allowSlidePrev = false;
 
-            console.log('mobileNav.mobileNavSwiper = ' + mobileNav.mobileNavSwiper);
-
-            // create swiper if doesn't exists
-            if(typeof this.mobileNavSwiper === 'undefined') {
-                mobileNav.mobileNavSwiper = new Swiper('.nav-mobile', mobileNav.options);
-            }
-            else {
-                console.log('mobileNav.mobileNavSwiper is defined!!');
-                mobileNav.mobileNavSwiper.update();
-            }
+            console.log('mobileNav.navSwiper = ' + mobileNav.navSwiper);
 
             // mark Mobile navigation Panel item as current one
-            this.highlight(panelNav.currentPanel);
-        }
-        else {
-            // unmark Mobile navigation Panel item from being current one
-            this.unhighlight(panelNav.currentPanel);
+            // this.highlight(panelNav.currentPanel);
+            $currentItem.addClass('main-menu__item--active');
+
+            // get height of navInnerHeight
+            console.log('navInner height = ' + $navInner.height());
+
+            // create swiper if doesn't exists
+            if(typeof this.navSwiper === 'undefined') {
+                mobileNav.navSwiper = new Swiper('.nav-mobile', mobileNav.swiperOptions);
+            }
+            else {
+                console.log('mobileNav.navSwiper is defined!!');
+                mobileNav.navSwiper.update();
+            }
+
+            console.log(
+                'current panel = ' + panelNav.currentPanel + '\n' +
+                'headingHeight = ' + headingHeight + '\n' +
+                'wrapperHeight = ' + wrapperHeight + '\n' +
+                'innerHeight = ' + innerHeight + '\n' +
+                'diffHeight = ' + diffHeight + '\n' +
+                'currentItemTop =' + currentItemTop + '\n' +
+                'Swiper translate = ' + this.navSwiper.getTranslate()
+            );
+
+            // move mobile panel only if not currently on first panel
+            if(panelNav.currentPanel !== 0) {
+                var navTranslate = navDisplace < diffHeight ? navDisplace : diffHeight;
+
+                this.navSwiper.setTranslate(-navTranslate);
+            }
+            else {
+                this.navSwiper.setTranslate(0);
+            }
+
+            // remove focus on Panels focusable elements
+            panelNav.focusables.attr('tabIndex', '-1');
+
+            console.log('"mobileNav" panelNav.focusables = ' + panelNav.focusables.length);
         }
         
-        // animate mobilePanel and panelsContainer
+        // animate navPanel and panelsContainer
         TweenLite.to([
-                $mobilePanel,
+                $navPanel,
                 $panelsContainer
             ], duration, {
             right: function(index, target){
-
+                // set target position on animated elements
                 console.log(index, $(target).attr('class'));
-                return index === 0 ? targtPos[1] : targtPos[0];
+                return index === 0 ? targetPos[1] : targetPos[0];
             },
             ease: easing,
             onComplete: function() {
@@ -234,16 +278,19 @@ var mobileNav = {
                 // Disable 'open state' features
                 if(!mobileNav.isOpen) {
                     // toggle 'mobileMenu' visibility OF
-                    $mobilePanel.toggle();
+                    $navPanel.toggle();
                     $panelsContainer.removeClass('panels-container--disabled');
 
                     // Enable panelNavigation
                     panelNav.panelSwiper.allowSlideNext = true;
                     panelNav.panelSwiper.allowSlidePrev = true;
 
-                    // remove 'mobileMenu panel' sizing
-                    $mobilePanel.css('height', '');
-                    $(window).off('resize.mobileNav');
+
+                    // unmark Mobile navigation Panel item from being current one
+                    $currentItem.removeClass('main-menu__item--active');
+
+                    // remove focus on Panels focusable elements
+                    panelNav.focusables.attr('tabIndex', '0');
 
                     // navigate to Panel if any
                     if(typeof navigateTo !== 'undefined') {
@@ -255,20 +302,6 @@ var mobileNav = {
                 console.log('mobileNav isOpen = ' + mobileNav.isOpen);
             }
         });
-    },
-
-    highlight: function(currentPanel) {
-        var $currentItem  = panelNav.panelLinks.parent().eq(currentPanel);
-
-        $currentItem.addClass('main-menu__item--active');
-
-        console.log('current panel = ' + panelNav.panelLinks.parent().get(currentPanel));
-    },
-
-    unhighlight: function(currentPanel) {
-        var $currentItem  = panelNav.panelLinks.parent().eq(currentPanel);
-
-        $currentItem.removeClass('main-menu__item--active');
     }
 }
 
