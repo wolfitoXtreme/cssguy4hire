@@ -13,7 +13,7 @@ html, body {
 
 body {
     overflow: hidden;
-    background-color: $dim-black;
+    background-color: $light-black;
 
     // test mediaQueries
     @include queryInfo();

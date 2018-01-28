@@ -1,9 +1,10 @@
 {
     "black":            "#000",
-    "dim-black":        "#060606",
+    "light-black":     "#060606",
     "nero":             "#262626",
     "charcoal":         "#404040",
     "dim-grey":         "#616161",
+    "grey":             "#7f7f7f",
     "dark-grey":        "#aaaaaa",
     "light-grey":       "#c9c9c9",
     "very-light-grey":  "#d3d3d3",

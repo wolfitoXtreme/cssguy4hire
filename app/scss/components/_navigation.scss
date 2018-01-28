@@ -137,8 +137,8 @@
 // ----------------
 
 $_menu-item-links-padding: prem(19px) prem(12px) prem(13px) prem(12px);
-$_menu-item-shadow-colors-fg: rgba($black, 0.55) 0px, rgba($black, 0.18) 3px, rgba($black, 0) 8px;
-$_menu-item-shadow-colors-bg: rgba($black, 0.55) 0px, rgba($black, 0.45) 6px, rgba($black, 0) 20px;
+$_menu-item-shadow-colors-fg: rgba($black, 0.55) 0px, rgba($black, 0.18) 3px, rgba($black, 0.1) 8px;
+$_menu-item-shadow-colors-bg: rgba($black, 0.55) 0px, rgba($black, 0.45) 6px, rgba($black, 0.1) 20px;
 
 %menu-headings {
     margin: 0;
@@ -191,6 +191,21 @@ $_menu-item-shadow-colors-bg: rgba($black, 0.55) 0px, rgba($black, 0.45) 6px, rg
         @include breakpoint(map-get($breakpoints, medium)) {
             color: $white;
             background-color: transparent;
+        }
+    }
+    
+    // main-menu__item--active...
+    .main-menu__item--active & {
+        &:link,
+        &:visited {
+            background-color: $charcoal;
+        }
+
+        &:active,
+        .no-touchevents &:hover, // touch devices sticky hover fix
+        &:focus {
+            color: $white;
+            background-color: $grey;
         }
     }
 }
