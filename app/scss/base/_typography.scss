@@ -236,17 +236,14 @@ h6 {
 
             @include breakpoint(map-get($breakpoints, small)) {
                 margin-top: prem(18px);
-                // background-color: lightblue;
             }
 
             @include breakpoint(map-get($breakpoints, medium)) {
                 margin-top: prem(24px);
-                // background-color: lightcoral;
             }
 
             @include breakpoint(map-get($breakpoints, large)) {
                 margin-top: prem(34px);
-                // background-color: green;
             }
         }
     }

@@ -25,7 +25,6 @@
     $_transition-duration: 450ms;
 
     padding: 0 getPercentageFrom(11px, 224px);
-    // background-color: lightblue;
 
     @include breakpoint(map-get($breakpoints, medium)) {
         margin: 0 auto;
@@ -59,7 +58,6 @@
         position: relative;
         transition: padding $_transition-duration ease-out 0ms;
 
-        // background-color: lightgreen;
         @include breakpoint((orientation landscape)) {
             $_img-width: nth(map-get($images, logo-landscape), 1);
             $_img-height: nth(map-get($images, logo-landscape), 2);
@@ -94,8 +92,6 @@
             opacity
         ));
 
-        // background-color: lightcoral;
-
         @include breakpoint((orientation landscape)) {
             opacity: 0;
             width: 0;
@@ -117,8 +113,6 @@
         @include breakpoint(map-get($breakpoints, large) (min-height 768px) (orientation landscape)) {
             opacity: 1;
             width: 100%;
-
-            // background-color: pink;
 
             // site-logo-img--landscape
             &--landscape {
