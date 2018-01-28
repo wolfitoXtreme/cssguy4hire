@@ -1,6 +1,7 @@
 'use strict';
 
-var Swiper = require('swiper');
+var Swiper = require('swiper'),
+    panelNav = require('./panelNav');
 
 // 
 // Sliders
@@ -70,7 +71,12 @@ var slider = {
             console.log('children length = ' + $(this).children().length);
             console.log('slider_' + sliderIndex);
 
+            // initialize swiper
             slider.swipers['slider_' + sliderIndex] = new Swiper('.' + sliderClassName, sliderOptions);
+
+            // add focusable elements to PanelNav
+            console.log('panelNav.focusables = ' + panelNav.focusables.length);
+            panelNav.focusables = panelNav.focusables.add([$sliderPrev[0], $sliderNext[0]]);
         });
 
         console.log('sliders.length = ' + this.sliders.length);

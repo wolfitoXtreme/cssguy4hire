@@ -123,8 +123,10 @@ var panelNav = {
 
         $focusables.on({
             'focus' : function(event){
-                $('html, body').scrollTop(0); // do we really need this?
+                // reset scroll when navigating through tab key
+                $('.js-panels-container').scrollTop(0);
 
+                // Navigate to corresponding Panel
                 setTimeout(function() {
                     var $target = $(event.target),
                         $parentPanel = $target.closest('.panel'),
