@@ -3,6 +3,7 @@
 var enquire = require('enquire'),
     breakpoints = require('./breakpoints'),
     panelNav = require('./panelNav'),
+    isMobile = require('ismobilejs'),
     Swiper = require('swiper'),
     TweenLite = require('TweenLite'),
     TimelineLite = require('TimelineLite'),
@@ -23,11 +24,13 @@ var mobileNav = {
         this.navPanelWidth;
         this.navWrapper =           $('<div class="nav-mobile-wrapper swiper-wrapper" />');
         this.navInner =             $('<div class="nav-mobile-inner swiper-slide" />');
+        this.navScrollbar =         $('<div class="nav-mobile-scrollbar swiper-scrollbar" />');
         this.menus =                $('.js-nav-main-menu').add('.js-nav-util-menu');
         this.menuClass =            'nav-mobile__menu';
         this.menuExist =            false;
         this.isMoving =             false;
         this.isOpen =               false;
+        this.isMobile =             isMobile.any;
         
         // swiper 
         this.navSwiper;
@@ -46,6 +49,10 @@ var mobileNav = {
             spaceBetween: 0,
             keyboard: true,
             effect :'slide', // slide, fade, cube, coverflow or flip
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                draggable: false
+            },
             mousewheel: {
                 sensitivity: 10
             }
@@ -99,6 +106,7 @@ var mobileNav = {
             $navPanel = this.navPanel,
             $navWrapper = this.navWrapper,
             $navInner = this.navInner,
+            $navScrollbar = this.navScrollbar,
             $menus = this.menus,
             menuClass = this.menuClass;
 
@@ -126,8 +134,11 @@ var mobileNav = {
                 mobileNav.menuToggle = $panels.find('.js-menu-toggle');
 
                 // append 'mobileMenu'
-                $navPanel.append($navWrapper.append($navInner)).prependTo('body');
+                $navPanel.append($navWrapper.append($navInner), $navScrollbar).prependTo('body');
                 mobileNav.navPanelWidth = $navPanel.width();
+
+                // add mobile class indentifier
+                $navPanel.addClass(this.isMobile ? 'swiper-container-mobile' : 'swiper-container-desktop');
 
                 console.log('init - navPanelWidth = ' + mobileNav.navPanelWidth);
                 
