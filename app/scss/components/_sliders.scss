@@ -50,6 +50,7 @@
         margin: 0;
         padding: 0;
         position: relative;
+        flex: 1 0 auto; // fixes IE 11 SVG image sizing
         display: flex !important;
         justify-content: center;
 
