@@ -1,7 +1,8 @@
 'use strict';
 
 var Swiper = require('swiper'),
-    panelNav = require('./panelNav');
+    panelNav = require('./panelNav'),
+    onScreenTest = require('./onScreenTest');
 
 // 
 // Sliders
@@ -17,20 +18,89 @@ var slider = {
                         '</a>',
         this.arrowTexts = ['previous', 'next'],
         this.arrowsWrapper = $('<div class="slider-arrows" />'),
+        this.moving = false;
         this.options = {
             wrapperClass: 'js-slider',
-            // slideClass: 'slider__item',
-            loop: true,
+            loop: 1,
+            slidesPerView: 'auto',
+            spaceBetween: 0,
+            watchSlidesProgress: true,
             direction: 'horizontal',
             setWrapperSize: false, // for flexbox compability fallback
-            speed: 400,
+            speed: 600,
+            offsetRatio: 0.8, // custom property for swipe custom transformations
             longSwipesRatio: 0.5,
             longSwipesMs: 300,
             resistance: true,
             resistanceRatio: 0.85,
-            spaceBetween: 0,
             keyboard: true,
-            effect :'slide' // slide, fade, cube, coverflow or flip
+            effect :'slide', // slide, fade, cube, coverflow or flip
+            on: {
+                init: function () {
+                    console.log('slider event INIT. this.width = ' + this.width);
+                },
+
+                slideChange: function() {
+                    console.log('slider event SLIDECHANGE');
+                },
+
+                sliderMove: function() {
+                    console.log('slider event slider MOVE.');
+                },
+
+                reachBeginning: function() {
+                    console.log('slider event reach BEGINNING');
+                },
+
+                reachEnd: function() {
+                    console.log('slider event reach END');
+                },
+
+                transitionStart: function() {
+                    console.log('slider event TRANSITION START');
+
+                    this.allowTouchMove = false;
+                },
+
+                transitionEnd: function() {
+                    console.log('slider event TRANSITION END');
+
+                    var $slides = this.slides,
+                        $content = $slides.children('.slider__item-content');
+
+                    this.allowTouchMove = true;
+
+                    // avoids immediate changes on looped items
+                    $content.css({
+                        'transition-duration': ''
+                    });
+                },
+
+                slideChangeTransitionStart: function() {
+                    console.log('slider event slideChangeTransition START');
+                },
+
+                slideChangeTransitionEnd: function() {
+
+                    console.log('slider event slideChangeTransition END');
+
+                    this.allowTouchMove = true;
+                },
+
+                progress: function(progress){
+
+                    var swiperWidth = this.width;
+
+                    for (var i = 0; i < this.slides.length; i++){
+                        var $slide = this.slides.eq(i),
+                            $content = $slide.children('.slider__item-content'),
+                            slideProgress = this.slides[i].progress;
+
+                        // transform slides
+                        slider.transformSlide($slide, $content, this, swiperWidth, slideProgress);
+                    }
+                }
+            }
         };
 
         // compose navigation arrows
@@ -56,7 +126,7 @@ var slider = {
                 sliderOptions = slider.options;
 
             // wrap slider and add class names
-            $(this)./*addClass('swiper-wrapper').*/wrap('<div class="swiper-container slider-container ' + sliderClassName + '" />');
+            $(this).wrap('<div class="swiper-container slider-container ' + sliderClassName + '" />');
             $(this).children().addClass('swiper-slide');
 
             // add navigation arrows
@@ -82,6 +152,60 @@ var slider = {
         console.log('sliders.length = ' + this.sliders.length);
         console.log('sliders swipers.length = ' + slider.swipers.length);
         console.log('slider.swipers.slider_1 = ' + slider.swipers.slider_1);
+    },
+
+    // transform slides according to their individual progress
+    transformSlide: function($slide, $content, swiper, swiperWidth, slideProgress) {
+
+        var // dir = Math.sign(slideProgress), commnetd to honor MS Explorer 11 that do not support this method 
+            dir = slideProgress > 0 ? 1 : slideProgress < 0 ? -1 : slideProgress,
+            localProgress = parseFloat((1 - Math.min(Math.abs(slideProgress), 1)).toFixed(6)),
+            transition = localProgress === 0 || localProgress === 1 ? true : false,
+            offsetRatio = slider.options.offsetRatio,
+            offsetAmount = (swiperWidth * offsetRatio), 
+
+        // slide content transformations
+        contentOffset = (((offsetAmount * localProgress) - offsetAmount) * -dir).toFixed(4),
+        contentScale = localProgress,
+        contentOpacity = contentScale;
+
+        // $slide.attr({
+        //     'data-scale': contentScale,
+        //     'data-class-name-pos': $slide.index() + '||' + $content.attr('style') + '||' + localProgress + '||' + transition + '||' + slideProgress
+        // });
+
+        // return transformations
+        var applyTransform = function(duration) {
+            return {
+                'transition-duration': duration + 'ms',
+                'transform': 'scale(' + contentScale + ') translate3d(' + contentOffset + 'px, 0px, 0px)',
+                'opacity': contentOpacity
+            }
+        }
+
+        if(transition === false) {
+            $content.css(applyTransform(0));
+        }
+        else {
+            $content.css(applyTransform(slider.options.speed));
+        }
+        
+        if($slide.index() === 3) {
+            onScreenTest.test(
+               'TEST SLIDER transformSlideS', [
+                    'dir = ' + dir,
+                    'offsetAmount = ' + offsetAmount,
+                    'localProgress = ' + localProgress,
+                    'contentOffset = ' + contentOffset,
+                    'slideProgress = ' + slideProgress,
+                    'swiperWidth = ' + swiperWidth,
+                    'scale = ' + contentScale,
+                    'transition = ' + transition,
+                    // 'displace = ' + displace,
+                    'slider.moving = ' + slider.moving
+               ], true
+            );
+        }
     }
 }
 
