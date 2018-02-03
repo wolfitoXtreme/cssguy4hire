@@ -19,17 +19,18 @@ var panelNav = {
             slideClass: 'panel',
             direction: 'vertical',
             slidesPerView: 1,
+            spaceBetween: 0,
             setWrapperSize: false, // for flexbox compability fallback
             speed: 400,
-            longSwipesRatio: 0.5,
-            longSwipesMs: 300,
+            shortSwipes: false,
+            longSwipesRatio: 0.1,
+            longSwipesMs: 100,
             resistance: true,
             resistanceRatio: 0.85,
-            spaceBetween: 0,
             keyboard: true,
             effect :'slide', // slide, fade, cube, coverflow or flip
             mousewheel: {
-                sensitivity: 10
+                sensitivity: 1
             },
             on: {
                 slideChangeTransitionEnd: function() {
