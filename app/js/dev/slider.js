@@ -203,7 +203,7 @@ var slider = {
                     'transition = ' + transition,
                     // 'displace = ' + displace,
                     'slider.moving = ' + slider.moving
-               ], true
+               ], false
             );
         }
     }
