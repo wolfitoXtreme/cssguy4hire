@@ -220,6 +220,7 @@ var mobileNav = {
                 currentItemTop = $currentItem.position().top,
                 navDisplace = currentItemTop - headingHeight;
 
+            // put overlay on top to avoid interaction
             $panelsContainer.addClass('panels-container--disabled');
             
             // disable panelNavigation
@@ -229,7 +230,6 @@ var mobileNav = {
             console.log('mobileNav.navSwiper = ' + mobileNav.navSwiper);
 
             // mark Mobile navigation Panel item as current one
-            // this.highlight(panelNav.currentPanel);
             $currentItem.addClass('main-menu__item--active');
 
             // get height of navInnerHeight
@@ -245,6 +245,7 @@ var mobileNav = {
             }
 
             console.log(
+                'mobileNav oppenning \n' +
                 'current panel = ' + panelNav.currentPanel + '\n' +
                 'headingHeight = ' + headingHeight + '\n' +
                 'wrapperHeight = ' + wrapperHeight + '\n' +
@@ -255,7 +256,8 @@ var mobileNav = {
             );
 
             // move mobile panel only if not currently on first panel
-            if(panelNav.currentPanel !== 0) {
+            // and there isn't enoughg space to display it entirely
+            if(panelNav.currentPanel !== 0 && diffHeight > 0) {
                 var navTranslate = navDisplace < diffHeight ? navDisplace : diffHeight;
 
                 this.navSwiper.setTranslate(-navTranslate);
