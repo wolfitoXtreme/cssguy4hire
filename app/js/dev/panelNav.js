@@ -1,6 +1,7 @@
 'use strict';
 
-var Swiper = require('swiper');
+var Swiper = require('swiper'),
+    onScreenTest = require('./onScreenTest');
 
 // 
 // Panel navigation
@@ -14,6 +15,7 @@ var panelNav = {
         this.panelArrows =      $('.js-nav-panel-prev', panelNav.panels)
                                 .add('.js-nav-panel-next', panelNav.panels);
         this.focusables =       $(':focusable', this.panels);
+        this.mobileNav; // Store Mobile Nav here
         this.options = {
             wrapperClass: 'js-panels',
             slideClass: 'panel',
@@ -22,6 +24,7 @@ var panelNav = {
             spaceBetween: 0,
             setWrapperSize: false, // for flexbox compability fallback
             speed: 400,
+            offsetRatio: 0.15, // custom property for swipe custom transformations
             shortSwipes: false,
             longSwipesRatio: 0.1,
             longSwipesMs: 100,
@@ -33,6 +36,9 @@ var panelNav = {
                 sensitivity: 1
             },
             on: {
+                init: function() {
+                } ,
+
                 slideChangeTransitionEnd: function() {
                     var currentPanel = panelNav.panelSwiper.activeIndex,
                         $panels = panelNav.panels;
@@ -49,12 +55,34 @@ var panelNav = {
 
                     // set current panel
                     panelNav.currentPanel = currentPanel;
+                },
+
+                progress: function(progress){
+                    var swiperHeight = this.height;
+
+                    for (var i = 0; i < this.slides.length; i++){
+                        var $panel = this.slides.eq(i),
+                            $foreground = $panel.children('.panel__detail'),
+                            $logo = $('.site-heading', $foreground),
+                            $heading = $('.panel-heading', $foreground).add('.nav-main-menu', $foreground),
+                            $content = $('.panel-content', $foreground),
+                            panelProgress = this.slides[i].progress;
+
+                        // animate Panels
+                        panelNav.animatePanels(
+                            $panel, 
+                            $foreground,
+                            this, 
+                            swiperHeight, 
+                            panelProgress
+                        );
+                    }
                 }
             }
         };
-        this.mobileNav; // Store Mobile Nav here
         this.panelSwiper = new Swiper('.js-panels-container', panelNav.options);
 
+        // add dummy navigation focus 
         panelNav.panels.prepend($('<span class="js-focus-dummy hidden" tabindex="0" />'));
         panelNav.focusables = panelNav.focusables.add('.js-focus-dummy');
 
@@ -87,6 +115,7 @@ var panelNav = {
             'currentPanel = ' + panelNav.currentPanel + '\n' +
             'maxPanels = ' + panelNav.maxPanels + '\n' +
             'panelSpeed = ' + panelNav.panelSpeed + '\n' +
+            'leap = ' + leap + '\n' +
             '-------\n'
         );
     },
@@ -138,6 +167,8 @@ var panelNav = {
                     if(parentIndex !== currentPanel) {
                         panelNav.gotoPanel(parentIndex, 'tabNavigation');
                     }
+
+                    console.log('parentIndex = ' + parentIndex);
 
                 }, 5);
             }
@@ -193,6 +224,59 @@ var panelNav = {
         //     }
         // });
     },
+
+    animatePanels: function(
+        $panel, 
+        $foreground,
+        swiper, 
+        swiperHeight, 
+        panelProgress
+    ) {
+
+        var // dir = Math.sign(panelProgress), commnetd to honor MS Explorer 11 that do not support this method 
+            dir = panelProgress > 0 ? 1 : panelProgress < 0 ? -1 : panelProgress,
+            localProgress = parseFloat((1 - Math.min(Math.abs(panelProgress), 1)).toFixed(4)),
+            transition = localProgress === 0 || localProgress === 1 ? true : false;
+
+
+        // get offset
+        var getOffset = function(offsetRatio, abs) {
+            var offsetAmount = (swiperHeight * offsetRatio),
+                offsetDir = abs === true ? Math.abs(dir) : dir,
+                offset = (((offsetAmount * localProgress) - offsetAmount) * -offsetDir).toFixed(4);
+
+            return offset;
+        }
+
+        // apply transformations
+        var applyTransform = function(duration, transformations) {
+            var transform;
+            duration = transition === false ? 0 : duration;
+
+            transform = { 'transition-duration': duration + 'ms', 'transform': transformations }
+
+            return transform;
+        }
+
+        $foreground.css(applyTransform(
+            panelNav.options.speed,
+            'translate3d(0px, ' + getOffset(panelNav.options.offsetRatio, false) + 'px, 0px)' +
+            'scale(' + localProgress + ')'
+        ));
+
+
+        if($panel.index() === 0) {
+            onScreenTest.test(
+               'TEST PANEL NAV SWIPER ANIMATIONS', [
+                    '$panel = ' + $panel.attr('title'),
+                    'panelProgress = ' + panelProgress,
+                    'localProgress = ' + localProgress,
+                    'dir = ' + dir,
+                    'transition = ' + transition
+               ], false
+            );
+        }
+    }
 }
 
 module.exports = panelNav;
