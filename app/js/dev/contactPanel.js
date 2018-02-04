@@ -84,6 +84,8 @@ var contactPanel = {
             ease: easing,
             onComplete: function() {
                 contactPanel.complete();
+
+                // add 'open state' classes to improve user experience with mobile soft keyboard 
                 $formPanel.addClass('form-panel--opened');
 
                 // hide underlying structure (helps tab navigation)
@@ -112,8 +114,10 @@ var contactPanel = {
             ease: easing,
             onComplete: function() {
                 contactPanel.complete();
-                $formPanel.removeClass('form-panel--opened');
                 $formPanel.hide();
+
+                // remove 'open state' classes
+                $formPanel.removeClass('form-panel--opened');
 
                 // set back the focus on 'openBtn'
                 contactPanel.openBtn.focus();
