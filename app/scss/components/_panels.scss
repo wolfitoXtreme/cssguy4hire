@@ -24,16 +24,15 @@
     $_img-width: nth(map-get($images, panel-bkg), 1);
 
     overflow: hidden;
-    background: url($image-url + $_bkg-image) 0 bottom repeat-x;
-    background-size: prem(132px);
+    background-image: url($image-url + $_bkg-image);
+    background-size: prem(132px), cover;
+    background-position:  0 100%, 50% 50%;
+    background-repeat: repeat-x, no-repeat;
 
     // panel--about background images
     &--about {
-        background: 
-            url($image-url + $_bkg-image) 0 bottom repeat-x,
-            url($image-url + $_about-bkg-image) center center no-repeat border-box;
+        background-image: url($image-url + $_bkg-image), url($image-url + $_about-bkg-image);
         transition: background-position $default-duration ease-out 0ms;
-        background-size: prem(132px), cover;
     }
 
     @media (-webkit-min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
@@ -51,12 +50,11 @@
         $_img-width: nth(map-get($images, panel-bkg-medium), 1);
 
         background-image: url($image-url + $_bkg-image);
-        background-size: prem(212px);
+        background-size: prem(212px), cover;
 
         // panel--about background images
         &--about {
             background-image: url($image-url + $_bkg-image), url($image-url + $_about-bkg-image);
-            background-size: prem(212px), cover;
         }
 
         @media (-webkit-min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
@@ -93,6 +91,9 @@
     // panel--cover
     &--cover {
         background-color: $dark-goldenrod;
+        &.panel:after {
+            display: none;
+        }
     }
 
     // panel--about

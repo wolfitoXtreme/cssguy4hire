@@ -528,8 +528,8 @@ $_menu-item-shadow-colors-bg: rgba($black, 0.55) 0px, rgba($black, 0.45) 6px, rg
                 fill: $eternity;
 
                 // util-menu__item-link:hover util-menu__item-icon...
-                .util-menu__item-link:hover &,
-                .util-menu__item-link:active &,
+                .no-touchevents .util-menu__item-link:hover &,
+                .no-touchevents .util-menu__item-link:active &,
                 .util-menu__item-link:focus & {
                     fill: $white;
                 }
