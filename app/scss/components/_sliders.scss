@@ -54,12 +54,6 @@
         display: flex !important;
         justify-content: center;
 
-        // no JS support
-        .no-js & {
-            width: 100%;
-            flex-shrink: 0;
-        }
-
         &:before {
             display: none;
         }
