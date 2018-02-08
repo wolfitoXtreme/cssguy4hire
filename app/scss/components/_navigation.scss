@@ -366,11 +366,6 @@ $_menu-item-shadow-colors-bg: rgba($black, 0.55) 0px, rgba($black, 0.45) 6px, rg
 // nav-util-menu
 .nav-util-menu {
     display: none;
-    
-    // hide if no JScript is loaded
-    .no-js & {
-        @include hidden();
-    }
 
     @include breakpoint(map-get($breakpoints, medium)) {
         right: prem(24px);
@@ -658,12 +653,14 @@ $_menu-item-shadow-colors-bg: rgba($black, 0.55) 0px, rgba($black, 0.45) 6px, rg
         width: $_icon-width;
         height: $_icon-height;
         position: absolute;
-        @extend %remove-text;
+        font-size: 0;
+        line-height: 0;
+        // @extend %remove-text;
         @include transitions($default-duration, ease-out, 0ms, (
             transform,
             opacity
         ));
-
+        
         &:before,
         &:after {
             content: "";
@@ -677,21 +674,9 @@ $_menu-item-shadow-colors-bg: rgba($black, 0.55) 0px, rgba($black, 0.45) 6px, rg
             position: absolute;
             opacity: 0.5;
         }
-        
-        // no JS support arrow
+
         &:after {
-            .no-js & {
-                margin: auto;
-                right: 0;
-                bottom: 15%;
-                width: 50%;
-                height: 50%;
-                border-radius: 0;
-                border-width: $_icon-border-width * 2;
-                border-top-style: none;
-                border-left-style: none;
-                transform: rotate(45deg);
-            }
+            opacity: 0;
         }
 
         @include breakpoint(map-get($breakpoints, small)) {
@@ -717,34 +702,33 @@ $_menu-item-shadow-colors-bg: rgba($black, 0.55) 0px, rgba($black, 0.45) 6px, rg
             width: $_icon-width;
             height: $_icon-height;
             bottom: prem(12px);
-
-            &:before {
+            
+            &:before,
+            &:after {
                 border-width: $_icon-border-width;
             }
         }
 
         &:link,
         &:visited {
-            .js & {
-                transform: scale(0.0);
-                opacity: 0;
-            }
+            color: transparent;
+            transform: scale(0);
+            opacity: 0;
         }
 
         // nav-panel__link--active
         &:hover,
         &:active,
         &--active {
-            &:before {
-                opacity: 1;
+            &:before,
+            &:after {
+                // opacity: 1;
             }
         }
 
         &:focus {
-            .js & {
-                transform: scale(1);
-                opacity: 1;
-            }
+            transform: scale(1);
+            opacity: 1;
         }
 
         // nav-panel__link--prev
@@ -760,13 +744,35 @@ $_menu-item-shadow-colors-bg: rgba($black, 0.55) 0px, rgba($black, 0.45) 6px, rg
             @include breakpoint(map-get($breakpoints, large)) {
                 top: prem(12px);
             }
+        }
+
+        // nav-panel__link--on-screen
+        &--on-screen {
+            // need to define this to get transitions working in and out
+            &:link,
+            &:visited {
+                transform: scale(0);
+                opacity: 0.1;
+            }
+
+            // &:focus {
+            //     transform: scale(1) !important;
+            //     opacity: 1 !important;
+            // }
+        }
+        
+        // nav-panel__link--animated
+        &--animated {
+            $_animation-params: 1000ms ease 0ms 3 forwards;
             
-            // no JS support arrow (top arrow)
-            &:after {
-                .no-js & {
-                    top: 15%;
-                    bottom: 0;
-                    transform: rotate(-135deg);
+            &:link,
+            &:visited {
+                transform: scale(1);
+                animation: nav-panel-link-ani $_animation-params;
+                
+                // animate outermost ring
+                &:after {
+                    animation: nav-panel-ring-ani $_animation-params;
                 }
             }
         }
@@ -793,5 +799,34 @@ $_menu-item-shadow-colors-bg: rgba($black, 0.55) 0px, rgba($black, 0.45) 6px, rg
         .nav-panel__link--active & {
             opacity: 1;
         }
+    }
+}
+
+
+@keyframes nav-panel-link-ani {
+    0% {
+        opacity: 0.25;
+    }
+
+    60% {
+        opacity: 0.75;
+    }
+
+    100% {
+        opacity: 0.25;
+    }
+}
+
+@keyframes nav-panel-ring-ani {
+    
+    0% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+    
+    80% {
+        opacity: 0;
+        border-width: 10px;
+        transform: scale(1.6);
     }
 }
