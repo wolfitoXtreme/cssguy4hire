@@ -12,8 +12,6 @@ var panelNav = {
         this.panels =           $('.panel', this.wrapper);
         this.currentPanel =     0;
         this.panelLinks =       $('.js-nav-main-menu a');
-        // this.panelArrows =      $('.js-nav-panel-prev', this.panels)
-        //                         .add('.js-nav-panel-next', this.panels);
         this.panelArrows =      $([]); // empty collection
         this.allVisited =       0;
         this.focusables =       $(':focusable', this.panels);
@@ -24,7 +22,7 @@ var panelNav = {
             direction: 'vertical',
             slidesPerView: 1,
             spaceBetween: 0,
-            setWrapperSize: false, // for flexbox compability fallback
+            setWrapperSize: false, // for flexbox compatibility fallback
             speed: 400,
             offsetRatio: 0.15, // custom property for swipe custom transformations
             shortSwipes: false,
@@ -257,33 +255,37 @@ var panelNav = {
 
     // arrow navigation
     arrowNavigation: function() {
-        // var $panelArrows = this.panelArrows,
-        //     prevArrow = '.js-nav-panel-prev',
-        //     nextArrow = '.js-nav-panel-next';
+        var $panelArrows = this.panelArrows,
+            prevArrow = '.js-nav-panel-prev',
+            nextArrow = '.js-nav-panel-next';
 
-        // console.log('$panelArrows.length = ' + $panelArrows.length);
+        console.log('$panelArrows.length = ' + $panelArrows[0].attr('class'));
 
-        // $panelArrows.on({
-        //     'click': function(event) {
-        //         event.preventDefault();
+        $panelArrows.each(function(i) {
+            $(this).on({
+                'click': function(event) {
+                    event.preventDefault();
 
-        //         var currentPanel = panelNav.currentPanel;
+                    console.log('arrowNavigation!!');
 
-        //         // simulate active state on ENTER key press
-        //         $(this).addClass('nav-panel__link--active');
+                    var currentPanel = panelNav.currentPanel;
 
-        //         console.log('currentPanel is ' + currentPanel);
+                    // simulate active state on ENTER key press
+                    $(this).addClass('nav-panel__link--active');
 
-        //         if($(this).is(prevArrow)) {
-        //             console.log('prev!!');
-        //             panelNav.gotoPanel(currentPanel - 1, 'arrowNavigation');
-        //         }
-        //         else {
-        //             console.log('next!!');
-        //             panelNav.gotoPanel(currentPanel + 1, 'arrowNavigation');
-        //         }
-        //     }
-        // });
+                    console.log('currentPanel is ' + currentPanel);
+
+                    if($(this).is(prevArrow)) {
+                        console.log('prev!!');
+                        panelNav.gotoPanel(currentPanel - 1, 'arrowNavigation');
+                    }
+                    else {
+                        console.log('next!!');
+                        panelNav.gotoPanel(currentPanel + 1, 'arrowNavigation');
+                    }
+                }
+            });
+        });
     },
 
     // hightlight arrows
