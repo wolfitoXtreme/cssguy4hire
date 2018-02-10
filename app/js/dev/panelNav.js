@@ -1,6 +1,7 @@
 'use strict';
 
 var Swiper = require('swiper'),
+    skillsRating = require('./skillsRating'),
     onScreenTest = require('./onScreenTest');
 
 // 
@@ -16,12 +17,14 @@ var panelNav = {
         this.allVisited =       0;
         this.focusables =       $(':focusable', this.panels);
         this.mobileNav;         // Store Mobile Nav here
+        this.slider;            // Store Slider here
         this.options = {
             wrapperClass: 'js-panels',
             slideClass: 'panel',
             direction: 'vertical',
             slidesPerView: 1,
             spaceBetween: 0,
+            watchSlidesProgress: true,
             setWrapperSize: false, // for flexbox compatibility fallback
             speed: 400,
             offsetRatio: 0.15, // custom property for swipe custom transformations
@@ -31,7 +34,7 @@ var panelNav = {
             resistance: true,
             resistanceRatio: 0.85,
             keyboard: true,
-            effect :'slide', // slide, fade, cube, coverflow or flip
+            effect :'slide',
             mousewheel: {
                 sensitivity: 1
             },
@@ -112,7 +115,21 @@ var panelNav = {
                         );
                     }
 
-                    console.log('panel event PANEL CHANGE TRANSITION END = ' + panelNav.panelArrows.length);
+                    console.log(
+                        'panel event PANEL CHANGE TRANSITION END \n' + 
+                        'panelArrows = ' + panelNav.panelArrows.length + '\n' +
+                        'panel class = ' + $currentPanel.attr('class') + '\n' +
+                        'panel-rating = ' + $currentPanel.data('panel-rating-animation')
+                    );
+
+                    // skillsRating control of current slider, if any
+                    if(typeof $currentPanel.data('panel-rating-animation') !== 'undefined') {
+                        skillsRating.skillsFill($currentPanel.data('panel-rating-animation'), true);
+                    }
+
+                    if(typeof $previousPanel.data('panel-rating-animation') !== 'undefined') {
+                        skillsRating.skillsFill($previousPanel.data('panel-rating-animation'), false);
+                    }
                 },
 
                 progress: function(progress){
@@ -270,9 +287,6 @@ var panelNav = {
 
                     var currentPanel = panelNav.currentPanel;
 
-                    // simulate active state on ENTER key press
-                    $(this).addClass('nav-panel__link--active');
-
                     console.log('currentPanel is ' + currentPanel);
 
                     if($(this).is(prevArrow)) {
@@ -427,7 +441,7 @@ var panelNav = {
             'scale(' + localProgress + ')'
         ));
 
-        if($panel.index() === 0) {
+        if($panel.index() === 1) {
             onScreenTest.test(
                'TEST PANEL NAV SWIPER ANIMATIONS', [
                     '$panel = ' + $panel.attr('title'),

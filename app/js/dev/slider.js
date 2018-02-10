@@ -2,6 +2,7 @@
 
 var Swiper = require('swiper'),
     panelNav = require('./panelNav'),
+    skillsRating = require('./skillsRating'),
     onScreenTest = require('./onScreenTest');
 
 // 
@@ -21,11 +22,11 @@ var slider = {
         this.moving = false;
         this.options = {
             wrapperClass: 'js-slider',
+            direction: 'horizontal',
             loop: 1,
             slidesPerView: 'auto',
             spaceBetween: 0,
             watchSlidesProgress: true,
-            direction: 'horizontal',
             setWrapperSize: false, // for flexbox compability fallback
             speed: 600,
             offsetRatio: 0.8, // custom property for swipe custom transformations
@@ -34,10 +35,17 @@ var slider = {
             resistance: true,
             resistanceRatio: 0.85,
             keyboard: true,
-            effect :'slide', // slide, fade, cube, coverflow or flip
+            effect :'slide',
             on: {
                 init: function () {
-                    console.log('slider event INIT. this.width = ' + this.width);
+                    var $parentPanel = this.$el.closest('.panel');
+
+                    console.log(
+                        'slider event INIT ' + '\n' +
+                        'panel class = ' + $parentPanel.attr('class') + '\n' +
+                        'panel data = ' + $parentPanel.data('panel-rating-animation')
+                    );
+
                 },
 
                 slideChange: function() {
@@ -45,6 +53,13 @@ var slider = {
                 },
 
                 sliderMove: function() {
+                    var $parentPanel = this.$el.closest('.panel');
+
+                    // Skills rating animation control only if matching panel
+                    if($parentPanel.index() === panelNav.panelSwiper.activeIndex) {
+                        skillsRating.skillsFill(this, false);
+                    }
+
                     console.log('slider event slider MOVE.');
                 },
 
@@ -57,23 +72,34 @@ var slider = {
                 },
 
                 transitionStart: function() {
-                    console.log('slider event TRANSITION START');
+                    var $parentPanel = this.$el.closest('.panel');
 
-                    this.allowTouchMove = false;
+                    console.log('slider event TRANSITION START');
                 },
 
                 transitionEnd: function() {
-                    console.log('slider event TRANSITION END');
 
                     var $slides = this.slides,
-                        $content = $slides.children('.slider__item-content');
-
-                    this.allowTouchMove = true;
+                        $content = $slides.children('.slider__item-content'),
+                        $parentPanel = this.$el.closest('.panel');
 
                     // avoids immediate changes on looped items
                     $content.css({
                         'transition-duration': ''
                     });
+
+                    // Skills rating animation control only if matching panel
+                    if($parentPanel.index() === panelNav.panelSwiper.activeIndex) {
+                        skillsRating.skillsFill(this, true);
+                    }
+
+                    console.log(
+                        'slider event TRANSITION END ' + '\n' +
+                        'panel class = ' + $parentPanel.attr('class') + '\n' +
+                        'panel data = ' + $parentPanel.data('panel-rating-animation') + '\n' +
+                        'panelNav current panel = ' + panelNav.panelSwiper.activeIndex
+                    );
+
                 },
 
                 slideChangeTransitionStart: function() {
@@ -81,10 +107,10 @@ var slider = {
                 },
 
                 slideChangeTransitionEnd: function() {
-
-                    console.log('slider event slideChangeTransition END');
-
-                    this.allowTouchMove = true;
+                    console.log(
+                        'test end -- slider event slideChangeTransition END \n' +
+                        'slider is = ' + this.$el.attr('class')
+                    );
                 },
 
                 progress: function(progress){
@@ -103,6 +129,9 @@ var slider = {
             }
         };
 
+        // set slider in 'panelNav'
+        panelNav.slider = this;
+
         // compose navigation arrows
         var prevText = this.arrowTexts[0],
             nextText = this.arrowTexts[1],
@@ -120,6 +149,7 @@ var slider = {
         this.sliders.each(function(i) {
             var sliderIndex = i + 1,
                 sliderClassName = 'slider-container-' + sliderIndex,
+                $parentPanel = $(this).closest('.panel'),
                 $sliderArrows = $arrows.clone(),
                 $sliderPrev = $sliderArrows.children().first(),
                 $sliderNext = $sliderArrows.children().last(),
@@ -139,17 +169,23 @@ var slider = {
             };
 
             console.log('children length = ' + $(this).children().length);
-            console.log('slider_' + sliderIndex);
 
             // initialize swiper
             slider.swipers['slider_' + sliderIndex] = new Swiper('.' + sliderClassName, sliderOptions);
 
             // add focusable elements to PanelNav
-            console.log('panelNav.focusables = ' + panelNav.focusables.length);
             panelNav.focusables = panelNav.focusables.add([$sliderPrev[0], $sliderNext[0]]);
+            console.log('panelNav.focusables = ' + panelNav.focusables.length);
+
+            // store created swiper into parent panel, for Skills rating animation
+            if($parentPanel.is('.panel--skills')) {
+                console.log('is .panel--skills: ' + $parentPanel.attr('class'));
+                $parentPanel.data('panel-rating-animation', slider.swipers['slider_' + sliderIndex]);
+            }
+
         });
 
-        console.log('sliders.length = ' + this.sliders.length);
+        console.log('sliders.length = ' + slider.swipers.slider_1.$el.attr('class'));
         console.log('sliders swipers.length = ' + slider.swipers.length);
         console.log('slider.swipers.slider_1 = ' + slider.swipers.slider_1);
     },

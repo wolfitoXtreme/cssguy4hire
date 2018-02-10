@@ -33,10 +33,41 @@ var skillsRating = {
                 console.log('rating dots = ' + j);
                 $dotWrapper.append($dot);
             }
-
+            
             $item.append($dotWrapper);
         });
+    },
 
+    skillsFill: function(slider, fill) {
+        var $slides = slider.slides,
+            $currentSlide = $slides.eq(slider.activeIndex);
+
+        console.log('SKILLS skillsFill ' + slider.activeIndex);
+
+        if(fill === true) {
+            $slides.each(function(i) {
+
+                var dotsWrapper = $('.expertise-dots', this);
+
+                if($(this)[0] === $currentSlide[0] && dotsWrapper.length) {
+
+                    dotsWrapper.addClass('expertise-dots--animated');
+                    // $(this).css('background-color', 'lightblue');
+                }
+                else if (dotsWrapper.length) {
+                    dotsWrapper.removeClass('expertise-dots--animated');
+                }
+            });
+        }
+        else {
+            $slides.each(function(i) {
+                var dotsWrapper = $('.expertise-dots', this);
+                
+                if(dotsWrapper.length) {
+                    dotsWrapper.removeClass('expertise-dots--animated');
+                }
+            });
+        }
     }
 }
 
