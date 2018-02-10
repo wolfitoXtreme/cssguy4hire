@@ -716,16 +716,6 @@ $_menu-item-shadow-colors-bg: rgba($black, 0.55) 0px, rgba($black, 0.45) 6px, rg
             opacity: 0;
         }
 
-        // nav-panel__link--active
-        &:hover,
-        &:active,
-        &--active {
-            &:before,
-            &:after {
-                // opacity: 1;
-            }
-        }
-
         &:focus {
             transform: scale(1);
             opacity: 1;
@@ -754,11 +744,6 @@ $_menu-item-shadow-colors-bg: rgba($black, 0.55) 0px, rgba($black, 0.45) 6px, rg
                 transform: scale(0);
                 opacity: 0.1;
             }
-
-            // &:focus {
-            //     transform: scale(1) !important;
-            //     opacity: 1 !important;
-            // }
         }
         
         // nav-panel__link--animated
@@ -793,10 +778,9 @@ $_menu-item-shadow-colors-bg: rgba($black, 0.55) 0px, rgba($black, 0.45) 6px, rg
             transform: rotate(180deg);
         }
 
-        // nav-panel__link--active nav-panel__icon
+        // nav-panel__link nav-panel__icon
         .nav-panel__link:hover &,
-        .nav-panel__link:active &,
-        .nav-panel__link--active & {
+        .nav-panel__link:active {
             opacity: 1;
         }
     }
