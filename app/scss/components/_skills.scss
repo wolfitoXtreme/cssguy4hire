@@ -59,21 +59,61 @@
     &__dot {
         $_dot-width: prem(12px);
         $_dot-height: $_dot-width;
+        $_dot-time: 200ms;
+        $_dot-amount: 5;
+        $_dot-delay: $_dot-time / ($_dot-amount * 0.65);
         
         margin-left: prem(3px);
         width: $_dot-width;
         height: $_dot-height;
-        border-radius: 100%;
         display: inline-block;
-        border: 2px solid rgba($white, 0.24);
+        position: relative;
 
         &:first-child {
             margin: 0;
         }
+
+        &:before, 
+        &:after {
+            content: "";
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid rgba($white, 0.24);
+            border-radius: 100%;
+            display: block;
+            position: absolute;
+        }
+
+        &:after {
+            display: none;
+            z-index: 10;
+        }
         
         // expertise-dots__dot--fulfilled
         &--fulfilled {
-            background-color: rgba($white, 0.24);
+            &:after {
+                border-color: transparent;
+                display: block;
+                opacity: 0;
+                transition: 
+                    opacity $_dot-time ease-out;
+                background-color: rgba($white, 0.24);
+            }
+
+            @for $i from 1 through $_dot-amount {
+              $_local-delay: $_dot-delay * ($i - 1);
+
+              &:nth-child(#{$i}):after {
+                 transition-delay: $_local-delay;
+              }
+            }
+
+            // expertise-dots--animated expertise-dots__dot--fulfilled
+            .expertise-dots--animated &:after {
+                opacity: 1;
+            }
         }
 
         @include breakpoint(map-get($breakpoints, small)) {
