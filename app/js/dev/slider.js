@@ -184,10 +184,6 @@ var slider = {
             }
 
         });
-
-        console.log('sliders.length = ' + slider.swipers.slider_1.$el.attr('class'));
-        console.log('sliders swipers.length = ' + slider.swipers.length);
-        console.log('slider.swipers.slider_1 = ' + slider.swipers.slider_1);
     },
 
     // transform slides according to their individual progress
