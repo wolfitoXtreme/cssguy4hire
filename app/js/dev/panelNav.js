@@ -74,14 +74,6 @@ var panelNav = {
                 },
 
                 transitionEnd: function() {
-                    console.log('panel event PANEL TRANSITION END');
-                },
-
-                slideChangeTransitionStart: function() {
-                    console.log('panel event PANEL CHANGE TRANSITION START');
-                },
-
-                slideChangeTransitionEnd: function() {
                     var currentPanel = panelNav.panelSwiper.activeIndex,
                         previousPanel = panelNav.panelSwiper.previousIndex,
                         $panels = panelNav.panels,
@@ -116,7 +108,7 @@ var panelNav = {
                     }
 
                     console.log(
-                        'panel event PANEL CHANGE TRANSITION END \n' + 
+                        'panel event PANEL TRANSITION END \n' + 
                         'panelArrows = ' + panelNav.panelArrows.length + '\n' +
                         'panel class = ' + $currentPanel.attr('class') + '\n' +
                         'panel-rating = ' + $currentPanel.data('panel-rating-animation')
@@ -130,6 +122,14 @@ var panelNav = {
                     if(typeof $previousPanel.data('panel-rating-animation') !== 'undefined') {
                         skillsRating.skillsFill($previousPanel.data('panel-rating-animation'), false);
                     }
+                },
+
+                slideChangeTransitionStart: function() {
+                    console.log('panel event PANEL CHANGE TRANSITION START');
+                },
+
+                slideChangeTransitionEnd: function() {
+                    console.log('panel event PANEL CHANGE TRANSITION END'); 
                 },
 
                 progress: function(progress){
