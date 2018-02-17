@@ -89,6 +89,11 @@
     // form-field
     &-field {
         padding-bottom: $_field-padding-bottom;
+        
+        // form-field--error
+        &--error {
+            color: $error-color;
+        }
     }
 
     // form-buttons
@@ -228,6 +233,10 @@ label {
     // 100% wide fields
     &.wide {
         width: 100%;
+    }
+
+    &.error {
+        border-color: $error-color;
     }
 }
 
@@ -414,6 +423,11 @@ textarea,
     resize: none;
     @extend %fields;
 
+    // replacement error
+    &.error + .textarea {
+        border-color: $error-color;
+    }
+
     @include breakpoint(map-get($breakpoints, small)) {
         height: prem((($font-size-small *  $line-height-default) * 5) + (15)); // five lines
     }
@@ -439,6 +453,10 @@ textarea,
         border-color: map-deep-get($field-colors, hover, border);
         background-color: map-deep-get($field-colors, active, background);
     }
+
+            & + .select {
+            border-color: $error-color;
+        }
 
     // textarea-wrapper
     &-wrapper {
@@ -499,13 +517,17 @@ select {
     &::-ms-expand {
         display: none;
     }
+
+    // replacement error
+    &.error + .select {
+        border-color: $error-color;
+    }
 }
 
 // options
 option option[value=""][disabled] {
     display: none;
 }
-
 
 // 
 // buttons
