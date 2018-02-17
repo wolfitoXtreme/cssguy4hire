@@ -76,6 +76,9 @@ var selectFields = {
                     $selects.each(function(j){
                         var $select = $(this);
 
+                        // add select class allowing the plugin clone to pick it up
+                        $select.addClass('select');
+
                         // initialize selectBox plugin
                         $select.selectBox(selectFields.selectBoxOptions);
 
@@ -125,7 +128,7 @@ var selectFields = {
         var $select = select,
             $label = $('<span class="selectBox-label" />'),
             $arrow = $('<span class="selectBox-arrow" />'),
-            $dropDown = $('<div class="selectBox-dropdown" />'),
+            $dropDown = $('<div class="select selectBox-dropdown" />'),
             $arrowIcon = $('<svg class="selectBox-arrow__icon" width="0" height="0"><use xlink:href="#icon-select-arrow" /></svg>'),
             selectClass = $select.attr('class');
 

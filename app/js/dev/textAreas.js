@@ -265,7 +265,7 @@ BoxEditable.prototype.changeContent = function() {
 
     boxEditable.textarea.val(outputText);
 
-    console.log('setting content');
+    console.log('setting content ->' + outputText);
 }
 
 // focus imitation
@@ -277,6 +277,11 @@ BoxEditable.prototype.focus = function() {
 // blur imitation
 BoxEditable.prototype.blur = function() {
     this.textareaBox.removeClass('focus');
+    
+    // set real textarea behavior
+    this.changeContent();
+    this.textarea.trigger('blur');
+
     console.log('BoxEditable BLUR!');
 }
 
