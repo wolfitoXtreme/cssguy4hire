@@ -19,6 +19,7 @@
   "browser": {
     "jquery": "./app/js/dev/lib/jquery.min.js",
     "jquery-ui": "./app/js/dev/lib/jquery-ui.min.js",
+    "jquery-validate": "./app/js/dev/lib/jquery.validate.min.js",
     "modernizr": "./app/js/dev/lib/modernizr-custom.min.js",
     "enquire": "./node_modules/enquire.js/dist/enquire.min.js",
     "selectbox": "./app/js/dev/lib/jquery.selectBox.js",
