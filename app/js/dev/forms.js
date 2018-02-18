@@ -1,8 +1,11 @@
 'use strict';
 
+require('jquery-validate');
+
 var selectFields = require('./selectFields'),
     textAreaFields = require('./textAreas'),
-    validation = require('./validation');
+    validation = require('./validation'),
+    contactPanel = require('./contactPanel');
 
 // 
 // initialize forms
@@ -17,7 +20,7 @@ var forms = {
 
         // target specific forms
         var $formContact = $('.js-contact-form');
-        
+
         validation.init($formContact, {
             onkeyup: false,
             onsubmit: true,
@@ -31,10 +34,6 @@ var forms = {
             // removes default error elements
             errorPlacement: function(error, element) {
             },
-
-            // showErrors: function(errorMap, errorList) {
-            //     $formContact.find('.form-description').addClass('form-description--error');
-            // },
 
             // highlight errors
             highlight: function(element, errorClass, validClass) {
@@ -50,56 +49,49 @@ var forms = {
                 $element.removeClass(errorClass).closest('.form-field').removeClass('form-field--error');
             },
 
-            // success
-            success: function(label, element) {
-                // $(element).closest('.form-field').removeClass(errorClass);
-            },
-
             // submit action
-            submitHandler: function(currentform) {
+            submitHandler: function(form) {
+                var $form = $(form),
+                    $responseHolder = $('<div class="form-response" />'),
+                    formAction = $form.attr('action'),
+                    formData = $form.serializeArray();
 
-                $formContact.addClass('form--unactive');
-                
-                //ajax call
-                // $.ajax({
+                // manipulate retrieved data
+                var responseAction = function(content) {
 
-                //     type : 'POST',
-                //     cache    : false,
-                //     url : currentFormAction,
-                //     data : $(currentform).serializeArray(),
-                //     dataType : 'html',
-                //     success : function(data) {
-                        
-                //         var content = $(data).filter('#defaultWrapper').find('#response').html();
-                        
-                //         $(':input', currentform).prop('disabled', true);
-                        
-                //         $(currentform).addClass('submitted').on({
-                //             'transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd' : function(event) {
-                                
-                //                 //set up content
-                //                 response(content);
-                                
-                //             }
-                //         });
-                        
-                //         //
-                //         //$(responseHolder).html(content).appendTo($(currentform).parent());
-                        
-                //     },
-                //     error : function(event, request, settings) {
-                //         var content = $('<p />'),
-                //             message = text_ajaxError
-                //         ;
-                        
-                //         $(content).text(message);
-                        
-                //         //set up content  
-                //         response(content);
-                        
-                //         console_log('error retrieving data!!');
-                //     }
-                // });
+                    console.log('validation response!!');
+
+                    $responseHolder.html(content).appendTo($form.parent());
+
+                    // store fom and response into contactPanel
+                    contactPanel.form = $form;
+                    contactPanel.formResponse = $responseHolder;
+                    
+                    // detach and reset form
+                    $form.detach();
+                    validation.reset($form);
+                };
+
+
+                $.ajax({
+                    type: 'GET', // might need to be changed to post once Server integration occurs 
+                    cache: false,
+                    url: formAction,
+                    data: formData,
+                    dataType: 'html',
+                    success : function(data) {
+
+                        var $content = $('<div>' + data + '</div>'),
+                            response = $content.find('.js-response').html();
+
+                        console.log('content -> ' + response);
+
+                        responseAction(response);
+                    },
+                    error: function(event, request, settings) {
+                        console.log(event + '||' + request + '||' + settings);
+                    }
+                });
 
             }
         });

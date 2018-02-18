@@ -16,6 +16,8 @@ var contactPanel = {
     init: function() {
         this.openBtn =      $('.js-open-contact-panel');
         this.formPanel =    $('.js-form-panel');
+        this.form;          // store form here
+        this.formResponse;  // store form response here
         this.closeBtn =     $('.form-panel-close-btn');
         this.initPos =      '100%';
         this.easing =       'Power2.easeOut';
@@ -100,6 +102,8 @@ var contactPanel = {
         contactPanel.isMoving = true;
 
         var $formPanel = this.formPanel,
+            $form = this.form,
+            $formResponse = this.formResponse,
             pos = this.initPos,
             duration = this.duration,
             easing = this.easing;
@@ -121,6 +125,15 @@ var contactPanel = {
 
                 // set back the focus on 'openBtn'
                 contactPanel.openBtn.focus();
+
+                // reset form
+                if(typeof $form !== 'undefined') {
+                    console.log('form is ->' + $form.attr('class'));
+
+                    $form.appendTo($formResponse.parent());
+                    $formResponse.remove();
+                }
+
             }
         });
     },

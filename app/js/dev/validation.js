@@ -8,16 +8,25 @@ require('jquery-validate');
 // 
 var validation = {
     init: function($form, options) {
-        var validate = $form.validate(options),
-            $resetBtn = $form.find('button[type="reset"]');
 
-        console.log('validation initialized...' + $form.attr('class'));
+        // console.log('validation initialized...' + $form.attr('class'));
+
+        var validator = $form.validate(options),
+            $resetBtn = $form.find('button[type="reset"]');
 
         $resetBtn.on({
             'click': function(event) {
-                validate.resetForm();
+                event.preventDefault();
+                validation.reset($form);
             }
         });
+    },
+
+    reset: function($form) {
+        var form = $form[0];
+
+        $form.validate().resetForm(); // resets validation
+        $form[0].reset(); // resets fields
     }
 }
 
