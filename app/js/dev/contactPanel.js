@@ -16,8 +16,6 @@ var contactPanel = {
     init: function() {
         this.openBtn =      $('.js-open-contact-panel');
         this.formPanel =    $('.js-form-panel');
-        this.form;          // store form here
-        this.formResponse;  // store form response here
         this.closeBtn =     $('.form-panel-close-btn');
         this.initPos =      '100%';
         this.easing =       'Power2.easeOut';
@@ -25,6 +23,11 @@ var contactPanel = {
         this.isMoving =     false;
         this.isOpen =       false;
         this.isMobile =     isMobile.any;
+
+        // contact form 
+        this.form;          // store form here
+        this.formResponse;  // store form response here
+        this.formEnable;    // store enable form here
 
         // if moblie, initialize focus filter
         if(contactPanel.isMobile) {
@@ -126,11 +129,15 @@ var contactPanel = {
                 // set back the focus on 'openBtn'
                 contactPanel.openBtn.focus();
 
+                console.log('form is ->' + $form);
+
                 // reset form
                 if(typeof $form !== 'undefined') {
                     console.log('form is ->' + $form.attr('class'));
 
-                    $form.appendTo($formResponse.parent());
+                    $form.attr('style', '').appendTo($formResponse.parent());
+                    contactPanel.formEnable($form);
+
                     $formResponse.remove();
                 }
 

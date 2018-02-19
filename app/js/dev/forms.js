@@ -54,22 +54,39 @@ var forms = {
                 var $form = $(form),
                     $responseHolder = $('<div class="form-response" />'),
                     formAction = $form.attr('action'),
-                    formData = $form.serializeArray();
+                    formData = $form.serializeArray(),
+                    
+                    pos = '-100%',
+                    duration = 0.5,
+                    easing = 'Power2.easeOut';
+
+
+                // disable all form controls
+                forms.disable($form);
 
                 // manipulate retrieved data
                 var responseAction = function(content) {
 
                     console.log('validation response!!');
 
-                    $responseHolder.html(content).appendTo($form.parent());
-
-                    // store fom and response into contactPanel
+                    // store form and response into contactPanel
                     contactPanel.form = $form;
                     contactPanel.formResponse = $responseHolder;
+                    contactPanel.formEnable = forms.enable;
                     
-                    // detach and reset form
-                    $form.detach();
-                    validation.reset($form);
+                    // animate and control form and response
+                    TweenLite.to($form, duration, {
+                        left: pos,
+                        opacity: 0,
+                        ease: easing,
+                        onComplete: function() {
+                            $responseHolder.html(content).appendTo($form.parent());
+                            
+                            // detach and reset form
+                            $form.detach();
+                            validation.reset($form);
+                        }
+                    });
                 };
 
 
@@ -95,6 +112,53 @@ var forms = {
 
             }
         });
+    },
+
+    // disable all form elements
+    disable: function($form) {
+        var $selects = $form.find('select'), // actual select to handle selectBox 
+            $textAreas = $form.find('.textarea__box-editable'); // text area replacement
+
+        $(':input', $form).attr('disabled', true);
+
+        if(!this.isMobile) {
+            $selects.each(function(i){
+                var $select = $(this);
+
+                $select.selectBox('disable');
+            });
+
+            $textAreas.each(function(i){
+                var $textArea = $(this);
+
+                $textArea.attr('contenteditable', false);
+            });
+        }
+
+    },
+
+    // enable all form elements
+    enable: function($form) {
+
+        var $selects = $form.find('select'), // actual select to handle selectBox 
+            $textAreas = $form.find('.textarea__box-editable'); // text area replacement
+
+        $(':input', $form).attr('disabled', false);
+
+        if(!this.isMobile) {
+            $selects.each(function(i){
+                var $select = $(this);
+
+                $select.selectBox('enable');
+            });
+
+            $textAreas.each(function(i){
+                var $textArea = $(this);
+
+                $textArea.attr('contenteditable', true);
+            });
+
+        }
     }
 }
 
