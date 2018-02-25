@@ -569,6 +569,10 @@ select {
     // disabled replacement
     &[disabled="disabled"] + .select {
         @extend %fields-disabled;
+
+        &.placeholder {
+            color: map-deep-get($field-colors, field, place-holder);
+        }
     }
 
     // replacement error
