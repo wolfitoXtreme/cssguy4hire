@@ -154,9 +154,22 @@ label {
     &.label-inline {
         display: inline-block;
     }
+    
+    // disabled label
+    &.disabled {
+        opacity: 0.5;
+        pointer-events: none;
+        user-select: none;
+    }
+    
     // error label
     &.label-error {
         color: $error-color;
+        
+        // disabled error label
+        &.disabled  {
+            color: inherit;
+        }
     }
 
     // sibling fields
@@ -237,6 +250,21 @@ label {
     &.error {
         border-color: $error-color;
     }
+
+    // disabled styles
+    &[disabled="disabled"] {
+         @extend %fields-disabled;
+    }
+}
+
+%fields-disabled {
+    color: map-deep-get($field-colors, field, color);
+    border-color: map-deep-get($field-colors, field, border);
+    background-color: map-deep-get($field-colors, field, background);
+    cursor: default;
+    opacity: 0.5;
+    pointer-events: none;
+    user-select: none;
 }
 
 %input-buttons {
@@ -401,6 +429,17 @@ input[type="radio"] {
             }
         }
     }
+
+    // disabled
+    &[disabled="disabled"] {
+        pointer-events: none;
+        user-select: none;
+
+        & + label {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+    }
 }
 
 // checkbox buttons
@@ -422,11 +461,6 @@ textarea,
     resize: none;
     @extend %fields;
 
-    // replacement error
-    &.error + .textarea {
-        border-color: $error-color;
-    }
-
     @include breakpoint(map-get($breakpoints, small)) {
         height: prem((($font-size-small *  $line-height-default) * 5) + (15)); // five lines
     }
@@ -437,6 +471,26 @@ textarea,
 
     @include breakpoint(map-get($breakpoints, large)) {
         height: prem((($font-size-x-large *  $line-height-default) * 5) + (24)); // five lines
+    }
+    
+    // disabled replacement
+    &[disabled="disabled"] + .textarea {
+        @extend %fields-disabled;
+        
+        // textarea[disabled="disabled"] textarea__place-holder 
+        .textarea__place-holder {
+            color: map-deep-get($field-colors, field, place-holder);
+        }
+    }
+    
+    // replacement error
+    &.error + .textarea {
+        border-color: $error-color;
+    }
+
+    // disabled replacement error
+    &[disabled].error + .textarea {
+        border-color: map-deep-get($field-colors, field, border);
     }
 }
 
@@ -453,10 +507,6 @@ textarea,
         background-color: map-deep-get($field-colors, active, background);
     }
 
-            & + .select {
-            border-color: $error-color;
-        }
-
     // textarea-wrapper
     &-wrapper {
         position: relative;
@@ -470,7 +520,7 @@ textarea,
 
     // textarea__place-holder
     &__place-holder {
-        // all paddings match filed paddings, right 18px is room for scrollbar
+        // all paddings match field paddings, right 18px is room for scrollbar
         padding: prem(5px) prem(18px) prem(6px) prem(8px);
         top: 0;
         left: 0;
@@ -502,7 +552,6 @@ textarea,
             margin: 0;
             padding: 0;
         }
-
     }
 }
 
@@ -517,9 +566,19 @@ select {
         display: none;
     }
 
+    // disabled replacement
+    &[disabled="disabled"] + .select {
+        @extend %fields-disabled;
+    }
+
     // replacement error
     &.error + .select {
         border-color: $error-color;
+    }
+
+    // disabled replacement error
+    &[disabled].error + .select {
+        border-color: map-deep-get($field-colors, field, border);
     }
 }
 
@@ -558,8 +617,8 @@ button {
     border-radius: 5px;
     background-color: map-deep-get($btn-colors, default, background);
     transition: transform 40ms ease-in 0ms;
-    @include no-highlight;
     
+    @include no-highlight;
     @include breakpoint(map-get($breakpoints, small)) {
         padding: $_padding-small;
         font-size: prem($font-size-small);
@@ -621,7 +680,6 @@ button {
             .button-icon:hover & {
                 fill: map-deep-get($btn-colors, default, hover-icon);
             }
-
         }
 
         @include breakpoint(map-get($breakpoints, small)) {
@@ -692,4 +750,12 @@ button {
         }
     }
 
+    // button disabled
+    // button-disabled
+    &[disabled="disabled"],
+    &-disabled {
+        opacity: 0.5;
+        cursor: default;
+        pointer-events: none;
+    }
 }

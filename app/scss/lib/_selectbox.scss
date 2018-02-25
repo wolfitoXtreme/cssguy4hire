@@ -74,6 +74,16 @@ $_arrow-width:          23px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
+    // anchor within selectBox-label
+    a {
+        &:link,
+        &:visited,
+        &:hover,
+        &:active {
+            color: $_color;
+        }
+    }
 }
 
 // selectBox-arrow
@@ -116,7 +126,7 @@ $_arrow-width:          23px;
         .selectBox-dropdown:focus & {
             fill: $_icon-color-active;
         }
-
+        
         // selectBox-menuShowing selectBox-arrow__icon
         .selectBox-menuShowing & {
             transform: rotate(180deg);
@@ -214,7 +224,6 @@ $_arrow-width:          23px;
 
         // disabled
         &.selectBox-disabled a {
-            color: $dark-grey;
             background-color: transparent;
         }
 
@@ -279,12 +288,10 @@ $_arrow-width:          23px;
 
 // Disabled state
 .selectBox.selectBox-disabled {
-    color: #888 !important;
+     @extend %fields-disabled;
 }
 
 .selectBox-dropdown.selectBox-disabled .selectBox-arrow {
-    opacity: .5;
-    filter: alpha(opacity=50);
     border-color: #666;
 }
 
