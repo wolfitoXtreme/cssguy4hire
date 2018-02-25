@@ -32,7 +32,6 @@ var Form = function(instance){
 
                     // update scrollbars
                     boxEditable.textareaBox.perfectScrollbar('update');
-
                 }
             }, 5);
         },
@@ -46,11 +45,8 @@ var Form = function(instance){
                 // reinitialize content
                 boxEditable.changeContent();
             }
-
-
         }
     });
-
 };
 
 // BoxEditable function constructor
@@ -70,6 +66,12 @@ BoxEditable.prototype.init = function() {
 
     // initialize content
     boxEditable.initContent();
+
+    // disable boxEditable if attribute disabled is set
+    if(boxEditable.textarea.attr('disabled')) {
+        boxEditable.instance.attr('contenteditable', false);
+    }
+    console.log('BoxEditable initialize, BoxEditable is -> ' + boxEditable.textarea.attr('class'));
 
     // events for label focus
     boxEditable.label.on({
@@ -305,7 +307,7 @@ var textAreaFields = {
         this.boxEditables = []; // all editable
         this.timer;
 
-        // initialize only if there are textarea fields present, and not on moblie
+        // initialize only if there are textarea fields present, and not on mobile
         if(this.textAreas.length && !this.isMobile) {
 
             this.forms.each(function(i){

@@ -119,6 +119,7 @@ var forms = {
         var $selects = $form.find('select'), // actual select to handle selectBox 
             $textAreas = $form.find('.textarea__box-editable'); // text area replacement
 
+        $('label', $form).addClass('disabled');
         $(':input', $form).attr('disabled', true);
 
         if(!this.isMobile) {
@@ -128,10 +129,13 @@ var forms = {
                 $select.selectBox('disable');
             });
 
-            $textAreas.each(function(i){
-                var $textArea = $(this);
+            $textAreas.attr('contenteditable', false);
+        }
+        else {
+           $selects.each(function(i){
+                var $select = $(this);
 
-                $textArea.attr('contenteditable', false);
+                $select.next().addClass('disabled');
             });
         }
 
@@ -139,10 +143,10 @@ var forms = {
 
     // enable all form elements
     enable: function($form) {
-
         var $selects = $form.find('select'), // actual select to handle selectBox 
             $textAreas = $form.find('.textarea__box-editable'); // text area replacement
 
+        $('label', $form).removeClass('disabled');
         $(':input', $form).attr('disabled', false);
 
         if(!this.isMobile) {
@@ -152,12 +156,10 @@ var forms = {
                 $select.selectBox('enable');
             });
 
-            $textAreas.each(function(i){
-                var $textArea = $(this);
-
-                $textArea.attr('contenteditable', true);
-            });
-
+            $textAreas.attr('contenteditable', true);
+        }
+        else {
+            $selects.next().removeClass('disabled');
         }
     }
 }
