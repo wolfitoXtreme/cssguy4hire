@@ -89,11 +89,6 @@
     // form-field
     &-field {
         padding-bottom: $_field-padding-bottom;
-        
-        // form-field--error
-        &--error {
-            color: $error-color;
-        }
     }
 
     // form-buttons
@@ -158,6 +153,10 @@ label {
     // label-inline
     &.label-inline {
         display: inline-block;
+    }
+    // error label
+    &.label-error {
+        color: $error-color;
     }
 
     // sibling fields

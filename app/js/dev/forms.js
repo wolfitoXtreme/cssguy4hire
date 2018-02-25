@@ -39,14 +39,14 @@ var forms = {
             highlight: function(element, errorClass, validClass) {
                 var $element = $(element);
 
-                $element.addClass(errorClass).closest('.form-field').addClass('form-field--error');
+                $element.addClass(errorClass).closest('.form-field').children('label').addClass('label-error');
             },
 
             // unhighlight errors
             unhighlight: function(element, errorClass, wrapperErrorClass, validClass) {
                 var $element = $(element);
 
-                $element.removeClass(errorClass).closest('.form-field').removeClass('form-field--error');
+                $element.removeClass(errorClass).closest('.form-field').children('label').removeClass('label-error');
             },
 
             // submit action
@@ -72,7 +72,7 @@ var forms = {
                     // store form and response into contactPanel
                     contactPanel.form = $form;
                     contactPanel.formResponse = $responseHolder;
-                    contactPanel.formEnable = forms.enable;
+                    contactPanel.formEnable = forms.enable; // set enable method for use in contactPanel
                     
                     // animate and control form and response
                     TweenLite.to($form, duration, {
