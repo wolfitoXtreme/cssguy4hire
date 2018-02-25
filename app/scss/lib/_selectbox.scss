@@ -3,6 +3,7 @@
 //
 
 $_color:                map-deep-get($field-colors, field, border);
+$_place-holder-color:   map-deep-get($field-colors, field, place-holder);
 $_hover-color:          map-deep-get($field-colors, hover, color);
 $_border-color:         map-deep-get($field-colors, field, border);
 $_border-color-active:  map-deep-get($field-colors, active, border);
@@ -39,6 +40,10 @@ $_arrow-width:          23px;
 
     &:hover .selectBox-label {
         color: $_hover-color;
+    }
+
+    &.selectBox-disabled.placeholder {
+        color: $_place-holder-color;
     }
 
     &.wide {
@@ -260,8 +265,6 @@ $_arrow-width:          23px;
         }
     }
 
-
-
     // selectBox-options-top
     &-top {
         border-bottom-left-radius: 0;
@@ -283,7 +286,6 @@ $_arrow-width:          23px;
         padding: 0 .3em;
         white-space: nowrap;
     }
-
 }
 
 // Disabled state
@@ -292,7 +294,7 @@ $_arrow-width:          23px;
 }
 
 .selectBox-dropdown.selectBox-disabled .selectBox-arrow {
-    border-color: #666;
+    border-color: $_border-color;
 }
 
 .selectBox-inline.selectBox-disabled {

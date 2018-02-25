@@ -234,7 +234,7 @@ label {
     // placeholder (native control and replacement. ex. selectBox)
     &::placeholder, 
     &.placeholder {
-        color: $dark-grey;
+        color: map-deep-get($field-colors, field, place-holder);
     }
 
     &:hover::placeholder,
@@ -520,7 +520,7 @@ textarea,
 
     // textarea__place-holder
     &__place-holder {
-        // all paddings match field paddings, right 18px is room for scrollbar
+        // all paddings match filed paddings, right 18px is room for scrollbar
         padding: prem(5px) prem(18px) prem(6px) prem(8px);
         top: 0;
         left: 0;
