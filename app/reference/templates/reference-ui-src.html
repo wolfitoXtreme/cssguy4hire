@@ -561,6 +561,86 @@
                 </div>
 
             </form>
+            
+            <h4>Disabled form</h4>
+            
+            <form action="">
+                
+                <fieldset>
+                    <legend>form fields</legend>
+
+                    <div class="form-row">
+                        <h5>Text fields</h5>
+                        <div class="form-field">
+                            <label for="text-input-disabled" class="disabled">Text input field</label>
+                            <input type="text" name="text-input-name-disabled" id="text-input-disabled" placeholder="Text input" disabled="disabled" class="wide">
+                        </div>
+
+                        <h5>Text Area fields</h5>
+                        <div class="form-field">
+                            <label for="text-area-disabled" class="disabled">Text-area field</label>
+                            <textarea id="text-area-disabled" name="text-area-name-disabled" placeholder="Text-area field" disabled="disabled" class="wide"></textarea>
+                        </div>
+
+                        <h5>Select fields</h5>
+                        <div class="form-field">
+                            <label for="select-field-disabled" class="disabled">Select field</label>
+                            <select id="select-field-disabled" name="select-field-name" disabled="disabled" class="wide">
+                                <option value="" selected>choose an option</option>
+                                <option value="option A">option A</option>
+                                <option value="option B">option B</option>
+                                <option value="option C">option C</option>
+                                <option value="option D">option D</option>
+                                <option value="option E">option E</option>
+                                <option value="option F">option F</option>
+                                <option value="option G">option G</option>
+                                <option value="option H">option H</option>
+                                <option value="option I">option I</option>
+                            </select>
+                        </div>
+                        
+                        <h5>Radio buttons</h5>
+                        <div class="form-field">
+                            <input type="radio" id="input-radio-A-disabled" name="input-radio-name" disabled="disabled">
+                            <label for="input-radio-A-disabled" class="label-inline disabled">Radio button field A</label>
+                            <input type="radio" id="input-radio-B-disabled" name="input-radio-name" disabled="disabled">
+                            <label for="input-radio-B-disabled" class="label-inline disabled">Radio button field B</label>
+                            <input type="radio" id="input-radio-C-disabled" name="input-radio-name" disabled="disabled">
+                            <label for="input-radio-C-disabled" class="label-inline disabled">Radio button field C</label>
+                        </div>
+
+                        <h5>Check-boxes</h5>
+                        <div class="form-field">
+                            <input type="checkbox" id="input-checkbox-A-disabled" name="input-checkbox-name" disabled="disabled">
+                            <label for="input-checkbox-A-disabled" class="label-inline disabled">Check-box button field A</label>
+                            <input type="checkbox" id="input-checkbox-B-disabled" name="input-checkbox-name" disabled="disabled">
+                            <label for="input-checkbox-B-disabled" class="label-inline disabled">Check-box button field B</label>
+                            <input type="checkbox" id="input-checkbox-C-disabled" name="input-checkbox-name" disabled="disabled">
+                            <label for="input-checkbox-C-disabled" class="label-inline disabled">Check-box button field C</label>
+                        </div>
+
+                    </div>
+
+                </fieldset>
+                
+                <h5>Buttons</h5>
+                <div class="form-buttons">
+                    <button type="submit" class="button button-icon" disabled="disabled">
+                        Submit
+                        <svg class="button-icon__icon" width="0" height="0">
+                            <use xlink:href="#icon-button-arrow" />
+                        </svg>
+                    </button>
+                    <button type="reset" class="button" disabled="disabled">Reset</button>
+                    <a href="#" class="button button-icon button-disabled">
+                        link button
+                        <svg class="button-icon__icon" width="0" height="0">
+                            <use xlink:href="#icon-button-arrow" />
+                        </svg>
+                    </a>
+                </div>
+
+            </form>
 
         </div>
         <!-- forms -->
