@@ -101,6 +101,13 @@
             padding-bottom: prem(14px);
         }
 
+        @include breakpoint(orientation portrait) {
+            @include breakpoint((max-height 500px)) {
+                margin: 0 auto;
+                width: 80%;
+            }
+        }
+
         @include breakpoint((orientation landscape)) {
             padding-bottom: 0;
             width: 50%;
@@ -116,14 +123,6 @@
 
             @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
                 width: 40%;
-            }
-        }
-
-        // max height adjustments
-        @include breakpoint(orientation portrait) {
-            @include breakpoint((max-height 500px)) {
-                margin: 0 auto;
-                width: 80%;
             }
         }
     }
