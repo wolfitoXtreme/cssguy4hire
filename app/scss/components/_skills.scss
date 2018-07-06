@@ -13,6 +13,13 @@
     @extend .column-list;
     @include clearFix;
     
+    // max height adjustments
+    @include breakpoint(orientation landscape) {
+        @include breakpoint(max-width (560px)) {
+            column-count: 1;
+        }
+    }
+    
     &:last-child {
         margin-bottom: 0;
     }

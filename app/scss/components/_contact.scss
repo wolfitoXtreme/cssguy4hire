@@ -9,7 +9,7 @@
     align-items: center;
     justify-content: center;
 
-    @include breakpoint((orientation landscape)) {
+    @include breakpoint(520px (orientation landscape)) {
         justify-content: flex-start;
     }
 
@@ -44,28 +44,19 @@
 
 // contact-menu
 .contact-menu {
-    margin: prem(7px) prem(12px) ;
+    margin: prem(7px) prem(12px);
     flex-shrink: 0;
     font-size: 0;
     line-height: 0;
     text-align: center;
 
-    @include breakpoint((orientation landscape)) {
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-
     @include breakpoint(map-get($breakpoints, small)) {
         margin: prem(10px) prem(14px);
-        @include breakpoint((orientation landscape)) {
-            margin-top: 0;
-            margin-bottom: 0;
-        }
     }
 
     @include breakpoint(map-get($breakpoints, medium)) {
         margin: prem(10px) prem(18px);
-        @include breakpoint((orientation landscape)) {
+        @include breakpoint(orientation landscape) {
             margin-top: 0;
             margin-bottom: 0;
         }
@@ -106,11 +97,9 @@
         &-icon {
             left: 0;
             top: 0;
-            width: 100%;
-            position: absolute;
-
             width: prem($_icon-width);
             height: prem($_icon-height);
+            position: absolute;
             fill: $white;
             opacity: 0.4;
                 
@@ -182,6 +171,28 @@
             &-icon {
                 width: prem($_icon-width);
                 height: prem($_icon-height);
+            }
+
+
+            // max height adjustments
+            @include breakpoint(orientation landscape) {
+
+                @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
+                    $_icon-width: 46px;
+                    $_icon-height: 46px;
+                    
+                    // contact-menu__item-link
+                    &-link {
+                        width: prem($_icon-width);
+                        height: prem($_icon-height);
+                    }
+
+                    // contact-menu__item-icon
+                    &-icon {
+                        width: prem($_icon-width);
+                        height: prem($_icon-height);
+                    }
+                }
             }
         }
     }
