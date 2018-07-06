@@ -7,7 +7,7 @@
     // about-disposable
     // not rendered in certain screen sizes
     &-disposable {
-        @include breakpoint(map-get($breakpoints, x-small) (max-height 350px)) {
+        @include breakpoint(map-get($breakpoints, x-small) (max-height 380px)) {
             @include hidden(false);
         }
 

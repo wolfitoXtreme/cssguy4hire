@@ -10,7 +10,7 @@
     // work-disposable
     // not rendered in certain screen sizes
     &-disposable {
-        @include breakpoint(map-get($breakpoints, x-small) (max-height 350px)) {
+        @include breakpoint(max-height 440px) {
             @include hidden(false);
         }
     }
@@ -52,6 +52,21 @@
             padding-left: getPercentageFrom($_gap, $_available-width);
             width: 50%;
             order: 0;
+
+            @include breakpoint(map-get($breakpoints, small) (max-width map-get($breakpoints, medium)) (max-height 340px)) {
+                width: 60%;
+                font-size: prem($font-size-xxx-small);
+            }
+
+            @include breakpoint(map-get($breakpoints, medium) (max-width map-get($breakpoints, large)) (max-height 440px)) {
+                width: 60%;
+                font-size: prem($font-size-xx-small);
+            }
+
+            @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
+                width: 60%;
+                font-size: prem($font-size-x-small);
+            }
         }
 
         // work-sample__detail-title
@@ -90,6 +105,26 @@
             padding-bottom: 0;
             width: 50%;
             order: 1;
+
+            @include breakpoint(map-get($breakpoints, small) (max-width map-get($breakpoints, medium)) (max-height 340px)) {
+                width: 40%;
+            }
+
+            @include breakpoint(map-get($breakpoints, medium) (max-width map-get($breakpoints, large)) (max-height 440px)) {
+                width: 40%;
+            }
+
+            @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
+                width: 40%;
+            }
+        }
+
+        // max height adjustments
+        @include breakpoint(orientation portrait) {
+            @include breakpoint((max-height 500px)) {
+                margin: 0 auto;
+                width: 80%;
+            }
         }
     }
 }
