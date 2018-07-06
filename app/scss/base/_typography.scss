@@ -222,8 +222,6 @@ h4 {
 h5 {
     margin: prem($font-size-normal / 2) 0 0;
     font-size: prem($font-size-normal);
-    // font-weight: 400;
-    // letter-spacing: -0.05em;
 
     @include breakpoint(map-get($breakpoints, small)) {
         margin: prem($font-size-medium / 2) 0 0;
@@ -244,8 +242,6 @@ h5 {
 h6 {
     margin: prem($font-size-xx-small / 2) 0 0;
     font-size: prem($font-size-xx-small);
-    // font-weight: 400;
-    // letter-spacing: -0.05em;
 
     @include breakpoint(map-get($breakpoints, small)) {
         margin: prem($font-size-small / 2) 0 0;
