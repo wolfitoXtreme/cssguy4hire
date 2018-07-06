@@ -315,6 +315,15 @@ $_menu-item-shadow-colors-bg: rgba($black, 0.55) 0px, rgba($black, 0.45) 6px, rg
                 padding: 0 prem(8px);
                 font-size: prem($font-size-x-huge);
             }
+
+            // max height adjustments
+            @include breakpoint(orientation landscape) {
+                @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
+                    padding: 0 prem(4px);
+                    font-size: prem($font-size-medium);
+                }
+            }
+
         }
 
         // main-menu__item-icon
@@ -348,6 +357,15 @@ $_menu-item-shadow-colors-bg: rgba($black, 0.55) 0px, rgba($black, 0.45) 6px, rg
 
                 width: prem($_new-width);
                 height: prem($_new-height);
+            }
+
+
+            // max height adjustments
+            @include breakpoint(orientation landscape) {
+                @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
+                    width: prem($_icon-width);
+                    height: prem($_icon-height);
+                }
             }
         }
 
