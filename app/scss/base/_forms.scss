@@ -36,21 +36,21 @@
         // force textArea height
         & &__textarea-tall {
             $_oposite-fields: 4;
-            $_field-height: 29px;
+            $_field-height: prem(29px);
 
             height: ($_field-height * $_oposite-fields) + 
                     ($_field-padding-bottom * ($_oposite-fields - 1));
 
             @include breakpoint(map-get($breakpoints, small)) {
-                $_field-height: 32px;
+                $_field-height: prem(32px);
 
                 height: ($_field-height * $_oposite-fields) + 
                         ($_field-padding-bottom * ($_oposite-fields - 1));
             }
 
             @include breakpoint(map-get($breakpoints, medium)) {
-                $_field-height: 35px;
-                $_label-height: 17px;
+                $_field-height: prem(35px);
+                $_label-height: prem(17px);
 
                 height: ($_field-height * $_oposite-fields) + 
                         ($_label-height * ($_oposite-fields - 1)) +
@@ -58,8 +58,8 @@
             }
 
             @include breakpoint(map-get($breakpoints, large)) {
-                $_field-height: 50px;
-                $_label-height: 21px;
+                $_field-height: prem(50px);
+                $_label-height: prem(21px);
 
                 height: ($_field-height * $_oposite-fields) + 
                         ($_label-height * ($_oposite-fields - 1)) +
