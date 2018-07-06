@@ -31,6 +31,21 @@ body {
     @include breakpoint(map-get($breakpoints, large)) {
         font-size: prem($font-size-x-large);
     }
+
+    // max height adjustments
+    @include breakpoint(orientation landscape) {
+        @include breakpoint(map-get($breakpoints, small) (max-height 340px)) {
+            font-size: prem($font-size-xx-small);
+        }
+
+        @include breakpoint(map-get($breakpoints, medium) (max-height 440px)) {
+            font-size: prem($font-size-small);
+        }
+
+        @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
+            font-size: prem($font-size-normal);
+        }
+    }
 }
 
 // remove first and last contained elements margins
@@ -114,6 +129,7 @@ h2 {
     font-size: prem($font-size-xx-huge);
     text-shadow: -2px -1px 0 rgba(0, 0, 0, 0.30);
 
+
     @include breakpoint(map-get($breakpoints, small)) {
         margin: prem($font-size-xxx-huge / 2) 0 0;
         font-size: prem($font-size-xxx-huge);
@@ -128,6 +144,21 @@ h2 {
     @include breakpoint(map-get($breakpoints, large)) {
         margin: prem($font-size-gigantic / 2) 0 0;
         font-size: prem($font-size-gigantic);
+    }
+    
+    // max height adjustments
+    @include breakpoint(orientation landscape) {
+        @include breakpoint(map-get($breakpoints, small) (max-height 340px)) {
+            font-size: prem($font-size-xx-huge);
+        }
+
+        @include breakpoint(map-get($breakpoints, medium) (max-height 440px)) {
+            font-size: prem($font-size-xxx-huge);
+        }
+
+        @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
+            font-size: prem($font-size-massive);
+        }
     }
 }
 
@@ -170,6 +201,21 @@ h4 {
     @include breakpoint(map-get($breakpoints, large)) {
         margin: prem($font-size-xx-huge / 2) 0 0;
         font-size: prem($font-size-xx-huge);
+    }
+    
+    // max height adjustments
+    @include breakpoint(orientation landscape) {
+        @include breakpoint(map-get($breakpoints, small) (max-height 340px)) {
+            font-size: prem($font-size-large);
+        }
+
+        @include breakpoint(map-get($breakpoints, medium) (max-height 440px)) {
+            font-size: prem($font-size-xx-large);
+        }
+
+        @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
+            font-size: prem($font-size-huge);
+        }
     }
 }
 

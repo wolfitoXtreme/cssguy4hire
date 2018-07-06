@@ -16,7 +16,7 @@ $_arrow-width:          23px;
 
 // selectBox-dropdown
 .selectBox-dropdown {
-    min-width: prem(150px);
+    // min-width: prem(150px);
     text-decoration: none;
     text-align: left;
     outline: none;
@@ -161,6 +161,21 @@ $_arrow-width:          23px;
     @include breakpoint(map-get($breakpoints, large)) {
         border-width: 3px;
         border-radius: 7px;
+    }
+    
+    // max height adjustments
+    @include breakpoint(orientation landscape) {
+        @include breakpoint(map-get($breakpoints, small) (max-height 340px)) {
+            border-width: 1px;
+        }
+
+        @include breakpoint(map-get($breakpoints, medium) (max-height 440px)) {
+            border-width: 1px;
+        }
+
+        @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
+            border-width: 2px;
+        }
     }
 }
 

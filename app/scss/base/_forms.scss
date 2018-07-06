@@ -65,16 +65,44 @@
                         ($_label-height * ($_oposite-fields - 1)) +
                         ($_field-padding-bottom * ($_oposite-fields - 1));
             }
+            
+            // max height adjustments
+            @include breakpoint(orientation landscape) {
+                @include breakpoint(map-get($breakpoints, small) (max-height 340px)) {
+                    $_field-height: prem(27px);
+
+                    height: ($_field-height * $_oposite-fields) + 
+                            ($_field-padding-bottom * ($_oposite-fields - 1));
+                }
+
+                @include breakpoint(map-get($breakpoints, medium) (max-height 440px)) {
+                    $_field-height: prem(32px);
+                    $_label-height: prem(17px);
+
+                    height: ($_field-height * $_oposite-fields) + 
+                            ($_label-height * ($_oposite-fields - 1)) +
+                            ($_field-padding-bottom * ($_oposite-fields - 1));
+                }
+
+                @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
+                    $_field-height: prem(41px);
+                    $_label-height: prem(21px);
+
+                    height: ($_field-height * $_oposite-fields) + 
+                            ($_label-height * ($_oposite-fields - 1)) +
+                            ($_field-padding-bottom * ($_oposite-fields - 1));
+                }
+            }
         }
 
-        @include breakpoint((orientation portrait)) {
-            @include breakpoint(map-get($breakpoints, x-small) map-get($breakpoints, medium)) {
+        @include breakpoint(orientation portrait) {
+            @include breakpoint(max-width map-get($breakpoints, medium)) {
                 margin-left: 0;
                 width: 100%;
                 float: none;
             }
         }
-        
+    
         // orientation-portrait form-column
         // to avoid mobile devices soft keyboard changing the orientation
         .orientation-portrait & {
@@ -98,7 +126,6 @@
         line-height: 0;
         text-align: right;
     }
-
 }
 
 // field sets
@@ -190,7 +217,6 @@ label {
 // 
 // fields
 // 
-
 %fields {
     margin: 0;
     padding: prem(5px) prem(8px) prem(5px);
@@ -218,6 +244,22 @@ label {
         border-width: 3px;
         border-radius: 7px;
     }
+    
+
+    // max height adjustments
+    @include breakpoint(orientation landscape) {
+        @include breakpoint(map-get($breakpoints, small) (max-height 340px)) {
+            border-width: 1px;
+        }
+
+        @include breakpoint(map-get($breakpoints, medium) (max-height 440px)) {
+            border-width: 1px;
+        }
+
+        @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
+            border-width: 2px;
+        }
+    }
 
     &:hover,
     &:focus,
@@ -232,9 +274,11 @@ label {
     }
 
     // placeholder (native control and replacement. ex. selectBox)
+    &[placeholder],
     &::placeholder, 
     &.placeholder {
         color: map-deep-get($field-colors, field, place-holder);
+        text-overflow:ellipsis;
     }
 
     &:hover::placeholder,
@@ -639,6 +683,28 @@ button {
         font-size: prem($font-size-x-large);
         border-width: 3px;
         border-radius: 7px;
+    }
+    
+    // max height adjustments
+    @include breakpoint(orientation landscape) {
+        @include breakpoint(map-get($breakpoints, small) (max-height 340px)) {
+            padding: $_padding-x-small;
+            font-size: prem($font-size-x-small);
+            border-width: 1px;
+            border-radius: 4px;
+        }
+
+        @include breakpoint(map-get($breakpoints, medium) (max-height 440px)) {
+            padding: $_padding-small;
+            font-size: prem($font-size-small);
+            border-width: 1px;
+        }
+
+        @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
+            padding: $_padding-medium;
+            font-size: prem($font-size-normal);
+            border-width: 2px;
+        }
     }
 
     &:link,
