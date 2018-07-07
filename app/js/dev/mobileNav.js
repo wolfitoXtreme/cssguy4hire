@@ -226,6 +226,7 @@ var mobileNav = {
             // disable panelNavigation
             panelNav.panelSwiper.allowSlideNext = false;
             panelNav.panelSwiper.allowSlidePrev = false;
+            panelNav.panelSwiper.mousewheel.disable();
 
             console.log('mobileNav.navSwiper = ' + mobileNav.navSwiper);
 
@@ -297,6 +298,7 @@ var mobileNav = {
                     // Enable panelNavigation
                     panelNav.panelSwiper.allowSlideNext = true;
                     panelNav.panelSwiper.allowSlidePrev = true;
+                    panelNav.panelSwiper.mousewheel.enable();
 
 
                     // unmark Mobile navigation Panel item from being current one
