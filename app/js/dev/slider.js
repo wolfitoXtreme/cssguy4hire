@@ -16,9 +16,9 @@ var slider = {
                            '<svg class="slider-arrows__icon" width="0" height="0">' +
                                '<use xlink:href="#icon-slider-arrow" />' +
                            '</svg>' +
-                        '</a>',
-        this.arrowTexts = ['previous', 'next'],
-        this.arrowsWrapper = $('<div class="slider-arrows" />'),
+                        '</a>';
+        this.arrowTexts = ['previous', 'next'];
+        this.arrowsWrapper = $('<div class="slider-arrows" />');
         this.moving = false;
         this.options = {
             wrapperClass: 'js-slider',

@@ -6,7 +6,7 @@
 var domAdjust = {
     init: function() {
         this.header =       $('.js-header'); // original Header
-        this.container =    $('<div class="js-panels-container swiper-container panels-container" />'), // swipper container
+        this.container =    $('<div class="js-panels-container swiper-container panels-container" />'); // swipper container
         this.wrapper =      $('.js-panels');
         this.panels =       $('.panel', this.wrapper).not('.form-panel');
         this.formPanel =    $('.js-form-panel', this.wrapper);
@@ -16,7 +16,7 @@ var domAdjust = {
         this.utilMenu =     $('.js-nav-util-menu');
         this.blockOverlay = $('<div class="panel__block-overlay" />');
 
-        console.log('Header ID -->' + domAdjust.header.attr('id'))
+        console.log('Header ID -->' + domAdjust.header.attr('id'));
 
         // relocate utilities menu
         domAdjust.utilMenu.prependTo(domAdjust.header);
@@ -55,6 +55,6 @@ var domAdjust = {
         domAdjust.hidden.hide();
     
     }
-}
+};
 
 module.exports = domAdjust;

@@ -423,17 +423,17 @@ var panelNav = {
                 offset = (((offsetAmount * localProgress) - offsetAmount) * -offsetDir).toFixed(4);
 
             return offset;
-        }
+        };
 
         // apply transformations
         var applyTransform = function(duration, transformations) {
             var transform;
             duration = transition === false ? 0 : duration;
 
-            transform = { 'transition-duration': duration + 'ms', 'transform': transformations }
+            transform = { 'transition-duration': duration + 'ms', 'transform': transformations };
 
             return transform;
-        }
+        };
 
         $foreground.css(applyTransform(
             panelNav.options.speed,
@@ -453,6 +453,6 @@ var panelNav = {
             );
         }
     }
-}
+};
 
 module.exports = panelNav;

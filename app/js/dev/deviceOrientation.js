@@ -54,7 +54,7 @@ var deviceOrientation = {
     resize: function() {
 
         $(window).on({
-            'resize.do.debounce': debounce(
+            'resize.deviceOrientation.debounce': debounce(
                 function() {
                     deviceOrientation.setOrientation();
                 }
@@ -62,6 +62,6 @@ var deviceOrientation = {
         });
 
     }
-}
+};
 
 module.exports = deviceOrientation;
