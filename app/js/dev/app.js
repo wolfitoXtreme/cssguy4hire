@@ -19,8 +19,9 @@ var domAdjust = require('./domAdjust'),
     contactPanel = require('./contactPanel'),
     skillsRating = require('./skillsRating'),
     slider = require('./slider'),
-    onScreenTest = require('./onScreenTest'),
-    forms = require('./forms');
+    forms = require('./forms'),
+    notDisplayable = require('./notDisplayable'),
+    onScreenTest = require('./onScreenTest');
 
 // app
 $(function() {
@@ -37,6 +38,7 @@ $(function() {
             skillsRating.init();
             slider.init();
             forms.init();
+            notDisplayable.init();
 
             // test onScreenTest
             $(window).on({

@@ -99,72 +99,6 @@ body {
     @include hidden;
 }
 
-// not-displayable - overlay
-.not-displayable {
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: 100;
-    display: flex; // overlay shown by default
-    align-items: center;
-    background-color: $light-black;    
-    
-    @include breakpoint(orientation portrait) {
-        
-        @include breakpoint(map-get($breakpoints, x-small)) {
-            display: none;
-            @include breakpoint(max-height 360px) {
-                display: flex;
-            }
-        }
-
-        @include breakpoint(map-get($breakpoints, small)) {
-            display: none;
-        }
-    }
-
-    @include breakpoint(orientation landscape) {
-
-        @include breakpoint(map-get($breakpoints, small)) {
-            display: none;
-            
-            @include breakpoint(max-height 240px) {
-                display: flex;
-            }
-            
-            // avoid skills list in one column to overflow screen
-            @include breakpoint((max-height 380px) (max-width (560px))) {
-                display: flex;
-            }
-        }
-
-        @include breakpoint(map-get($breakpoints, medium)) {
-            display: none;
-            @include breakpoint(max-height 340px) {
-                display: flex;
-            }
-        }
-
-        @include breakpoint(map-get($breakpoints, large)) {
-            display: none;
-            @include breakpoint(max-height 420px) {
-                display: flex;
-            }
-        }
-    }
-
-    // not-displayable__text
-    &__text {
-        margin: 0 auto;
-        width: 100%;
-        text-align: center;
-
-        @extend %panel-hpadding;
-    }
-}
-
 // column-lists
 .column-list {
     @include breakpoint((orientation landscape)) {
@@ -198,5 +132,95 @@ body {
         width: 100%;
         display: inline-block;
         break-inside: avoid;
+    }
+}
+
+// not-displayable - overlay
+.not-displayable {
+    $_transition-duration: 250ms;
+
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 100;
+    display: none;
+    opacity: 0;
+    outline-style: solid;
+    align-items: center;
+    transition: opacity $_transition-duration ease-out 0ms;
+    background-color: $light-black;
+
+
+    @include breakpoint(orientation portrait) {
+        
+        @include breakpoint(map-get($breakpoints, x-small)) {
+            outline-style: none;
+
+            @include breakpoint(max-height 360px) {
+                outline-style: solid;
+            }
+        }
+
+        @include breakpoint(map-get($breakpoints, small)) {
+            outline-style: none;
+        }
+    }
+
+    @include breakpoint(orientation landscape) {
+        outline-style: solid;
+
+        @include breakpoint(map-get($breakpoints, x-small)) {
+            outline-style: solid;
+        }
+
+        @include breakpoint(map-get($breakpoints, small)) {
+            outline-style: none;
+            
+            @include breakpoint(max-height 240px) {
+                outline-style: solid;
+            }
+            
+            // avoid skills list in one column to overflow screen
+            @include breakpoint((max-height 350px) (max-width (560px))) {
+                outline-style: solid;
+            }
+        }
+
+        @include breakpoint(map-get($breakpoints, medium)) {
+            outline-style: none;
+
+            @include breakpoint(max-height 340px) {
+                outline-style: solid;
+            }
+        }
+
+        @include breakpoint(map-get($breakpoints, large)) {
+            outline-style: none;
+
+            @include breakpoint(max-height 420px) {
+                outline-style: solid;
+            }
+        }
+    }
+    
+    // not-displayable--active
+    &--active {
+        display: flex;
+    }
+    
+    // not-displayable--enabled
+    &--enabled {
+        opacity: 1;
+    }
+
+    // not-displayable__text
+    &__text {
+        margin: 0 auto;
+        width: 100%;
+        text-align: center;
+
+        @extend %panel-hpadding;
     }
 }
