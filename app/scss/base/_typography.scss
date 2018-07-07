@@ -34,7 +34,7 @@ body {
 
     // max height adjustments
     @include breakpoint(orientation landscape) {
-        @include breakpoint(map-get($breakpoints, small) (max-height 340px)) {
+        @include breakpoint(map-get($breakpoints, small) (max-height 400px)) {
             font-size: prem($font-size-xx-small);
         }
 
@@ -148,7 +148,7 @@ h2 {
     
     // max height adjustments
     @include breakpoint(orientation landscape) {
-        @include breakpoint(map-get($breakpoints, small) (max-height 340px)) {
+        @include breakpoint(map-get($breakpoints, small) (max-height 400px)) {
             font-size: prem($font-size-xx-huge);
         }
 
@@ -205,7 +205,7 @@ h4 {
     
     // max height adjustments
     @include breakpoint(orientation landscape) {
-        @include breakpoint(map-get($breakpoints, small) (max-height 340px)) {
+        @include breakpoint(map-get($breakpoints, small) (max-height 400px)) {
             font-size: prem($font-size-large);
         }
 
