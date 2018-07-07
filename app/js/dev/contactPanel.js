@@ -7,6 +7,7 @@ var panelNav = require('./panelNav'),
     TweenLite = require('TweenLite'),
     TimelineLite = require('TimelineLite'),
     CSSPlugin = require('CSSPlugin'),
+    notDisplayable = require('./notDisplayable'),
     onScreenTest = require('./onScreenTest');
 
 // 
@@ -19,7 +20,7 @@ var contactPanel = {
         this.closeBtn =     $('.form-panel-close-btn');
         this.initPos =      '100%';
         this.easing =       'Power2.easeOut';
-        this.duration =     0.5,
+        this.duration =     0.5;
         this.isMoving =     false;
         this.isOpen =       false;
         this.isMobile =     isMobile.any;
@@ -125,6 +126,9 @@ var contactPanel = {
 
                 // remove 'open state' classes
                 $formPanel.removeClass('form-panel--opened');
+
+                // ensure not displaying of small screens
+                notDisplayable.enabling(); 
 
                 // set back the focus on 'openBtn'
                 contactPanel.openBtn.focus();
