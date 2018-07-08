@@ -17,7 +17,8 @@ module.exports = function(gulp, task, plugins, config) {
             return gulp.src([
                         config.paths.js + 'dev/app.js', 
                         config.paths.js + 'dev/webfont.js',
-                        config.paths.js + 'dev/reference.js'
+                        config.paths.js + 'dev/reference.js',
+                        config.paths.js + 'dev/loader.js'
                 ], {read: false})
                 .pipe(plugins.tap(function (file) {
 

@@ -27,7 +27,8 @@
     "swiper": "./app/js/dev/lib/swiper.min.js",
     "TweenLite": "./node_modules/gsap/TweenLite.js",
     "TimelineLite": "./node_modules/gsap/TimelineLite.js",
-    "CSSPlugin": "./node_modules/gsap/CSSPlugin.js"
+    "CSSPlugin": "./node_modules/gsap/CSSPlugin.js",
+    "pace": "./app/js/dev/lib/pace.js"
   },
   "browserify-shim": {
     "jquery": "$",
