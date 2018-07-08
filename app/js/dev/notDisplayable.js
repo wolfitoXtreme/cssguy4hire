@@ -40,8 +40,6 @@ var notDisplayable = {
 
             $overlay.one({
                 'transitionend': function(event) {
-                    var propertyName = event.originalEvent.propertyName;
-
                     $overlay.removeClass('not-displayable--active');
                 }
             });
