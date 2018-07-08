@@ -148,7 +148,9 @@ body {
     display: none;
     opacity: 0;
     outline-style: solid;
+    flex-flow: column;
     align-items: center;
+    justify-content: center;
     transition: opacity $_transition-duration ease-out 0ms;
     background-color: $light-black;
 
@@ -215,12 +217,55 @@ body {
         opacity: 1;
     }
 
+    // not-displayable__icon
+    &__icon {
+        // icons are squares at this moment
+        // therefore these calculations are not needed,
+        // this is just for demonstration purposes 
+        $_icon-width: nth(map-get($icons, icon-resize-up), 2);
+        $_icon-height: nth(map-get($icons, icon-resize-up), 2);
+
+        $_new-width: 28px;
+        $_new-height: stretchBySize($_icon-width, $_icon-height, $_new-width);
+        
+        margin-bottom: prem(14px);
+        width: prem($_new-width);
+        height: prem($_new-height);
+        fill: $white;
+        opacity: 0;
+        transition: opacity ($_transition-duration * 3) ease-out 250ms;
+
+        @include breakpoint(map-get($breakpoints, medium)) {
+            width: prem($_icon-width);
+            height: prem($_icon-height);
+        }
+        
+         // not-displayable--enabled not-displayable__icon
+        .not-displayable--enabled & {
+            opacity: 1;
+        }
+
+    }
+
     // not-displayable__text
     &__text {
         margin: 0 auto;
         width: 100%;
         text-align: center;
+        opacity: 0;
+        transform: scale(0);
+        
+        @include transitions(($_transition-duration * 2), ease-out, 250ms, (
+            transform,
+            opacity
+        ));
 
         @extend %panel-hpadding;
+        
+        // not-displayable--enabled not-displayable__text
+        .not-displayable--enabled & {
+            opacity: 1;
+            transform: scale(1);
+        }
     }
 }
