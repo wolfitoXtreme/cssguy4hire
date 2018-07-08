@@ -20,6 +20,7 @@ app/scss/config/_colors.scss
 app/css/
 app/js/app.js
 app/js/webfont.js
+app/js/loader.js
 app/img/icons/icons.svg
 app/img/*.jpg
 app/img/*.png
