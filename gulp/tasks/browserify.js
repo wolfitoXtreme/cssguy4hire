@@ -12,7 +12,12 @@ module.exports = function(gulp, task, plugins, config) {
                     destination = fileName !== 'reference' ? config.paths.js : config.paths.reference + 'js/';
 
                 return t.through(gulp.dest, [destination]);
-            }
+            };
+
+            // allow compression
+            var compressFiles = config.mode === 'dist' || config.server.mode ? true : false;
+
+            console.log('config.mode =>' + config.mode + ' config.server.mode =>' + config.server.mode + ' compressFiles =>' + compressFiles);
 
             return gulp.src([
                         config.paths.js + 'dev/app.js', 
@@ -35,20 +40,21 @@ module.exports = function(gulp, task, plugins, config) {
 
                 }))
 
-                // .pipe(plugins.buffer())
-                // .pipe(plugins.uglify({
-                //     compress: {
-                //         sequences: true,
-                //         dead_code: true,
-                //         conditionals: true,
-                //         booleans: true,
-                //         unused: true,
-                //         if_return: true,
-                //         join_vars: true,
-                //         drop_console: true
-                //     }
-                // }))
-                
+                // uglify
+                .pipe(plugins.gulpif(compressFiles, plugins.buffer()))
+                .pipe(plugins.gulpif(compressFiles, plugins.uglify({
+                    compress: {
+                        sequences: true,
+                        dead_code: true,
+                        conditionals: true,
+                        booleans: true,
+                        unused: true,
+                        if_return: true,
+                        join_vars: true,
+                        drop_console: true
+                    }
+                })))
+
                 .pipe(plugins.tap(destFile))
                 
                 // omit error already set by browserify
@@ -67,5 +73,5 @@ module.exports = function(gulp, task, plugins, config) {
                 });
 
         });
-    }
+    };
 };
