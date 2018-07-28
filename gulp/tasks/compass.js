@@ -16,20 +16,28 @@ module.exports = function(gulp, task, plugins, config) {
                 plugins.gutil.log(plugins.gutil.colors.yellow('compass: processing -> ' + file.path));
                 
                 return t.through(gulp.dest, [destination]);
-            }
+            };
+
+            // allow writing of source maps
+            var writeMaps = config.mode === 'dist' || config.server.mode ? false : true;
+
+            console.log('config.mode =>' + config.mode + ' config.server.mode =>' + config.server.mode + ' writeMaps =>' + writeMaps);
 
             return gulp.src(config.paths.sass + '**/*.scss')
-                // compass-sourcemaps
+                // source maps initialization
                 .pipe(plugins.sourcemaps.init())
+                
                 .pipe(plugins.compass({
                         file: config.paths.sass + '**/*.scss',
-                        outputStyle: 'expanded' // nested, expanded, compact, compressed
+                        outputStyle: config.mode !== 'dist' && !config.server.mode ? 'expanded' : 'compressed' // nested, expanded, compact, compressed
                     })
                     .on('error', function(error){
                         config.functions.handleError(task, error, this);
                     })
                 )
-                .pipe(plugins.sourcemaps.write())
+
+                // source maps
+                .pipe(plugins.gulpif(writeMaps, plugins.sourcemaps.write()))
 
                 // autoprefixer
                 .pipe(plugins.autoprefixer(config.cssSupport))
@@ -47,5 +55,5 @@ module.exports = function(gulp, task, plugins, config) {
                     }
                 });
         });
-    }
-}
+    };
+};
