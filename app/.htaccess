@@ -1,0 +1,35 @@
+Options -MultiViews
+RewriteEngine On
+
+# redirects all domains
+# -----------
+RewriteCond %{HTTP_HOST} !^cssguy4hire\.com$ [NC]
+RewriteRule ^(.*) http://cssguy4hire.com/$1 [L,R=301]
+
+# Error Pages
+# -----------
+ErrorDocument 404 /404.php
+ErrorDocument 300 /404.php
+ErrorDocument 403 /403.php
+
+# languages
+# -----------
+
+# English
+RewriteRule ^response/$ /response.php?lang=en [NC]
+
+# Spanish
+RewriteRule ^(es)\/$   /index.php?lang=$1 [NC]
+
+RewriteRule ^es/css/(.*)$ /css/$1 [NC]
+RewriteRule ^es/js/(.*)$ /js/$1 [NC]
+RewriteRule ^es/img/(.*)$ /img/$1 [NC]
+RewriteRule ^es/fonts/(.*)$ /fonts/$1 [NC]
+
+#contact
+RewriteRule ^(es)/response/$ /response.php?lang=$1 [NC]
+
+#cv download
+RewriteRule ^(cv-en.pdf)$ /cv/$1 [NC]
+RewriteRule ^(cv-es.pdf)$ /cv/$1 [NC]
+
