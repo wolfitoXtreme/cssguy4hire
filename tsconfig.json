@@ -1,0 +1,35 @@
+{
+  "include": [
+    "./src/*"
+  ],
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "es2017"
+    ],
+    "jsx": "react",
+    "esModuleInterop": true,
+    "target": "es5",
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "noResolve": false,
+    "noImplicitAny": false,
+    "baseUrl": "./src",
+    "paths": {
+      "@app/*": [
+        "*"
+      ],
+      "@styles/*": [
+        "scss"
+      ]
+    }
+  }
+}
