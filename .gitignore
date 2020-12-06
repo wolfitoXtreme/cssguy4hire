@@ -27,6 +27,8 @@ app/img/*.svg
 app/reference/*.html
 app/reference/js/
 app/reference/css/
+dist/css
+dist/js
 
 # Compiled source
 *.com
