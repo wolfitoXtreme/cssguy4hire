@@ -1,83 +1,38 @@
 {
   "name": "cssguy4hire",
-  "version": "4.1.0",
-  "description": "Portfolio",
-  "main": "index.js",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.1",
+    "web-vitals": "^0.2.4"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/wolfitoXtreme/cssguy4hire.git"
-  },
-  "author": "Cesar Candela",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/wolfitoXtreme/cssguy4hire/issues"
-  },
-  "homepage": "https://github.com/wolfitoXtreme/cssguy4hire#readme",
-  "browser": {
-    "jquery": "./app/js/dev/lib/jquery.min.js",
-    "jquery-ui": "./app/js/dev/lib/jquery-ui.min.js",
-    "jquery-validate": "./app/js/dev/lib/jquery.validate.min.js",
-    "modernizr": "./app/js/dev/lib/modernizr-custom.min.js",
-    "enquire": "./node_modules/enquire.js/dist/enquire.min.js",
-    "selectbox": "./app/js/dev/lib/jquery.selectBox.js",
-    "perfectScrollbar": "./app/js/dev/lib/perfect-scrollbar.jquery.min.js",
-    "swiper": "./app/js/dev/lib/swiper.min.js",
-    "TweenLite": "./node_modules/gsap/TweenLite.js",
-    "TimelineLite": "./node_modules/gsap/TimelineLite.js",
-    "CSSPlugin": "./node_modules/gsap/CSSPlugin.js",
-    "pace": "./app/js/dev/lib/pace.js"
-  },
-  "browserify-shim": {
-    "jquery": "$",
-    "touchswipe": "$"
-  },
-  "browserify": {
-    "transform": [
-      "browserify-shim"
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
     ]
   },
-  "devDependencies": {
-    "breakpoint-sass": "^2.7.1",
-    "browser-sync": "^2.18.13",
-    "browserify": "^14.4.0",
-    "browserify-shim": "^3.8.14",
-    "cheerio": "^1.0.0-rc.2",
-    "del": "^3.0.0",
-    "enquire.js": "^2.1.6",
-    "fs": "0.0.1-security",
-    "gsap": "^1.20.3",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^4.0.0",
-    "gulp-changed": "^3.1.0",
-    "gulp-cheerio": "^0.6.2",
-    "gulp-if": "^2.0.2",
-    "gulp-imagemin": "^3.4.0",
-    "gulp-inject": "^4.3.0",
-    "gulp-newer": "^1.3.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^3.1.0",
-    "gulp-sourcemaps": "^2.6.0",
-    "gulp-svgstore": "^6.1.0",
-    "gulp-tap": "^1.0.1",
-    "gulp-uglify": "^3.0.0",
-    "gulp-util": "^3.0.8",
-    "image-size": "^0.6.1",
-    "imagemin-jpeg-recompress": "^5.1.0",
-    "ismobilejs": "^0.4.1",
-    "jquery-mousewheel": "^3.1.13",
-    "json-sass": "^1.3.5",
-    "lazypipe": "^1.0.1",
-    "lodash": "^4.17.4",
-    "merge-stream": "^1.0.1",
-    "path": "^0.12.7",
-    "run-sequence": "^2.1.0",
-    "through2": "^2.0.3",
-    "vinyl-buffer": "^1.0.1",
-    "vinyl-ftp": "^0.6.0",
-    "vinyl-source-stream": "^1.1.0",
-    "webfontloader": "^1.6.28"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
