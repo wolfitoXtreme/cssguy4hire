@@ -1,0 +1,25 @@
+//
+// functions
+//
+
+// map deep get
+@function map-deep-get($map, $keys...) {
+  @each $key in $keys {
+      $map: map-get($map, $key);
+  }
+  @return $map;
+}
+
+// strip units
+@function strip-units($number) {
+  @return $number / ($number * 0 + 1);
+}
+
+// convert pixels to em
+@function pem($pxVal, $base: $font-size-default) {
+
+  $pxVal: strip-units($pxVal);
+  $base: strip-units($base);
+
+  @return $pxVal / $base * 1em;
+}

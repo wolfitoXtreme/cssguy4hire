@@ -1,0 +1,592 @@
+//
+// typography
+//
+
+$_heading-tags: h1, h2, h3, h4, h5, h6;
+$_text-block-tags: p, ul, ol, dl, pre, address, blockquote, table;
+$_block-tags: article, aside, canvas, div, fieldset, figure, form, hgroup,
+  output, section, video;
+$_text-block-and-block-tags: join($_text-block-tags, $_block-tags);
+$_heading-and-block-tags: join($_heading-tags, $_block-tags);
+
+html {
+  font-family: unquote($default-font + ', ' + $default-font-fallback);
+  font-size: pem($font-size-default);
+}
+
+body {
+  font-size: $font-size-xx-small;
+  letter-spacing: -0.028em;
+  line-height: $line-height-default;
+  color: $white;
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    font-size: $font-size-small;
+  }
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    font-size: $font-size-normal;
+    letter-spacing: -0.04em;
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    font-size: $font-size-x-large;
+  }
+
+  // max height adjustments
+  @include breakpoint(orientation landscape) {
+    @include breakpoint(map-get($breakpoints, small) (max-height 400px)) {
+      font-size: $font-size-xx-small;
+    }
+
+    @include breakpoint(map-get($breakpoints, medium) (max-height 440px)) {
+      font-size: $font-size-small;
+    }
+
+    @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
+      font-size: $font-size-normal;
+    }
+  }
+}
+
+// remove first and last contained elements margins
+* > * {
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+//
+// headings
+//
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $heading-font;
+  text-transform: uppercase;
+  line-height: $line-height-default;
+  letter-spacing: -0.03em;
+  color: $orange-peel;
+
+  // any heading element following a heading block
+  @for $i from 1 through length($_heading-tags) {
+    & + #{nth($_heading-tags, $i)} {
+      margin-top: 0;
+
+      @include breakpoint(map-get($breakpoints, small)) {
+        margin-top: 3px;
+      }
+
+      @include breakpoint(map-get($breakpoints, large)) {
+        margin-top: 4px;
+      }
+    }
+  }
+
+  // any text block or block element following a heading block
+  @for $i from 1 through length($_text-block-and-block-tags) {
+    & + #{nth($_text-block-and-block-tags, $i)} {
+      margin-top: 5px;
+
+      @include breakpoint(map-get($breakpoints, medium)) {
+        margin-top: 9px;
+      }
+
+      @include breakpoint(map-get($breakpoints, large)) {
+        margin-top: 11px;
+      }
+    }
+  }
+}
+
+h1 {
+  margin: ($font-size-xxx-huge / 2) 0 0;
+  font-size: $font-size-xxx-huge;
+  text-shadow: -2px -2px 0 rgba(0, 0, 0, 0.3);
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    margin: ($font-size-massive / 2) 0 0;
+    font-size: $font-size-massive;
+  }
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    margin: ($font-size-gigantic / 2) 0 0;
+    font-size: $font-size-gigantic;
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    margin: ($font-size-humongous / 2) 0 0;
+    font-size: ($font-size-humongous);
+  }
+}
+
+h2 {
+  margin: ($font-size-xx-huge / 2) 0 0;
+  font-size: $font-size-xx-huge;
+  // text-shadow: -2px -1px 0 rgba(0, 0, 0, 0.30);
+
+  text-shadow: -2px -1px 0 rgba(0, 0, 0, 0.2), -2px 0px 0 rgba(0, 0, 0, 0.2),
+    0px -1px 0 rgba(0, 0, 0, 0.2);
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    margin: ($font-size-xxx-huge / 2) 0 0;
+    font-size: $font-size-xxx-huge;
+  }
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    margin: ($font-size-massive / 2) 0 0;
+    font-size: $font-size-massive;
+    // text-shadow: -3px -2px 0 rgba(0, 0, 0, 0.30);
+
+    text-shadow: -3px -2px 0 rgba(0, 0, 0, 0.2), -3px 0px 0 rgba(0, 0, 0, 0.2),
+      0px -2px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    margin: ($font-size-gigantic / 2) 0 0;
+    font-size: $font-size-gigantic;
+  }
+
+  // max height adjustments
+  @include breakpoint(orientation landscape) {
+    @include breakpoint(map-get($breakpoints, small) (max-height 400px)) {
+      font-size: $font-size-xx-huge;
+    }
+
+    @include breakpoint(map-get($breakpoints, medium) (max-height 440px)) {
+      font-size: $font-size-xxx-huge;
+    }
+
+    @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
+      font-size: $font-size-massive;
+    }
+  }
+}
+
+h3 {
+  margin: ($font-size-huge / 2) 0 0;
+  font-size: $font-size-huge;
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    margin: ($font-size-x-huge / 2) 0 0;
+    font-size: $font-size-x-huge;
+  }
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    margin: ($font-size-xxx-huge / 2) 0 0;
+    font-size: $font-size-xxx-huge;
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    margin: ($font-size-massive / 2) 0 0;
+    font-size: $font-size-massive;
+  }
+}
+
+h4 {
+  margin: ($font-size-large / 2) 0 0;
+  font-size: $font-size-large;
+  font-weight: 400;
+  letter-spacing: -0.05em;
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    margin: ($font-size-xx-large / 2) 0 0;
+    font-size: $font-size-xx-large;
+  }
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    margin: ($font-size-huge / 2) 0 0;
+    font-size: $font-size-huge;
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    margin: ($font-size-xx-huge / 2) 0 0;
+    font-size: $font-size-xx-huge;
+  }
+
+  // max height adjustments
+  @include breakpoint(orientation landscape) {
+    @include breakpoint(map-get($breakpoints, small) (max-height 400px)) {
+      font-size: $font-size-large;
+    }
+
+    @include breakpoint(map-get($breakpoints, medium) (max-height 440px)) {
+      font-size: $font-size-xx-large;
+    }
+
+    @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
+      font-size: $font-size-huge;
+    }
+  }
+}
+
+h5 {
+  margin: ($font-size-normal / 2) 0 0;
+  font-size: $font-size-normal;
+  font-weight: 400;
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    margin: ($font-size-medium / 2) 0 0;
+    font-size: $font-size-medium;
+  }
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    margin: ($font-size-medium-large / 2) 0 0;
+    font-size: $font-size-medium-large;
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    margin: ($font-size-xxx-large / 2) 0 0;
+    font-size: $font-size-xxx-large;
+  }
+}
+
+h6 {
+  margin: ($font-size-xx-small / 2) 0 0;
+  font-size: $font-size-xx-small;
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    margin: ($font-size-small / 2) 0 0;
+    font-size: $font-size-small;
+  }
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    margin: ($font-size-medium / 2) 0 0;
+    font-size: $font-size-medium;
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    margin: ($font-size-x-large / 2) 0 0;
+    font-size: $font-size-x-large;
+  }
+}
+
+// default texts
+%default-texts {
+  margin: 16px 0;
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    margin: 18px 0;
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    margin: 22px 0;
+  }
+
+  // any heading or block element following a text block
+  @for $i from 1 through length($_heading-and-block-tags) {
+    & + #{nth($_heading-and-block-tags, $i)} {
+      margin-top: 12px;
+
+      @include breakpoint(map-get($breakpoints, small)) {
+        margin-top: 18px;
+      }
+
+      @include breakpoint(map-get($breakpoints, medium)) {
+        margin-top: 24px;
+      }
+
+      @include breakpoint(map-get($breakpoints, large)) {
+        margin-top: 34px;
+      }
+    }
+  }
+}
+
+//
+// paragraphs
+//
+p {
+  @extend %default-texts;
+}
+
+//
+// lists
+//
+
+// lists
+%lists {
+  padding: 0;
+  list-style: none;
+  @extend %default-texts;
+
+  // nested lists and paragraphs
+  & p,
+  & ul,
+  & ol {
+    &:first-child,
+    &:last-child {
+      margin-bottom: 16px;
+    }
+  }
+
+  p:only-child {
+    margin: 0;
+  }
+}
+
+// list - items
+%list-items {
+  margin: 0 0 5px;
+  padding: 0 0 0 11px;
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    padding: 0 0 0 13px;
+  }
+  @include breakpoint(map-get($breakpoints, medium)) {
+    padding: 0 0 0 15px;
+  }
+  @include breakpoint(map-get($breakpoints, large)) {
+    margin: 0 0 9px;
+    padding: 0 0 0 20px;
+  }
+
+  p:only-child {
+    padding: 0;
+  }
+}
+
+%bullets-level-1 {
+  $_bullet-size: 7px;
+
+  content: '';
+  margin-top: -($_bullet-size / 2);
+  top: (1em * $line-height-default) / 2;
+  left: 0;
+  width: $_bullet-size;
+  height: $_bullet-size;
+  border-radius: 100%;
+  display: block;
+  position: absolute;
+  background-color: $orange-peel;
+  box-shadow: -1px -1px 0 0 rgba($black, 0.21);
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    $_bullet-size: 8px;
+
+    margin-top: -($_bullet-size / 2);
+    width: $_bullet-size;
+    height: $_bullet-size;
+  }
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    $_bullet-size: 10px;
+
+    margin-top: -($_bullet-size / 2);
+    width: $_bullet-size;
+    height: $_bullet-size;
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    $_bullet-size: 12px;
+
+    margin-top: -($_bullet-size / 2);
+    width: $_bullet-size;
+    height: $_bullet-size;
+  }
+}
+
+%bullets-level-2 {
+  $_bullet-size: 5px;
+
+  margin-top: -($_bullet-size / 2);
+  width: $_bullet-size;
+  height: $_bullet-size;
+  border: 1px solid $orange-peel;
+  background-color: transparent;
+  box-shadow: none;
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    $_bullet-size: 6px;
+
+    margin-top: -($_bullet-size / 2);
+    width: $_bullet-size;
+    height: $_bullet-size;
+  }
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    $_bullet-size: 8px;
+
+    margin-top: -($_bullet-size / 2);
+    width: $_bullet-size;
+    height: $_bullet-size;
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    $_bullet-size: 10px;
+
+    margin-top: -($_bullet-size / 2);
+    width: $_bullet-size;
+    height: $_bullet-size;
+    border-width: 2px;
+  }
+}
+
+%bullets-level-3 {
+  $_bullet-size: 1px;
+
+  height: $_bullet-size;
+  margin-top: -($_bullet-size / 2);
+  border-radius: 0;
+  border-style: none;
+  background-color: $orange-peel;
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    $_bullet-size: 2px;
+
+    height: $_bullet-size;
+    margin-top: -($_bullet-size / 2);
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    $_bullet-size: 2px;
+
+    height: $_bullet-size;
+    margin-top: -($_bullet-size / 2);
+  }
+}
+
+ul {
+  @extend %lists;
+}
+
+ol {
+  counter-reset: li-counter;
+  @extend %lists;
+}
+
+dl {
+  @extend %lists;
+}
+
+li {
+  position: relative;
+  @extend %list-items;
+}
+
+// unordered lists items
+ul > li {
+  // bullets
+  &:before {
+    @extend %bullets-level-1;
+  }
+
+  // bullets - second level
+  ul > li {
+    &:before {
+      @extend %bullets-level-2;
+    }
+  }
+
+  // bullets - third level
+  ul > li > ul > li {
+    &:before {
+      @extend %bullets-level-3;
+    }
+  }
+}
+
+// ordered lits items
+ol > li {
+  &:before {
+    content: counter(li-counter) '. ';
+    counter-increment: li-counter;
+    left: -6px;
+    top: 0.36em;
+    width: 13px;
+    font: normal 0.8em/1 oswald;
+    color: $orange-peel;
+    text-align: right;
+    display: block;
+    position: absolute;
+
+    @include breakpoint(map-get($breakpoints, small)) {
+      width: 15px;
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      top: 0.46em;
+      left: -9px;
+      width: 20px;
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+      left: -20px;
+      width: 32px;
+    }
+  }
+}
+
+dt {
+  font-weight: bold;
+  @extend %list-items;
+}
+
+dd {
+  @extend %list-items;
+}
+
+hr {
+  @include hidden;
+}
+
+// bold texts
+b,
+strong {
+  font-weight: 600; // matches semi-bold weight
+}
+
+// links
+a {
+  @include no-highlight;
+
+  &:link {
+    color: map-get($link-colors, link);
+  }
+  &:visited {
+    color: map-get($link-colors, visited);
+  }
+  &:hover {
+    color: map-get($link-colors, hover);
+  }
+  &:active,
+  &:focus {
+    color: map-get($link-colors, active);
+  }
+}
+
+// link color classes
+@each $color in map_keys($link-colors) {
+  .link-color-#{$color} {
+    color: map-get($link-colors, $color);
+
+    // force color states
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+      color: map-get($link-colors, $color);
+    }
+  }
+}
+
+// font family classes
+@each $font in map_keys($fonts) {
+  .font-#{$font} {
+    font-family: $font;
+  }
+}
+
+// font sizes classes
+@each $size in map_keys($font-sizes) {
+  .font-size-#{$size} {
+    font-size: nth(map-get($font-sizes, $size), 1);
+  }
+}

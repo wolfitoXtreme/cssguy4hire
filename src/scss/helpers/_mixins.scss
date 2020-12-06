@@ -1,0 +1,88 @@
+//
+// functions
+//
+
+// Libraries Mixins
+@import "~breakpoint-sass/stylesheets/breakpoint";
+
+// mediaQueries info
+// get on screen information for debugging media queries
+@mixin queryInfo($breakpoints:$breakpoints) {
+
+  @if $debug == true {
+    &:after {
+      padding: 0.2rem;
+      right: 0;
+      bottom: 0;
+      color: #fff;
+      display: block;
+      background-color: #000000;
+      position: fixed;
+      z-index: 200;
+      @each $breakpoint in map_keys($breakpoints) {
+        @include breakpoint(map-get($breakpoints, $breakpoint)) {
+          content: "#{$breakpoint} - #{map-get($breakpoints, $breakpoint)}";
+          @include breakpoint((orientation landscape)) {
+            content: "#{$breakpoint} - #{map-get($breakpoints, $breakpoint)} - landscape";
+          }
+        }
+      }
+    }
+  }
+}
+
+// hidden extend wrapper
+@mixin hidden($extend: true) {
+  @if $extend {
+      @extend %hidden;
+  } @else {
+      width: 0;
+      height: 0;
+      position: absolute;
+      overflow: hidden;
+      opacity: 0;
+      z-index: -1;
+  }
+}
+
+// hidden placeholder
+%hidden {
+  @include hidden($extend: false);
+}
+
+// clear fix
+@mixin clearFix($extend: true) {
+  @if $extend {
+      @extend %clearFix;
+  } @else {
+      &:after {
+          content: " ";
+          display: block;
+          clear: both;
+          height: 0;
+          overflow: hidden;
+          visibility: hidden;
+      }
+  }
+}
+
+// clear fix placeholder
+%clearFix {
+  @include clearFix($extend: false);
+}
+
+// no highlight
+@mixin no-highlight($extend: true) {
+  @if $extend {
+      @extend %no-highlight;
+  } @else {
+      outline: 0;
+      outline-style: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+}
+
+// remove text placeholder
+%no-highlight {
+  @include no-highlight($extend: false);
+}

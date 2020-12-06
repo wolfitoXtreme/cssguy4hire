@@ -1,0 +1,17 @@
+//
+// helpers
+//
+
+html, body, * {
+  box-sizing: border-box;
+
+  &:before,
+  &:after {
+      box-sizing: inherit;
+  }
+}
+
+// hidden (visually)
+.hidden {
+  @include hidden;
+}

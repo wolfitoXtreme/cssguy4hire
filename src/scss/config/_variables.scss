@@ -1,0 +1,195 @@
+//
+// global variables
+//
+
+// $debug: false !default;
+$debug: true;
+
+//
+// fonts
+// ----------------
+
+// font families
+$fonts: (
+  'opensans': (
+    300: 'opensans-light',
+    400: 'opensans-regular',
+    600: 'opensans-semibold',
+    700: 'opensans-bold',
+    800: 'opensans-extrabold',
+  ),
+  'oswald': (
+    400: 'oswald-regular',
+    700: 'oswald-bold',
+  ),
+  'oswald-book': (
+    400: 'oswald-book',
+  ),
+);
+
+// default fonts
+$default-font: opensans;
+$default-font-fallback: Frutiger, 'Frutiger Linotype', Univers, Calibri,
+  'Gill Sans', 'Gill Sans MT', 'Myriad Pro', Myriad, 'DejaVu Sans Condensed',
+  'Liberation Sans', 'Nimbus Sans L', Tahoma, Geneva, 'Helvetica Neue',
+  Helvetica, Arial, sans-serif;
+
+// default heading fonts
+$heading-font: oswald;
+
+// font sizes
+$font-sizes: (
+  micro: 9px,
+  tiny: 10px,
+  xxx-small: 12px,
+  xx-small: 13px,
+  x-small: 14px,
+  small: 15px,
+  normal: 16px,
+  medium: 18px,
+  medium-large: 20px,
+  large: 21px,
+  x-large: 22px,
+  xx-large: 23px,
+  xxx-large: 26px,
+  huge: 27px,
+  x-huge: 28px,
+  xx-huge: 36px,
+  xxx-huge: 41px,
+  massive: 52px,
+  gigantic: 72px,
+  humongous: 82px,
+);
+
+$font-size-micro: nth(map-get($font-sizes, micro), 1);
+$font-size-tiny: nth(map-get($font-sizes, tiny), 1);
+$font-size-xxx-small: nth(map-get($font-sizes, xxx-small), 1);
+$font-size-xx-small: nth(map-get($font-sizes, xx-small), 1);
+$font-size-x-small: nth(map-get($font-sizes, x-small), 1);
+$font-size-small: nth(map-get($font-sizes, small), 1);
+$font-size-normal: nth(map-get($font-sizes, normal), 1);
+$font-size-medium: nth(map-get($font-sizes, medium), 1);
+$font-size-medium-large: nth(map-get($font-sizes, medium-large), 1);
+$font-size-large: nth(map-get($font-sizes, large), 1);
+$font-size-x-large: nth(map-get($font-sizes, x-large), 1);
+$font-size-xx-large: nth(map-get($font-sizes, xx-large), 1);
+$font-size-xxx-large: nth(map-get($font-sizes, xxx-large), 1);
+$font-size-huge: nth(map-get($font-sizes, huge), 1);
+$font-size-x-huge: nth(map-get($font-sizes, x-huge), 1);
+$font-size-xx-huge: nth(map-get($font-sizes, xx-huge), 1);
+$font-size-xxx-huge: nth(map-get($font-sizes, xxx-huge), 1);
+$font-size-massive: nth(map-get($font-sizes, massive), 1);
+$font-size-gigantic: nth(map-get($font-sizes, gigantic), 1);
+$font-size-humongous: nth(map-get($font-sizes, humongous), 1);
+
+//  default font size
+$font-size-default: $font-size-medium;
+
+// line-height default
+$line-height-default: 1.15;
+
+//
+// colors
+// ----------------
+
+$colors-default: (
+  black: #000000,
+  light-black: #060606,
+  nero: #262626,
+  charcoal: #404040,
+  dim-grey: #616161,
+  grey: #7f7f7f,
+  dark-grey: #aaaaaa,
+  light-grey: #c9c9c9,
+  very-light-grey: #d3d3d3,
+  gainsboro: #e5e5e5,
+  white: #ffffff,
+);
+
+$black: nth(map-get($colors-default, black), 1);
+$light-black: nth(map-get($colors-default, light-black), 1);
+$nero: nth(map-get($colors-default, nero), 1);
+$charcoal: nth(map-get($colors-default, charcoal), 1);
+$dim-grey: nth(map-get($colors-default, dim-grey), 1);
+$grey: nth(map-get($colors-default, grey), 1);
+$dark-grey: nth(map-get($colors-default, dark-grey), 1);
+$light-grey: nth(map-get($colors-default, light-grey), 1);
+$very-light-grey: nth(map-get($colors-default, very-light-grey), 1);
+$gainsboro: nth(map-get($colors-default, gainsboro), 1);
+$white: nth(map-get($colors-default, white), 1);
+
+$colors: (
+  dark-goldenrod: #b99a00,
+  moon-yellow: #ecc716,
+  turbo: #fad41c,
+  lucky-point: #262f50,
+  dark-slate-blue: #533e87,
+  myrtle: #264c2a,
+  falu-red: #7a1a1e,
+  turkish-rose: #9d6d7a,
+  scarlett: #86203a,
+  siren: #6f283b,
+  pohutukawa: #5d1628,
+  eternity: #272a26,
+  oil: #252724,
+  orange-peel: #fc9803,
+  safety-orange: #fc6103,
+  tawny: #d84f00,
+  radical-red: #f93c5d,
+  husk: #b48a4b,
+);
+
+$dark-goldenrod: nth(map-get($colors, dark-goldenrod), 1);
+$moon-yellow: nth(map-get($colors, moon-yellow), 1);
+$turbo: nth(map-get($colors, turbo), 1);
+$lucky-point: nth(map-get($colors, lucky-point), 1);
+$dark-slate-blue: nth(map-get($colors, dark-slate-blue), 1);
+$myrtle: nth(map-get($colors, myrtle), 1);
+$falu-red: nth(map-get($colors, falu-red), 1);
+$turkish-rose: nth(map-get($colors, turkish-rose), 1);
+$scarlett: nth(map-get($colors, scarlett), 1);
+$siren: nth(map-get($colors, siren), 1);
+$pohutukawa: nth(map-get($colors, pohutukawa), 1);
+$eternity: nth(map-get($colors, eternity), 1);
+$oil: nth(map-get($colors, oil), 1);
+$orange-peel: nth(map-get($colors, orange-peel), 1);
+$safety-orange: nth(map-get($colors, safety-orange), 1);
+$tawny: nth(map-get($colors, tawny), 1);
+$radical-red: nth(map-get($colors, radical-red), 1);
+$husk: nth(map-get($colors, husk), 1);
+
+// link colors
+$link-colors: (
+  'link': $orange-peel,
+  'visited': $husk,
+  'hover': $tawny,
+  'active': $radical-red,
+);
+
+// form elements colors ?
+
+// error color
+$error-color: $safety-orange;
+
+// button colors ?
+
+//
+// transitions
+// ----------------
+
+// default transitions
+$default-duration: 300ms;
+$default-delay: 100ms;
+
+//
+// layout
+// ----------------
+
+$breakpoints: (
+  'xx-small': '0px',
+  'small': '360px',
+  'medium': '768px',
+  'large': '1024px',
+);
+
+$app-max-width: 1400px;
