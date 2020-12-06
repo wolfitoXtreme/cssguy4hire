@@ -16,6 +16,9 @@
     "url": "https://github.com/wolfitoXtreme/cssguy4hire/issues"
   },
   "homepage": "https://github.com/wolfitoXtreme/cssguy4hire#readme",
+  "engines": {
+    "node": "^10.15.3"
+  },
   "browser": {
     "jquery": "./app/js/dev/lib/jquery.min.js",
     "jquery-ui": "./app/js/dev/lib/jquery-ui.min.js",
