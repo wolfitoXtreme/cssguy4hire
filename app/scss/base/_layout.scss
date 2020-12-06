@@ -111,7 +111,7 @@ body {
     }
     
     // set two columns for 600px and beyond
-    @include breakpoint(prem(600px)) {
+    @include breakpoint(600px) {
         column-count: 2;
     }
 

@@ -23,7 +23,7 @@ var currentFocus = {
         var $focusInElements = this.focusInElements;
 
         $focusInElements.on({
-            'focusin': function (event) {
+            'focusin': function () {
                 console.log('focusin');
                 currentFocus.focused = $(this);
 
@@ -33,7 +33,7 @@ var currentFocus = {
                 );
             },
 
-            'blur': function(event) {
+            'blur': function() {
                 var $trigger = $(event.relatedTarget),
                     $exception = currentFocus.exception;
 
@@ -54,6 +54,6 @@ var currentFocus = {
     reset: function() {
         this.focused = $();
     }
-}
+};
 
 module.exports = currentFocus;

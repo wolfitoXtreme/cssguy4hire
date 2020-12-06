@@ -2,8 +2,9 @@
 // global variables
 //
 
-$debug: true;
+// $debug: true;
 $debug: false !default;
+// $debug: true;
 
 // 
 // configuration
@@ -71,7 +72,7 @@ $font-size-humongous:       nth(map-get($font-sizes, humongous), 1);
 $font-size-default:     $font-size-medium;
 
 // line-height default
-$line-height-default: 1.2;
+$line-height-default: 1.15;
 
 
 // 

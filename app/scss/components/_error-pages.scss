@@ -1,0 +1,37 @@
+// 
+// Error pages
+//
+
+// error-page
+.error-page {
+    width: 100%;
+    min-height: 100%;
+    text-align: center;
+    display: flex;
+    
+    // error-page__section
+    &__section {
+        margin: auto auto;
+    }
+
+    & + .footer {
+        @include unhidden;
+    
+        visibility: visible;
+
+        .footer-signature {
+            left: 0;
+            width: 100%;
+        }
+
+        .footer-logo-img {
+            $_img-width: nth(map-get($images, logo-footer), 1);
+            $_img-height: nth(map-get($images, logo-footer), 2);
+            
+            margin: 0 auto;
+            width: prem($_img-width);
+            height: auto;
+            display: block;
+        }
+    }
+}

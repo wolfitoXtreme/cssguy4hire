@@ -9,7 +9,7 @@ console.log('...loading app');
 
 
 loader.on('start', function() {
-    // alert('started!');
+    console.log('...loading started');
 });
 
 loader.on('done', function() {
@@ -22,12 +22,13 @@ loader.on('done', function() {
 
     console.log(loadingOverlay.length);
 
+    document.body.removeAttribute('title');
 
-    loadingOverlay.addEventListener('transitionend', function(event) {
+    loadingOverlay.addEventListener('transitionend', function() {
         removeLoader();
     }, false);
 
-    loadingOverlay.addEventListener('webkitTransitionEnd', function(event) {
+    loadingOverlay.addEventListener('webkitTransitionEnd', function() {
         removeLoader();
     }, false);
 

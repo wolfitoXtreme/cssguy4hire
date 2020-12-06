@@ -128,11 +128,13 @@
 
     // panel-heading
     &-heading {
-        padding-bottom: prem(5px);
+        padding-bottom: prem(8px);
     }
 
     // panel-title
     &-title {
+        padding-bottom: prem(2px);
+        line-height: 1;
         color: $orange-peel;
     }
 
