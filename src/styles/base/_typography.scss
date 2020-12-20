@@ -71,8 +71,8 @@ h5,
 h6 {
   font-family: $heading-font;
   text-transform: uppercase;
-  line-height: $line-height-default;
   letter-spacing: -0.03em;
+  line-height: $line-height-default;
   color: $orange-peel;
 
   // any heading element following a heading block
@@ -131,7 +131,6 @@ h2 {
   margin: ($font-size-xx-huge / 2) 0 0;
   font-size: $font-size-xx-huge;
   // text-shadow: -2px -1px 0 rgba(0, 0, 0, 0.30);
-
   text-shadow: -2px -1px 0 rgba(0, 0, 0, 0.2), -2px 0px 0 rgba(0, 0, 0, 0.2),
     0px -1px 0 rgba(0, 0, 0, 0.2);
 
@@ -362,8 +361,8 @@ p {
   left: 0;
   width: $_bullet-size;
   height: $_bullet-size;
-  border-radius: 100%;
   display: block;
+  border-radius: 100%;
   position: absolute;
   background-color: $orange-peel;
   box-shadow: -1px -1px 0 0 rgba($black, 0.21);
@@ -446,10 +445,10 @@ p {
   }
 
   @include breakpoint(map-get($breakpoints, large)) {
-    $_bullet-size: 2px;
+    $bullet-size: 2px;
 
-    height: $_bullet-size;
     margin-top: -($_bullet-size / 2);
+    height: $_bullet-size;
   }
 }
 
@@ -471,37 +470,15 @@ li {
   @extend %list-items;
 }
 
-// unordered lists items
-ul > li {
-  // bullets
-  &:before {
-    @extend %bullets-level-1;
-  }
-
-  // bullets - second level
-  ul > li {
-    &:before {
-      @extend %bullets-level-2;
-    }
-  }
-
-  // bullets - third level
-  ul > li > ul > li {
-    &:before {
-      @extend %bullets-level-3;
-    }
-  }
-}
-
 // ordered lits items
 ol > li {
   &:before {
     content: counter(li-counter) '. ';
     counter-increment: li-counter;
-    left: -6px;
-    top: 0.36em;
     width: 13px;
-    font: normal 0.8em/1 oswald;
+    top: 0.36em;
+    left: -6px;
+    font: normal 0.8em/1 $heading-font;
     color: $orange-peel;
     text-align: right;
     display: block;
@@ -520,6 +497,28 @@ ol > li {
     @include breakpoint(map-get($breakpoints, large)) {
       left: -20px;
       width: 32px;
+    }
+  }
+}
+
+// unordered lists items
+ul > li {
+  // bullets
+  &:before {
+    @extend %bullets-level-1;
+  }
+
+  // bullets - second level
+  ul > li {
+    &:before {
+      @extend %bullets-level-2;
+    }
+  }
+
+  // bullets - third level
+  ul > li > ul > li {
+    &:before {
+      @extend %bullets-level-3;
     }
   }
 }

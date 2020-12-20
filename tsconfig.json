@@ -1,12 +1,7 @@
 {
-  "include": [
-    "./src/*"
-  ],
+  "include": ["./src/*"],
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "es2017"
-    ],
+    "lib": ["dom", "es2017"],
     "jsx": "react",
     "esModuleInterop": true,
     "target": "es5",
@@ -24,12 +19,8 @@
     "noImplicitAny": false,
     "baseUrl": "./src",
     "paths": {
-      "@app/*": [
-        "*"
-      ],
-      "@styles/*": [
-        "scss"
-      ]
+      "@app/*": ["*"],
+      "@styles/*": ["scss"]
     }
   }
 }

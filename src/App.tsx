@@ -1,17 +1,30 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import Reference from './components/Reference/Reference';
 
-import './scss/App.scss';
+import './styles/App.scss';
+
+const applyBodyStyles = (classNames) => document.body.classList.add(classNames);
 
 function App() {
+  const [bodyStyles, setBodyStyles] = useState();
+  // // useEffect(() => {
+  // console.log('bodyStyles: ', bodyStyles);
+  // // }, [bodyStyles]);
+
+  const addBodyStyles = useCallback((styles) => {
+    applyBodyStyles(styles);
+  }, []);
+
+  useEffect(() => {
+    if (bodyStyles) {
+      addBodyStyles(bodyStyles);
+    }
+  }, [addBodyStyles, bodyStyles]);
+
   return (
     <>
-      <h1>Hello cruel world!</h1>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt dolorem
-        cumque tempore blanditiis consectetur voluptatibus, odio adipisci,
-        ducimus tempora, sapiente necessitatibus? Similique at ut expedita eos,
-        consequuntur soluta sit ab!
-      </p>
+      {/* <Reference setBodyStyles={setBodyStyles} /> */}
+      <Reference setBodyStyles={setBodyStyles} />
     </>
   );
 }
