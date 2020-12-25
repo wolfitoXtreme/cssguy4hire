@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { reference } from './Reference.module.scss';
 import Typography from './Typography/Typography';
+import Colors from './Colors/Colors';
+import { reference } from './Reference.module.scss';
 
 interface ReferenceInt {
   setBodyStyles?: (...args: any[]) => void;
 }
 
 const Reference: React.FC<ReferenceInt> = ({ setBodyStyles }) => {
-  const test = ['a', 'b'];
-  const testB = {
-    a: 'a',
-    b: 'b'
-  };
-  setBodyStyles && setBodyStyles(reference);
-  return <Typography />;
+  useEffect(() => {
+    setBodyStyles && setBodyStyles(reference);
+  }, [setBodyStyles]);
+
+  return (
+    <>
+      <Typography />
+      <Colors />
+    </>
+  );
 };
 
 export default Reference;

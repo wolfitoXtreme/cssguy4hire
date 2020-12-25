@@ -7,9 +7,14 @@
 // Reference Styles
 //
 
+// overrides basic styles
 body {
-  &.reference {
+  > div {
+    // targets #root container
     padding: 15px;
+  }
+
+  &.reference {
     color: $black;
     background-color: $light-grey;
 
@@ -24,8 +29,8 @@ body {
     h4,
     h5,
     h6 {
-      color: $black; // override default color (for legibility)
       text-shadow: none; // remove default shadows
+      color: $black; // override default color (for legibility)
     }
 
     // ordered lits items
@@ -56,6 +61,66 @@ body {
           background-color: $black;
         }
       }
+    }
+  }
+}
+
+// grid
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  &-item {
+    margin: 4px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $very-light-grey;
+    position: relative;
+
+    &:first-child {
+      margin: 4px; // overrides default
+    }
+
+    &:hover {
+      border-color: $dim-grey;
+    }
+  }
+
+  &-thumb {
+    margin: 0 auto;
+    padding: 8px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-detail {
+      margin: 0 -1px -1px;
+      padding: 4px;
+      font-size: $font-size-tiny;
+      border-top: 1px solid $very-light-grey;
+      flex-grow: 1;
+
+      .grid-item:hover & {
+        color: $white;
+        border-color: $dim-grey;
+        background-color: $dim-grey;
+      }
+    }
+
+    &-name {
+      padding-bottom: 4px;
+      font-weight: bold;
+      line-height: 1;
+      text-transform: uppercase;
+      display: block;
+    }
+
+    &-value {
+      display: block;
     }
   }
 }

@@ -1,0 +1,40 @@
+@import '~@styles/config/variables';
+@import '~@styles/config/variables-export';
+
+.sizes {
+  margin-top: -10px;
+  padding-top: 12px;
+  border-top: 1px solid $very-light-grey;
+
+  &-size {
+    margin-bottom: 10px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.size {
+  &-text {
+    padding-bottom: 4px; // prevent font sample bottom cropping
+    height: auto;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  &-detail {
+    margin-top: -6px;
+    font: $font-size-x-small unquote($default-font);
+
+    &-name {
+      display: inline-block;
+    }
+
+    &-value {
+      padding-left: 3px;
+      display: inline-block;
+    }
+  }
+}

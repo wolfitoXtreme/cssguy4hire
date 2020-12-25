@@ -1,0 +1,13 @@
+@import '~@styles/config/variables';
+
+//
+// variables exported to JS
+//
+
+/* stylelint-disable property-no-unknown */
+:export {
+  breakpoints: quote($breakpoints);
+  fonts: quote($fonts);
+  fontSizes: quote($font-sizes);
+  colors: quote($colors);
+}

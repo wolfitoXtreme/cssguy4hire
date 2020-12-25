@@ -16,15 +16,15 @@ $fonts: (
     400: 'opensans-regular',
     600: 'opensans-semibold',
     700: 'opensans-bold',
-    800: 'opensans-extrabold',
+    800: 'opensans-extrabold'
   ),
   'oswald': (
     400: 'oswald-regular',
-    700: 'oswald-bold',
+    700: 'oswald-bold'
   ),
   'oswald-book': (
-    400: 'oswald-book',
-  ),
+    400: 'oswald-book'
+  )
 );
 
 // default fonts
@@ -58,7 +58,7 @@ $font-sizes: (
   xxx-huge: 41px,
   massive: 52px,
   gigantic: 72px,
-  humongous: 82px,
+  humongous: 82px
 );
 
 $font-size-micro: nth(map-get($font-sizes, micro), 1);
@@ -92,7 +92,7 @@ $line-height-default: 1.15;
 // colors
 // ----------------
 
-$colors-default: (
+$colors: (
   black: #000000,
   light-black: #060606,
   nero: #262626,
@@ -104,21 +104,6 @@ $colors-default: (
   very-light-grey: #d3d3d3,
   gainsboro: #e5e5e5,
   white: #ffffff,
-);
-
-$black: nth(map-get($colors-default, black), 1);
-$light-black: nth(map-get($colors-default, light-black), 1);
-$nero: nth(map-get($colors-default, nero), 1);
-$charcoal: nth(map-get($colors-default, charcoal), 1);
-$dim-grey: nth(map-get($colors-default, dim-grey), 1);
-$grey: nth(map-get($colors-default, grey), 1);
-$dark-grey: nth(map-get($colors-default, dark-grey), 1);
-$light-grey: nth(map-get($colors-default, light-grey), 1);
-$very-light-grey: nth(map-get($colors-default, very-light-grey), 1);
-$gainsboro: nth(map-get($colors-default, gainsboro), 1);
-$white: nth(map-get($colors-default, white), 1);
-
-$colors: (
   dark-goldenrod: #b99a00,
   moon-yellow: #ecc716,
   turbo: #fad41c,
@@ -136,9 +121,20 @@ $colors: (
   safety-orange: #fc6103,
   tawny: #d84f00,
   radical-red: #f93c5d,
-  husk: #b48a4b,
+  husk: #b48a4b
 );
 
+$black: nth(map-get($colors, black), 1);
+$light-black: nth(map-get($colors, light-black), 1);
+$nero: nth(map-get($colors, nero), 1);
+$charcoal: nth(map-get($colors, charcoal), 1);
+$dim-grey: nth(map-get($colors, dim-grey), 1);
+$grey: nth(map-get($colors, grey), 1);
+$dark-grey: nth(map-get($colors, dark-grey), 1);
+$light-grey: nth(map-get($colors, light-grey), 1);
+$very-light-grey: nth(map-get($colors, very-light-grey), 1);
+$gainsboro: nth(map-get($colors, gainsboro), 1);
+$white: nth(map-get($colors, white), 1);
 $dark-goldenrod: nth(map-get($colors, dark-goldenrod), 1);
 $moon-yellow: nth(map-get($colors, moon-yellow), 1);
 $turbo: nth(map-get($colors, turbo), 1);
@@ -163,7 +159,7 @@ $link-colors: (
   'link': $orange-peel,
   'visited': $husk,
   'hover': $tawny,
-  'active': $radical-red,
+  'active': $radical-red
 );
 
 // form elements colors ?
@@ -189,7 +185,7 @@ $breakpoints: (
   'xx-small': '0px',
   'small': '360px',
   'medium': '768px',
-  'large': '1024px',
+  'large': '1024px'
 );
 
 $app-max-width: 1400px;
