@@ -26,7 +26,7 @@
 // variables as class names
 //
 
-// generate colors as css class names
+// generate colors as CSS class names
 @each $color in map_keys($colors) {
   .color-#{unquote($color)} {
     color: map-get($colors, $color);
@@ -37,14 +37,21 @@
   }
 }
 
-// generate font-sizes as css class names
+// generate link colors as CSS class names
+@each $link-color in map_keys($link-colors) {
+  .link-color-#{unquote($link-color)} {
+    color: map-get($link-colors, $link-color);
+  }
+}
+
+// generate font-sizes as CSS class names
 @each $font in map_keys($font-sizes) {
   .font-size-#{unquote($font)} {
     font-size: map-get($font-sizes, $font);
   }
 }
 
-// generate font names as css class names
+// generate font names as CSS class names
 @each $font in map_keys($fonts) {
   $_font-names: map-keys($fonts);
 

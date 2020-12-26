@@ -3,27 +3,18 @@ import { SASSvarsToJason, kebapCaseToTitleCase } from '@app/utils/utils';
 import { FontInt, FontVariantType } from '@app/types/types';
 import Section from '@app/components/Reference/Section/Section';
 
+import Fonts from './Fonts/Fonts';
+import LinkColors from './LinkColors/LinkColors';
 import { fonts as SASSfonts } from './Typography.module.scss';
-import Font from './Font/Font';
 
 const formatFonts = (fonts) => {
   const formattedFonts: FontInt[] = [];
 
   Object.getOwnPropertyNames(fonts).forEach((fontFamily) => {
-    console.log('...', Object.getOwnPropertyNames(fonts[fontFamily]));
     const variants = fonts[fontFamily];
     const formattedVariants: FontVariantType[] = [];
 
-    console.log('variants: ', variants);
-
     Object.getOwnPropertyNames(variants).forEach((fontWeight) => {
-      // console.log(
-      //   'fontfamily: ',
-      //   fontFamily,
-      //   ',fontVariant: ',
-      //   fontWeight,
-      //   variants[fontWeight]
-      // );
       formattedVariants.push({
         variant: variants[fontWeight],
         variantName: kebapCaseToTitleCase(
@@ -51,8 +42,12 @@ const Typography: React.FC = () => {
       <Section heading="Fonts">
         {fonts &&
           fonts.map((font: FontInt, index) => (
-            <Font key={index} fontFamily={font} />
+            <Fonts key={index} fontFamily={font} />
           ))}
+      </Section>
+
+      <Section heading="Link Colors">
+        <LinkColors />
       </Section>
 
       <Section heading="Headings">

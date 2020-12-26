@@ -8,10 +8,12 @@ export const SASSvarsToJason = (sassVar: string) => {
   );
 };
 
-export const kebapCaseToTitleCase = (string) =>
+export const kebapCaseToTitleCase = (string: string) =>
   string
     .split('-')
     .map((word) => {
       return word.replace(word[0], word[0].toUpperCase());
     })
     .join(' ');
+
+export const importAll = (context) => context.keys().map(context);

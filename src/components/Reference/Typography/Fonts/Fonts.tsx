@@ -9,7 +9,7 @@ import {
   sizeText,
   sizeDetail,
   fontSizes as SASSfontSizes
-} from './Font.module.scss';
+} from './Fonts.module.scss';
 
 interface variantProps {
   addComma: boolean;
