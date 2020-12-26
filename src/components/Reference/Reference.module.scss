@@ -72,15 +72,16 @@ body {
   justify-content: flex-start;
 
   &-item {
-    margin: 4px;
+    margin: 8px;
     text-align: center;
     display: flex;
     flex-direction: column;
     border: 1px solid $very-light-grey;
     position: relative;
 
-    &:first-child {
-      margin: 4px; // overrides default
+    &:first-child,
+    &:last-child {
+      margin: 8px; // overrides default
     }
 
     &:hover {
@@ -99,8 +100,8 @@ body {
 
     &-detail {
       margin: 0 -1px -1px;
-      padding: 4px;
-      font-size: $font-size-tiny;
+      padding: 8px 10px;
+      font-size: $font-size-xxx-small;
       border-top: 1px solid $very-light-grey;
       flex-grow: 1;
 
@@ -120,6 +121,8 @@ body {
     }
 
     &-value {
+      font-size: $font-size-tiny;
+      letter-spacing: 0;
       display: block;
     }
   }

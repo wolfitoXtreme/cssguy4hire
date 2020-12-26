@@ -17,3 +17,18 @@ export const kebapCaseToTitleCase = (string: string) =>
     .join(' ');
 
 export const importAll = (context) => context.keys().map(context);
+
+export const getFileName = (
+  path: string
+): { file: string; fileName: string } => {
+  const file = path.replace(
+    /(\/static\/media\/)([a-z0-9-]+)(.[a-z0-9]+)(.[a-z]+)/,
+    '$2$4'
+  );
+  const fileName = file.replace(/([a-z0-9-]+)(.[a-z]+)/, '$1');
+
+  return {
+    file: file,
+    fileName: fileName
+  };
+};

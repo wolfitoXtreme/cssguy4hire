@@ -1,19 +1,20 @@
 @import '~@styles/config/variables';
 
 .grid {
-  &-images {
+  &-icons {
     justify-content: center;
   }
 
   &-thumb {
-    &-image {
+    &-icon {
       padding: 14px;
       background-color: $gainsboro;
-    }
 
-    &-img {
-      height: auto;
-      max-width: 150px;
+      svg {
+        min-width: 60px;
+        min-height: 60px;
+        max-width: none;
+      }
     }
   }
 }

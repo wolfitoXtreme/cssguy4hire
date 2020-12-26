@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import Typography from './Typography/Typography';
 import Colors from './Colors/Colors';
 import Images from './Images/Images';
+import Icons from './Icons/Icons';
 import { reference } from './Reference.module.scss';
 
 interface ReferenceInt {
@@ -19,6 +20,7 @@ const Reference: React.FC<ReferenceInt> = ({ setBodyStyles }) => {
       <Typography />
       <Colors />
       <Images />
+      <Icons />
     </>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { importAll } from '@app/utils/utils';
-import Section from '@app/components/Reference/Section/Section';
 import classNames from 'classnames';
+import { importAll, getFileName } from '@app/utils/utils';
+import Section from '@app/components/Reference/Section/Section';
 import {
   grid,
   gridItem,
@@ -17,18 +17,12 @@ const images = importAll(
   require.context('@app/assets/images/', false, /\.(png|jpe?g|svg)$/)
 );
 
-const Image: React.FC<{ imageFile: string }> = ({ imageFile }) => {
+const Image: React.FC<{ path: string }> = ({ path }) => {
   const [dimensions, setDimensions] = useState<{
     width: number;
     height: number;
   }>({ width: 0, height: 0 });
   const imageRef = useRef<HTMLImageElement>(null);
-
-  const fileName = imageFile.replace(
-    /(\/static\/media\/)([a-z0-9-]+)(.[a-z0-9]+)(.[a-z]+)/,
-    '$2$4'
-  );
-  const imageName = fileName.replace(/([a-z0-9-]+)(.[a-z]+)/, '$1');
 
   const handleSize = (imageRef) => {
     if (imageRef.current !== null) {
@@ -39,12 +33,14 @@ const Image: React.FC<{ imageFile: string }> = ({ imageFile }) => {
     }
   };
 
+  const { file: imageFile, fileName: imageName } = getFileName(path);
+
   return (
     <div className={gridItem}>
       <div className={classNames(gridThumb, gridThumbImage)}>
         <img
           ref={imageRef}
-          src={imageFile}
+          src={path}
           alt="tex text"
           onLoad={() => handleSize(imageRef)}
           className={gridThumbImg}
@@ -52,7 +48,7 @@ const Image: React.FC<{ imageFile: string }> = ({ imageFile }) => {
       </div>
       <div className={gridThumbDetail}>
         <span className={gridThumbName}>{imageName}</span>
-        <span className={gridThumbValue}>({fileName})</span>
+        <span className={gridThumbValue}>({imageFile})</span>
         <span className={gridThumbValue}>
           {dimensions.width}px {dimensions.height}px
         </span>
@@ -68,11 +64,10 @@ const Images: React.FC = () => {
         <>
           <div className={classNames(grid, gridImages)}>
             {images.map((image, index) => {
-              const { default: imageFile } = image;
-              return <Image key={index} imageFile={imageFile} />;
+              const { default: imageFilePath } = image;
+              return <Image key={index} path={imageFilePath} />;
             })}
           </div>
-          <pre>{JSON.stringify(images, null, 2)}</pre>
         </>
       )) || <p>No images defined for this project</p>}
     </Section>
