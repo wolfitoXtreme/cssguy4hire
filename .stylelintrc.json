@@ -4,6 +4,10 @@
   "rules": {
     "declaration-block-no-duplicate-properties": true,
     "declaration-no-important": true,
+    "rule-empty-line-before": [
+      "always",
+      { "ignore": ["after-comment", "first-nested"] }
+    ],
     "font-family-no-missing-generic-family-keyword": [
       true,
       {
@@ -17,17 +21,6 @@
       }
     ],
     "at-rule-no-unknown": null,
-    "scss/at-rule-no-unknown": true,
-    "scss/dollar-variable-first-in-block": [
-      true,
-      { "ignore": ["comments", "imports"] }
-    ],
-    "scss/dollar-variable-empty-line-after": [
-      "always",
-      {
-        "except": ["before-dollar-variable"]
-      }
-    ],
     "order/order": ["custom-properties", "declarations"],
     "order/properties-order": [
       "content",
@@ -169,6 +162,31 @@
       "page-break-inside",
       "background-color",
       "box-shadow"
+    ],
+    "scss/at-rule-no-unknown": true,
+    "scss/dollar-variable-first-in-block": [
+      true,
+      { "ignore": ["comments", "imports"] }
+    ],
+    "scss/dollar-variable-empty-line-after": [
+      "always",
+      {
+        "except": ["before-dollar-variable", "last-nested"]
+      }
+    ],
+    "scss/dollar-variable-empty-line-before": [
+      "always",
+      {
+        "except": ["first-nested", "after-comment", "after-dollar-variable"],
+        "ignore": ["inside-single-line-block"]
+      }
+    ],
+    "scss/double-slash-comment-empty-line-before": [
+      "always",
+      {
+        "except": ["first-nested"],
+        "ignore": ["between-comments", "stylelint-commands"]
+      }
     ]
   }
 }

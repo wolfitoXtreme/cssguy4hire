@@ -10,14 +10,14 @@
 @mixin queryInfo($breakpoints: $breakpoints) {
   @if $debug == true {
     &:after {
-      padding: 0.2rem;
       right: 0;
       bottom: 0;
+      padding: 0.2rem;
       color: #fff;
       display: block;
-      background-color: #000000;
       position: fixed;
       z-index: 200;
+      background-color: #000000;
       @each $breakpoint in map_keys($breakpoints) {
         @include breakpoint(map-get($breakpoints, $breakpoint)) {
           content: '#{$breakpoint} - #{map-get($breakpoints, $breakpoint)}';
@@ -37,9 +37,9 @@
   } @else {
     width: 0;
     height: 0;
-    position: absolute;
-    overflow: hidden;
     opacity: 0;
+    overflow: hidden;
+    position: absolute;
     z-index: -1;
   }
 }

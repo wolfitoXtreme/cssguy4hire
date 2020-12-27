@@ -1,7 +1,6 @@
 //
 // typography
 //
-
 $_heading-tags: h1, h2, h3, h4, h5, h6;
 $_text-block-tags: p, ul, ol, dl, pre, address, blockquote, table;
 $_block-tags: article, aside, canvas, div, fieldset, figure, form, hgroup,
@@ -141,8 +140,6 @@ h2 {
   @include breakpoint(map-get($breakpoints, medium)) {
     margin: ($font-size-massive / 2) 0 0;
     font-size: $font-size-massive;
-    // text-shadow: -3px -2px 0 rgba(0, 0, 0, 0.30);
-
     text-shadow: -3px -2px 0 rgba(0, 0, 0, 0.2), -3px 0px 0 rgba(0, 0, 0, 0.2),
       0px -2px 0 rgba(0, 0, 0, 0.2);
   }
@@ -548,12 +545,15 @@ a {
   &:link {
     color: map-get($link-colors, link);
   }
+
   &:visited {
     color: map-get($link-colors, visited);
   }
+
   &:hover {
     color: map-get($link-colors, hover);
   }
+
   &:active,
   &:focus {
     color: map-get($link-colors, active);

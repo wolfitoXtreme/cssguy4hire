@@ -60,7 +60,6 @@ $font-sizes: (
   gigantic: 72px,
   humongous: 82px
 );
-
 $font-size-micro: nth(map-get($font-sizes, micro), 1);
 $font-size-tiny: nth(map-get($font-sizes, tiny), 1);
 $font-size-xxx-small: nth(map-get($font-sizes, xxx-small), 1);
@@ -91,7 +90,6 @@ $line-height-default: 1.15;
 //
 // colors
 // ----------------
-
 $colors: (
   black: #000000,
   light-black: #060606,
@@ -123,7 +121,6 @@ $colors: (
   radical-red: #f93c5d,
   husk: #b48a4b
 );
-
 $black: nth(map-get($colors, black), 1);
 $light-black: nth(map-get($colors, light-black), 1);
 $nero: nth(map-get($colors, nero), 1);
@@ -180,12 +177,10 @@ $default-delay: 100ms;
 //
 // layout
 // ----------------
-
 $breakpoints: (
   'xx-small': '0px',
   'small': '360px',
   'medium': '768px',
   'large': '1024px'
 );
-
 $app-max-width: 1400px;
