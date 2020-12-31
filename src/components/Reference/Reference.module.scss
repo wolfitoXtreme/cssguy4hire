@@ -3,6 +3,9 @@
 //
 @import '~@styles/config/variables';
 
+// default font color
+$font-color-default: $black;
+
 //
 // Reference Styles
 //
@@ -15,7 +18,7 @@ body {
   }
 
   &.reference {
-    color: $black;
+    color: $font-color-default;
     background-color: $light-grey;
 
     //
@@ -30,13 +33,13 @@ body {
     h5,
     h6 {
       text-shadow: none; // remove default shadows
-      color: $black; // override default color (for legibility)
+      color: $font-color-default; // override default color (for legibility)
     }
 
     // ordered lits items
     ol > li {
       &:before {
-        color: $black;
+        color: $font-color-default;
       }
     }
 

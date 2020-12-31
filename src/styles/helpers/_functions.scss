@@ -22,3 +22,25 @@
 
   @return $pxVal / $base * 1em;
 }
+
+// get percentage from (return unitless value)
+@function getPercentageFrom($valueA, $valueB) {
+  $percentage: percentage(strip-units($valueA) / strip-units($valueB));
+
+  @return ($percentage);
+}
+
+// get proportional size
+@function getProportionalSize($value, $stretch) {
+  $proportionalSize: ($value * strip-units($stretch)) / 100;
+
+  @return ($proportionalSize);
+}
+
+// stretch by size
+@function stretchBySize($valueA, $valueB, $newA) {
+  $stretch: getPercentageFrom($newA, $valueA);
+  $newB: round(getProportionalSize($valueB, $stretch));
+
+  @return ($newB);
+}

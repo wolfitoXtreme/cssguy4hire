@@ -9,7 +9,7 @@ $_text-block-and-block-tags: join($_text-block-tags, $_block-tags);
 $_heading-and-block-tags: join($_heading-tags, $_block-tags);
 
 html {
-  font-family: unquote($default-font + ', ' + $default-font-fallback);
+  font-family: $default-font-family;
   font-size: pem($font-size-default);
 }
 
@@ -17,7 +17,7 @@ body {
   font-size: $font-size-xx-small;
   letter-spacing: -0.028em;
   line-height: $line-height-default;
-  color: $white;
+  color: $font-color-default;
 
   @include breakpoint(map-get($breakpoints, small)) {
     font-size: $font-size-small;

@@ -48,6 +48,7 @@
       "font",
       "font-family",
       "font-size",
+      "font-weight",
       "letter-spacing",
       "line-height",
       "text-align",

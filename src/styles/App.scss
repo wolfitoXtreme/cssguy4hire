@@ -65,8 +65,8 @@
     $_font-name: map-deep-get($fonts, $font, $font-weight);
 
     .font-family-#{unquote($_font-name)} {
-      font-weight: $font-weight;
       font-family: unquote($font);
+      font-weight: $font-weight;
     }
   }
 }

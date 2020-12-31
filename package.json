@@ -16,6 +16,7 @@
     "@types/node": "^14.14.14",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "@types/webpack-env": "^1.16.0",
     "@typescript-eslint/eslint-plugin": "^4.5.0",
     "@typescript-eslint/parser": "^4.5.0",
     "babel-eslint": "^10.1.0",
@@ -79,7 +80,6 @@
     "workbox-webpack-plugin": "5.1.4"
   },
   "devDependencies": {
-    "@types/webpack-env": "^1.16.0",
     "babel-plugin-root-import": "^6.6.0",
     "breakpoint-sass": "^2.7.1",
     "classnames": "^2.2.6",

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { ReactSVG } from 'react-svg';
 import classNames from 'classnames';
 import { getFileName, importAll } from '@app/utils/utils';
@@ -37,19 +37,24 @@ const Icon: React.FC<{ path: string }> = ({ path }) => {
               return;
             }
             svg?.addEventListener('load', () => {
-              setDimensions({
-                width: svg.getAttribute('width'),
-                height: svg.getAttribute('height')
-              });
+              // TODO - is this correct/necessary, not always getting icon dimensions
+              setTimeout(() => {
+                setDimensions({
+                  width: svg.getAttribute('width'),
+                  height: svg.getAttribute('height')
+                });
+              }, 100);
             });
           }}
         />
       </div>
       <div className={gridThumbDetail}>
         <span className={gridThumbName}>{iconName}</span>
-        <span className={gridThumbValue}>
-          {dimensions.width} {dimensions.height}
-        </span>
+        {dimensions && (
+          <span className={gridThumbValue}>
+            {dimensions.width} {dimensions.height}
+          </span>
+        )}
       </div>
     </div>
   );
