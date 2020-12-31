@@ -3,7 +3,9 @@
 .block {
   margin-bottom: 15px;
   padding: 15px 15px 30px;
-  background-color: $white;
+  background-color: #6f283b;
+
+  // background-color: $white;
   box-shadow: 1px 1px 10px $dark-grey;
 
   &:last-child {

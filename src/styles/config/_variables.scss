@@ -163,12 +163,52 @@ $link-colors: (
   'active': $radical-red
 );
 
-// form elements colors ?
+// form elements colors
+$field-colors: (
+  field: (
+    color: $white,
+    background: $pohutukawa,
+    border: $turkish-rose,
+    place-holder: $dark-grey
+  ),
+  hover: (
+    color: $white,
+    background: $white,
+    border: rgba($white, 0.7)
+  ),
+  active: (
+    color: $white,
+    background: $scarlett,
+    border: rgba($white, 0.7),
+    // pass the whole shadow parameters
+    shadow: 2px 2px 4px 0 rgba($scarlett, 0.4)
+  )
+);
 
 // error color
 $error-color: $safety-orange;
 
-// button colors ?
+// button
+$btn-colors: (
+  default: (
+    color: $white,
+    background: $siren,
+    border: rgba($white, 0.32),
+    icon: rgba($white, 0.32),
+    hover-color: $white,
+    hover-background: rgba($white, 0.08),
+    hover-border: rgba($white, 0.7),
+    hover-icon: rgba($white, 0.7)
+  ),
+  reset: (
+    color: rgba($white, 0.32),
+    background: $siren,
+    border: rgba($white, 0.1),
+    hover-color: $white,
+    hover-background: rgba($white, 0.08),
+    hover-border: $white
+  )
+);
 
 //
 // transitions

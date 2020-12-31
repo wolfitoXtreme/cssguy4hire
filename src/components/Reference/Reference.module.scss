@@ -17,6 +17,18 @@ body {
     padding: 15px;
   }
 
+  //
+  // forms
+  //
+
+  // label
+  // TODO - overrides default color for label animation
+  label[data-shrink='true'] {
+    &:before {
+      // color: $font-color-default !important;
+    }
+  }
+
   &.reference {
     color: $font-color-default;
     background-color: $light-grey;

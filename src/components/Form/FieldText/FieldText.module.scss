@@ -1,0 +1,244 @@
+@import '~@styles/config/variables';
+@import '~@styles/helpers/functions';
+@import '~breakpoint-sass/stylesheets/breakpoint';
+
+$label-padding: 0 0 4px;
+$label-color: $white;
+$placeholder-opacity: 0.6;
+$input-padding: 7px 10px 7px;
+$input-border-width: 2px;
+$input-border-color: map-deep-get($field-colors, field, border);
+$input-border-color-hover: map-deep-get($field-colors, hover, border);
+$disabled-field-opacity: 0.4;
+
+@mixin font-input {
+  font-family: unquote($default-font + ', ' + $default-font-fallback);
+  font-size: $font-size-xx-small;
+  letter-spacing: -0.012em;
+  line-height: $line-height-default;
+  color: map-deep-get($field-colors, field, color);
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    font-size: $font-size-small;
+  }
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    font-size: $font-size-normal;
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    font-size: $font-size-x-large;
+  }
+
+  // max height adjustments
+  @include breakpoint(orientation landscape) {
+    @include breakpoint(map-get($breakpoints, small) (max-height 400px)) {
+      font-size: $font-size-xx-small;
+    }
+
+    @include breakpoint(map-get($breakpoints, medium) (max-height 440px)) {
+      font-size: $font-size-small;
+    }
+
+    @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
+      font-size: $font-size-normal;
+    }
+  }
+}
+
+@mixin font-label {
+  font-family: unquote($default-font + ', ' + $default-font-fallback);
+  font-size: $font-size-tiny;
+  letter-spacing: -0.002em;
+  line-height: $line-height-default;
+  color: rgba($label-color, 0.6);
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    font-size: $font-size-xx-small;
+  }
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    font-size: $font-size-x-small;
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    font-size: $font-size-normal;
+  }
+
+  // max height adjustments
+  @include breakpoint(orientation landscape) {
+    @include breakpoint(map-get($breakpoints, small) (max-height 400px)) {
+      font-size: $font-size-tiny;
+    }
+
+    @include breakpoint(map-get($breakpoints, medium) (max-height 440px)) {
+      font-size: $font-size-xx-small;
+    }
+
+    @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
+      font-size: $font-size-x-small;
+    }
+  }
+}
+
+.field-wrapper {
+  &#{&} {
+    content: 'filed text wrapper';
+    padding-bottom: 7px;
+  }
+}
+
+.field-label {
+  &#{&} {
+    @include font-label;
+    padding: $label-padding;
+    transform: none;
+    position: relative;
+
+    &-disabled {
+      opacity: $disabled-field-opacity;
+    }
+
+    &-focused {
+      &#{&} {
+        color: $white;
+      }
+    }
+
+    &-shrink {
+      &#{&} {
+        color: transparent;
+        pointer-events: auto;
+        transform: none;
+
+        &:before,
+        &:after {
+          @include font-label;
+
+          top: 0;
+          left: 0;
+          padding: 0;
+          width: 100%;
+          height: 100%;
+          max-height: none;
+          white-space: normal;
+          color: $white;
+          opacity: 1;
+          border-width: 0;
+        }
+      }
+    }
+
+    &-outlined {
+      content: '';
+    }
+
+    &-animated {
+      color: transparent;
+      pointer-events: none;
+
+      &:before {
+        @include font-input;
+
+        content: attr(data-text);
+        top: 100%;
+        left: nth($input-padding, 2);
+        padding: nth($input-padding, 1) nth($input-padding, 2)
+          nth($input-padding, 1) 0;
+        width: calc(100% - #{nth($input-padding, 2)});
+        height: calc(100% + #{(nth($input-padding, 1) * 2)});
+        max-height: 28px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
+        box-sizing: border-box;
+        opacity: $placeholder-opacity - 0.2;
+        overflow: hidden;
+        border-width: 0;
+        transition-duration: 200ms;
+        transition-property: top, left, padding, height, font-size, font-weight,
+          letter-spacing, color, opacity;
+        transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+        position: absolute;
+
+        @include breakpoint(map-get($breakpoints, small)) {
+          max-height: 31px;
+        }
+
+        @include breakpoint(map-get($breakpoints, medium)) {
+          max-height: 32px;
+        }
+
+        @include breakpoint(map-get($breakpoints, large)) {
+          max-height: 39px;
+        }
+      }
+    }
+  }
+}
+
+.field-input {
+  &#{&} {
+    font-size: inherit;
+    border-radius: 5px;
+    background-color: map-deep-get($field-colors, field, background);
+
+    .field-input-outlined {
+      top: 0;
+      border: $input-border-width solid $input-border-color;
+
+      legend {
+        // remove MUI animated labels
+        display: none;
+      }
+    }
+
+    &:hover {
+      .field-input-outlined {
+        border-color: $input-border-color-hover;
+
+        // border-color: blue;
+      }
+    }
+
+    &-focused {
+      background-color: map-deep-get($field-colors, active, background);
+
+      // hard MUI override
+      .field-input-outlined.field-input-outlined {
+        border-color: $input-border-color-hover;
+      }
+    }
+
+    &-disabled {
+      opacity: $disabled-field-opacity;
+    }
+
+    &.field-input-disabled {
+      .field-input-outlined {
+        border-color: rgba($black, 0.5);
+      }
+    }
+
+    &-multiline {
+      padding: 0;
+    }
+  }
+}
+
+.input {
+  &#{&} {
+    @include font-input;
+
+    margin: 0;
+    padding: $input-padding;
+    height: auto;
+    box-sizing: border-box;
+
+    &::placeholder,
+    &[placeholder] {
+      text-overflow: ellipsis;
+      opacity: $placeholder-opacity;
+    }
+  }
+}

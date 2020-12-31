@@ -1,0 +1,154 @@
+@import '~@styles/config/variables';
+@import '~@styles/helpers/functions';
+@import '~@styles/helpers/mixins';
+
+//clear fix
+@mixin buttonIcon($icon-width, $icon-padding-left) {
+  $width: 10px;
+  $height: 19px;
+  $icon-height: stretchBySize($width, $height, $icon-width);
+
+  margin-right: -($icon-padding-left);
+
+  > *:first-child {
+    width: $icon-width;
+    height: $icon-height;
+  }
+}
+
+.button {
+  $margin: 4px;
+  $padding-x-small: 9px 20px 9px;
+  $padding-small: 9px 23px 9px;
+  $padding-medium: 11px 29px 11px;
+  $padding-large: 16px 39px 16px;
+
+  &-group {
+    margin-right: -$margin;
+    margin-left: -$margin;
+    text-align: right;
+  }
+
+  // .button.button
+  &#{&} {
+    margin: $margin;
+    padding: $padding-x-small;
+    border: 2px solid map-deep-get($btn-colors, default, border);
+    border-radius: 5px;
+    background-color: map-deep-get($btn-colors, default, background);
+
+    &:link,
+    &:visited {
+      color: map-deep-get($btn-colors, default, color);
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      border-color: map-deep-get($btn-colors, default, hover-border);
+      background-color: map-deep-get($btn-colors, default, hover-background);
+    }
+
+    &:active,
+    &:focus {
+      transform: scale(0.95);
+    }
+  }
+
+  &#{&} &-label {
+    padding: 0;
+    /*stylelint-disable font-family-no-missing-generic-family-keyword*/
+    font: normal #{$font-size-xx-small}/#{$line-height-default} oswald;
+    letter-spacing: -0.03em;
+    color: map-deep-get($btn-colors, default, color);
+
+    @include breakpoint(map-get($breakpoints, small)) {
+      font-size: $font-size-small;
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      font-size: $font-size-normal;
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+      font-size: $font-size-x-large;
+    }
+
+    // max height adjustments
+    @include breakpoint(orientation landscape) {
+      @include breakpoint(map-get($breakpoints, small) (max-height 340px)) {
+        font-size: $font-size-x-small;
+      }
+
+      @include breakpoint(map-get($breakpoints, medium) (max-height 440px)) {
+        font-size: $font-size-small;
+      }
+
+      @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
+        font-size: $font-size-normal;
+      }
+    }
+  }
+
+  &#{&} &-icon {
+    @include buttonIcon($icon-width: 6px, $icon-padding-left: 7px);
+
+    > *:first-child {
+      display: block;
+      fill: map-deep-get($btn-colors, default, icon);
+    }
+
+    @include breakpoint(map-get($breakpoints, small)) {
+      @include buttonIcon($icon-width: 7px, $icon-padding-left: 7px);
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      @include buttonIcon($icon-width: 7px, $icon-padding-left: 7px);
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+      @include buttonIcon($icon-width: 10px, $icon-padding-left: 7px);
+    }
+
+    // max height adjustments
+    @include breakpoint(orientation landscape) {
+      @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
+        @include buttonIcon($icon-width: 8px, $icon-padding-left: 7px);
+      }
+    }
+  }
+
+  @at-root .button.button:hover &-icon {
+    > *:first-child {
+      fill: map-deep-get($btn-colors, default, hover-icon);
+    }
+  }
+
+  // reset button
+  &#{&}[type='reset'] {
+    border-color: map-deep-get($btn-colors, reset, border);
+
+    &:link,
+    &:visited {
+      color: map-deep-get($btn-colors, reset, color);
+    }
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: map-deep-get($btn-colors, reset, hover-color);
+      border-color: map-deep-get($btn-colors, reset, hover-border);
+      background-color: map-deep-get($btn-colors, reset, hover-background);
+    }
+  }
+
+  &.button[type='reset'] &-label {
+    color: map-deep-get($btn-colors, reset, color);
+  }
+
+  &.button:hover[type='reset'] &-label,
+  &.button:active[type='reset'] &-label,
+  &.button:focus[type='reset'] &-label {
+    color: map-deep-get($btn-colors, reset, hover-color);
+  }
+}
