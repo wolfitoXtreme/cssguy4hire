@@ -117,7 +117,7 @@ $colors: (
   eternity: #272a26,
   oil: #252724,
   orange-peel: #fc9803,
-  safety-orange: #fc6103,
+  red: #f4120e,
   tawny: #d84f00,
   radical-red: #f93c5d,
   husk: #b48a4b
@@ -147,7 +147,7 @@ $pohutukawa: nth(map-get($colors, pohutukawa), 1);
 $eternity: nth(map-get($colors, eternity), 1);
 $oil: nth(map-get($colors, oil), 1);
 $orange-peel: nth(map-get($colors, orange-peel), 1);
-$safety-orange: nth(map-get($colors, safety-orange), 1);
+$red: nth(map-get($colors, red), 1);
 $tawny: nth(map-get($colors, tawny), 1);
 $radical-red: nth(map-get($colors, radical-red), 1);
 $husk: nth(map-get($colors, husk), 1);
@@ -186,7 +186,7 @@ $field-colors: (
 );
 
 // error color
-$error-color: $safety-orange;
+$error-color: $red;
 
 // button
 $btn-colors: (

@@ -1,19 +1,9 @@
-import React, { useState } from 'react';
-import FieldText from '@app/components/Form/FieldText/FieldText';
-import MenuItem from '@material-ui/core/MenuItem';
+import React from 'react';
+import InputSelectField from '@app/components/Form/InputSelectField/InputSelectField';
+import { mustNotBeEmpty } from '@app/utils/validators';
 
 const SelectFields: React.FC<{ disabled?: boolean }> = ({ disabled }) => {
-  const [selectValue, setSelectValue] = useState('');
-  const handleSelectChange = (event) => {
-    console.log('event.target.value: ', event.target.value);
-    setSelectValue(event.target.value);
-  };
-
   const options = [
-    {
-      value: '',
-      label: 'Choose an option'
-    },
     {
       value: 'option-a',
       label: 'Option A'
@@ -48,25 +38,27 @@ const SelectFields: React.FC<{ disabled?: boolean }> = ({ disabled }) => {
     <>
       <h5>Select fields</h5>
       <div>
-        <FieldText
-          id={'select-input-field' + (disabled ? '-disabled' : '')}
-          placeholder={
-            'Select field placeholder' + (disabled ? ' disabled' : '')
-          }
+        <InputSelectField
+          fieldName={'select-input-label' + (disabled ? '-disabled' : '')}
+          label={'Select Input with label' + (disabled ? '-disabled' : '')}
+          defaultOption="Please select an option"
           fullWidth
-          shrink
-          select
-          label={'Select field label' + (disabled ? ' disabled' : '')}
-          value={selectValue}
-          onChange={handleSelectChange}
+          options={options}
+          disableAnimation
+          validators={[mustNotBeEmpty]}
           disabled={disabled}
-        >
-          {options.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </FieldText>
+        />
+        <InputSelectField
+          fieldName={
+            'select-input-label-animated' + (disabled ? '-disabled' : '')
+          }
+          label={'Please select an option' + (disabled ? '-disabled' : '')}
+          defaultOption="Please select an option"
+          fullWidth
+          options={options}
+          validators={[mustNotBeEmpty]}
+          disabled={disabled}
+        />
       </div>
     </>
   );

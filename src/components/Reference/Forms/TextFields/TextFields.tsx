@@ -1,36 +1,36 @@
 import React from 'react';
-import FieldText from '@app/components/Form/FieldText/FieldText';
+import { mustNotBeEmpty } from '@app/utils/validators';
+import InputTextField from '@app/components/Form/InputTextField/InputTextField';
 
 const TextFields: React.FC<{ disabled?: boolean }> = ({ disabled }) => (
   <>
     <h5>Text fields</h5>
     <div>
-      {(disabled && (
-        <FieldText
-          id="text-input-label-disabled"
-          placeholder="Text Input with label disabled"
+      <>
+        <InputTextField
+          fieldName={'text-input-label' + (disabled ? '-disabled' : '')}
+          label={'Text Input with label' + (disabled ? '-disabled' : '')}
+          placeholder={
+            'Placeholder for Text Input with label' +
+            (disabled ? '-disabled' : '')
+          }
           fullWidth
-          shrink
-          label="Text Input disabled"
-          disabled
+          disableAnimation
+          validators={[mustNotBeEmpty]}
+          disabled={disabled}
         />
-      )) || (
-        <>
-          <FieldText placeholder="Text Input" id="text-input" fullWidth />
-          <FieldText
-            id="text-input-label"
-            placeholder="Text Input with label"
-            fullWidth
-            shrink
-            label="Text Input"
-          />
-          <FieldText
-            id="text-input-label-animated"
-            fullWidth
-            label="Text Input with animated label"
-          />
-        </>
-      )}
+        <InputTextField
+          fieldName={
+            'text-input-label-animated' + (disabled ? '-disabled' : '')
+          }
+          label={
+            'Text Input with animated label' + (disabled ? '-disabled' : '')
+          }
+          fullWidth
+          validators={[mustNotBeEmpty]}
+          disabled={disabled}
+        />
+      </>
     </div>
   </>
 );

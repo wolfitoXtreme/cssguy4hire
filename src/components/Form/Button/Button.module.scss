@@ -2,7 +2,6 @@
 @import '~@styles/helpers/functions';
 @import '~@styles/helpers/mixins';
 
-//clear fix
 @mixin buttonIcon($icon-width, $icon-padding-left) {
   $width: 10px;
   $height: 19px;
@@ -22,6 +21,8 @@
   $padding-small: 9px 23px 9px;
   $padding-medium: 11px 29px 11px;
   $padding-large: 16px 39px 16px;
+  $disabled-opacity: 0.4;
+  $border-width: 2px;
 
   &-group {
     margin-right: -$margin;
@@ -33,7 +34,7 @@
   &#{&} {
     margin: $margin;
     padding: $padding-x-small;
-    border: 2px solid map-deep-get($btn-colors, default, border);
+    border: $border-width solid map-deep-get($btn-colors, default, border);
     border-radius: 5px;
     background-color: map-deep-get($btn-colors, default, background);
 
@@ -53,11 +54,22 @@
     &:focus {
       transform: scale(0.95);
     }
+
+    &#{&}-disabled {
+      opacity: 0.5;
+      border: $border-width solid map-deep-get($btn-colors, default, border);
+    }
+
+    &-outlined {
+      &.button-disabled {
+        border-width: $border-width;
+      }
+    }
   }
 
   &#{&} &-label {
     padding: 0;
-    /*stylelint-disable font-family-no-missing-generic-family-keyword*/
+    /*stylelint-disable-next-line font-family-no-missing-generic-family-keyword*/
     font: normal #{$font-size-xx-small}/#{$line-height-default} oswald;
     letter-spacing: -0.03em;
     color: map-deep-get($btn-colors, default, color);
@@ -87,6 +99,13 @@
       @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
         font-size: $font-size-normal;
       }
+    }
+  }
+
+  /*stylelint-disable-next-line no-duplicate-selectors*/
+  &#{&} {
+    &-disabled .button-label {
+      opacity: 0.5;
     }
   }
 

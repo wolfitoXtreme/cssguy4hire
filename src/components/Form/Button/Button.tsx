@@ -2,7 +2,12 @@ import React from 'react';
 import { Button as MUIButton, ButtonProps } from '@material-ui/core/';
 import { ReactComponent as IconArrow } from '@app/assets/icons/icon-button-arrow.svg';
 
-import { button, buttonLabel, buttonIcon } from './Button.module.scss';
+import {
+  button,
+  buttonDisabled,
+  buttonLabel,
+  buttonIcon
+} from './Button.module.scss';
 
 // interface ButtonInt {
 //   variant?: 'contained' | 'outlined' | 'text';
@@ -22,7 +27,8 @@ const Button: React.FC<ButtonInt> = ({
       classes={{
         outlined: button,
         label: buttonLabel,
-        endIcon: buttonIcon
+        endIcon: buttonIcon,
+        disabled: buttonDisabled
       }}
       variant={variant}
       endIcon={icon && <IconArrow />}
