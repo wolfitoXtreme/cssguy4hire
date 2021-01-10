@@ -1,5 +1,5 @@
 import React from 'react';
-import InputSelectField from '@app/components/Form/InputSelectField/InputSelectField';
+import InputField from '@app/components/Form/InputField/InputField';
 import { mustNotBeEmpty } from '@app/utils/validators';
 
 const SelectFields: React.FC<{ disabled?: boolean }> = ({ disabled }) => {
@@ -38,7 +38,8 @@ const SelectFields: React.FC<{ disabled?: boolean }> = ({ disabled }) => {
     <>
       <h5>Select fields</h5>
       <div>
-        <InputSelectField
+        <InputField
+          type="select"
           fieldName={'select-input-label' + (disabled ? '-disabled' : '')}
           label={'Select Input with label' + (disabled ? '-disabled' : '')}
           defaultOption="Please select an option"
@@ -48,7 +49,8 @@ const SelectFields: React.FC<{ disabled?: boolean }> = ({ disabled }) => {
           validators={[mustNotBeEmpty]}
           disabled={disabled}
         />
-        <InputSelectField
+        <InputField
+          type="select"
           fieldName={
             'select-input-label-animated' + (disabled ? '-disabled' : '')
           }

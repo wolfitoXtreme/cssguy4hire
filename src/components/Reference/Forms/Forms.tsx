@@ -25,10 +25,10 @@ const Forms: React.FC = () => {
               <TextFields />
               <TextAreaFields />
               <SelectFields />
-              {/*<RadioButtons />
-              <CheckBoxes /> */}
+              <RadioButtons />
+              <CheckBoxes />
               <Buttons />
-              {/* {JSON.stringify(values, null, 2)} */}
+              {JSON.stringify(values, null, 2)}
             </form>
           )}
         />
@@ -41,8 +41,8 @@ const Forms: React.FC = () => {
               <TextFields disabled />
               <TextAreaFields disabled />
               <SelectFields disabled />
-              {/* <RadioButtons disabled />
-              <CheckBoxes disabled /> */}
+              <RadioButtons disabled />
+              <CheckBoxes disabled />
               <Buttons disabled />
             </form>
           )}

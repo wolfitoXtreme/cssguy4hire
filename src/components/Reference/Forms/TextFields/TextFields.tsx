@@ -1,13 +1,14 @@
 import React from 'react';
 import { mustNotBeEmpty } from '@app/utils/validators';
-import InputTextField from '@app/components/Form/InputTextField/InputTextField';
+import InputField from '@app/components/Form/InputField/InputField';
 
 const TextFields: React.FC<{ disabled?: boolean }> = ({ disabled }) => (
   <>
     <h5>Text fields</h5>
     <div>
       <>
-        <InputTextField
+        <InputField
+          type="text"
           fieldName={'text-input-label' + (disabled ? '-disabled' : '')}
           label={'Text Input with label' + (disabled ? '-disabled' : '')}
           placeholder={
@@ -19,7 +20,8 @@ const TextFields: React.FC<{ disabled?: boolean }> = ({ disabled }) => (
           validators={[mustNotBeEmpty]}
           disabled={disabled}
         />
-        <InputTextField
+        <InputField
+          type="text"
           fieldName={
             'text-input-label-animated' + (disabled ? '-disabled' : '')
           }

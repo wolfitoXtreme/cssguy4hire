@@ -1,44 +1,37 @@
-import { Checkbox, FormControlLabel } from '@material-ui/core';
-import React, { useState } from 'react';
+import React from 'react';
+import { mustNotBeEmpty } from '@app/utils/validators';
+import InputChoiceButton from '@app/components/Form/InputChoiceButton/InputChoiceButton';
 
-const CheckBoxes: React.FC<{ disabled?: boolean }> = () => {
-  const [checkBoxValue, setCheckboxValue] = useState({
-    checkedA: true
-  });
+const fieldName = 'check-box-input';
 
-  const handleCheckBoxChange = (event) => {
-    setCheckboxValue({
-      ...checkBoxValue,
-      [event.target.name]: event.target.checked
-    });
-  };
+const CheckBoxes: React.FC<{ disabled?: boolean }> = ({ disabled }) => {
+  const options = [
+    {
+      value: 'CheckBoxA-value',
+      label: 'Check Box field A'
+    },
+    {
+      value: 'CheckBoxB-value',
+      label: 'Check Box field B'
+    },
+    {
+      value: 'CheckBoxC-value',
+      label: 'Check Box field C'
+    }
+  ];
 
   return (
     <>
-      {' '}
-      <h5>Check-boxes</h5>
+      <h5>Checkboxes</h5>
       <div>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={checkBoxValue.checkedA}
-              onChange={handleCheckBoxChange}
-              name="checkedA"
-            />
-          }
-          label="Secondary"
-        />
-        <FormControlLabel
-          control={<Checkbox onChange={handleCheckBoxChange} name="checkedB" />}
-          label="Secondary"
-        />
-        <FormControlLabel
-          control={<Checkbox onChange={handleCheckBoxChange} name="checkedC" />}
-          label="Secondary"
-        />
-        <FormControlLabel
-          control={<Checkbox onChange={handleCheckBoxChange} name="checkedD" />}
-          label="Secondary"
+        <InputChoiceButton
+          type="checkbox"
+          label="Checkboxes with label"
+          fieldName={fieldName}
+          options={options}
+          validators={[mustNotBeEmpty]}
+          defaultValue={options[0].value}
+          disabled={disabled}
         />
       </div>
     </>

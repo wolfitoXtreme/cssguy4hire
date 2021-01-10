@@ -4,7 +4,7 @@ export const composeValidators = (...validators) => (value) =>
 const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
 export const mustNotBeEmpty = (value) => {
-  if (!value) {
+  if (!value || value.length === 0) {
     return 'This field is required.';
   }
 };

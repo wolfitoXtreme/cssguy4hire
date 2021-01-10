@@ -1,65 +1,37 @@
-import React, { useState } from 'react';
-import { FormControlLabel, Radio } from '@material-ui/core';
+import React from 'react';
+import { mustNotBeEmpty } from '@app/utils/validators';
+import InputChoiceButton from '@app/components/Form/InputChoiceButton/InputChoiceButton';
+
+const fieldName = 'radio-input';
 
 const RadioButtons: React.FC<{ disabled?: boolean }> = ({ disabled }) => {
-  const [radioValue, setRadioValue] = useState('a');
+  const options = [
+    {
+      value: 'RadioButtonA-value',
+      label: 'Radio Button field A'
+    },
+    {
+      value: 'RadioButtonB-value',
+      label: 'Radio Button field B'
+    },
+    {
+      value: 'RadioButtonC-value',
+      label: 'Radio Button field C'
+    }
+  ];
 
-  const handleRadioChange = (event) => {
-    console.log('event.target.value: ', event.target.value);
-    setRadioValue(event.target.value);
-  };
   return (
     <>
       <h5>Radio buttons</h5>
       <div>
-        <FormControlLabel
-          value="female"
-          control={
-            <Radio
-              name="radio-button"
-              value="a"
-              checked={radioValue === 'a'}
-              onChange={handleRadioChange}
-            />
-          }
-          label="Female"
-        />
-        <FormControlLabel
-          value="male"
-          control={
-            <Radio
-              name="radio-button"
-              value="b"
-              checked={radioValue === 'b'}
-              onChange={handleRadioChange}
-            />
-          }
-          label="Male"
-        />
-        <FormControlLabel
-          value="other"
-          control={
-            <Radio
-              name="radio-button"
-              value="c"
-              checked={radioValue === 'c'}
-              onChange={handleRadioChange}
-            />
-          }
-          label="Other"
-        />
-        <FormControlLabel
-          value="disabled"
-          disabled
-          control={
-            <Radio
-              name="radio-button"
-              value="d"
-              checked={radioValue === 'ad'}
-              onChange={handleRadioChange}
-            />
-          }
-          label="(Disabled option)"
+        <InputChoiceButton
+          type="radiobutton"
+          label="Radio buttons with label"
+          fieldName={fieldName}
+          options={options}
+          defaultValue={options[0].value}
+          validators={[mustNotBeEmpty]}
+          disabled={disabled}
         />
       </div>
     </>
