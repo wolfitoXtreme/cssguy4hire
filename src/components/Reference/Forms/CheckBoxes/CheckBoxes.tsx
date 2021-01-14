@@ -26,8 +26,8 @@ const CheckBoxes: React.FC<{ disabled?: boolean }> = ({ disabled }) => {
       <div>
         <InputChoiceButton
           type="checkbox"
-          label="Checkboxes with label"
-          fieldName={fieldName}
+          fieldName={fieldName + (disabled ? '-disabled' : '')}
+          label={'Checkboxes with label' + (disabled ? ' disabled' : '')}
           options={options}
           validators={[mustNotBeEmpty]}
           defaultValue={options[0].value}

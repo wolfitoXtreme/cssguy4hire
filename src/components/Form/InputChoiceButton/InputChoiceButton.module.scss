@@ -1,3 +1,192 @@
-.radio-wrapper {
-  content: 'test';
+@import '~@styles/config/variables';
+@import '~@styles/helpers/functions';
+@import '~breakpoint-sass/stylesheets/breakpoint';
+
+$line-height: 1.28;
+$label-color: $white;
+$field-texts-opacity: 0.6;
+$radio-icon-size: 14px;
+$radio-icon-inner-size: 6px;
+
+@mixin icon {
+  &#{&} {
+    margin: 0 3px 0 0;
+    padding: 0;
+    width: $radio-icon-size;
+    height: $radio-icon-size;
+    align-self: flex-start;
+
+    & .choice-icon {
+      margin: 0 3px 0 0;
+      width: $radio-icon-size;
+      height: $radio-icon-size;
+      display: flex;
+      flex: 0 0 auto;
+      justify-content: center;
+      align-items: center;
+      align-self: flex-start;
+      border: 2px solid map-deep-get($field-colors, field, border);
+      border-radius: 50%;
+      position: relative;
+
+      &:before {
+        content: '';
+        width: $radio-icon-inner-size;
+        height: $radio-icon-inner-size;
+        display: block;
+        border-radius: 50%;
+        position: absolute;
+        background-color: rgba(map-deep-get($field-colors, field, border), 0.4);
+      }
+
+      svg {
+        display: none;
+      }
+
+      .choice:hover & {
+        border-color: map-deep-get($field-colors, active, border);
+      }
+
+      &-checked {
+        border-color: map-deep-get($field-colors, active, border);
+
+        &:before {
+          background-color: map-deep-get($field-colors, active, border);
+        }
+      }
+    }
+
+    @include breakpoint(map-get($breakpoints, small)) {
+      margin-top: 1px;
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      $radio-icon-size: 16px;
+      $radio-icon-inner-size: 8px;
+
+      width: $radio-icon-size;
+      height: $radio-icon-size;
+
+      & .choice-icon {
+        width: $radio-icon-size;
+        height: $radio-icon-size;
+
+        &:before {
+          width: $radio-icon-inner-size;
+          height: $radio-icon-inner-size;
+        }
+      }
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+      $radio-icon-size: 20px;
+      $radio-icon-inner-size: 10px;
+
+      width: $radio-icon-size;
+      height: $radio-icon-size;
+
+      & .choice-icon {
+        width: $radio-icon-size;
+        height: $radio-icon-size;
+
+        &:before {
+          width: $radio-icon-inner-size;
+          height: $radio-icon-inner-size;
+        }
+      }
+    }
+  }
+}
+
+.choices-wrapper {
+  width: 100%;
+  display: block;
+
+  // .choices-wrapper-label {
+  //   // flex: 1 0 100%;
+  //   background-color: pink;
+  // }
+}
+
+.choices-grid {
+  &#{&} {
+    margin: 0 -5px;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    // display: grid;
+    // grid-gap: 10px;
+    // grid-template-columns: 1fr;
+
+    // @include breakpoint(map-get($breakpoints, small)) {
+    //   grid-template-columns: 1fr 1fr;
+    // }
+
+    // @include breakpoint(map-get($breakpoints, medium)) {
+    //   grid-template-columns: 1fr 1fr 1fr;
+    // }
+
+    // @include breakpoint(map-get($breakpoints, large)) {
+    //   grid-template-columns: 1fr 1fr 1fr 1fr;
+    // }
+  }
+}
+
+.choice {
+  &#{&} {
+    margin: 0 5px 5px;
+
+    // margin: 0;
+    padding: 0;
+    align-items: flex-start;
+
+    // border: 1px solid black;
+
+    .choice-label {
+      font-family: unquote($default-font + ', ' + $default-font-fallback);
+      font-size: $font-size-tiny;
+      letter-spacing: -0.002em;
+      line-height: $line-height;
+      color: rgba($label-color, $field-texts-opacity);
+
+      // text-transform: uppercase;
+
+      @include breakpoint(map-get($breakpoints, small)) {
+        font-size: $font-size-xxx-small;
+        font-weight: 600;
+      }
+
+      @include breakpoint(map-get($breakpoints, medium)) {
+        font-size: $font-size-xx-small;
+      }
+
+      @include breakpoint(map-get($breakpoints, large)) {
+        font-size: $font-size-small;
+      }
+
+      // color: rgba($label-color, $field-texts-opacity);
+      &-checked {
+        color: red;
+      }
+    }
+  }
+}
+
+.choice-radio {
+  @include icon;
+}
+
+.choice-checkbox {
+  @include icon;
+
+  &#{&} {
+    & .choice-icon {
+      border-radius: 0;
+
+      &:before {
+        border-radius: 0;
+      }
+    }
+  }
 }

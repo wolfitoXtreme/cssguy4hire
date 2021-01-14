@@ -35,8 +35,17 @@ import {
   breakpoints as SASSBreakpoints
 } from '@app/components/Form/InputField/InputField.module.scss';
 
-import { radioWrapper } from './InputChoiceButton.module.scss';
-
+import {
+  choicesGrid,
+  choicesWrapper,
+  choice,
+  choiceLabel,
+  choiceLabelChecked,
+  choiceRadio,
+  choiceIcon,
+  choiceIconChecked,
+  choiceCheckbox
+} from './InputChoiceButton.module.scss';
 interface InputChoiceButtonInt {
   type: 'radiobutton' | 'checkbox';
   label?: string;
@@ -51,7 +60,7 @@ interface InputChoiceButtonInt {
 }
 
 const InputChoiceButton: React.FC<InputChoiceButtonInt> = ({
-  type,
+  type: fieldType,
   label: labelText,
   fieldName,
   options,
@@ -60,7 +69,7 @@ const InputChoiceButton: React.FC<InputChoiceButtonInt> = ({
   validators
 }) => {
   const [defaultVal] = useState<any[]>(
-    defaultValue && type === 'checkbox' ? [defaultValue] : defaultValue
+    defaultValue && fieldType === 'checkbox' ? [defaultValue] : defaultValue
   );
   const breakPoints = SASSvarsToJason(SASSBreakpoints);
   const matchMediaQuery = useMediaQuery({ minWidth: breakPoints['medium'] });
@@ -81,16 +90,25 @@ const InputChoiceButton: React.FC<InputChoiceButtonInt> = ({
   const getChecked = (value, optionValue) => value.includes(optionValue);
 
   return (
-    <FormControl classes={{ root: fieldWrapper }}>
+    <FormControl classes={{ root: classNames(fieldWrapper, choicesWrapper) }}>
       <Field
         name={fieldName}
         defaultValue={defaultVal}
         validate={validators ? composeValidators(...validators) : () => void 0}
+        // type={fieldType === 'radiobutton' ? 'radio' : 'text'}s
       >
-        {({ input: { onChange, value, checked }, meta }) => {
+        {({ input: { onChange, value, checked, type }, meta }) => {
           const errorMessage = meta.error;
           const error = errorMessage && meta.touched && meta.invalid;
-          console.log('radio,  currenValue: ' + value, checked);
+          console.log(
+            'radio,  currenValue: ' + value,
+            'checked: ',
+            checked,
+            'fieldType: ',
+            fieldType,
+            'type: ',
+            type
+          );
           return (
             <>
               {labelText && (
@@ -110,28 +128,70 @@ const InputChoiceButton: React.FC<InputChoiceButtonInt> = ({
                   {labelText}
                 </InputLabel>
               )}
-              {options.map(({ label, value: optionValue }) => (
-                <FormControlLabel
-                  label={label}
-                  name={fieldName}
-                  disabled={disabled}
-                  checked={
-                    type === 'radiobutton'
-                      ? value === optionValue
-                      : getChecked(value, optionValue)
-                  }
-                  value={optionValue}
-                  onChange={
-                    type === 'radiobutton'
-                      ? onChange
-                      : () => {
-                          setCheckBoxValues(value, optionValue, onChange);
-                        }
-                  }
-                  control={type === 'radiobutton' ? <Radio /> : <Checkbox />}
-                  classes={{ root: radioWrapper }}
-                />
-              ))}
+              <div className={choicesGrid}>
+                {options.map(({ label, value: optionValue }, index) => (
+                  <FormControlLabel
+                    key={index}
+                    label={label}
+                    name={fieldName}
+                    disabled={disabled}
+                    // checked={
+                    //   type === 'radiobutton'
+                    //     ? value === optionValue
+                    //     : getChecked(value, optionValue)
+                    // }
+                    checked={
+                      fieldType === 'radiobutton'
+                        ? value === optionValue
+                        : getChecked(value, optionValue)
+                    }
+                    value={optionValue}
+                    onChange={
+                      fieldType === 'radiobutton'
+                        ? onChange
+                        : () => {
+                            console.log('changing...');
+                            setCheckBoxValues(value, optionValue, onChange);
+                          }
+                    }
+                    control={
+                      fieldType === 'radiobutton' ? (
+                        <Radio
+                          className={choiceRadio}
+                          // icon={<div className={classNames(choiceIcon)} />}
+                          // checkedIcon={
+                          //   <div
+                          //     className={classNames(
+                          //       choiceIcon,
+                          //       choiceIconChecked
+                          //     )}
+                          //   />
+                          // }
+                        />
+                      ) : (
+                        <Checkbox
+                          className={choiceCheckbox}
+                          icon={<div className={classNames(choiceIcon)} />}
+                          checkedIcon={
+                            <div
+                              className={classNames(
+                                choiceIcon,
+                                choiceIconChecked
+                              )}
+                            />
+                          }
+                        />
+                      )
+                    }
+                    classes={{
+                      root: choice,
+                      label: classNames(choiceLabel, {
+                        [choiceLabelChecked]: checked
+                      })
+                    }}
+                  />
+                ))}
+              </div>
 
               {error && (
                 <FormHelperText
