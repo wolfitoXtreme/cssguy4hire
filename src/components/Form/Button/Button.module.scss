@@ -28,6 +28,10 @@
     margin-right: -$margin;
     margin-left: -$margin;
     text-align: right;
+
+    &-inverted {
+      text-align: left;
+    }
   }
 
   // .button.button

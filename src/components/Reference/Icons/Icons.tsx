@@ -33,7 +33,6 @@ const Icon: React.FC<{ path: string }> = ({ path }) => {
           src={path}
           afterInjection={(error, svg) => {
             if (error) {
-              console.error(error);
               return;
             }
             svg?.addEventListener('load', () => {

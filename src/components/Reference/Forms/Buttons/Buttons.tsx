@@ -1,18 +1,18 @@
 import React from 'react';
+import { useForm } from 'react-final-form';
 import Button from '@app/components/Form/Button/Button';
 import ButtonGroup from '@app/components/Form/ButtonGroup/ButtonGroup';
-import { useForm } from 'react-final-form';
 
 interface ButtonsInt {
   disabled?: boolean;
+  inverted?: boolean;
 }
 
-const Buttons: React.FC<ButtonsInt> = ({ disabled }) => {
+const Buttons: React.FC<ButtonsInt> = ({ disabled, inverted = false }) => {
   const form = useForm();
   const registeredFieds = form.getRegisteredFields();
   const resetFields = () => {
     registeredFieds.forEach((field) => {
-      console.log('field: ', field);
       form.resetFieldState(field);
     });
   };
@@ -21,7 +21,7 @@ const Buttons: React.FC<ButtonsInt> = ({ disabled }) => {
     <>
       <h5>Buttons</h5>
 
-      <ButtonGroup>
+      <ButtonGroup inverted={inverted}>
         <Button
           type="submit"
           icon="end"
@@ -34,9 +34,8 @@ const Buttons: React.FC<ButtonsInt> = ({ disabled }) => {
           type="reset"
           disabled={disabled}
           onClick={() => {
-            form?.reset({});
             resetFields();
-            // form?.setState({ reset: true });
+            form?.reset();
           }}
         >
           Reset

@@ -25,9 +25,7 @@ const RadioButtons: React.FC<{ disabled?: boolean }> = ({ disabled }) => {
       <h5>Radio buttons</h5>
       <div>
         <InputChoiceButton
-          type="radiobutton"
-          // label="Radio buttons with label"
-          // fieldName={fieldName}
+          type="radio"
           fieldName={fieldName + (disabled ? '-disabled' : '')}
           label={'Radio buttons with label' + (disabled ? ' disabled' : '')}
           options={options}

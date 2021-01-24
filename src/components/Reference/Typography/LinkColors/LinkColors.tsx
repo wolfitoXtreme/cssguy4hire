@@ -65,8 +65,6 @@ const LinkColors: React.FC = () => {
       (color) => colors[color] === colorHex
     );
 
-    // console.log('color name', colorName);
-
     const currentLink: LinkColorInt = {
       linkName: linkColor,
       colorName: colorName ? colorName : '',

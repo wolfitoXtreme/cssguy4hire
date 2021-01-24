@@ -5,6 +5,7 @@
 $line-height: 1.28;
 $label-color: $white;
 $field-texts-opacity: 0.6;
+$disabled-field-opacity: 0.4;
 $radio-icon-size: 14px;
 $radio-icon-inner-size: 6px;
 
@@ -99,13 +100,15 @@ $radio-icon-inner-size: 6px;
 }
 
 .choices-wrapper {
-  width: 100%;
-  display: block;
+  &#{&} {
+    margin: 0 -5px;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
 
-  // .choices-wrapper-label {
-  //   // flex: 1 0 100%;
-  //   background-color: pink;
-  // }
+.choices-label {
+  flex: 1 0 100%;
 }
 
 .choices-grid {
@@ -114,34 +117,42 @@ $radio-icon-inner-size: 6px;
     width: 100%;
     flex-direction: row;
     flex-wrap: wrap;
-
-    // display: grid;
-    // grid-gap: 10px;
-    // grid-template-columns: 1fr;
-
-    // @include breakpoint(map-get($breakpoints, small)) {
-    //   grid-template-columns: 1fr 1fr;
-    // }
-
-    // @include breakpoint(map-get($breakpoints, medium)) {
-    //   grid-template-columns: 1fr 1fr 1fr;
-    // }
-
-    // @include breakpoint(map-get($breakpoints, large)) {
-    //   grid-template-columns: 1fr 1fr 1fr 1fr;
-    // }
   }
 }
 
 .choice {
   &#{&} {
     margin: 0 5px 5px;
-
-    // margin: 0;
     padding: 0;
     align-items: flex-start;
 
-    // border: 1px solid black;
+    &-disabled {
+      opacity: $disabled-field-opacity;
+    }
+
+    &-disabled:hover {
+      &#{&} {
+        .choice-icon {
+          border-color: map-deep-get($field-colors, field, border);
+        }
+
+        .choice-icon-checked {
+          border-color: map-deep-get($field-colors, active, border);
+        }
+      }
+    }
+
+    &-error {
+      &#{&} {
+        .choice-icon {
+          border-color: $error-color;
+        }
+
+        .choice-icon-checked {
+          border-color: $error-color;
+        }
+      }
+    }
 
     .choice-label {
       font-family: unquote($default-font + ', ' + $default-font-fallback);
@@ -149,8 +160,6 @@ $radio-icon-inner-size: 6px;
       letter-spacing: -0.002em;
       line-height: $line-height;
       color: rgba($label-color, $field-texts-opacity);
-
-      // text-transform: uppercase;
 
       @include breakpoint(map-get($breakpoints, small)) {
         font-size: $font-size-xxx-small;
@@ -165,10 +174,13 @@ $radio-icon-inner-size: 6px;
         font-size: $font-size-small;
       }
 
-      // color: rgba($label-color, $field-texts-opacity);
       &-checked {
-        color: red;
+        color: $white;
       }
+    }
+
+    .choice-label-disabled {
+      color: rgba($label-color, $field-texts-opacity);
     }
   }
 }

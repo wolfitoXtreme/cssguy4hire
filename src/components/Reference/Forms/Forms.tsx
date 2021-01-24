@@ -8,6 +8,7 @@ import TextAreaFields from './TextAreaFields/TextAreaFields';
 import SelectFields from './SelectFields/SelectFields';
 import RadioButtons from './RadioButtons/RadioButtons';
 import CheckBoxes from './CheckBoxes/CheckBoxes';
+import { form, formValues } from './Forms.module.scss';
 
 const Forms: React.FC = () => {
   const onSubmit = () => {
@@ -17,18 +18,21 @@ const Forms: React.FC = () => {
   return (
     <Section heading="Forms">
       <>
+        <h4>Form</h4>
         <Form
           onSubmit={onSubmit}
           initialValues={{}}
-          render={({ handleSubmit, submitting, pristine, values }) => (
-            <form onSubmit={handleSubmit} noValidate>
+          render={({ handleSubmit, values }) => (
+            <form onSubmit={handleSubmit} noValidate className={form}>
               <TextFields />
               <TextAreaFields />
               <SelectFields />
               <RadioButtons />
               <CheckBoxes />
-              <Buttons />
-              {JSON.stringify(values, null, 2)}
+              <Buttons inverted />
+              <pre className={formValues}>
+                {JSON.stringify(values, null, 2)}
+              </pre>
             </form>
           )}
         />
@@ -36,14 +40,14 @@ const Forms: React.FC = () => {
         <h4>Disabled form</h4>
         <Form
           onSubmit={onSubmit}
-          render={({ handleSubmit, form, submitting, pristine, values }) => (
-            <form>
+          render={() => (
+            <form className={form}>
               <TextFields disabled />
               <TextAreaFields disabled />
               <SelectFields disabled />
               <RadioButtons disabled />
               <CheckBoxes disabled />
-              <Buttons disabled />
+              <Buttons disabled inverted />
             </form>
           )}
         />

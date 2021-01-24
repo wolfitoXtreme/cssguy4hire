@@ -9,10 +9,6 @@ import {
   buttonIcon
 } from './Button.module.scss';
 
-// interface ButtonInt {
-//   variant?: 'contained' | 'outlined' | 'text';
-//   children?: React.ReactNode;
-// }
 interface ButtonInt extends ButtonProps {
   icon?: 'start' | 'end';
 }

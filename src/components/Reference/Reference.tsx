@@ -18,10 +18,10 @@ const Reference: React.FC<ReferenceInt> = ({ setBodyStyles }) => {
 
   return (
     <>
-      {/* <Typography />
+      <Typography />
       <Colors />
       <Images />
-      <Icons /> */}
+      <Icons />
       <Forms />
     </>
   );
