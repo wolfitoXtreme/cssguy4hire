@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import Typography from './Typography/Typography';
 import Colors from './Colors/Colors';
@@ -7,14 +7,10 @@ import Icons from './Icons/Icons';
 import Forms from './Forms/Forms';
 import { reference } from './Reference.module.scss';
 
-interface ReferenceInt {
-  setBodyStyles?: (...args: any[]) => void;
-}
+const applyBodyStyles = (classNames) => document.body.classList.add(classNames);
 
-const Reference: React.FC<ReferenceInt> = ({ setBodyStyles }) => {
-  useEffect(() => {
-    setBodyStyles && setBodyStyles(reference);
-  }, [setBodyStyles]);
+const Reference: React.FC = () => {
+  applyBodyStyles(reference);
 
   return (
     <>

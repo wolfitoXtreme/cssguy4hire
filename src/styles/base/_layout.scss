@@ -16,6 +16,11 @@ body {
   //   overflow: hidden;
   background-color: $light-black;
 
+  > div {
+    // targets #root container
+    min-height: 100%;
+  }
+
   // test mediaQueries
   @include queryInfo();
 }

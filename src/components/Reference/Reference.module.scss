@@ -12,24 +12,12 @@ $font-color-default: $black;
 
 // overrides basic styles
 body {
-  > div {
-    // targets #root container
-    padding: 15px;
-  }
-
-  //
-  // forms
-  //
-
-  // label
-  // TODO - overrides default color for label animation
-  label[data-shrink='true'] {
-    &:before {
-      // color: $font-color-default !important;
-    }
-  }
-
   &.reference {
+    > div {
+      // targets #root container
+      padding: 15px;
+    }
+
     color: $font-color-default;
     background-color: $light-grey;
 

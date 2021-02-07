@@ -222,9 +222,10 @@ $default-delay: 100ms;
 // layout
 // ----------------
 $breakpoints: (
-  'xx-small': '0px',
-  'small': '360px',
-  'medium': '768px',
-  'large': '1024px'
+  'xx-small': 0px,
+  'x-small': 320px,
+  'small': 360px,
+  'medium': 768px,
+  'large': 1024px
 );
 $app-max-width: 1400px;
