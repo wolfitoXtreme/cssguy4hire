@@ -11,14 +11,14 @@ $radio-icon-inner-size: 6px;
 
 @mixin icon {
   &#{&} {
-    margin: 0 3px 0 0;
+    margin: 1px 3px 0 0;
     padding: 0;
     width: $radio-icon-size;
     height: $radio-icon-size;
     align-self: flex-start;
 
     & .choice-icon {
-      margin: 0 3px 0 0;
+      margin: 0;
       width: $radio-icon-size;
       height: $radio-icon-size;
       display: flex;
@@ -57,14 +57,11 @@ $radio-icon-inner-size: 6px;
       }
     }
 
-    @include breakpoint(map-get($breakpoints, small)) {
-      margin-top: 1px;
-    }
-
     @include breakpoint(map-get($breakpoints, medium)) {
       $radio-icon-size: 16px;
       $radio-icon-inner-size: 8px;
 
+      margin-top: 0;
       width: $radio-icon-size;
       height: $radio-icon-size;
 
