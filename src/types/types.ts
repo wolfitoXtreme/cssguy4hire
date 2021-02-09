@@ -9,3 +9,12 @@ export interface FontInt {
   fontName: string;
   fontVariants: FontVariantType[];
 }
+
+export enum sections {
+  HOME = 'home',
+  ABOUT = 'about',
+  SKILLS = 'skills',
+  ROLES = 'roles',
+  WORK = 'work',
+  CONTACT = 'contact'
+}

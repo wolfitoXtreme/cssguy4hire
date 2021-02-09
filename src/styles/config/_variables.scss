@@ -188,7 +188,7 @@ $field-colors: (
 // error color
 $error-color: $red;
 
-// button
+// button colors
 $btn-colors: (
   default: (
     color: $white,
@@ -209,6 +209,19 @@ $btn-colors: (
     hover-border: $white
   )
 );
+
+// panel colors
+$panel-colors: (
+  'home': $dark-goldenrod,
+  'about': $lucky-point,
+  'skills': $dark-slate-blue,
+  'roles': $myrtle,
+  'work': $falu-red,
+  'contact': $siren
+);
+
+// images
+$image-url: '~@app/assets/images/';
 
 //
 // transitions

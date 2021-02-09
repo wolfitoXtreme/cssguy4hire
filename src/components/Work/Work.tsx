@@ -1,8 +1,9 @@
 import React from 'react';
+import { sections } from '@app/types/types';
 import Section from '@app/components/Section/Section';
 
 const Work: React.FC = () => (
-  <Section id="work" heading="Work">
+  <Section id={sections.WORK} heading="Work">
     <article>
       <p>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates
