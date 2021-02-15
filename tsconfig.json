@@ -20,6 +20,7 @@
     "baseUrl": "./src",
     "paths": {
       "@app/*": ["*"],
+      "@store/*": ["store/*"],
       "@styles/*": ["scss"]
     }
   }

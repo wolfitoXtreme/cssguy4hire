@@ -4,10 +4,23 @@ export type FontVariantType = {
   variantWeight: string;
 };
 
+export type stateType = {
+  languageReducer: { lang: string };
+};
 export interface FontInt {
   font: string;
   fontName: string;
   fontVariants: FontVariantType[];
+}
+
+export enum devices {
+  MOBILE = 'mobile',
+  DESKTOP = 'desktop'
+}
+
+export enum languages {
+  ENGLISH = 'en',
+  SPANISH = 'es'
 }
 
 export enum sections {
@@ -17,4 +30,14 @@ export enum sections {
   ROLES = 'roles',
   WORK = 'work',
   CONTACT = 'contact'
+}
+
+export enum links {
+  GITHUB = 'github',
+  LINKEDIN = 'linkedin',
+  CODEPEN = 'codepen',
+  STACKOVERFLOW = 'stackoverflow',
+  BAHANCE = 'behance',
+  CV = 'cv',
+  LANG = 'lang'
 }

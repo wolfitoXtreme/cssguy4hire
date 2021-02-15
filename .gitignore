@@ -4,12 +4,13 @@
 /node_modules
 /.pnp
 .pnp.js
+
+# resources
 /docs
 /print
 /ui
 /resources
 /_old
-/app/config/auth.json
 
 # testing
 /coverage

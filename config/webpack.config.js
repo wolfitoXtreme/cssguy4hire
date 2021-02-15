@@ -338,6 +338,10 @@ module.exports = function (webpackEnv) {
         }),
         ...(modules.webpackAliases || {}),
         '@app': path.resolve('./src'),
+        // TODO - Create more specific paths
+        // '@main': path.resolve('./src/components/main'),
+        // '@reference': path.resolve('./src/components/reference'),
+        '@store': path.resolve('./src/store'),
         '@styles': path.resolve('./src/styles')
       },
       plugins: [

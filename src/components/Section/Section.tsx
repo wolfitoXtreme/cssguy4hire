@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import classNames from 'classnames';
-import { sections } from '@app/types/types';
+import { sections, devices } from '@app/types/types';
+import { DeviceContext } from '@app/context/DeviceContext/DeviceContext';
 import logo from '@app/assets/images/logo-footer.svg';
+import SecondaryMenu from '@app/components/Menu/SecondaryMenu/SecondaryMenu';
 
 import {
   panel,
@@ -23,7 +25,9 @@ interface SectionInt {
 }
 
 const Section: React.FC<SectionInt> = ({ id, heading, children }) => {
-  const styleClass = (sectionName) => {
+  const { type: currentDevice } = useContext(DeviceContext);
+
+  const styleClass = (sectionName: sections): string => {
     const isHome = () => homePanel;
     const isAbout = () => aboutPanel;
     const isSkills = () => skillsPanel;
@@ -31,7 +35,7 @@ const Section: React.FC<SectionInt> = ({ id, heading, children }) => {
     const isWork = () => workPanel;
     const isContact = () => contactPanel;
 
-    const sectionColors = {
+    const sectionStyles = {
       [sections.HOME]: isHome,
       [sections.ABOUT]: isAbout,
       [sections.ROLES]: isRoles,
@@ -40,9 +44,9 @@ const Section: React.FC<SectionInt> = ({ id, heading, children }) => {
       [sections.CONTACT]: isContact
     };
 
-    return sectionColors[sectionName]
-      ? sectionColors[sectionName]()
-      : contactPanel;
+    return sectionStyles[sectionName]
+      ? sectionStyles[sectionName]()
+      : homePanel;
   };
 
   return (
@@ -51,6 +55,7 @@ const Section: React.FC<SectionInt> = ({ id, heading, children }) => {
       title={heading}
       className={classNames(panel, styleClass(id))}
     >
+      {currentDevice === devices.DESKTOP && <SecondaryMenu />}
       <div className={panelDetail}>
         {heading && <h2>{heading}</h2>}
         {children}

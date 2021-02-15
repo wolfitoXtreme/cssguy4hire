@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Field } from 'react-final-form';
-import { useMediaQuery } from 'react-responsive';
 import classNames from 'classnames';
 import {
   Checkbox,
@@ -11,7 +10,8 @@ import {
   Radio
 } from '@material-ui/core';
 import { composeValidators } from '@app/utils/validators';
-import { SASSvarsToJason } from '@app/utils/utils';
+import { DeviceContext } from '@app/context/DeviceContext/DeviceContext';
+import { devices } from '@app/types/types';
 import {
   fieldWrapper,
   fieldLabel,
@@ -22,8 +22,7 @@ import {
   fieldLabelHidden,
   helper,
   helperError,
-  helperHidden,
-  breakpoints as SASSBreakpoints
+  helperHidden
 } from '@app/components/Form/InputField/InputField.module.scss';
 
 import {
@@ -63,15 +62,13 @@ const InputChoiceButton: React.FC<InputChoiceButtonInt> = ({
   disabled,
   validators
 }) => {
+  const { type: currentDevice } = useContext(DeviceContext);
   const [optionDefaultValue] = useState<any[]>(
     defaultValue && type === 'checkbox' ? [defaultValue] : defaultValue
   );
 
   const [error, setError] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>();
-
-  const breakPoints = SASSvarsToJason(SASSBreakpoints);
-  const matchMediaQuery = useMediaQuery({ minWidth: breakPoints['medium'] });
 
   return (
     <>
@@ -82,7 +79,7 @@ const InputChoiceButton: React.FC<InputChoiceButtonInt> = ({
             disabled={disabled}
             classes={{
               root: classNames(fieldLabel, choicesLabel, {
-                [fieldLabelHidden]: !matchMediaQuery,
+                [fieldLabelHidden]: currentDevice === devices.MOBILE,
                 [fieldLabelError]: error
               }),
               disabled: fieldLabelDisabled,
@@ -169,7 +166,7 @@ const InputChoiceButton: React.FC<InputChoiceButtonInt> = ({
             error={error}
             classes={{
               root: classNames(helper, {
-                [helperHidden]: !matchMediaQuery
+                [helperHidden]: currentDevice === devices.MOBILE
               }),
               error: helperError
             }}

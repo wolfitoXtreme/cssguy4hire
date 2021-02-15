@@ -1,0 +1,28 @@
+{
+  "en": {
+    "menu-title-primary": "Main menu",
+    "menu-title-secondary": "Find me on",
+    "menu-title-lang": "Change your language",
+    "menu-home": "Home",
+    "menu-about": "About",
+    "menu-skills": "Skills",
+    "menu-roles": "Roles",
+    "menu-work": "Work",
+    "menu-contact": "Contact",
+    "menu-cv": "Resume",
+    "menu-lang": "Español"
+  },
+  "es": {
+    "menu-title-primary": "Menú principal",
+    "menu-title-secondary": "Encuéntrele en",
+    "menu-title-lang": "Cambie su idioma",
+    "menu-home": "Home",
+    "menu-about": "Acerca de",
+    "menu-skills": "Destrezas",
+    "menu-roles": "Roles",
+    "menu-work": "Trabajos",
+    "menu-contact": "Contacto",
+    "menu-cv": "Curriculum",
+    "menu-lang": "English"
+  }
+}

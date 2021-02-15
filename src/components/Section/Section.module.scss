@@ -39,7 +39,6 @@ $panel-padding-large: 0 142px;
   }
 }
 
-// panel
 .panel {
   $bkg-image: $image-url + 'panel-bkg.png';
   $bkg-image-2x: $image-url + 'panel-bkg-2x.png';
@@ -178,7 +177,7 @@ $panel-padding-large: 0 142px;
   }
 
   // bottom title
-  &:after {
+  &:not(.home-panel):after {
     content: attr(title);
     right: -0.05em;
     bottom: -0.2em;

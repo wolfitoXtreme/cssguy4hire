@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Field } from 'react-final-form';
 import { isMobile } from 'react-device-detect';
-import { useMediaQuery } from 'react-responsive';
 import classNames from 'classnames';
 import {
   FormControl,
@@ -13,7 +12,8 @@ import {
   InputProps
 } from '@material-ui/core/';
 import { composeValidators } from '@app/utils/validators';
-import { SASSvarsToJason } from '@app/utils/utils';
+import { DeviceContext } from '@app/context/DeviceContext/DeviceContext';
+import { devices } from '@app/types/types';
 import { ReactComponent as IconArrow } from '@app/assets/icons/icon-select-arrow.svg';
 
 import {
@@ -43,8 +43,7 @@ import {
   menuItemSelected,
   helper,
   helperError,
-  helperHidden,
-  breakpoints as SASSBreakpoints
+  helperHidden
 } from './InputField.module.scss';
 
 interface SelectOptionInt {
@@ -105,12 +104,11 @@ const InputField: React.FC<InputFieldInt> = ({
   disableAnimation,
   validators
 }) => {
+  const { type: currentDevice } = useContext(DeviceContext);
   const [selectValue, setSelectValue] = useState('');
   const handleSelectChange = (event) => {
     setSelectValue(event.target.value);
   };
-  const breakPoints = SASSvarsToJason(SASSBreakpoints);
-  const matchMediaQuery = useMediaQuery({ minWidth: breakPoints['medium'] });
   const fieldId = 'id-' + fieldName;
   const labelId = fieldId + '-label';
   const inputStyles = {
@@ -123,11 +121,13 @@ const InputField: React.FC<InputFieldInt> = ({
     multiline: fieldInputMultiline
   };
 
-  const shrinkLabel = matchMediaQuery ? shrink || disableAnimation : true;
+  const shrinkLabel =
+    currentDevice === devices.DESKTOP ? shrink || disableAnimation : true;
+
   const placeHolderText = () => {
     if (disableAnimation || disabled) {
       return placeholder || labelText;
-    } else if (!matchMediaQuery) {
+    } else if (currentDevice === devices.MOBILE) {
       return labelText;
     }
   };
@@ -157,7 +157,7 @@ const InputField: React.FC<InputFieldInt> = ({
                   disableAnimation={disableAnimation}
                   classes={{
                     root: classNames(fieldLabel, {
-                      [fieldLabelHidden]: !matchMediaQuery
+                      [fieldLabelHidden]: currentDevice === devices.MOBILE
                     }),
                     disabled: fieldLabelDisabled,
                     error: fieldLabelError,
@@ -255,7 +255,7 @@ const InputField: React.FC<InputFieldInt> = ({
                     error={error}
                     classes={{
                       root: classNames(helper, {
-                        [helperHidden]: !matchMediaQuery
+                        [helperHidden]: currentDevice === devices.MOBILE
                       }),
                       error: helperError
                     }}

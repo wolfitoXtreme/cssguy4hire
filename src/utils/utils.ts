@@ -32,3 +32,15 @@ export const getFileName = (
     fileName: fileName
   };
 };
+
+export const applyBodyStyles = (classNames) =>
+  document.body.classList.add(classNames);
+
+export const updateDocumentLanguage = (lang: string) =>
+  (window.document.documentElement.lang = lang);
+
+export const getNoTouch = () => {
+  if (!window.matchMedia('(pointer: coarse)').matches) {
+    return true;
+  }
+};

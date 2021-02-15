@@ -37,3 +37,7 @@ declare module '*.svg' {
   const src: string;
   export default src;
 }
+
+interface Window {
+  __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+}
