@@ -55,7 +55,12 @@ const Section: React.FC<SectionInt> = ({ id, heading, children }) => {
       title={heading}
       className={classNames(panel, styleClass(id))}
     >
-      {currentDevice === devices.DESKTOP && <SecondaryMenu />}
+      {currentDevice === devices.DESKTOP && (
+        <SecondaryMenu
+          menuType={devices.DESKTOP}
+          variant={id !== sections.HOME ? 'internal' : undefined}
+        />
+      )}
       <div className={panelDetail}>
         {heading && <h2>{heading}</h2>}
         {children}

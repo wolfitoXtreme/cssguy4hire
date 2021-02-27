@@ -9,20 +9,32 @@ import {
   menuHeading,
   menuList,
   menuListItem,
+  menuListItemIcon,
+  menuListItemLink,
   noTouchEvents,
-  menuListItemLink
+  menuUtil,
+  menuUtilInternal,
+  menuUtilList,
+  menuUtilLangList,
+  menuUtilItem,
+  menuUtilItemLink,
+  menuUtilItemIcon
 } from '@app/components/Menu/Menu.module.scss';
-import { stateType, languages, links } from '@app/types/types';
+import { languageStateType, languages, links, devices } from '@app/types/types';
 import { changeLanguage } from '@store/actions';
 
 import IconMenu from '../IconMenu/IconMenu';
 
 interface SecondaryMenuInt {
+  menuType: devices.MOBILE | devices.DESKTOP;
+  variant?: 'internal';
   lang: languages;
   onLanguageChange: (...args: any[]) => void;
 }
 
 const SecondaryMenu: React.FC<SecondaryMenuInt> = ({
+  menuType,
+  variant,
   lang,
   onLanguageChange
 }) => {
@@ -36,26 +48,46 @@ const SecondaryMenu: React.FC<SecondaryMenuInt> = ({
     lang === languages.ENGLISH ? languages.SPANISH : languages.ENGLISH;
 
   return (
-    <nav className={menu}>
+    <nav
+      className={classNames({
+        [menu]: menuType === devices.MOBILE,
+        [menuUtil]: menuType === devices.DESKTOP,
+        [menuUtilInternal]: menuType === devices.DESKTOP && variant
+      })}
+    >
       <h5 className={menuHeading}>
         {formatMessage({ id: 'menu-title-secondary' })}:
       </h5>
-      <ul className={menuList}>
+      <ul className={menuType === devices.MOBILE ? menuList : menuUtilList}>
         {menuItems?.map(({ id, name, url }, index) => {
           const text = name || formatMessage({ id: `menu-${id}` });
           return (
-            <li key={index} className={menuListItem}>
+            <li
+              key={index}
+              className={
+                menuType === devices.MOBILE ? menuListItem : menuUtilItem
+              }
+            >
               <a
                 href={url}
                 title={text}
                 target="_blank"
                 rel="noreferrer"
                 tabIndex={-1}
-                className={classNames(menuListItemLink, {
+                className={classNames({
+                  [menuListItemLink]: menuType === devices.MOBILE,
+                  [menuUtilItemLink]: menuType === devices.DESKTOP,
                   [noTouchEvents]: getNoTouch()
                 })}
               >
-                <IconMenu icon={id} />
+                <IconMenu
+                  icon={id}
+                  className={
+                    menuType === devices.MOBILE
+                      ? menuListItemIcon
+                      : menuUtilItemIcon
+                  }
+                />
                 <span>{text}</span>
               </a>
             </li>
@@ -66,8 +98,19 @@ const SecondaryMenu: React.FC<SecondaryMenuInt> = ({
       <h5 className={menuHeading}>
         {formatMessage({ id: 'menu-title-lang' })}:
       </h5>
-      <ul className={menuList}>
-        <li className={menuListItem}>
+      <ul
+        className={classNames({
+          [menuList]: menuType === devices.MOBILE,
+          [menuUtilList]: menuType === devices.DESKTOP,
+          [menuUtilLangList]: menuType === devices.DESKTOP
+        })}
+      >
+        <li
+          className={classNames({
+            [menuListItem]: menuType === devices.MOBILE,
+            [menuUtilItem]: menuType === devices.DESKTOP
+          })}
+        >
           <a
             href="!#"
             onClick={(event) => {
@@ -76,11 +119,20 @@ const SecondaryMenu: React.FC<SecondaryMenuInt> = ({
             }}
             title={formatMessage({ id: `menu-${langMenu}` })}
             tabIndex={-1}
-            className={classNames(menuListItemLink, {
+            className={classNames({
+              [menuListItemLink]: menuType === devices.MOBILE,
+              [menuUtilItemLink]: menuType === devices.DESKTOP,
               [noTouchEvents]: getNoTouch()
             })}
           >
-            <IconMenu icon={`${links.LANG}-${getOtherLang(lang)}`} />
+            <IconMenu
+              icon={`${links.LANG}-${getOtherLang(lang)}`}
+              className={
+                menuType === devices.MOBILE
+                  ? menuListItemIcon
+                  : menuUtilItemIcon
+              }
+            />
             <span>{formatMessage({ id: `menu-${langMenu}` })}</span>
           </a>
         </li>
@@ -89,7 +141,7 @@ const SecondaryMenu: React.FC<SecondaryMenuInt> = ({
   );
 };
 
-const mapStateToProps = (state: stateType) => {
+const mapStateToProps = (state: languageStateType) => {
   return {
     lang: state.languageReducer.lang
   };

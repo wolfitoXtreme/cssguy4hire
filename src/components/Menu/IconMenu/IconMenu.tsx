@@ -1,23 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ReactSVG } from 'react-svg';
-import { menuListItemIcon } from '@app/components/Menu/Menu.module.scss';
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {
   icon: string;
-  show?: boolean;
 }
 
-const IconMenu: React.FC<IconProps> = ({ icon, show = true }) => {
+const IconMenu: React.FC<IconProps> = ({ icon, className }) => {
   const ImportedIconRef = React.useRef<
     React.FC<React.SVGProps<SVGSVGElement>>
   >();
 
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = useState(false);
 
-  useEffect((): void => {
+  useEffect(() => {
     setLoading(true);
 
     const importIcon = async (): Promise<void> => {
+      console.log('importing icon...', icon);
       try {
         const { default: test } = await import(
           `@app/assets/icons/icon-${icon}.svg`
@@ -33,12 +32,10 @@ const IconMenu: React.FC<IconProps> = ({ icon, show = true }) => {
     importIcon();
   }, [icon]);
 
-  if (!loading && ImportedIconRef.current && show) {
+  if (!loading && ImportedIconRef.current) {
     const { current: importedIcon } = ImportedIconRef;
-    console.log('ImportedIcon: ', importedIcon, typeof importedIcon);
-    return (
-      <ReactSVG src={importedIcon.toString()} className={menuListItemIcon} />
-    );
+
+    return <ReactSVG src={importedIcon.toString()} className={className} />;
   }
 
   return null;

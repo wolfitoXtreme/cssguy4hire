@@ -14,7 +14,7 @@ const Menu: React.FC<MenuInt> = ({ menuType }) => (
     {(menuType === devices.MOBILE && (
       <nav className={navigation}>
         <PrimaryMenu menuType={menuType} />
-        <SecondaryMenu />
+        <SecondaryMenu menuType={menuType} />
       </nav>
     )) || <PrimaryMenu menuType={menuType} />}
   </>

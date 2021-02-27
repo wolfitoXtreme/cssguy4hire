@@ -14,7 +14,7 @@ import {
   DeviceContext
   // device
 } from '@app/context/DeviceContext/DeviceContext';
-import { stateType, languages, devices } from '@app/types/types';
+import { languageStateType, languages, devices } from '@app/types/types';
 
 import { main } from './Main.module.scss';
 
@@ -34,7 +34,6 @@ const Main: React.FC<MainInt> = ({ lang }) => {
     <IntlProvider locale={lang} messages={messages}>
       {currentDevice === devices.MOBILE && <Menu menuType={devices.MOBILE} />}
       <main className={main}>
-        <h5 style={{ textAlign: 'right' }}>{currentDevice}</h5>
         <Home />
         <About />
         <Skills />
@@ -46,7 +45,7 @@ const Main: React.FC<MainInt> = ({ lang }) => {
   );
 };
 
-const mapStateToProps = (state: stateType) => {
+const mapStateToProps = (state: languageStateType) => {
   return {
     lang: state.languageReducer.lang
   };

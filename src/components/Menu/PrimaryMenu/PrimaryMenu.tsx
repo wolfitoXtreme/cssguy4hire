@@ -8,7 +8,12 @@ import {
   menuList,
   menuListItem,
   menuListItemLink,
-  noTouchEvents
+  noTouchEvents,
+  menuMain,
+  menuMainList,
+  menuMainItem,
+  menuMainItemLink,
+  menuMainItemIcon
 } from '@app/components/Menu/Menu.module.scss';
 import { useIntl } from 'react-intl';
 import { devices, sections } from '@app/types/types';
@@ -22,27 +27,29 @@ const PrimaryMenu: React.FC<{ menuType: devices.MOBILE | devices.DESKTOP }> = ({
   const { sections: menuItems } = useContext(MenuContext);
 
   return (
-    <nav className={menu}>
+    <nav className={menuType === devices.MOBILE ? menu : menuMain}>
       <h5 className={menuHeading}>
         {formatMessage({ id: 'menu-title-primary' })}:
       </h5>
-      <ul className={menuList}>
+      <ul className={menuType === devices.MOBILE ? menuList : menuMainList}>
         {menuItems?.map(({ id }, index) => {
           const text = formatMessage({ id: `menu-${id}` });
 
           return (
             <React.Fragment key={index}>
               {(menuType === devices.DESKTOP && id !== sections.HOME && (
-                <li className={menuListItem}>
+                <li className={menuMainItem}>
                   <a
                     href={`#${id}`}
                     title={text}
                     tabIndex={-1}
-                    className={classNames(menuListItemLink, {
+                    className={classNames(menuMainItemLink, {
                       [noTouchEvents]: getNoTouch()
                     })}
                   >
-                    {id !== sections.HOME && <IconMenu icon={id} />}
+                    {id !== sections.HOME && (
+                      <IconMenu icon={id} className={menuMainItemIcon} />
+                    )}
                     <strong>{text}</strong>
                   </a>
                 </li>

@@ -4,9 +4,10 @@ export type FontVariantType = {
   variantWeight: string;
 };
 
-export type stateType = {
+export type languageStateType = {
   languageReducer: { lang: string };
 };
+
 export interface FontInt {
   font: string;
   fontName: string;

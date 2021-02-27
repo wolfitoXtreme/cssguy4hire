@@ -13,13 +13,14 @@ $font-color-default: $black;
 // overrides basic styles
 body {
   &.reference {
+    color: $font-color-default;
+    overflow: visible;
+    background-color: $light-grey;
+
     > div {
       // targets #root container
       padding: 15px;
     }
-
-    color: $font-color-default;
-    background-color: $light-grey;
 
     //
     // overrides
