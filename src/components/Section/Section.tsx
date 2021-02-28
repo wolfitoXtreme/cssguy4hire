@@ -63,7 +63,7 @@ const Section: React.FC<SectionInt> = ({ id, heading, children }) => {
         />
       )}
       <div className={panelDetail}>
-        <MenuToggler />
+        {currentDevice === devices.MOBILE && <MenuToggler />}
         {heading && <h2>{heading}</h2>}
         {children}
       </div>
