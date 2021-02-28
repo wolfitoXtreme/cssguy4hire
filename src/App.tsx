@@ -3,10 +3,8 @@ import { useMediaQuery } from 'react-responsive';
 import { createStore, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
-import {
-  DeviceContext
-  // deviceType
-} from '@app/context/DeviceContext/DeviceContext';
+import { DeviceContext } from '@app/context/DeviceContext/DeviceContext';
+import { MenuProvider } from '@app/context/MenuContext/MenuContext';
 import { devices } from '@app/types/types';
 
 import { RootReducer } from './store/reducers/index';
@@ -40,7 +38,15 @@ const App = () => {
       <DeviceContext.Provider value={{ type: deviceType }}>
         <BrowserRouter>
           <Switch>
-            <Route path="/" render={(props) => <Main {...props} />} exact />
+            <Route
+              path="/"
+              render={(props) => (
+                <MenuProvider>
+                  <Main {...props} />
+                </MenuProvider>
+              )}
+              exact
+            />
             <Route
               path="/reference/"
               render={(props) => <Reference {...props} />}

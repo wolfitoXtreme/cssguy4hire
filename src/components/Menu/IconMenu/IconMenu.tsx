@@ -16,7 +16,6 @@ const IconMenu: React.FC<IconProps> = ({ icon, className }) => {
     setLoading(true);
 
     const importIcon = async (): Promise<void> => {
-      console.log('importing icon...', icon);
       try {
         const { default: test } = await import(
           `@app/assets/icons/icon-${icon}.svg`

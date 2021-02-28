@@ -40,8 +40,10 @@ const SecondaryMenu: React.FC<SecondaryMenuInt> = ({
 }) => {
   const { formatMessage } = useIntl();
   const {
-    external: menuItems,
-    lang: { id: langMenu }
+    navigation: {
+      external: menuItems,
+      lang: { id: langMenu }
+    }
   } = useContext(MenuContext);
 
   const getOtherLang = (lang: languages) =>

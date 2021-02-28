@@ -9,15 +9,15 @@ interface MenuInt {
   menuType: devices.MOBILE | devices.DESKTOP;
 }
 
-const Menu: React.FC<MenuInt> = ({ menuType }) => (
+const Menu = React.forwardRef(({ menuType }: MenuInt, ref) => (
   <>
     {(menuType === devices.MOBILE && (
-      <nav className={navigation}>
+      <nav className={navigation} ref={ref as React.RefObject<HTMLElement>}>
         <PrimaryMenu menuType={menuType} />
         <SecondaryMenu menuType={menuType} />
       </nav>
     )) || <PrimaryMenu menuType={menuType} />}
   </>
-);
+));
 
 export default Menu;

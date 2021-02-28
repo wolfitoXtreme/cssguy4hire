@@ -3,15 +3,14 @@
 @import '~breakpoint-sass/stylesheets/breakpoint';
 
 .navigation {
-  $panel-width: 220px;
   $shadow-colors-fg: rgba($black, 1) 0px, rgba($black, 0.18) 3px,
     rgba($black, 0) 8px;
   $shadow-colors-bg: rgba($black, 0.55) 0px, rgba($black, 0.35) 6px,
     rgba($black, 0) 20px;
 
   top: 0;
-  right: 0;
-  width: $panel-width;
+  right: -$menu-width;
+  width: $menu-width;
   height: 100%;
   overflow: hidden;
   position: fixed;

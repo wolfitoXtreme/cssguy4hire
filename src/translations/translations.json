@@ -1,5 +1,6 @@
 {
   "en": {
+    "menu": "menu",
     "menu-title-primary": "Main menu",
     "menu-title-secondary": "Find me on",
     "menu-title-lang": "Change your language",
@@ -13,6 +14,7 @@
     "menu-lang": "Español"
   },
   "es": {
+    "menu": "menú",
     "menu-title-primary": "Menú principal",
     "menu-title-secondary": "Encuéntrele en",
     "menu-title-lang": "Cambie su idioma",

@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { sections, devices } from '@app/types/types';
 import { DeviceContext } from '@app/context/DeviceContext/DeviceContext';
 import logo from '@app/assets/images/logo-footer.svg';
+import MenuToggler from '@app/components/Menu/MenuToggler/MenuToggler';
 import SecondaryMenu from '@app/components/Menu/SecondaryMenu/SecondaryMenu';
 
 import {
@@ -62,6 +63,7 @@ const Section: React.FC<SectionInt> = ({ id, heading, children }) => {
         />
       )}
       <div className={panelDetail}>
+        <MenuToggler />
         {heading && <h2>{heading}</h2>}
         {children}
       </div>

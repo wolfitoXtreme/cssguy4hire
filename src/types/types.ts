@@ -38,7 +38,7 @@ export enum links {
   LINKEDIN = 'linkedin',
   CODEPEN = 'codepen',
   STACKOVERFLOW = 'stackoverflow',
-  BAHANCE = 'behance',
+  BEHANCE = 'behance',
   CV = 'cv',
   LANG = 'lang'
 }
