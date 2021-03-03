@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/cssguy4hire/static/css/main.54805071.chunk.css",
-    "main.js": "/cssguy4hire/static/js/main.8d4b0c9b.chunk.js",
-    "main.js.map": "/cssguy4hire/static/js/main.8d4b0c9b.chunk.js.map",
+    "main.css": "/cssguy4hire/static/css/main.1aff3d82.chunk.css",
+    "main.js": "/cssguy4hire/static/js/main.1bf2ba76.chunk.js",
+    "main.js.map": "/cssguy4hire/static/js/main.1bf2ba76.chunk.js.map",
     "runtime-main.js": "/cssguy4hire/static/js/runtime-main.95553447.js",
     "runtime-main.js.map": "/cssguy4hire/static/js/runtime-main.95553447.js.map",
     "static/css/2.70c372c2.chunk.css": "/cssguy4hire/static/css/2.70c372c2.chunk.css",
-    "static/js/2.62021bbb.chunk.js": "/cssguy4hire/static/js/2.62021bbb.chunk.js",
-    "static/js/2.62021bbb.chunk.js.map": "/cssguy4hire/static/js/2.62021bbb.chunk.js.map",
+    "static/js/2.d0cc0ed6.chunk.js": "/cssguy4hire/static/js/2.d0cc0ed6.chunk.js",
+    "static/js/2.d0cc0ed6.chunk.js.map": "/cssguy4hire/static/js/2.d0cc0ed6.chunk.js.map",
     "index.html": "/cssguy4hire/index.html",
     "static/css/2.70c372c2.chunk.css.map": "/cssguy4hire/static/css/2.70c372c2.chunk.css.map",
-    "static/css/main.54805071.chunk.css.map": "/cssguy4hire/static/css/main.54805071.chunk.css.map",
-    "static/js/2.62021bbb.chunk.js.LICENSE.txt": "/cssguy4hire/static/js/2.62021bbb.chunk.js.LICENSE.txt",
+    "static/css/main.1aff3d82.chunk.css.map": "/cssguy4hire/static/css/main.1aff3d82.chunk.css.map",
+    "static/js/2.d0cc0ed6.chunk.js.LICENSE.txt": "/cssguy4hire/static/js/2.d0cc0ed6.chunk.js.LICENSE.txt",
     "static/media/icon-about.svg": "/cssguy4hire/static/media/icon-about.14fe9e9b.svg",
     "static/media/icon-behance-inv.svg": "/cssguy4hire/static/media/icon-behance-inv.226c5e98.svg",
     "static/media/icon-behance.svg": "/cssguy4hire/static/media/icon-behance.065bf6e1.svg",
@@ -41,8 +41,10 @@
     "static/media/icon-stackoverflow-inv.svg": "/cssguy4hire/static/media/icon-stackoverflow-inv.415e2f66.svg",
     "static/media/icon-stackoverflow.svg": "/cssguy4hire/static/media/icon-stackoverflow.ae391dae.svg",
     "static/media/icon-work.svg": "/cssguy4hire/static/media/icon-work.cccd24b3.svg",
+    "static/media/logo-dark-bg.svg": "/cssguy4hire/static/media/logo-dark-bg.7b28c722.svg",
     "static/media/logo-default.svg": "/cssguy4hire/static/media/logo-default.ae92fbf6.svg",
     "static/media/logo-footer.svg": "/cssguy4hire/static/media/logo-footer.6a54c2bb.svg",
+    "static/media/logo-landscape-dark-bg.svg": "/cssguy4hire/static/media/logo-landscape-dark-bg.8c8f7bba.svg",
     "static/media/logo-landscape.svg": "/cssguy4hire/static/media/logo-landscape.1de5dc50.svg",
     "static/media/logo.svg": "/cssguy4hire/static/media/logo.9cc7c4ea.svg",
     "static/media/App.scss": "/cssguy4hire/static/media/oswald-regular.ce7856ab.woff",
@@ -71,8 +73,8 @@
   "entrypoints": [
     "static/js/runtime-main.95553447.js",
     "static/css/2.70c372c2.chunk.css",
-    "static/js/2.62021bbb.chunk.js",
-    "static/css/main.54805071.chunk.css",
-    "static/js/main.8d4b0c9b.chunk.js"
+    "static/js/2.d0cc0ed6.chunk.js",
+    "static/css/main.1aff3d82.chunk.css",
+    "static/js/main.1bf2ba76.chunk.js"
   ]
 }
