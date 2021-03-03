@@ -14,6 +14,7 @@ import Skills from '@app/components/Skills/Skills';
 import Roles from '@app/components/Roles/Roles';
 import Work from '@app/components/Work/Work';
 import Contact from '@app/components/Contact/Contact';
+import Footer from '@app/components/Footer/Footer';
 
 import { main, menuWidth } from './Main.module.scss';
 
@@ -53,7 +54,7 @@ const Main: React.FC<MainInt> = ({ lang }) => {
 
   return (
     <IntlProvider locale={lang} messages={messages}>
-      {currentDevice === devices.MOBILE && (
+      {(currentDevice === devices.MOBILE && (
         <>
           <Menu ref={menuRef} menuType={devices.MOBILE} />
           <main ref={mainRef} className={main}>
@@ -64,16 +65,21 @@ const Main: React.FC<MainInt> = ({ lang }) => {
             <Work />
             <Contact />
           </main>
+          <Footer />
+        </>
+      )) || (
+        <>
+          <main className={main}>
+            <Home />
+            <About />
+            <Skills />
+            <Roles />
+            <Work />
+            <Contact />
+          </main>
+          <Footer />
         </>
       )}
-      <main className={main}>
-        <Home />
-        <About />
-        <Skills />
-        <Roles />
-        <Work />
-        <Contact />
-      </main>
     </IntlProvider>
   );
 };

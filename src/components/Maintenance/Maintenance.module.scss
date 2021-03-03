@@ -1,0 +1,54 @@
+@import '~@styles/config/variables';
+@import '~@styles/helpers/mixins';
+
+.maintenance {
+  flex-flow: column;
+  background-color: $light-black;
+
+  &-detail {
+    &#{&} {
+      margin-top: auto;
+    }
+  }
+}
+
+.maintenance-heading {
+  margin: 0 auto;
+  padding: 60px 0 0;
+  max-width: 350px;
+
+  @include breakpoint(orientation landscape) {
+    padding-top: 40px;
+  }
+}
+
+.maintenance-content {
+  margin: 0 auto;
+  max-width: 420px;
+  font-size: $font-size-normal;
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 1.3;
+  text-align: center;
+  text-shadow: 1px 1px 0 $black;
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    font-size: $font-size-medium;
+  }
+}
+
+.maintenance-footer {
+  margin-top: auto;
+  padding: 0 20px 15px;
+
+  address {
+    font-size: $font-size-xxx-small;
+    font-style: normal;
+    letter-spacing: 0;
+    text-align: center;
+  }
+
+  br {
+    display: none;
+  }
+}

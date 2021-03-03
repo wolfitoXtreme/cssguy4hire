@@ -82,7 +82,7 @@ $font-size-massive: nth(map-get($font-sizes, massive), 1);
 $font-size-gigantic: nth(map-get($font-sizes, gigantic), 1);
 $font-size-humongous: nth(map-get($font-sizes, humongous), 1);
 
-//  default font size
+// default font size
 $font-size-default: $font-size-medium;
 
 // line-height default

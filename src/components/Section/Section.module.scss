@@ -134,44 +134,40 @@ $panel-padding-large: 0 142px;
     @extend %panel-horizontal-padding;
   }
 
-  &-footer {
-    visibility: hidden; // remove footer from been focusable
+  &-footer-signature {
+    bottom: 8px;
+    left: 14px;
+    position: absolute;
 
-    &-signature {
-      bottom: 8px;
-      left: 14px;
-      position: absolute;
-
-      @include breakpoint(map-get($breakpoints, small)) {
-        left: 16px;
-      }
-
-      @include breakpoint(map-get($breakpoints, medium)) {
-        bottom: 17px;
-        left: 24px;
-      }
-
-      @include breakpoint(map-get($breakpoints, large)) {
-        bottom: 21px;
-        left: 30px;
-      }
+    @include breakpoint(map-get($breakpoints, small)) {
+      left: 16px;
     }
 
-    &-img {
-      height: auto;
-      opacity: 0.44;
+    @include breakpoint(map-get($breakpoints, medium)) {
+      bottom: 17px;
+      left: 24px;
+    }
 
-      @include breakpoint(map-get($breakpoints, small)) {
-        width: 129px;
-      }
+    @include breakpoint(map-get($breakpoints, large)) {
+      bottom: 21px;
+      left: 30px;
+    }
+  }
 
-      @include breakpoint(map-get($breakpoints, medium)) {
-        width: 185px;
-      }
+  &-footer--img {
+    height: auto;
+    opacity: 0.44;
 
-      @include breakpoint(map-get($breakpoints, large)) {
-        width: 246px;
-      }
+    @include breakpoint(map-get($breakpoints, small)) {
+      width: 129px;
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      width: 185px;
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+      width: 246px;
     }
   }
 
@@ -181,6 +177,7 @@ $panel-padding-large: 0 142px;
     right: -0.05em;
     bottom: -0.2em;
     max-width: 100%;
+    /*stylelint-disable-next-line font-family-no-missing-generic-family-keyword*/
     font: bold 90px/ 1 oswald;
     letter-spacing: -0.03em;
     text-transform: uppercase;

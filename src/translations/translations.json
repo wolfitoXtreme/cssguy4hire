@@ -1,5 +1,7 @@
 {
   "en": {
+    "site": "{CSS}Guy4Hire",
+    "site-text": "Web Designer and Front-end Developer",
     "menu": "menu",
     "menu-title-primary": "Main menu",
     "menu-title-secondary": "Find me on",
@@ -11,9 +13,13 @@
     "menu-work": "Work",
     "menu-contact": "Contact",
     "menu-cv": "Resume",
-    "menu-lang": "Español"
+    "menu-lang": "Español",
+    "home-text": "Widely experienced <strong>Web Designer</strong> and <strong>Front-end Developer</strong> focusing on <strong>designing</strong> and <strong>building</strong> intuitive and functional <strong>web applications</strong>.",
+    "footer-contact": "<strong>CÉSAR CANDELA<br></strong> · Web Designer/Front-end developer · <br> (+359) 88 456 7671 · <span>cesar{at}cssguy4hire.com</span>"
   },
   "es": {
+    "site": "{CSS}Guy4Hire",
+    "site-text": "Diseñador Web y Desarrollador Front-end",
     "menu": "menú",
     "menu-title-primary": "Menú principal",
     "menu-title-secondary": "Encuéntrele en",
@@ -25,6 +31,8 @@
     "menu-work": "Trabajos",
     "menu-contact": "Contacto",
     "menu-cv": "Curriculum",
-    "menu-lang": "English"
+    "menu-lang": "English",
+    "home-text": "Experimentado <strong>Diseñador web</strong> y <strong>Desarrollador Front-end</strong>, enfocado en <strong>diseñar</strong> y <strong>construir</strong> <strong>aplicaciones web</strong> funcionales e intuitivas.",
+    "footer-contact": "<strong>CÉSAR CANDELA<br></strong> · Diseñador web/Desarrollador Front-end · <br> (+359) 88 456 7671 · <span>cesar{at}cssguy4hire.com</span>"
   }
 }

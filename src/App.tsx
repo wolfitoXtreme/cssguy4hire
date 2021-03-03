@@ -10,6 +10,7 @@ import { devices } from '@app/types/types';
 import { RootReducer } from './store/reducers/index';
 import Reference from './components/Reference/Reference';
 import Main from './components/Main';
+import Maintenance from './components/Maintenance/Maintenance';
 import { breakpoints as SASSBreakpoints } from './components/Main.module.scss';
 import './styles/App.scss';
 import { SASSvarsToJason } from './utils/utils';
@@ -22,6 +23,8 @@ const breakPoints = SASSvarsToJason(SASSBreakpoints);
 
 const getDeviceType = (mediaQuery) =>
   mediaQuery ? devices.MOBILE : devices.DESKTOP;
+
+const maintenance = true;
 
 const App = () => {
   const matchMediaQuery = useMediaQuery({
@@ -39,16 +42,18 @@ const App = () => {
         <BrowserRouter>
           <Switch>
             <Route
-              path="/"
-              render={(props) => (
-                <MenuProvider>
-                  <Main {...props} />
-                </MenuProvider>
-              )}
+              path="/cssguy4hire/"
+              render={(props) =>
+                (maintenance && <Maintenance {...props} />) || (
+                  <MenuProvider>
+                    <Main {...props} />
+                  </MenuProvider>
+                )
+              }
               exact
             />
             <Route
-              path="/reference/"
+              path="/cssguy4hire/reference/"
               render={(props) => <Reference {...props} />}
               exact
             />

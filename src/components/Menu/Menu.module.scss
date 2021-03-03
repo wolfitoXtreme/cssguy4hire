@@ -386,3 +386,19 @@
     }
   }
 }
+
+.menu-util-maintenance {
+  margin: 0 auto;
+  padding: 40px 0 10px;
+  display: flex;
+  justify-content: center;
+  position: static;
+
+  @include breakpoint(orientation landscape) {
+    padding-top: 20px;
+  }
+
+  .menu-heading {
+    @include hidden(false);
+  }
+}

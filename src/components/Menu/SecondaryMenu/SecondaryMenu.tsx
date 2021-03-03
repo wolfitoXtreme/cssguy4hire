@@ -13,6 +13,7 @@ import {
   menuListItemLink,
   noTouchEvents,
   menuUtil,
+  menuUtilMaintenance,
   menuUtilInternal,
   menuUtilList,
   menuUtilLangList,
@@ -27,7 +28,7 @@ import IconMenu from '../IconMenu/IconMenu';
 
 interface SecondaryMenuInt {
   menuType: devices.MOBILE | devices.DESKTOP;
-  variant?: 'internal';
+  variant?: 'internal' | 'maintenance';
   lang: languages;
   onLanguageChange: (...args: any[]) => void;
 }
@@ -54,7 +55,10 @@ const SecondaryMenu: React.FC<SecondaryMenuInt> = ({
       className={classNames({
         [menu]: menuType === devices.MOBILE,
         [menuUtil]: menuType === devices.DESKTOP,
-        [menuUtilInternal]: menuType === devices.DESKTOP && variant
+        [menuUtilInternal]:
+          menuType === devices.DESKTOP && variant === 'internal',
+        [menuUtilInternal + ' ' + menuUtilMaintenance]:
+          menuType === devices.DESKTOP && variant === 'maintenance'
       })}
     >
       <h5 className={menuHeading}>

@@ -2,8 +2,8 @@
 @import '~@styles/config/variables-export';
 
 .main {
-  $_shadow-height: 20px;
-  $_shadow-colors: rgba($black, 0.85) 1%, rgba($black, 0.55) 25%,
+  $shadow-height: 20px;
+  $shadow-colors: rgba($black, 0.85) 1%, rgba($black, 0.55) 25%,
     rgba($black, 0) 60%;
 
   min-height: 100vh;
@@ -12,17 +12,17 @@
   &:before,
   &:after {
     // content: '';
-    top: -$_shadow-height;
+    top: -$shadow-height;
     left: 0;
     width: 100%;
-    height: $_shadow-height;
+    height: $shadow-height;
     position: absolute;
-    background-image: linear-gradient(0deg, $_shadow-colors);
+    background-image: linear-gradient(0deg, $shadow-colors);
   }
 
   &:after {
     top: auto;
-    bottom: -$_shadow-height;
-    background-image: linear-gradient(180deg, $_shadow-colors);
+    bottom: -$shadow-height;
+    background-image: linear-gradient(180deg, $shadow-colors);
   }
 }

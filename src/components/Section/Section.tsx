@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import classNames from 'classnames';
+import { useIntl } from 'react-intl';
 import { sections, devices } from '@app/types/types';
 import { DeviceContext } from '@app/context/DeviceContext/DeviceContext';
 import logo from '@app/assets/images/logo-footer.svg';
@@ -26,6 +27,7 @@ interface SectionInt {
 }
 
 const Section: React.FC<SectionInt> = ({ id, heading, children }) => {
+  const { formatMessage } = useIntl();
   const { type: currentDevice } = useContext(DeviceContext);
 
   const styleClass = (sectionName: sections): string => {
@@ -62,19 +64,25 @@ const Section: React.FC<SectionInt> = ({ id, heading, children }) => {
           variant={id !== sections.HOME ? 'internal' : undefined}
         />
       )}
+      {currentDevice === devices.MOBILE && <MenuToggler />}
       <div className={panelDetail}>
-        {currentDevice === devices.MOBILE && <MenuToggler />}
         {heading && <h2>{heading}</h2>}
         {children}
       </div>
-      <div className={panelFooterSignature}>
-        <h6>
-          <div>
-            <img className={panelFooterImg} src={logo} alt="{CSS} Guy4Hire" />
-          </div>
-          <span className="hidden">'{'CSS'}'Guy4Hire</span>
-        </h6>
-      </div>
+      {id !== sections.HOME && (
+        <div className={panelFooterSignature}>
+          <h6>
+            <div>
+              <img
+                className={panelFooterImg}
+                src={logo}
+                alt={formatMessage({ id: 'site' })}
+              />
+            </div>
+            <span className="hidden">{formatMessage({ id: 'site' })}</span>
+          </h6>
+        </div>
+      )}
     </section>
   );
 };

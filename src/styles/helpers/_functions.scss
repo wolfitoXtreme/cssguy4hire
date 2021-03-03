@@ -44,3 +44,25 @@
 
   @return ($newB);
 }
+
+// greatest common divisor
+@function gcd($valueA, $valueB) {
+  @return if($valueB == 0, $valueA, gcd($valueB, $valueA%$valueB));
+}
+
+// get aspect ratio
+@function getAspectRatio($width, $height) {
+  $gcd: gcd($width, $height);
+  $ratioA: $width/$gcd;
+  $ratioB: $height/$gcd;
+
+  @return $ratioA $ratioB;
+}
+
+// set percentage height ratio
+@function percentageHeightRatio($width, $height) {
+  $ratio: getAspectRatio($width, $height);
+  $percentageHeightRatio: (nth($ratio, 2) / nth($ratio, 1)) * 100%;
+
+  @return $percentageHeightRatio;
+}
