@@ -42,7 +42,7 @@ const App = () => {
         <BrowserRouter>
           <Switch>
             <Route
-              path="/cssguy4hire/"
+              path="/"
               render={(props) =>
                 (maintenance && <Maintenance {...props} />) || (
                   <MenuProvider>
@@ -53,7 +53,7 @@ const App = () => {
               exact
             />
             <Route
-              path="/cssguy4hire/reference/"
+              path="/reference/"
               render={(props) => <Reference {...props} />}
               exact
             />
