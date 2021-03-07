@@ -1,7 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { useIntl } from 'react-intl';
-import { MenuContext } from '@app/context/MenuContext/MenuContext';
+
 import classNames from 'classnames';
+
+import { MenuContext } from '@app/context/MenuContext/MenuContext';
 import { ReactComponent as IconNav } from '@app/assets/icons/icon-nav.svg';
 import { ReactComponent as IconNavHover } from '@app/assets/icons/icon-nav-hover.svg';
 import { ReactComponent as IconNavClose } from '@app/assets/icons/icon-nav-close.svg';

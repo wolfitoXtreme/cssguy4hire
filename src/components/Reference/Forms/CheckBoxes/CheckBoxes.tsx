@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { mustNotBeEmpty } from '@app/utils/validators';
 import InputChoiceButton from '@app/components/Form/InputChoiceButton/InputChoiceButton';
 

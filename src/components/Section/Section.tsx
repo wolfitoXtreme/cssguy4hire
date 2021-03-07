@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
-import classNames from 'classnames';
 import { useIntl } from 'react-intl';
+
+import classNames from 'classnames';
+
 import { sections, devices } from '@app/types/types';
 import { DeviceContext } from '@app/context/DeviceContext/DeviceContext';
 import logo from '@app/assets/images/logo-footer.svg';

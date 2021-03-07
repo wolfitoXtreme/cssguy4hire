@@ -1,7 +1,9 @@
 import React from 'react';
+
+import classNames from 'classnames';
+
 import { FontInt } from '@app/types/types';
 import { SASSvarsToJason } from '@app/utils/utils';
-import classNames from 'classnames';
 
 import {
   sizes,

@@ -6,6 +6,7 @@ import {
   blockHeading,
   blockHeadingText
 } from './Section.module.scss';
+
 interface SectionInt {
   heading: string;
   children?: React.ReactNode;

@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Field } from 'react-final-form';
+
 import classNames from 'classnames';
 import {
   Checkbox,
@@ -9,9 +10,11 @@ import {
   InputLabel,
   Radio
 } from '@material-ui/core';
+
 import { composeValidators } from '@app/utils/validators';
 import { DeviceContext } from '@app/context/DeviceContext/DeviceContext';
 import { devices } from '@app/types/types';
+
 import {
   fieldWrapper,
   fieldLabel,

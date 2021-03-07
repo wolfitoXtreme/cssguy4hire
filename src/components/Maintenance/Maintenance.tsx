@@ -1,11 +1,13 @@
 import React from 'react';
 import { IntlProvider, useIntl } from 'react-intl';
 import { connect } from 'react-redux';
+
 import { languageStateType, devices } from '@app/types/types';
 import translations from '@app/translations/translations.json';
 import Heading from '@app/components/Home/Heading/Heading';
 import Footer from '@app/components/Footer/Footer';
 import SecondaryMenu from '@app/components/Menu/SecondaryMenu/SecondaryMenu';
+
 import {
   panel,
   panelDetail

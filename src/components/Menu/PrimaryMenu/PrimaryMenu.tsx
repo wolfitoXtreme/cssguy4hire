@@ -1,8 +1,14 @@
 import React, { useContext } from 'react';
 import { useIntl } from 'react-intl';
+
 import classNames from 'classnames';
+
 import { getNoTouch } from '@app/utils/utils';
 import { MenuContext } from '@app/context/MenuContext/MenuContext';
+import { devices, sections } from '@app/types/types';
+
+import IconMenu from '../IconMenu/IconMenu';
+
 import {
   menu,
   menuHeading,
@@ -16,9 +22,6 @@ import {
   menuMainItemLink,
   menuMainItemIcon
 } from '@app/components/Menu/Menu.module.scss';
-import { devices, sections } from '@app/types/types';
-
-import IconMenu from '../IconMenu/IconMenu';
 
 const PrimaryMenu: React.FC<{ menuType: devices.MOBILE | devices.DESKTOP }> = ({
   menuType

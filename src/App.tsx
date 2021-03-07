@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { createStore, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
+
+import { createStore, compose } from 'redux';
+
+import { devices } from '@app/types/types';
 import { DeviceContext } from '@app/context/DeviceContext/DeviceContext';
 import { MenuProvider } from '@app/context/MenuContext/MenuContext';
-import { devices } from '@app/types/types';
+import { SASSvarsToJason } from '@app/utils/utils';
+import Reference from '@app/components/Reference/Reference';
+import Main from '@app/components/Main';
+import Maintenance from '@app/components/Maintenance/Maintenance';
 
-import { RootReducer } from './store/reducers/index';
-import Reference from './components/Reference/Reference';
-import Main from './components/Main';
-import Maintenance from './components/Maintenance/Maintenance';
+import { RootReducer } from '@store/reducers/index';
+
 import { breakpoints as SASSBreakpoints } from './components/Main.module.scss';
 import './styles/App.scss';
-import { SASSvarsToJason } from './utils/utils';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

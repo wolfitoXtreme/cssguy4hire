@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Field } from 'react-final-form';
 import { isMobile } from 'react-device-detect';
+
 import classNames from 'classnames';
 import {
   FormControl,
@@ -11,6 +12,7 @@ import {
   MenuItem,
   InputProps
 } from '@material-ui/core/';
+
 import { composeValidators } from '@app/utils/validators';
 import { DeviceContext } from '@app/context/DeviceContext/DeviceContext';
 import { devices } from '@app/types/types';

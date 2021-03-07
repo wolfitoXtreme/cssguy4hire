@@ -1,6 +1,8 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
+
 import classNames from 'classnames';
+
 import { ReactComponent as LogoImage } from '@app/assets/images/logo.svg';
 import { ReactComponent as LogoImageLandscape } from '@app/assets/images/logo-landscape.svg';
 import { ReactComponent as LogoImageDarkBg } from '@app/assets/images/logo-dark-bg.svg';

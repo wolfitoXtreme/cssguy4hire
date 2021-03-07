@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useRef } from 'react';
 import { IntlProvider } from 'react-intl';
 import { connect } from 'react-redux';
+
 import { TweenLite } from 'gsap';
+
 import { updateDocumentLanguage } from '@app/utils/utils';
 import { DeviceContext } from '@app/context/DeviceContext/DeviceContext';
 import { languageStateType, languages, devices } from '@app/types/types';

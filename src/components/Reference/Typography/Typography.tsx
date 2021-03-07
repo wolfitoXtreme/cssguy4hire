@@ -1,10 +1,12 @@
 import React from 'react';
+
 import { SASSvarsToJason, kebapCaseToTitleCase } from '@app/utils/utils';
 import { FontInt, FontVariantType } from '@app/types/types';
 import Section from '@app/components/Reference/Section/Section';
 
 import Fonts from './Fonts/Fonts';
 import LinkColors from './LinkColors/LinkColors';
+
 import { fonts as SASSfonts } from './Typography.module.scss';
 
 const formatFonts = (fonts) => {

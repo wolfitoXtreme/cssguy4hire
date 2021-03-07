@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { devices } from '@app/types/types';
 
 export const device = {

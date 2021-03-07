@@ -1,9 +1,17 @@
 import React, { useContext } from 'react';
-import classNames from 'classnames';
 import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
+
+import classNames from 'classnames';
+
 import { getNoTouch } from '@app/utils/utils';
 import { MenuContext } from '@app/context/MenuContext/MenuContext';
+import { languageStateType, languages, links, devices } from '@app/types/types';
+
+import { changeLanguage } from '@store/actions';
+
+import IconMenu from '../IconMenu/IconMenu';
+
 import {
   menu,
   menuHeading,
@@ -21,10 +29,6 @@ import {
   menuUtilItemLink,
   menuUtilItemIcon
 } from '@app/components/Menu/Menu.module.scss';
-import { languageStateType, languages, links, devices } from '@app/types/types';
-import { changeLanguage } from '@store/actions';
-
-import IconMenu from '../IconMenu/IconMenu';
 
 interface SecondaryMenuInt {
   menuType: devices.MOBILE | devices.DESKTOP;

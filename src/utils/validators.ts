@@ -10,7 +10,6 @@ export const mustNotBeEmpty = (value) => {
 };
 
 export const mustHaveEmailFormat = (value) => {
-  console.log('mustHaveEmailFormat: ', value);
   const isValid = emailRegex.test(value);
   return !isValid ? 'Please enter a valid email address' : null;
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { useIntl } from 'react-intl';
+
 import { languageStateType } from '@app/types/types';
 
 interface FooterInt {

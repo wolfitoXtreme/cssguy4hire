@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { sections } from '@app/types/types';
 import Section from '@app/components/Section/Section';
 

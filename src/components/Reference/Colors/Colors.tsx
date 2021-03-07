@@ -1,7 +1,10 @@
 import React from 'react';
+
 import classNames from 'classnames';
+
 import { SASSvarsToJason } from '@app/utils/utils';
 import Section from '@app/components/Reference/Section/Section';
+
 import {
   grid,
   gridItem,
