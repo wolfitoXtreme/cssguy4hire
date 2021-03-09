@@ -37,6 +37,17 @@
   }
 }
 
+.maintenance-lang {
+  top: 12px;
+  right: 12px;
+  position: absolute;
+  z-index: 10;
+
+  &-heading {
+    @include hidden(false);
+  }
+}
+
 .maintenance-footer {
   margin-top: auto;
   padding: 0 20px 15px;

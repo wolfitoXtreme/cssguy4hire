@@ -42,7 +42,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <DeviceContext.Provider value={{ type: deviceType }}>
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
           <Switch>
             <Route
               path="/"
@@ -55,6 +55,13 @@ const App = () => {
               }
               exact
             />
+
+            <Route
+              path="/maintenance/"
+              render={(props) => <Maintenance {...props} />}
+              exact
+            />
+
             <Route
               path="/reference/"
               render={(props) => <Reference {...props} />}

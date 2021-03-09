@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form } from 'react-final-form';
+
 import Section from '@app/components/Reference/Section/Section';
 
 import Buttons from './Buttons/Buttons';
@@ -8,6 +9,7 @@ import TextAreaFields from './TextAreaFields/TextAreaFields';
 import SelectFields from './SelectFields/SelectFields';
 import RadioButtons from './RadioButtons/RadioButtons';
 import CheckBoxes from './CheckBoxes/CheckBoxes';
+
 import { form, formValues } from './Forms.module.scss';
 
 const Forms: React.FC = () => {

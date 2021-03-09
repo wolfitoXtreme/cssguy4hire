@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { devices } from '@app/types/types';
 
 import PrimaryMenu from './PrimaryMenu/PrimaryMenu';
 import SecondaryMenu from './SecondaryMenu/SecondaryMenu';
+
 import { navigation } from './Menu.module.scss';
 
 interface MenuInt {

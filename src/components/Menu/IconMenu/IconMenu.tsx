@@ -22,7 +22,6 @@ const IconMenu: React.FC<IconProps> = ({ icon, className }) => {
         );
         ImportedIconRef.current = test;
       } catch (err) {
-        console.error('no file found\n', err);
         return;
       } finally {
         setLoading(false);

@@ -6,11 +6,10 @@ import classNames from 'classnames';
 
 import { getNoTouch } from '@app/utils/utils';
 import { MenuContext } from '@app/context/MenuContext/MenuContext';
-import { languageStateType, languages, links, devices } from '@app/types/types';
-
-import { changeLanguage } from '@store/actions';
+import { languageStateType, devices, links } from '@app/types/types';
 
 import IconMenu from '../IconMenu/IconMenu';
+import MenuLang from '../MenuLang/MenuLang';
 
 import {
   menu,
@@ -33,26 +32,18 @@ import {
 interface SecondaryMenuInt {
   menuType: devices.MOBILE | devices.DESKTOP;
   variant?: 'internal' | 'maintenance';
-  lang: languages;
-  onLanguageChange: (...args: any[]) => void;
+  lang: string;
 }
 
 const SecondaryMenu: React.FC<SecondaryMenuInt> = ({
   menuType,
   variant,
-  lang,
-  onLanguageChange
+  lang
 }) => {
   const { formatMessage } = useIntl();
   const {
-    navigation: {
-      external: menuItems,
-      lang: { id: langMenu }
-    }
+    navigation: { external: menuItems }
   } = useContext(MenuContext);
-
-  const getOtherLang = (lang: languages) =>
-    lang === languages.ENGLISH ? languages.SPANISH : languages.ENGLISH;
 
   return (
     <nav
@@ -71,6 +62,7 @@ const SecondaryMenu: React.FC<SecondaryMenuInt> = ({
       <ul className={menuType === devices.MOBILE ? menuList : menuUtilList}>
         {menuItems?.map(({ id, name, url }, index) => {
           const text = name || formatMessage({ id: `menu-${id}` });
+
           return (
             <li
               key={index}
@@ -79,7 +71,7 @@ const SecondaryMenu: React.FC<SecondaryMenuInt> = ({
               }
             >
               <a
-                href={url}
+                href={id !== links.CV ? url : `/cv/cv-${lang}.pdf`}
                 title={text}
                 target="_blank"
                 rel="noreferrer"
@@ -104,49 +96,30 @@ const SecondaryMenu: React.FC<SecondaryMenuInt> = ({
           );
         })}
       </ul>
-
-      <h5 className={menuHeading}>
-        {formatMessage({ id: 'menu-title-lang' })}:
-      </h5>
-      <ul
-        className={classNames({
-          [menuList]: menuType === devices.MOBILE,
-          [menuUtilList]: menuType === devices.DESKTOP,
-          [menuUtilLangList]: menuType === devices.DESKTOP
-        })}
-      >
-        <li
-          className={classNames({
-            [menuListItem]: menuType === devices.MOBILE,
-            [menuUtilItem]: menuType === devices.DESKTOP
-          })}
-        >
-          <a
-            href="!#"
-            onClick={(event) => {
-              event.preventDefault();
-              onLanguageChange(getOtherLang(lang));
-            }}
-            title={formatMessage({ id: `menu-${langMenu}` })}
-            tabIndex={-1}
-            className={classNames({
+      {variant !== 'maintenance' && (
+        <MenuLang
+          heading={formatMessage({ id: 'menu-title-lang' })}
+          styleClasses={{
+            heading: menuHeading,
+            list: classNames({
+              [menuList]: menuType === devices.MOBILE,
+              [menuUtilList]: menuType === devices.DESKTOP,
+              [menuUtilLangList]: menuType === devices.DESKTOP
+            }),
+            listItem: classNames({
+              [menuListItem]: menuType === devices.MOBILE,
+              [menuUtilItem]: menuType === devices.DESKTOP
+            }),
+            anchor: classNames({
               [menuListItemLink]: menuType === devices.MOBILE,
               [menuUtilItemLink]: menuType === devices.DESKTOP,
               [noTouchEvents]: getNoTouch()
-            })}
-          >
-            <IconMenu
-              icon={`${links.LANG}-${getOtherLang(lang)}`}
-              className={
-                menuType === devices.MOBILE
-                  ? menuListItemIcon
-                  : menuUtilItemIcon
-              }
-            />
-            <span>{formatMessage({ id: `menu-${langMenu}` })}</span>
-          </a>
-        </li>
-      </ul>
+            }),
+            icon:
+              menuType === devices.MOBILE ? menuListItemIcon : menuUtilItemIcon
+          }}
+        />
+      )}
     </nav>
   );
 };
@@ -157,10 +130,4 @@ const mapStateToProps = (state: languageStateType) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: React.Dispatch<any>) => {
-  return {
-    onLanguageChange: (value) => dispatch(changeLanguage(value))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SecondaryMenu);
+export default connect(mapStateToProps)(SecondaryMenu);

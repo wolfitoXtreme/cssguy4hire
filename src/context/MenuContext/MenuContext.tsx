@@ -13,15 +13,27 @@ const navigation = {
   ],
   external: [
     { id: links.GITHUB, name: 'GitHub', url: 'https://github.com/' },
-    { id: links.LINKEDIN, name: 'LinkedIn', url: 'https://github.com/' },
-    { id: links.CODEPEN, name: 'CodePen', url: 'https://github.com/' },
+    {
+      id: links.LINKEDIN,
+      name: 'LinkedIn',
+      url: 'https://www.linkedin.com/in/cesar-candela-86525437/'
+    },
+    {
+      id: links.CODEPEN,
+      name: 'CodePen',
+      url: 'https://codepen.io/wolfitoXtreme'
+    },
     {
       id: links.STACKOVERFLOW,
       name: 'Stack Overflow',
-      url: 'https://github.com/'
+      url: 'https://stackoverflow.com/users/1364026/wolfitoxtreme'
     },
-    { id: links.BEHANCE, name: 'Bēhance', url: 'https://github.com/' },
-    { id: links.CV, url: 'cv_en.pdf' }
+    {
+      id: links.BEHANCE,
+      name: 'Bēhance',
+      url: 'https://www.behance.net/cssguy4hire/'
+    },
+    { id: links.CV }
   ],
   lang: { id: links.LANG }
 };
@@ -29,7 +41,7 @@ const navigation = {
 export const MenuContext = React.createContext<{
   navigation: {
     sections: { id: string }[];
-    external: { id: links; name?: string; url: string }[];
+    external: { id: links; name?: string; url?: string }[];
     lang: { id: links };
   };
   menuIsOpen: boolean | null;
@@ -44,11 +56,8 @@ export const MenuProvider: React.FC = ({ children }) => {
   const [open, setOpen] = useState<boolean | null>(null);
 
   const toggleMenu = (open: boolean) => {
-    console.log('toggling...');
     setOpen(!open);
   };
-
-  console.log('...is open...', !!open);
 
   return (
     <MenuContext.Provider
