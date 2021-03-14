@@ -27,8 +27,6 @@ const breakPoints = SASSvarsToJason(SASSBreakpoints);
 const getDeviceType = (mediaQuery) =>
   mediaQuery ? devices.MOBILE : devices.DESKTOP;
 
-const maintenance = true;
-
 const App = () => {
   const matchMediaQuery = useMediaQuery({
     maxWidth: parseInt(breakPoints['medium']) - 1 + 'px' // -1px, no overlap between breakpoints
@@ -47,7 +45,9 @@ const App = () => {
             <Route
               path="/"
               render={(props) =>
-                (maintenance && <Maintenance {...props} />) || (
+                (process.env.REACT_APP_MAINTENANCE && (
+                  <Maintenance {...props} />
+                )) || (
                   <MenuProvider>
                     <Main {...props} />
                   </MenuProvider>

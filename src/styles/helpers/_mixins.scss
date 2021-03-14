@@ -8,7 +8,7 @@
 // mediaQueries info
 // get on screen information for debugging media queries
 @mixin queryInfo($breakpoints: $breakpoints) {
-  @if $debug == true {
+  @if $debug == true and $env-production == false {
     &:after {
       right: 0;
       bottom: 0;

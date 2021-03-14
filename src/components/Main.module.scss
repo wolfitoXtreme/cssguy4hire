@@ -6,7 +6,8 @@
   $shadow-colors: rgba($black, 0.85) 1%, rgba($black, 0.55) 25%,
     rgba($black, 0) 60%;
 
-  min-height: 100vh;
+  min-height: 100%;
+  flex: 1 0 100%;
   position: relative;
 
   &:before,

@@ -19,6 +19,8 @@ body {
   > div {
     // targets #root container
     min-height: 100%;
+    display: flex;
+    flex-flow: column;
   }
 
   // test mediaQueries

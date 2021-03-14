@@ -151,9 +151,13 @@ module.exports = function (webpackEnv) {
         },
         {
           loader: require.resolve(preProcessor),
-          options: {
-            sourceMap: true
-          }
+          options:
+            preProcessor !== 'sass-loader'
+              ? { sourceMap: true }
+              : {
+                  sourceMap: true,
+                  prependData: '$env-production: ' + isEnvProduction + ';'
+                }
         }
       );
     }

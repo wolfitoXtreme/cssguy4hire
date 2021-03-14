@@ -2,6 +2,8 @@
 @import '~@styles/helpers/mixins';
 
 .maintenance {
+  min-height: auto;
+  flex: 1 0 100%;
   flex-flow: column;
   background-color: $light-black;
 
@@ -51,6 +53,7 @@
 .maintenance-footer {
   margin-top: auto;
   padding: 0 20px 15px;
+  color: $dim-grey;
 
   address {
     font-size: $font-size-xxx-small;
