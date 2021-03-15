@@ -31,4 +31,4 @@ yarn-debug.log*
 yarn-error.log*
 
 .eslintcache
-**/*.scss.d.ts
+**/App.scss.d.ts
