@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/cssguy4hire/static/css/main.23a275f3.chunk.css",
-    "main.js": "/cssguy4hire/static/js/main.6b3cf000.chunk.js",
+    "main.js": "/cssguy4hire/static/js/main.3af90527.chunk.js",
     "runtime-main.js": "/cssguy4hire/static/js/runtime-main.95553447.js",
     "static/css/2.6c99578e.chunk.css": "/cssguy4hire/static/css/2.6c99578e.chunk.css",
     "static/js/2.59cf0a47.chunk.js": "/cssguy4hire/static/js/2.59cf0a47.chunk.js",
@@ -70,6 +70,6 @@
     "static/css/2.6c99578e.chunk.css",
     "static/js/2.59cf0a47.chunk.js",
     "static/css/main.23a275f3.chunk.css",
-    "static/js/main.6b3cf000.chunk.js"
+    "static/js/main.3af90527.chunk.js"
   ]
 }
