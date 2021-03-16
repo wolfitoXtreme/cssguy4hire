@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.css": "/static/css/main.f2908b1e.chunk.css",
-    "main.js": "/static/js/main.231a7810.chunk.js",
+    "main.css": "/static/css/main.5d0734f4.chunk.css",
+    "main.js": "/static/js/main.9ed1526c.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.aaa07fc1.js",
-    "static/css/2.0833833b.chunk.css": "/static/css/2.0833833b.chunk.css",
-    "static/js/2.48c4beb3.chunk.js": "/static/js/2.48c4beb3.chunk.js",
+    "static/css/2.6c99578e.chunk.css": "/static/css/2.6c99578e.chunk.css",
+    "static/js/2.59cf0a47.chunk.js": "/static/js/2.59cf0a47.chunk.js",
     "index.html": "/index.html",
-    "static/js/2.48c4beb3.chunk.js.LICENSE.txt": "/static/js/2.48c4beb3.chunk.js.LICENSE.txt",
+    "static/js/2.59cf0a47.chunk.js.LICENSE.txt": "/static/js/2.59cf0a47.chunk.js.LICENSE.txt",
     "static/media/icon-about.svg": "/static/media/icon-about.14fe9e9b.svg",
     "static/media/icon-behance-inv.svg": "/static/media/icon-behance-inv.226c5e98.svg",
     "static/media/icon-behance.svg": "/static/media/icon-behance.065bf6e1.svg",
@@ -67,9 +67,9 @@
   },
   "entrypoints": [
     "static/js/runtime-main.aaa07fc1.js",
-    "static/css/2.0833833b.chunk.css",
-    "static/js/2.48c4beb3.chunk.js",
-    "static/css/main.f2908b1e.chunk.css",
-    "static/js/main.231a7810.chunk.js"
+    "static/css/2.6c99578e.chunk.css",
+    "static/js/2.59cf0a47.chunk.js",
+    "static/css/main.5d0734f4.chunk.css",
+    "static/js/main.9ed1526c.chunk.js"
   ]
 }
