@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { IntlProvider } from 'react-intl';
 import { connect } from 'react-redux';
 
-import { TweenLite } from 'gsap';
+import { gsap } from 'gsap';
 
 import { updateDocumentLanguage } from '@app/utils/utils';
 import { DeviceContext } from '@app/context/DeviceContext/DeviceContext';
@@ -27,16 +27,18 @@ interface MainInt {
 const Main: React.FC<MainInt> = ({ lang }) => {
   const mainRef = useRef<HTMLElement | null>(null);
   const menuRef = useRef(null);
+  const { type: currentDevice } = useContext(DeviceContext);
+  const { menuIsOpen } = useContext(MenuContext);
   const menuPositions = {
     main: [parseInt(menuWidth), 0],
     menu: [0, -parseInt(menuWidth)]
   };
-  const { type: currentDevice } = useContext(DeviceContext);
-  const { menuIsOpen } = useContext(MenuContext);
+
+  const messages = translations[lang];
 
   useEffect(() => {
     if (currentDevice === devices.MOBILE && menuIsOpen !== null) {
-      TweenLite.to([mainRef.current, menuRef.current], {
+      gsap.to([mainRef.current, menuRef.current], {
         duration: menuIsOpen ? 0.5 : 0.35,
         css: {
           right: (index) =>
@@ -48,8 +50,6 @@ const Main: React.FC<MainInt> = ({ lang }) => {
       });
     }
   }, [currentDevice, menuIsOpen, menuPositions.main, menuPositions.menu]);
-
-  const messages = translations[lang];
 
   // update languages
   updateDocumentLanguage(lang);
