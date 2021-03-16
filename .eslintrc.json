@@ -16,7 +16,7 @@
       {
         "groups": [
           ["internal", "external"],
-          "builtin",
+          ["builtin"],
           ["parent", "sibling"],
           "index",
           "object"
@@ -25,28 +25,33 @@
         "pathGroups": [
           {
             "pattern": "react*",
-            "group": "external",
-            "position": "before"
-          },
-          {
-            "pattern": "@app/**/*.module.scss",
-            "group": "index",
-            "position": "after"
-          },
-          {
-            "pattern": "./*.module.scss",
-            "group": "index",
-            "position": "after"
-          },
-          {
-            "pattern": "@app/**",
             "group": "internal",
-            "position": "after"
+            "position": "before"
           },
           {
             "pattern": "@store/**",
             "group": "internal",
             "position": "after"
+          },
+          {
+            "pattern": "@app/!(components)/**",
+            "group": "parent",
+            "position": "before"
+          },
+          {
+            "pattern": "@app/components/**/!(*.module.scss)",
+            "group": "parent",
+            "position": "before"
+          },
+          {
+            "pattern": "@app/**/*.module.scss",
+            "group": "index",
+            "position": "before"
+          },
+          {
+            "pattern": "./*.module.scss",
+            "group": "index",
+            "position": "before"
           }
         ],
         "pathGroupsExcludedImportTypes": ["builtin"]

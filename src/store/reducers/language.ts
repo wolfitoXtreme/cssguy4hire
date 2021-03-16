@@ -1,6 +1,6 @@
-import { languages } from '@app/types/types';
-
 import * as storeActions from '@store/actions/actions';
+
+import { languages } from '@app/types/types';
 
 const initialState = {
   lang: languages.ENGLISH

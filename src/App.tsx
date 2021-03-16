@@ -5,15 +5,16 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom';
 
 import { createStore, compose } from 'redux';
 
+import { RootReducer } from '@store/reducers/index';
+
 import { devices } from '@app/types/types';
 import { DeviceContext } from '@app/context/DeviceContext/DeviceContext';
 import { MenuProvider } from '@app/context/MenuContext/MenuContext';
 import { SASSvarsToJason } from '@app/utils/utils';
+
 import Reference from '@app/components/Reference/Reference';
 import Main from '@app/components/Main';
 import Maintenance from '@app/components/Maintenance/Maintenance';
-
-import { RootReducer } from '@store/reducers/index';
 
 import { breakpoints as SASSBreakpoints } from './components/Main.module.scss';
 import './styles/App.scss';

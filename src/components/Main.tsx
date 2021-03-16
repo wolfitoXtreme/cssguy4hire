@@ -9,6 +9,7 @@ import { DeviceContext } from '@app/context/DeviceContext/DeviceContext';
 import { languageStateType, languages, devices } from '@app/types/types';
 import { MenuContext } from '@app/context/MenuContext/MenuContext';
 import translations from '@app/translations/translations.json';
+
 import Menu from '@app/components/Menu/Menu';
 import Home from '@app/components/Home/Home';
 import About from '@app/components/About/About';

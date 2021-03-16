@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 
 import { devices, sections } from '@app/types/types';
 import { DeviceContext } from '@app/context/DeviceContext/DeviceContext';
+
 import Section from '@app/components/Section/Section';
 import Menu from '@app/components/Menu/Menu';
 

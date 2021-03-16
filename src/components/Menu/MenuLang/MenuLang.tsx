@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import { useIntl } from 'react-intl';
 import { connect } from 'react-redux';
 
+import { changeLanguage } from '@store/actions';
+
 import { MenuContext } from '@app/context/MenuContext/MenuContext';
 import { languages, languageStateType, links } from '@app/types/types';
-
-import { changeLanguage } from '@store/actions';
 
 import IconMenu from '../IconMenu/IconMenu';
 

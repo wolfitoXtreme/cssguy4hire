@@ -6,11 +6,12 @@ import classNames from 'classnames';
 
 import { languageStateType, devices } from '@app/types/types';
 import translations from '@app/translations/translations.json';
+import { getNoTouch } from '@app/utils/utils';
+
 import Heading from '@app/components/Home/Heading/Heading';
 import Footer from '@app/components/Footer/Footer';
 import SecondaryMenu from '@app/components/Menu/SecondaryMenu/SecondaryMenu';
 import MenuLang from '@app/components/Menu/MenuLang/MenuLang';
-import { getNoTouch } from '@app/utils/utils';
 
 import {
   panel,

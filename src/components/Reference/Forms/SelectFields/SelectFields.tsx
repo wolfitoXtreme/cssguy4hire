@@ -1,7 +1,8 @@
 import React from 'react';
 
-import InputField from '@app/components/Form/InputField/InputField';
 import { mustNotBeEmpty } from '@app/utils/validators';
+
+import InputField from '@app/components/Form/InputField/InputField';
 
 const SelectFields: React.FC<{ disabled?: boolean }> = ({ disabled }) => {
   const options = [
