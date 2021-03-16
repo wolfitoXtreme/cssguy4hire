@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.css": "/cssguy4hire/static/css/main.23a275f3.chunk.css",
-    "main.js": "/cssguy4hire/static/js/main.3af90527.chunk.js",
+    "main.css": "/cssguy4hire/static/css/main.7bbe0703.chunk.css",
+    "main.js": "/cssguy4hire/static/js/main.93551c4a.chunk.js",
     "runtime-main.js": "/cssguy4hire/static/js/runtime-main.95553447.js",
-    "static/css/2.6c99578e.chunk.css": "/cssguy4hire/static/css/2.6c99578e.chunk.css",
-    "static/js/2.59cf0a47.chunk.js": "/cssguy4hire/static/js/2.59cf0a47.chunk.js",
+    "static/css/2.0833833b.chunk.css": "/cssguy4hire/static/css/2.0833833b.chunk.css",
+    "static/js/2.380f9eb1.chunk.js": "/cssguy4hire/static/js/2.380f9eb1.chunk.js",
     "index.html": "/cssguy4hire/index.html",
-    "static/js/2.59cf0a47.chunk.js.LICENSE.txt": "/cssguy4hire/static/js/2.59cf0a47.chunk.js.LICENSE.txt",
+    "static/js/2.380f9eb1.chunk.js.LICENSE.txt": "/cssguy4hire/static/js/2.380f9eb1.chunk.js.LICENSE.txt",
     "static/media/icon-about.svg": "/cssguy4hire/static/media/icon-about.14fe9e9b.svg",
     "static/media/icon-behance-inv.svg": "/cssguy4hire/static/media/icon-behance-inv.226c5e98.svg",
     "static/media/icon-behance.svg": "/cssguy4hire/static/media/icon-behance.065bf6e1.svg",
@@ -67,9 +67,9 @@
   },
   "entrypoints": [
     "static/js/runtime-main.95553447.js",
-    "static/css/2.6c99578e.chunk.css",
-    "static/js/2.59cf0a47.chunk.js",
-    "static/css/main.23a275f3.chunk.css",
-    "static/js/main.3af90527.chunk.js"
+    "static/css/2.0833833b.chunk.css",
+    "static/js/2.380f9eb1.chunk.js",
+    "static/css/main.7bbe0703.chunk.css",
+    "static/js/main.93551c4a.chunk.js"
   ]
 }
