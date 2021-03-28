@@ -21,14 +21,14 @@ import {
 
 const MenuToggler: React.FC = () => {
   const { formatMessage } = useIntl();
-  const { toggle, menuIsOpen } = useContext(MenuContext);
+  const { toggleMenu, menuIsOpen } = useContext(MenuContext);
   const [isHover, setIsHover] = useState(false);
   const text = formatMessage({ id: 'menu' });
 
   return (
     <button
       onClick={() => {
-        toggle(menuIsOpen);
+        toggleMenu(!menuIsOpen);
       }}
       onMouseOver={() => setIsHover(true)}
       onMouseOut={() => setIsHover(false)}

@@ -1,15 +1,16 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { IntlProvider } from 'react-intl';
 import { connect } from 'react-redux';
 
 import { gsap } from 'gsap';
 
-import { updateDocumentLanguage } from '@app/utils/utils';
-import { DeviceContext } from '@app/context/DeviceContext/DeviceContext';
 import { languageStateType, languages, devices } from '@app/types/types';
+import { updateDocumentLanguage } from '@app/utils/utils';
 import { MenuContext } from '@app/context/MenuContext/MenuContext';
+import { DeviceContext } from '@app/context/DeviceContext/DeviceContext';
 import translations from '@app/translations/translations.json';
 
+import Panels from '@app/components/Panels/Panels';
 import Menu from '@app/components/Menu/Menu';
 import Home from '@app/components/Home/Home';
 import About from '@app/components/About/About';
@@ -28,8 +29,20 @@ interface MainInt {
 const Main: React.FC<MainInt> = ({ lang }) => {
   const mainRef = useRef<HTMLElement | null>(null);
   const menuRef = useRef(null);
+  const [enableSwiper, setEnableSwiper] = useState(false);
+
   const { type: currentDevice } = useContext(DeviceContext);
-  const { menuIsOpen } = useContext(MenuContext);
+  const {
+    menuIsOpen,
+    toggleMenu,
+    togglingMenu,
+    menuIsToggling,
+    currentPanel,
+    swiper,
+    jumpPanel,
+    jumpingPanel
+  } = useContext(MenuContext);
+
   const menuPositions = {
     main: [parseInt(menuWidth), 0],
     menu: [0, -parseInt(menuWidth)]
@@ -38,7 +51,23 @@ const Main: React.FC<MainInt> = ({ lang }) => {
   const messages = translations[lang];
 
   useEffect(() => {
-    if (currentDevice === devices.MOBILE && menuIsOpen !== null) {
+    setEnableSwiper(!!menuIsOpen ? false : true);
+    if (swiper) {
+      swiper.allowSlideNext = enableSwiper;
+      swiper.allowSlidePrev = enableSwiper;
+    }
+  }, [enableSwiper, menuIsOpen, menuIsToggling, swiper]);
+
+  useEffect(() => {
+    currentDevice === devices.DESKTOP && toggleMenu(false);
+  }, [currentDevice, toggleMenu]);
+
+  useEffect(() => {
+    if (
+      currentDevice === devices.MOBILE &&
+      menuIsOpen !== null &&
+      menuIsToggling
+    ) {
       gsap.to([mainRef.current, menuRef.current], {
         duration: menuIsOpen ? 0.5 : 0.35,
         css: {
@@ -47,10 +76,27 @@ const Main: React.FC<MainInt> = ({ lang }) => {
               ? menuPositions.main[menuIsOpen ? 0 : 1]
               : menuPositions.menu[menuIsOpen ? 0 : 1]
         },
-        ease: 'Power2.easeOut'
+        ease: 'Power2.easeOut',
+        onComplete: () => {
+          if (swiper && jumpPanel !== null) {
+            jumpingPanel(null);
+            swiper.slideTo(jumpPanel);
+          }
+          togglingMenu(false);
+        }
       });
     }
-  }, [currentDevice, menuIsOpen, menuPositions.main, menuPositions.menu]);
+  }, [
+    currentDevice,
+    menuIsOpen,
+    menuPositions.main,
+    menuPositions.menu,
+    menuIsToggling,
+    togglingMenu,
+    swiper,
+    jumpPanel,
+    jumpingPanel
+  ]);
 
   // update languages
   updateDocumentLanguage(lang);
@@ -61,24 +107,28 @@ const Main: React.FC<MainInt> = ({ lang }) => {
         <>
           <Menu ref={menuRef} menuType={devices.MOBILE} />
           <main ref={mainRef} className={main}>
-            <Home />
-            <About />
-            <Skills />
-            <Roles />
-            <Work />
-            <Contact />
+            <Panels>
+              <Home />
+              <About />
+              <Skills />
+              <Roles />
+              <Work />
+              <Contact />
+            </Panels>
           </main>
           <Footer />
         </>
       )) || (
         <>
           <main className={main}>
-            <Home />
-            <About />
-            <Skills />
-            <Roles />
-            <Work />
-            <Contact />
+            <Panels>
+              <Home />
+              <About />
+              <Skills />
+              <Roles />
+              <Work />
+              <Contact />
+            </Panels>
           </main>
           <Footer />
         </>

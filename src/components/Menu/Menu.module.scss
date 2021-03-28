@@ -49,15 +49,59 @@
   }
 
   &-list {
+    $bullet-width: 40px;
+
     margin: 0;
 
     &-item {
       margin: 0;
       padding: 0;
 
-      // removes default list bullets
       &:before {
+        content: '';
+        top: 50%;
+        left: -1px;
+        margin-top: -($bullet-width / 2);
+        margin-left: -($bullet-width / 2);
+        width: $bullet-width;
+        height: $bullet-width;
         display: none;
+        border-radius: 0;
+        transform: rotate(315deg);
+        position: absolute;
+        z-index: 2;
+        background-color: inherit;
+        box-shadow: 0 0 4px 4px rgba($black, 0.35);
+      }
+
+      &-home {
+        background-color: map-get($panel-colors, home);
+      }
+
+      &-about {
+        background-color: map-get($panel-colors, about);
+      }
+
+      &-skills {
+        background-color: map-get($panel-colors, skills);
+      }
+
+      &-roles {
+        background-color: map-get($panel-colors, roles);
+      }
+
+      &-work {
+        background-color: map-get($panel-colors, work);
+      }
+
+      &-contact {
+        background-color: map-get($panel-colors, contact);
+      }
+    }
+
+    &-item-active {
+      &:before {
+        display: block;
       }
     }
 

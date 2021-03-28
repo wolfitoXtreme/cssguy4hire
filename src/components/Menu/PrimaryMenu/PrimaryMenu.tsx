@@ -14,6 +14,13 @@ import {
   menuHeading,
   menuList,
   menuListItem,
+  menuListItemHome,
+  menuListItemAbout,
+  menuListItemRoles,
+  menuListItemSkills,
+  menuListItemWork,
+  menuListItemContact,
+  menuListItemActive,
   menuListItemLink,
   noTouchEvents,
   menuMain,
@@ -28,8 +35,30 @@ const PrimaryMenu: React.FC<{ menuType: devices.MOBILE | devices.DESKTOP }> = ({
 }) => {
   const { formatMessage } = useIntl();
   const {
-    navigation: { sections: menuItems }
+    navigation: { sections: menuItems },
+    currentPanel,
+    jumpingPanel
   } = useContext(MenuContext);
+
+  const sectionClassName = (sectionName: sections): string => {
+    const isHome = () => menuListItemHome;
+    const isAbout = () => menuListItemAbout;
+    const isSkills = () => menuListItemSkills;
+    const isRoles = () => menuListItemRoles;
+    const isWork = () => menuListItemWork;
+    const isContact = () => menuListItemContact;
+
+    const setClassName = {
+      [sections.HOME]: isHome,
+      [sections.ABOUT]: isAbout,
+      [sections.ROLES]: isRoles,
+      [sections.SKILLS]: isSkills,
+      [sections.WORK]: isWork,
+      [sections.CONTACT]: isContact
+    };
+
+    return setClassName[sectionName] ? setClassName[sectionName]() : '';
+  };
 
   return (
     <nav className={menuType === devices.MOBILE ? menu : menuMain}>
@@ -58,11 +87,19 @@ const PrimaryMenu: React.FC<{ menuType: devices.MOBILE | devices.DESKTOP }> = ({
                 </li>
               )) ||
                 (menuType === devices.MOBILE && (
-                  <li className={menuListItem}>
+                  <li
+                    className={classNames(menuListItem, sectionClassName(id), {
+                      [menuListItemActive]: currentPanel === index
+                    })}
+                  >
                     <a
                       href={`#${id}`}
                       title={text}
                       tabIndex={-1}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        jumpingPanel(index);
+                      }}
                       className={classNames(menuListItemLink, {
                         [noTouchEvents]: getNoTouch()
                       })}

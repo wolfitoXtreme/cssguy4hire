@@ -1,29 +1,6 @@
-@import '~@styles/config/variables';
 @import '~@styles/config/variables-export';
 
 .main {
-  $shadow-height: 20px;
-  $shadow-colors: rgba($black, 0.85) 1%, rgba($black, 0.55) 25%,
-    rgba($black, 0) 60%;
-
-  min-height: 100%;
-  flex: 1 0 100%;
+  height: 100%;
   position: relative;
-
-  &:before,
-  &:after {
-    // content: '';
-    top: -$shadow-height;
-    left: 0;
-    width: 100%;
-    height: $shadow-height;
-    position: absolute;
-    background-image: linear-gradient(0deg, $shadow-colors);
-  }
-
-  &:after {
-    top: auto;
-    bottom: -$shadow-height;
-    background-image: linear-gradient(180deg, $shadow-colors);
-  }
 }

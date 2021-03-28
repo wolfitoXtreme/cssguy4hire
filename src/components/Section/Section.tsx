@@ -33,7 +33,7 @@ const Section: React.FC<SectionInt> = ({ id, heading, children }) => {
   const { formatMessage } = useIntl();
   const { type: currentDevice } = useContext(DeviceContext);
 
-  const styleClass = (sectionName: sections): string => {
+  const sectionClassName = (sectionName: sections): string => {
     const isHome = () => homePanel;
     const isAbout = () => aboutPanel;
     const isSkills = () => skillsPanel;
@@ -41,7 +41,7 @@ const Section: React.FC<SectionInt> = ({ id, heading, children }) => {
     const isWork = () => workPanel;
     const isContact = () => contactPanel;
 
-    const sectionStyles = {
+    const setClassName = {
       [sections.HOME]: isHome,
       [sections.ABOUT]: isAbout,
       [sections.ROLES]: isRoles,
@@ -50,16 +50,14 @@ const Section: React.FC<SectionInt> = ({ id, heading, children }) => {
       [sections.CONTACT]: isContact
     };
 
-    return sectionStyles[sectionName]
-      ? sectionStyles[sectionName]()
-      : homePanel;
+    return setClassName[sectionName] ? setClassName[sectionName]() : homePanel;
   };
 
   return (
     <section
       id={id}
       title={heading}
-      className={classNames(panel, styleClass(id))}
+      className={classNames(panel, sectionClassName(id))}
     >
       {currentDevice === devices.DESKTOP && (
         <SecondaryMenu

@@ -9,15 +9,18 @@
 
 html,
 body {
+  margin: 0;
+  padding: 0;
   height: 100%;
 }
 
 body {
-  // overflow: hidden; // comment till panel navigation ready
+  overflow: hidden;
   background-color: $light-black;
 
+  // targets #root container
   > div {
-    // targets #root container
+    height: 100%;
     min-height: 100%;
     display: flex;
     flex-flow: column;

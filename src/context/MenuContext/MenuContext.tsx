@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
+
+import SwiperCore from 'swiper';
 
 import { sections, links } from '@app/types/types';
 
@@ -40,28 +42,76 @@ const navigation = {
 
 export const MenuContext = React.createContext<{
   navigation: {
-    sections: { id: string }[];
+    sections: { id: sections }[];
     external: { id: links; name?: string; url?: string }[];
     lang: { id: links };
   };
+  toggleMenu: (x: boolean | null) => void;
   menuIsOpen: boolean | null;
-  toggle: (...args: any[]) => void;
+  togglingMenu: (x: boolean) => void;
+  menuIsToggling: boolean;
+  currentPanel: number;
+  changePanel: (x: number) => void;
+  jumpPanel: number | null;
+  jumpingPanel: (x: number | null) => void;
+  swiper: SwiperCore | null;
+  setSwiper: (x: SwiperCore) => void;
 }>({
   navigation,
+  toggleMenu: (open) => open,
   menuIsOpen: null,
-  toggle: (open): any => {}
+  togglingMenu: (transitioning) => transitioning,
+  menuIsToggling: false,
+  currentPanel: 0,
+  changePanel: (panel) => panel,
+  jumpPanel: null,
+  jumpingPanel: (panel) => panel,
+  swiper: null,
+  setSwiper: (swiper) => swiper
 });
 
 export const MenuProvider: React.FC = ({ children }) => {
-  const [open, setOpen] = useState<boolean | null>(null);
+  const [menuIsOpen, setMenuIsOpen] = useState<boolean | null>(null);
+  const [menuIsToggling, setMenuIsToggling] = useState<boolean>(false);
+  const [currentPanel, setCurrentPanel] = useState<number>(0);
+  const [jumpPanel, setJumpPanel] = useState<number | null>(null);
+  const [swiper, setSwiper] = useState<SwiperCore | null>(null);
 
-  const toggleMenu = (open: boolean) => {
-    setOpen(!open);
+  const toggleMenu = (open: boolean | null) => {
+    togglingMenu(true);
+    setMenuIsOpen(open);
+  };
+
+  const togglingMenu = (menuIsToggling: boolean) =>
+    setMenuIsToggling(menuIsToggling);
+
+  const changePanel = useCallback((panelIndex: number) => {
+    setCurrentPanel(panelIndex);
+  }, []);
+
+  const initSwiper = (swiper: SwiperCore) => setSwiper(swiper);
+
+  const jumpingPanel = (panel: number | null) => {
+    togglingMenu(true);
+    setMenuIsOpen(false);
+    setJumpPanel(panel);
   };
 
   return (
     <MenuContext.Provider
-      value={{ navigation, menuIsOpen: open, toggle: toggleMenu }}
+      value={{
+        navigation,
+        toggleMenu,
+        menuIsOpen,
+        togglingMenu,
+        menuIsToggling,
+        currentPanel,
+        changePanel,
+        jumpPanel,
+        jumpingPanel,
+        swiper,
+        setSwiper: initSwiper
+      }}
     >
       {children}
     </MenuContext.Provider>
