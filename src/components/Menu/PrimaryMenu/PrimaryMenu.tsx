@@ -77,6 +77,10 @@ const PrimaryMenu: React.FC<{ menuType: devices.MOBILE | devices.DESKTOP }> = ({
                     href={`#${id}`}
                     title={text}
                     tabIndex={-1}
+                    onClick={(event) => {
+                      const target = event.currentTarget as HTMLAnchorElement;
+                      target.blur();
+                    }}
                     className={classNames(menuMainItemLink, {
                       [noTouchEvents]: getNoTouch()
                     })}
@@ -97,6 +101,8 @@ const PrimaryMenu: React.FC<{ menuType: devices.MOBILE | devices.DESKTOP }> = ({
                       title={text}
                       tabIndex={-1}
                       onClick={(event) => {
+                        const target = event.currentTarget as HTMLAnchorElement;
+                        target.blur();
                         event.preventDefault();
                         jumpingPanel(index);
                       }}

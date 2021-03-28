@@ -44,10 +44,11 @@ const MenuLang: React.FC<MenuLangInt> = ({
       </h5>
       <ul className={styleClasses.list}>
         <li className={styleClasses.listItem}>
-          {' '}
           <a
             href="!#"
             onClick={(event) => {
+              const target = event.currentTarget as HTMLAnchorElement;
+              target.blur();
               event.preventDefault();
               onLanguageChange(getOtherLang(lang));
             }}

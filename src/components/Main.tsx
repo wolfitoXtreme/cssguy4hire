@@ -37,7 +37,6 @@ const Main: React.FC<MainInt> = ({ lang }) => {
     toggleMenu,
     togglingMenu,
     menuIsToggling,
-    currentPanel,
     swiper,
     jumpPanel,
     jumpingPanel

@@ -14,7 +14,11 @@ const navigation = {
     { id: sections.CONTACT }
   ],
   external: [
-    { id: links.GITHUB, name: 'GitHub', url: 'https://github.com/' },
+    {
+      id: links.GITHUB,
+      name: 'GitHub',
+      url: 'https://github.com/wolfitoXtreme/'
+    },
     {
       id: links.LINKEDIN,
       name: 'LinkedIn',
