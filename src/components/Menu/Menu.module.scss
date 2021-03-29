@@ -28,6 +28,70 @@
   }
 }
 
+/*stylelint-disable-next-line no-duplicate-selectors*/
+.navigation {
+  :global {
+    $offset: 2px;
+    $thickness: 4px;
+    $length-offset: 1%;
+    $length: 100% - ($length-offset * 2);
+    $border-radius: 3px;
+    $transition-duration: $default-duration;
+
+    .swiper-scrollbar {
+      content: 'swiper-scrollbar-test';
+
+      opacity: 0;
+      border-radius: $border-radius;
+      transition: opacity $transition-duration ease-out 0ms;
+      position: relative;
+      background: rgba($black, 0.35);
+      -ms-touch-action: none;
+    }
+
+    .swiper-container-horizontal > .swiper-scrollbar {
+      bottom: $offset;
+      left: 1%;
+      width: 98%;
+      height: $thickness;
+      position: absolute;
+      z-index: 50;
+    }
+
+    .swiper-container-vertical > .swiper-scrollbar {
+      top: 1%;
+      right: $offset;
+      width: $thickness;
+      height: 98%;
+      position: absolute;
+      z-index: 50;
+    }
+
+    .swiper-container-horizontal:hover > .swiper-scrollbar,
+    .swiper-container-vertical:hover > .swiper-scrollbar {
+      opacity: 1;
+    }
+
+    .swiper-scrollbar-drag {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: $border-radius;
+      position: relative;
+      background: rgba($white, 0.25);
+    }
+
+    .swiper-scrollbar-cursor-drag {
+      cursor: move;
+    }
+
+    .swiper-scrollbar-lock {
+      display: none;
+    }
+  }
+}
+
 .menu {
   $menu-item-shadow-colors-fg: rgba($black, 0.55) 0px, rgba($black, 0.18) 3px,
     rgba($black, 0.1) 8px;
@@ -142,6 +206,10 @@
       &.no-touch-events:hover {
         color: $nero;
         background-color: $white;
+      }
+
+      .menu-list-item-active & {
+        background-color: $charcoal;
       }
 
       strong,

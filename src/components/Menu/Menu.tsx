@@ -3,7 +3,6 @@ import React from 'react';
 import SwiperCore, { Scrollbar, Mousewheel } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.scss';
-import 'swiper/components/scrollbar/scrollbar.scss';
 
 import { devices } from '@app/types/types';
 
