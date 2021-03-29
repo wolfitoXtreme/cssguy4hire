@@ -18,6 +18,14 @@
   background-color: $nero;
   background-image: linear-gradient(90deg, $shadow-colors-fg),
     linear-gradient(90deg, $shadow-colors-bg);
+
+  &-swiper {
+    height: 100%;
+
+    :global .swiper-slide {
+      height: auto;
+    }
+  }
 }
 
 .menu {

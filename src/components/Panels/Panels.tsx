@@ -15,12 +15,14 @@ interface PanelsInt {
 }
 
 const Panels: React.FC<PanelsInt> = ({ children }) => {
-  const { changePanel, currentPanel, setSwiper } = useContext(MenuContext);
+  const { changePanel, currentPanel, setSwiperPanels } = useContext(
+    MenuContext
+  );
 
   return (
     <Swiper
       slidesPerView={1}
-      onSwiper={(swiper) => setSwiper(swiper)}
+      onSwiper={(swiper) => setSwiperPanels(swiper)}
       initialSlide={currentPanel}
       direction="vertical"
       speed={400}

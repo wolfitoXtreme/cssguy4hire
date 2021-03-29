@@ -58,8 +58,8 @@ export const MenuContext = React.createContext<{
   changePanel: (x: number) => void;
   jumpPanel: number | null;
   jumpingPanel: (x: number | null) => void;
-  swiper: SwiperCore | null;
-  setSwiper: (x: SwiperCore) => void;
+  swiperPanels: SwiperCore | null;
+  setSwiperPanels: (x: SwiperCore) => void;
 }>({
   navigation,
   toggleMenu: (open) => open,
@@ -70,8 +70,8 @@ export const MenuContext = React.createContext<{
   changePanel: (panel) => panel,
   jumpPanel: null,
   jumpingPanel: (panel) => panel,
-  swiper: null,
-  setSwiper: (swiper) => swiper
+  swiperPanels: null,
+  setSwiperPanels: (swiper) => swiper
 });
 
 export const MenuProvider: React.FC = ({ children }) => {
@@ -79,7 +79,7 @@ export const MenuProvider: React.FC = ({ children }) => {
   const [menuIsToggling, setMenuIsToggling] = useState<boolean>(false);
   const [currentPanel, setCurrentPanel] = useState<number>(0);
   const [jumpPanel, setJumpPanel] = useState<number | null>(null);
-  const [swiper, setSwiper] = useState<SwiperCore | null>(null);
+  const [swiperPanels, setSwiperPanels] = useState<SwiperCore | null>(null);
 
   const toggleMenu = (open: boolean | null) => {
     togglingMenu(true);
@@ -93,7 +93,7 @@ export const MenuProvider: React.FC = ({ children }) => {
     setCurrentPanel(panelIndex);
   }, []);
 
-  const initSwiper = (swiper: SwiperCore) => setSwiper(swiper);
+  const initSwiperPanels = (swiper: SwiperCore) => setSwiperPanels(swiper);
 
   const jumpingPanel = (panel: number | null) => {
     togglingMenu(true);
@@ -113,8 +113,8 @@ export const MenuProvider: React.FC = ({ children }) => {
         changePanel,
         jumpPanel,
         jumpingPanel,
-        swiper,
-        setSwiper: initSwiper
+        swiperPanels,
+        setSwiperPanels: initSwiperPanels
       }}
     >
       {children}

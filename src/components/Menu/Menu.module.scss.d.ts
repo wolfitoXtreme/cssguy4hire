@@ -1,5 +1,6 @@
 export const menuUtilItemLink: string;
 export const navigation: string;
+export const navigationSwiper: string;
 export const menu: string;
 export const menuHeading: string;
 export const menuList: string;

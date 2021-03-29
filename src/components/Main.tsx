@@ -37,7 +37,7 @@ const Main: React.FC<MainInt> = ({ lang }) => {
     toggleMenu,
     togglingMenu,
     menuIsToggling,
-    swiper,
+    swiperPanels,
     jumpPanel,
     jumpingPanel
   } = useContext(MenuContext);
@@ -51,11 +51,11 @@ const Main: React.FC<MainInt> = ({ lang }) => {
 
   useEffect(() => {
     setEnableSwiper(!!menuIsOpen ? false : true);
-    if (swiper) {
-      swiper.allowSlideNext = enableSwiper;
-      swiper.allowSlidePrev = enableSwiper;
+    if (swiperPanels) {
+      swiperPanels.allowSlideNext = enableSwiper;
+      swiperPanels.allowSlidePrev = enableSwiper;
     }
-  }, [enableSwiper, menuIsOpen, menuIsToggling, swiper]);
+  }, [enableSwiper, menuIsOpen, menuIsToggling, swiperPanels]);
 
   useEffect(() => {
     currentDevice === devices.DESKTOP && toggleMenu(false);
@@ -77,9 +77,9 @@ const Main: React.FC<MainInt> = ({ lang }) => {
         },
         ease: 'Power2.easeOut',
         onComplete: () => {
-          if (swiper && jumpPanel !== null) {
+          if (swiperPanels && jumpPanel !== null) {
             jumpingPanel(null);
-            swiper.slideTo(jumpPanel);
+            swiperPanels.slideTo(jumpPanel);
           }
           togglingMenu(false);
         }
@@ -92,7 +92,7 @@ const Main: React.FC<MainInt> = ({ lang }) => {
     menuPositions.menu,
     menuIsToggling,
     togglingMenu,
-    swiper,
+    swiperPanels,
     jumpPanel,
     jumpingPanel
   ]);
