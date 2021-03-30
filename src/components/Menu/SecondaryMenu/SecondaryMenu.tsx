@@ -44,6 +44,7 @@ const SecondaryMenu: React.FC<SecondaryMenuInt> = ({
   const {
     navigation: { external: menuItems }
   } = useContext(MenuContext);
+  const { toggleMenu, menuIsOpen } = useContext(MenuContext);
 
   return (
     <nav
@@ -76,6 +77,9 @@ const SecondaryMenu: React.FC<SecondaryMenuInt> = ({
                 target="_blank"
                 rel="noreferrer"
                 tabIndex={-1}
+                onClick={() =>
+                  menuType === devices.MOBILE && toggleMenu(!menuIsOpen)
+                }
                 className={classNames({
                   [menuListItemLink]: menuType === devices.MOBILE,
                   [menuUtilItemLink]: menuType === devices.DESKTOP,
@@ -118,6 +122,9 @@ const SecondaryMenu: React.FC<SecondaryMenuInt> = ({
             icon:
               menuType === devices.MOBILE ? menuListItemIcon : menuUtilItemIcon
           }}
+          closeMobileMenu={() =>
+            menuType === devices.MOBILE && toggleMenu(!menuIsOpen)
+          }
         />
       )}
     </nav>

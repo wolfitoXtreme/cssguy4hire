@@ -20,12 +20,14 @@ interface MenuLangInt {
   };
   lang: languages;
   onLanguageChange: (...args: any[]) => void;
+  closeMobileMenu: (...args: any[]) => void | undefined;
 }
 
 const MenuLang: React.FC<MenuLangInt> = ({
   styleClasses,
   lang,
-  onLanguageChange
+  onLanguageChange,
+  closeMobileMenu
 }) => {
   const { formatMessage } = useIntl();
   const {
@@ -51,6 +53,7 @@ const MenuLang: React.FC<MenuLangInt> = ({
               target.blur();
               event.preventDefault();
               onLanguageChange(getOtherLang(lang));
+              closeMobileMenu && closeMobileMenu();
             }}
             title={formatMessage({ id: `menu-${langMenu}` })}
             tabIndex={-1}
