@@ -1,0 +1,58 @@
+@import '~@styles/config/variables';
+@import '~@styles/helpers/mixins';
+
+.home-intro {
+  margin: 0 auto;
+  font-size: $font-size-medium;
+  letter-spacing: -0.028em;
+  line-height: 1.1;
+  text-align: center;
+  text-shadow: 1px 1px 0 $turbo;
+  color: $oil;
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    font-size: $font-size-medium-large;
+    letter-spacing: -0.032em;
+  }
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    margin-bottom: 22px;
+    padding: 0 52px;
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    margin-bottom: 30px;
+    padding: 0 80px;
+    max-width: 740px;
+    font-size: $font-size-xxx-large;
+    letter-spacing: -0.04em;
+  }
+
+  // max height adjustments
+  @include breakpoint(orientation landscape) {
+    @include breakpoint(map-get($breakpoints, small) (max-height 450px)) {
+      font-size: $font-size-medium;
+    }
+
+    @include breakpoint(map-get($breakpoints, medium) (max-height 560px)) {
+      font-size: $font-size-medium;
+    }
+
+    @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
+      font-size: $font-size-medium-large;
+    }
+  }
+
+  // not rendered in certain screen sizes
+  @include breakpoint(map-get($breakpoints, x-small) (max-height 250px)) {
+    @include hidden(false);
+  }
+
+  @include breakpoint(map-get($breakpoints, medium) (max-height 450px)) {
+    @include hidden(false);
+  }
+
+  @include breakpoint(map-get($breakpoints, large) (max-height 560px)) {
+    @include hidden(false);
+  }
+}

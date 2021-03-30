@@ -4,15 +4,21 @@ export type FontVariantType = {
   variantWeight: string;
 };
 
-export type languageStateType = {
-  languageReducer: { lang: string };
-};
-
 export interface FontInt {
   font: string;
   fontName: string;
   fontVariants: FontVariantType[];
 }
+
+export type languageStateType = {
+  languageReducer: { lang: string };
+};
+
+export type sectionSkillsType = {
+  id: string;
+  categories: { id?: string; text?: string; expertise?: number }[];
+  other?: string;
+}[];
 
 export enum devices {
   MOBILE = 'mobile',

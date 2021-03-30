@@ -38,6 +38,7 @@ import {
 
 const Content: React.FC = () => {
   const { formatMessage } = useIntl();
+
   return (
     <section className={panel + ' ' + maintenance}>
       <div className={panelDetail + ' ' + maintenanceDetail}>
@@ -47,7 +48,7 @@ const Content: React.FC = () => {
         <div className={maintenanceContent}>
           <div
             dangerouslySetInnerHTML={{
-              __html: formatMessage({ id: 'home-text' })
+              __html: formatMessage({ id: 'section-home-text' })
             }}
           />
         </div>

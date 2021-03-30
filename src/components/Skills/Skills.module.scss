@@ -1,0 +1,27 @@
+@import '~@styles/config/variables';
+@import '~@styles/helpers/mixins';
+
+.skills-additional {
+  margin-top: -5px;
+  font-size: $font-size-xxx-small;
+  font-weight: 100;
+  letter-spacing: 0.005rem;
+  opacity: 0.6;
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    font-size: $font-size-xx-small;
+  }
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    font-size: $font-size-small;
+    letter-spacing: -0.04em;
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    font-size: $font-size-medium;
+  }
+
+  b {
+    font-weight: 400;
+  }
+}

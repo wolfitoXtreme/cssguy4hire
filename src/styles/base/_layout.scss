@@ -1,3 +1,6 @@
+@import '~@styles/config/variables';
+@import '~@styles/helpers/mixins';
+
 //
 // layout
 //
@@ -28,4 +31,39 @@ body {
 
   // test mediaQueries
   @include queryInfo();
+}
+
+// column-lists
+.column-list {
+  @include breakpoint((orientation landscape)) {
+    column-count: 2;
+    column-gap: 18px;
+  }
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    column-gap: 22px;
+  }
+
+  // set two columns for 600px and beyond
+  @include breakpoint(600px) {
+    column-count: 2;
+  }
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    column-gap: 30px;
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    column-gap: 40px;
+  }
+
+  @include breakpoint($app-max-width(orientation landscape)) {
+    column-gap: 80px;
+  }
+
+  &-item {
+    width: 100%;
+    display: inline-block;
+    break-inside: avoid;
+  }
 }
