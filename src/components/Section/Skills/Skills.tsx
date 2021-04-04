@@ -14,15 +14,14 @@ const skills: sectionSkillsType = [
     categories: [
       { text: 'JavaScript', expertise: 4 },
       { text: 'reactJS', expertise: 3 },
-      { text: 'jQuery', expertise: 4 },
       { text: 'HTML5/CSS3', expertise: 5 },
       { text: 'SASS', expertise: 4 },
-      { text: 'GulpJS/GruntJS/<br>Webpack', expertise: 3 },
+      { text: 'GulpJS/GruntJS/Webpack', expertise: 3 },
       { text: 'Demandware/SFCC', expertise: 3 },
       { text: 'Django', expertise: 3 }
     ],
     other:
-      'PHP, AngularJS, Git/SVN, ActionScript, MySQL, MongoDB, Zeplin, VSCode.'
+      ' AngularJS, jQuery, Git/SVN, PHP, ActionScript, MySQL, MongoDB, VSCode.'
   },
   {
     id: 'digital-editing',
@@ -32,10 +31,11 @@ const skills: sectionSkillsType = [
       { text: 'InDesign', expertise: 3 },
       { text: 'After Effects', expertise: 3 },
       { text: 'Premiere Pro', expertise: 3 },
-      { text: 'Blender', expertise: 2 }
+      { text: 'Blender', expertise: 2 },
+      { text: 'Keyshape', expertise: 2 }
     ],
     other:
-      '3ds Max, Flash Professional, DreamWeaver, Acrobat Pro, Blender, LightWave 3D.'
+      '3ds Max, Flash Professional, DreamWeaver, Acrobat Pro, LightWave 3D, Zeplin.'
   },
   {
     id: 'personal',
@@ -54,6 +54,16 @@ const skills: sectionSkillsType = [
 
 const Skills: React.FC = () => {
   const { formatMessage } = useIntl();
+
+  const textAndExpertise = (
+    text: string | undefined,
+    expertise: number | undefined
+  ) => {
+    const dots = (expertise && expertise) || '';
+    return {
+      __html: (text && text + dots) || ''
+    };
+  };
 
   return (
     <Section
@@ -79,9 +89,10 @@ const Skills: React.FC = () => {
                       return (
                         <li
                           key={index}
-                          dangerouslySetInnerHTML={{
-                            __html: outputText + ' - (' + expertise + ')'
-                          }}
+                          dangerouslySetInnerHTML={textAndExpertise(
+                            outputText,
+                            expertise
+                          )}
                           className="column-list-item"
                         />
                       );

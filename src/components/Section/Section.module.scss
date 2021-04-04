@@ -92,6 +92,11 @@
   &-heading {
     padding-bottom: 8px;
 
+    // override global default styles
+    & + article {
+      margin: 0;
+    }
+
     &-wide {
       @extend %section-horizontal-padding;
     }

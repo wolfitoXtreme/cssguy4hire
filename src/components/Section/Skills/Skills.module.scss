@@ -8,13 +8,18 @@
   letter-spacing: 0.005rem;
   opacity: 0.6;
 
+  &.skills-additional {
+    // override global default styles
+    margin-bottom: 0;
+  }
+
   @include breakpoint(map-get($breakpoints, small)) {
     font-size: $font-size-xx-small;
   }
 
   @include breakpoint(map-get($breakpoints, medium)) {
     font-size: $font-size-small;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.02em;
   }
 
   @include breakpoint(map-get($breakpoints, large)) {

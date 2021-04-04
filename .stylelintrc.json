@@ -127,6 +127,7 @@
       "overflow-x",
       "overflow-y",
       "border",
+      "border-style",
       "border-width",
       "border-color",
       "border-radius",

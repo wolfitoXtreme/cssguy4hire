@@ -62,11 +62,7 @@ const Main: React.FC<MainInt> = ({ lang }) => {
   }, [currentDevice, toggleMenu]);
 
   useEffect(() => {
-    if (
-      currentDevice === devices.MOBILE &&
-      menuIsOpen !== null &&
-      menuIsToggling
-    ) {
+    if (menuIsOpen !== null && menuIsToggling) {
       gsap.to([mainRef.current, menuRef.current], {
         duration: menuIsOpen ? 0.5 : 0.35,
         css: {
@@ -102,36 +98,22 @@ const Main: React.FC<MainInt> = ({ lang }) => {
 
   return (
     <IntlProvider locale={lang} messages={messages}>
-      {(currentDevice === devices.MOBILE && (
-        <>
+      <>
+        {currentDevice === devices.MOBILE && (
           <Menu ref={menuRef} menuType={devices.MOBILE} />
-          <main ref={mainRef} className={main}>
-            <Panels>
-              <Home />
-              <About />
-              <Skills />
-              <Roles />
-              <Work />
-              <Contact />
-            </Panels>
-          </main>
-          <Footer />
-        </>
-      )) || (
-        <>
-          <main className={main}>
-            <Panels>
-              <Home />
-              <About />
-              <Skills />
-              <Roles />
-              <Work />
-              <Contact />
-            </Panels>
-          </main>
-          <Footer />
-        </>
-      )}
+        )}
+        <main ref={mainRef} className={main}>
+          <Panels>
+            <Home />
+            <About />
+            <Skills />
+            <Roles />
+            <Work />
+            <Contact />
+          </Panels>
+        </main>
+        <Footer />
+      </>
     </IntlProvider>
   );
 };

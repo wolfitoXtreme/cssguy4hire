@@ -1,9 +1,151 @@
 @import '~@styles/base/layout';
 
+.slider {
+  :global {
+    .swiper-wrapper {
+      margin: 0;
+    }
+  }
+}
+
 .slide {
   @extend %section-horizontal-padding;
+  margin: 0;
 
   &:before {
     display: none;
+  }
+}
+
+.arrows {
+  $icon-width: 13px;
+  $icon-height: 35px;
+  $arrow-padding: 4px;
+  $arrow-width: $icon-width + $arrow-padding * 2;
+  $arrow-height: $icon-height + $arrow-padding * 2;
+  $transition-duration: $default-duration;
+
+  top: 50%;
+  right: 0;
+  left: 0;
+  margin-top: -($arrow-height / 2);
+  padding: 0 12px;
+  width: 100%;
+  height: 0;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+
+  &-arrow {
+    @include no-highlight;
+    @include remove-text;
+
+    padding: $arrow-padding;
+    width: $arrow-width;
+    height: $arrow-height;
+    display: block;
+    overflow: hidden;
+    border-style: none;
+    border-width: 2px;
+    transition: transform $transition-duration ease-out 0ms;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    background-color: transparent;
+
+    &:active,
+    &:focus {
+      transform: scale(0.8);
+    }
+
+    &-icon {
+      top: $arrow-padding;
+      left: $arrow-padding;
+      width: $icon-width;
+      height: $icon-height;
+      opacity: 0.2;
+      transform: scaleX(-1);
+      position: absolute;
+
+      // right arrow
+      .arrows-arrow:nth-child(2) & {
+        transform: scaleX(1);
+      }
+
+      .arrows-arrow:hover &,
+      .arrows-arrow:active &,
+      .arrows-arrow:focus & {
+        opacity: 0.5;
+        fill: $white;
+      }
+    }
+  }
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    $new-width: 15px;
+    $new-height: stretchBySize($icon-width, $icon-height, $new-width);
+    $arrow-width: $new-width + ($arrow-padding * 2);
+    $arrow-height: $new-height + ($arrow-padding * 2);
+
+    margin-top: -($arrow-height / 2);
+    padding: 0 14px;
+
+    &-arrow {
+      width: $arrow-width;
+      height: $arrow-height;
+
+      &-icon {
+        width: $new-width;
+        height: $new-height;
+      }
+    }
+  }
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    $new-width: 28px;
+    $new-height: stretchBySize($icon-width, $icon-height, $new-width);
+    $arrow-padding: 9px;
+    $arrow-width: $new-width + ($arrow-padding * 2);
+    $arrow-height: $new-height + ($arrow-padding * 2);
+
+    margin-top: -($arrow-height / 2);
+    padding: 0 31px;
+
+    &-arrow {
+      padding: $arrow-padding;
+      width: $arrow-width;
+      height: $arrow-height;
+
+      &-icon {
+        top: $arrow-padding;
+        left: $arrow-padding;
+        width: $new-width;
+        height: $new-height;
+      }
+    }
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    $new-width: 38px;
+    $new-height: stretchBySize($icon-width, $icon-height, $new-width);
+    $arrow-padding: 12px;
+    $arrow-width: $new-width + ($arrow-padding * 2);
+    $arrow-height: $new-height + ($arrow-padding * 2);
+
+    margin-top: -($arrow-height / 2);
+    padding: 0 40px;
+
+    &-arrow {
+      padding: $arrow-padding;
+      width: $arrow-width;
+      height: $arrow-height;
+
+      &-icon {
+        top: $arrow-padding;
+        left: $arrow-padding;
+        width: $new-width;
+        height: $new-height;
+      }
+    }
   }
 }
