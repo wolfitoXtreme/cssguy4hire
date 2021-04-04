@@ -8,14 +8,14 @@ import { languageStateType, devices } from '@app/types/types';
 import translations from '@app/translations/translations.json';
 import { getNoTouch } from '@app/utils/utils';
 
-import Heading from '@app/components/Home/Heading/Heading';
+import Heading from '@app/components/Heading/Heading';
 import Footer from '@app/components/Footer/Footer';
 import SecondaryMenu from '@app/components/Menu/SecondaryMenu/SecondaryMenu';
 import MenuLang from '@app/components/Menu/MenuLang/MenuLang';
 
 import {
-  panel,
-  panelDetail
+  section,
+  sectionDetail
 } from '@app/components/Section/Section.module.scss';
 import {
   menuList,
@@ -40,8 +40,8 @@ const Content: React.FC = () => {
   const { formatMessage } = useIntl();
 
   return (
-    <section className={panel + ' ' + maintenance}>
-      <div className={panelDetail + ' ' + maintenanceDetail}>
+    <section className={section + ' ' + maintenance}>
+      <div className={sectionDetail + ' ' + maintenanceDetail}>
         <div className={maintenanceHeading}>
           <Heading logoVariant="maintenance" />
         </div>

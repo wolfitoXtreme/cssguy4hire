@@ -53,18 +53,18 @@
 
 // generate font names as CSS class names
 @each $font in map_keys($fonts) {
-  $_font-names: map-keys($fonts);
+  $font-names: map-keys($fonts);
 
-  @each $font in $_font-names {
+  @each $font in $font-names {
     .font-family-#{unquote($font)} {
       font-family: unquote($font);
     }
   }
 
   @each $font-weight in map_keys(map-get($fonts, $font)) {
-    $_font-name: map-deep-get($fonts, $font, $font-weight);
+    $font-name: map-deep-get($fonts, $font, $font-weight);
 
-    .font-family-#{unquote($_font-name)} {
+    .font-family-#{unquote($font-name)} {
       font-family: unquote($font);
       font-weight: $font-weight;
     }

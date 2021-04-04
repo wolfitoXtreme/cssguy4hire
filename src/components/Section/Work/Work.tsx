@@ -4,6 +4,7 @@ import { useIntl } from 'react-intl';
 import { sections } from '@app/types/types';
 
 import Section from '@app/components/Section/Section';
+import ContentSlider from '@app/components/ContentSlider/ContentSlider';
 
 const workProjects: { id: string; title: string }[] = [
   {
@@ -47,18 +48,25 @@ const Work: React.FC = () => {
     <Section
       id={sections.WORK}
       heading={formatMessage({ id: 'section-work-title' })}
+      variant="wide"
     >
       <article>
-        <ul>
-          {workProjects.map(({ id, title }, index) => (
-            <li key={index}>
-              <h4>{title}</h4>
-              <h5>{formatMessage({ id: `section-work-system-${id}` })}</h5>
-              <p>{formatMessage({ id: `section-work-description-${id}` })}</p>
-              <figure>Image</figure>
-            </li>
-          ))}
-        </ul>
+        <ContentSlider
+          slides={workProjects.map(({ id, title }) => {
+            return {
+              content: (
+                <>
+                  <h4>{title}</h4>
+                  <h5>{formatMessage({ id: `section-work-system-${id}` })}</h5>
+                  <p>
+                    {formatMessage({ id: `section-work-description-${id}` })}
+                  </p>
+                  <figure>Image</figure>
+                </>
+              )
+            };
+          })}
+        />
       </article>
     </Section>
   );

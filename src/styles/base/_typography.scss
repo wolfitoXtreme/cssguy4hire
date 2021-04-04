@@ -1,12 +1,12 @@
 //
 // typography
 //
-$_heading-tags: h1, h2, h3, h4, h5, h6;
-$_text-block-tags: p, ul, ol, dl, pre, address, blockquote, table;
-$_block-tags: article, aside, canvas, div, fieldset, figure, form, hgroup,
-  output, section, video;
-$_text-block-and-block-tags: join($_text-block-tags, $_block-tags);
-$_heading-and-block-tags: join($_heading-tags, $_block-tags);
+$heading-tags: h1, h2, h3, h4, h5, h6;
+$text-block-tags: p, ul, ol, dl, pre, address, blockquote, table;
+$block-tags: article, aside, canvas, div, fieldset, figure, form, hgroup, output,
+  section, video;
+$text-block-and-block-tags: join($text-block-tags, $block-tags);
+$heading-and-block-tags: join($heading-tags, $block-tags);
 
 html {
   font-family: $default-font-family;
@@ -75,8 +75,8 @@ h6 {
   color: $orange-peel;
 
   // any heading element following a heading block
-  @for $i from 1 through length($_heading-tags) {
-    & + #{nth($_heading-tags, $i)} {
+  @for $i from 1 through length($heading-tags) {
+    & + #{nth($heading-tags, $i)} {
       margin-top: 0;
 
       @include breakpoint(map-get($breakpoints, small)) {
@@ -90,8 +90,8 @@ h6 {
   }
 
   // any text block or block element following a heading block
-  @for $i from 1 through length($_text-block-and-block-tags) {
-    & + #{nth($_text-block-and-block-tags, $i)} {
+  @for $i from 1 through length($text-block-and-block-tags) {
+    & + #{nth($text-block-and-block-tags, $i)} {
       margin-top: 5px;
 
       @include breakpoint(map-get($breakpoints, medium)) {
@@ -276,8 +276,8 @@ h6 {
   }
 
   // any heading or block element following a text block
-  @for $i from 1 through length($_heading-and-block-tags) {
-    & + #{nth($_heading-and-block-tags, $i)} {
+  @for $i from 1 through length($heading-and-block-tags) {
+    & + #{nth($heading-and-block-tags, $i)} {
       margin-top: 12px;
 
       @include breakpoint(map-get($breakpoints, small)) {
@@ -349,14 +349,14 @@ p {
 }
 
 %bullets-level-1 {
-  $_bullet-size: 7px;
+  $bullet-size: 7px;
 
   content: '';
   top: (1em * $line-height-default) / 2;
   left: 0;
-  margin-top: -($_bullet-size / 2);
-  width: $_bullet-size;
-  height: $_bullet-size;
+  margin-top: -($bullet-size / 2);
+  width: $bullet-size;
+  height: $bullet-size;
   display: block;
   border-radius: 100%;
   position: absolute;
@@ -364,87 +364,87 @@ p {
   box-shadow: -1px -1px 0 0 rgba($black, 0.21);
 
   @include breakpoint(map-get($breakpoints, small)) {
-    $_bullet-size: 8px;
+    $bullet-size: 8px;
 
-    margin-top: -($_bullet-size / 2);
-    width: $_bullet-size;
-    height: $_bullet-size;
+    margin-top: -($bullet-size / 2);
+    width: $bullet-size;
+    height: $bullet-size;
   }
 
   @include breakpoint(map-get($breakpoints, medium)) {
-    $_bullet-size: 10px;
+    $bullet-size: 10px;
 
-    margin-top: -($_bullet-size / 2);
-    width: $_bullet-size;
-    height: $_bullet-size;
+    margin-top: -($bullet-size / 2);
+    width: $bullet-size;
+    height: $bullet-size;
   }
 
   @include breakpoint(map-get($breakpoints, large)) {
-    $_bullet-size: 12px;
+    $bullet-size: 12px;
 
-    margin-top: -($_bullet-size / 2);
-    width: $_bullet-size;
-    height: $_bullet-size;
+    margin-top: -($bullet-size / 2);
+    width: $bullet-size;
+    height: $bullet-size;
   }
 }
 
 %bullets-level-2 {
-  $_bullet-size: 5px;
+  $bullet-size: 5px;
 
-  margin-top: -($_bullet-size / 2);
-  width: $_bullet-size;
-  height: $_bullet-size;
+  margin-top: -($bullet-size / 2);
+  width: $bullet-size;
+  height: $bullet-size;
   border: 1px solid $orange-peel;
   background-color: transparent;
   box-shadow: none;
 
   @include breakpoint(map-get($breakpoints, small)) {
-    $_bullet-size: 6px;
+    $bullet-size: 6px;
 
-    margin-top: -($_bullet-size / 2);
-    width: $_bullet-size;
-    height: $_bullet-size;
+    margin-top: -($bullet-size / 2);
+    width: $bullet-size;
+    height: $bullet-size;
   }
 
   @include breakpoint(map-get($breakpoints, medium)) {
-    $_bullet-size: 8px;
+    $bullet-size: 8px;
 
-    margin-top: -($_bullet-size / 2);
-    width: $_bullet-size;
-    height: $_bullet-size;
+    margin-top: -($bullet-size / 2);
+    width: $bullet-size;
+    height: $bullet-size;
   }
 
   @include breakpoint(map-get($breakpoints, large)) {
-    $_bullet-size: 10px;
+    $bullet-size: 10px;
 
-    margin-top: -($_bullet-size / 2);
-    width: $_bullet-size;
-    height: $_bullet-size;
+    margin-top: -($bullet-size / 2);
+    width: $bullet-size;
+    height: $bullet-size;
     border-width: 2px;
   }
 }
 
 %bullets-level-3 {
-  $_bullet-size: 1px;
+  $bullet-size: 1px;
 
-  margin-top: -($_bullet-size / 2);
-  height: $_bullet-size;
+  margin-top: -($bullet-size / 2);
+  height: $bullet-size;
   border-radius: 0;
   border-style: none;
   background-color: $orange-peel;
 
   @include breakpoint(map-get($breakpoints, medium)) {
-    $_bullet-size: 2px;
+    $bullet-size: 2px;
 
-    margin-top: -($_bullet-size / 2);
-    height: $_bullet-size;
+    margin-top: -($bullet-size / 2);
+    height: $bullet-size;
   }
 
   @include breakpoint(map-get($breakpoints, large)) {
     $bullet-size: 2px;
 
-    margin-top: -($_bullet-size / 2);
-    height: $_bullet-size;
+    margin-top: -($bullet-size / 2);
+    height: $bullet-size;
   }
 }
 

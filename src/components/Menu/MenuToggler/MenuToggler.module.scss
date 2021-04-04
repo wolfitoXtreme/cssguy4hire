@@ -24,13 +24,13 @@
   }
 
   @include breakpoint(map-get($breakpoints, small)) {
-    $_button-width: 46px;
-    $_button-height: 46px;
+    $button-width: 46px;
+    $button-height: 46px;
 
     top: 9px;
     right: 14px;
-    width: $_button-width;
-    height: $_button-height;
+    width: $button-width;
+    height: $button-height;
   }
 
   &-icon {

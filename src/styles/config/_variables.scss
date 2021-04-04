@@ -210,8 +210,8 @@ $btn-colors: (
   )
 );
 
-// panel colors
-$panel-colors: (
+// section colors
+$section-colors: (
   'home': $dark-goldenrod,
   'about': $lucky-point,
   'skills': $dark-slate-blue,
@@ -243,3 +243,9 @@ $breakpoints: (
 );
 $menu-width: 220px;
 $app-max-width: 1400px;
+
+// sections
+$section-padding-x-small: 0 48px;
+$section-padding-small: 0 54px;
+$section-padding-medium: 0 106px;
+$section-padding-large: 0 142px;

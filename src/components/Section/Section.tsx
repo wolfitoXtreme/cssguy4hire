@@ -11,35 +11,39 @@ import MenuToggler from '@app/components/Menu/MenuToggler/MenuToggler';
 import SecondaryMenu from '@app/components/Menu/SecondaryMenu/SecondaryMenu';
 
 import {
-  panel,
-  panelDetail,
-  panelFooterSignature,
-  panelFooterImg,
-  homePanel,
-  aboutPanel,
-  skillsPanel,
-  rolesPanel,
-  workPanel,
-  contactPanel
+  section,
+  sectionDetail,
+  sectionDetailWide,
+  sectionHeading,
+  sectionHeadingWide,
+  sectionFooterSignature,
+  sectionFooterImg,
+  homeSection,
+  aboutSection,
+  skillsSection,
+  rolesSection,
+  workSection,
+  contactSection
 } from './Section.module.scss';
 
 interface SectionInt {
   id: sections;
   heading?: string;
   children?: React.ReactNode;
+  variant?: 'wide';
 }
 
-const Section: React.FC<SectionInt> = ({ id, heading, children }) => {
+const Section: React.FC<SectionInt> = ({ id, heading, children, variant }) => {
   const { formatMessage } = useIntl();
   const { type: currentDevice } = useContext(DeviceContext);
 
   const sectionClassName = (sectionName: sections): string => {
-    const isHome = () => homePanel;
-    const isAbout = () => aboutPanel;
-    const isSkills = () => skillsPanel;
-    const isRoles = () => rolesPanel;
-    const isWork = () => workPanel;
-    const isContact = () => contactPanel;
+    const isHome = () => homeSection;
+    const isAbout = () => aboutSection;
+    const isSkills = () => skillsSection;
+    const isRoles = () => rolesSection;
+    const isWork = () => workSection;
+    const isContact = () => contactSection;
 
     const setClassName = {
       [sections.HOME]: isHome,
@@ -50,14 +54,16 @@ const Section: React.FC<SectionInt> = ({ id, heading, children }) => {
       [sections.CONTACT]: isContact
     };
 
-    return setClassName[sectionName] ? setClassName[sectionName]() : homePanel;
+    return setClassName[sectionName]
+      ? setClassName[sectionName]()
+      : homeSection;
   };
 
   return (
     <section
       id={id}
       title={heading}
-      className={classNames(panel, sectionClassName(id))}
+      className={classNames(section, sectionClassName(id))}
     >
       {currentDevice === devices.DESKTOP && (
         <SecondaryMenu
@@ -66,16 +72,28 @@ const Section: React.FC<SectionInt> = ({ id, heading, children }) => {
         />
       )}
       {currentDevice === devices.MOBILE && <MenuToggler />}
-      <div className={panelDetail}>
-        {heading && <h2>{heading}</h2>}
+      <div
+        className={classNames(sectionDetail, {
+          [sectionDetailWide]: variant === 'wide'
+        })}
+      >
+        {heading && (
+          <h2
+            className={classNames(sectionHeading, {
+              [sectionHeadingWide]: variant === 'wide'
+            })}
+          >
+            {heading}
+          </h2>
+        )}
         {children}
       </div>
       {id !== sections.HOME && (
-        <div className={panelFooterSignature}>
+        <div className={sectionFooterSignature}>
           <h6>
             <div>
               <img
-                className={panelFooterImg}
+                className={sectionFooterImg}
                 src={logo}
                 alt={formatMessage({ id: 'site' })}
               />

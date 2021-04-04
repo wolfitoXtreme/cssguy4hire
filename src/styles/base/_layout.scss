@@ -1,4 +1,5 @@
 @import '~@styles/config/variables';
+@import '~@styles/helpers/functions';
 @import '~@styles/helpers/mixins';
 
 //
@@ -65,5 +66,42 @@ body {
     width: 100%;
     display: inline-block;
     break-inside: avoid;
+  }
+}
+
+%section-horizontal-padding {
+  $section-padding-x-small: 0 48px;
+  $section-padding-small: 0 54px;
+  $section-padding-medium: 0 106px;
+  $section-padding-large: 0 142px;
+
+  $horizontal-space: getPercentageFrom(
+    nth($section-padding-x-small, 2),
+    map-get($breakpoints, x-small)
+  );
+
+  padding: 0 $horizontal-space;
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    $horizontal-space: getPercentageFrom(
+      nth($section-padding-small, 2),
+      map-get($breakpoints, small)
+    );
+
+    padding: 0 $horizontal-space;
+  }
+  @include breakpoint(map-get($breakpoints, medium)) {
+    $horizontal-space: getPercentageFrom(
+      nth($section-padding-medium, 2),
+      map-get($breakpoints, medium)
+    );
+
+    padding: 0 $horizontal-space;
+  }
+  @include breakpoint(map-get($breakpoints, large)) {
+    $horizontal-space: nth($section-padding-large, 2);
+
+    padding: 0 $horizontal-space;
+    max-width: $app-max-width;
   }
 }

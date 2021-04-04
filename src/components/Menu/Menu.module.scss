@@ -147,27 +147,27 @@
       }
 
       &-home {
-        background-color: map-get($panel-colors, home);
+        background-color: map-get($section-colors, home);
       }
 
       &-about {
-        background-color: map-get($panel-colors, about);
+        background-color: map-get($section-colors, about);
       }
 
       &-skills {
-        background-color: map-get($panel-colors, skills);
+        background-color: map-get($section-colors, skills);
       }
 
       &-roles {
-        background-color: map-get($panel-colors, roles);
+        background-color: map-get($section-colors, roles);
       }
 
       &-work {
-        background-color: map-get($panel-colors, work);
+        background-color: map-get($section-colors, work);
       }
 
       &-contact {
-        background-color: map-get($panel-colors, contact);
+        background-color: map-get($section-colors, contact);
       }
     }
 

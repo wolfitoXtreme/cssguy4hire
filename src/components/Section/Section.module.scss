@@ -1,45 +1,8 @@
+@import '~@styles/base/layout';
 @import '~@styles/config/variables';
-@import '~@styles/helpers/functions';
 @import '~breakpoint-sass/stylesheets/breakpoint';
 
-$panel-padding-x-small: 0 48px;
-$panel-padding-small: 0 54px;
-$panel-padding-medium: 0 106px;
-$panel-padding-large: 0 142px;
-
-%panel-horizontal-padding {
-  $horizontal-space: getPercentageFrom(
-    nth($panel-padding-x-small, 2),
-    map-get($breakpoints, x-small)
-  );
-
-  padding: 0 $horizontal-space;
-
-  @include breakpoint(map-get($breakpoints, small)) {
-    $horizontal-space: getPercentageFrom(
-      nth($panel-padding-small, 2),
-      map-get($breakpoints, small)
-    );
-
-    padding: 0 $horizontal-space;
-  }
-  @include breakpoint(map-get($breakpoints, medium)) {
-    $horizontal-space: getPercentageFrom(
-      nth($panel-padding-medium, 2),
-      map-get($breakpoints, medium)
-    );
-
-    padding: 0 $horizontal-space;
-  }
-  @include breakpoint(map-get($breakpoints, large)) {
-    $horizontal-space: nth($panel-padding-large, 2);
-
-    padding: 0 $horizontal-space;
-    max-width: $app-max-width;
-  }
-}
-
-.panel {
+.section {
   $bkg-image: $image-url + 'panel-bkg.png';
   $bkg-image-2x: $image-url + 'panel-bkg-2x.png';
   $bkg-image-medium: $image-url + 'panel-bkg-medium.png';
@@ -76,13 +39,13 @@ $panel-padding-large: 0 142px;
     background-size: 282px, cover;
   }
 
-  &.home-panel {
-    background-color: map-get($panel-colors, home);
+  &.home-section {
+    background-color: map-get($section-colors, home);
   }
 
-  &.about-panel {
+  &.about-section {
     transition: background-position $default-duration ease-out 0ms;
-    background-color: map-get($panel-colors, about);
+    background-color: map-get($section-colors, about);
     background-image: url($bkg-image), url($about-bkg-image);
 
     @media (-webkit-min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
@@ -110,27 +73,39 @@ $panel-padding-large: 0 142px;
     }
   }
 
-  &.skills-panel {
-    background-color: map-get($panel-colors, skills);
+  &.skills-section {
+    background-color: map-get($section-colors, skills);
   }
 
-  &.roles-panel {
-    background-color: map-get($panel-colors, roles);
+  &.roles-section {
+    background-color: map-get($section-colors, roles);
   }
 
-  &.work-panel {
-    background-color: map-get($panel-colors, work);
+  &.work-section {
+    background-color: map-get($section-colors, work);
   }
 
-  &.contact-panel {
-    background-color: map-get($panel-colors, contact);
+  &.contact-section {
+    background-color: map-get($section-colors, contact);
+  }
+
+  &-heading {
+    padding-bottom: 8px;
+
+    &-wide {
+      @extend %section-horizontal-padding;
+    }
   }
 
   &-detail {
+    @extend %section-horizontal-padding;
     width: 100%;
     max-height: 100%;
     z-index: 1;
-    @extend %panel-horizontal-padding;
+
+    &-wide {
+      padding: 0;
+    }
   }
 
   &-footer-signature {
@@ -171,7 +146,7 @@ $panel-padding-large: 0 142px;
   }
 
   // bottom title
-  &:not(.home-panel):after {
+  &:not(.home-section):after {
     content: attr(title);
     right: -0.05em;
     bottom: -0.2em;

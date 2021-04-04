@@ -4,6 +4,7 @@ import { useIntl } from 'react-intl';
 import { sections, sectionSkillsType } from '@app/types/types';
 
 import Section from '@app/components/Section/Section';
+import ContentSlider from '@app/components/ContentSlider/ContentSlider';
 
 import { skillsAdditional } from './Skills.module.scss';
 
@@ -58,41 +59,49 @@ const Skills: React.FC = () => {
     <Section
       id={sections.SKILLS}
       heading={formatMessage({ id: 'section-skills-title' })}
+      variant="wide"
     >
       <article>
-        <ul>
-          {skills.map(({ id, categories, other }, index) => (
-            <li key={index}>
-              <h4>
-                {formatMessage({ id: `section-skills-category-title-${id}` })}
-              </h4>
-              <ul>
-                {categories.map(({ id, text, expertise }, index) => {
-                  const outputText = id
-                    ? formatMessage({ id: `section-skills-text-${id}` })
-                    : text;
+        <ContentSlider
+          slides={skills.map(({ id, categories, other }) => {
+            return {
+              title: formatMessage({
+                id: `section-skills-category-title-${id}`
+              }),
+              content: (
+                <>
+                  <ul className="column-list">
+                    {categories.map(({ id, text, expertise }, index) => {
+                      const outputText = id
+                        ? formatMessage({ id: `section-skills-text-${id}` })
+                        : text;
 
-                  return (
-                    <li
-                      key={index}
-                      dangerouslySetInnerHTML={{
-                        __html: outputText + ' - (' + expertise + ')'
-                      }}
-                    />
-                  );
-                })}
-              </ul>
-              {other && (
-                <p className={skillsAdditional}>
-                  <b>
-                    {formatMessage({ id: 'section-skills-additional-title' })}
-                  </b>
-                  : {other}
-                </p>
-              )}
-            </li>
-          ))}
-        </ul>
+                      return (
+                        <li
+                          key={index}
+                          dangerouslySetInnerHTML={{
+                            __html: outputText + ' - (' + expertise + ')'
+                          }}
+                          className="column-list-item"
+                        />
+                      );
+                    })}
+                  </ul>
+                  {other && (
+                    <p className={skillsAdditional}>
+                      <b>
+                        {formatMessage({
+                          id: 'section-skills-additional-title'
+                        })}
+                      </b>
+                      : {other}
+                    </p>
+                  )}
+                </>
+              )
+            };
+          })}
+        />
       </article>
     </Section>
   );

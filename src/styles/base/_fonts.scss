@@ -3,7 +3,7 @@
 //
 
 // Configuration
-@import "config/variables";
+@import 'config/variables';
 
 //
 // helpers
@@ -14,18 +14,17 @@
 // fonts
 //
 @each $font in map_keys($fonts) {
+  @each $font-weight in map_keys(map-get($fonts, $font)) {
+    $fonts-dir: '../../assets/fonts/';
+    $font-name: map-deep-get($fonts, $font, $font-weight);
 
-    @each $font-weight in map_keys(map-get($fonts, $font)) {
-        $_fonts-dir: '../../assets/fonts/';
-        $_font-name: map-deep-get($fonts, $font, $font-weight);
-
-        @font-face {
-            font-family: '#{$font}';
-            src: url('#{$_fonts-dir}#{$_font-name}.woff2') format('woff2'),
-                 url('#{$_fonts-dir}#{$_font-name}.woff') format('woff'),
-                 url('#{$_fonts-dir}#{$_font-name}.ttf') format('truetype');
-            font-weight: $font-weight;
-            font-style: normal;
-        }
+    @font-face {
+      font-family: '#{$font}';
+      src: url('#{$fonts-dir}#{$font-name}.woff2') format('woff2'),
+        url('#{$fonts-dir}#{$font-name}.woff') format('woff'),
+        url('#{$fonts-dir}#{$font-name}.ttf') format('truetype');
+      font-weight: $font-weight;
+      font-style: normal;
     }
+  }
 }

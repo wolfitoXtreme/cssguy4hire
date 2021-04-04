@@ -1,0 +1,9 @@
+@import '~@styles/base/layout';
+
+.slide {
+  @extend %section-horizontal-padding;
+
+  &:before {
+    display: none;
+  }
+}

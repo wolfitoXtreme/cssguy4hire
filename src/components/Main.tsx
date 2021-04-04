@@ -12,12 +12,12 @@ import translations from '@app/translations/translations.json';
 
 import Panels from '@app/components/Panels/Panels';
 import Menu from '@app/components/Menu/Menu';
-import Home from '@app/components/Home/Home';
-import About from '@app/components/About/About';
-import Skills from '@app/components/Skills/Skills';
-import Roles from '@app/components/Roles/Roles';
-import Work from '@app/components/Work/Work';
-import Contact from '@app/components/Contact/Contact';
+import Home from '@app/components/Section/Home/Home';
+import About from '@app/components/Section/About/About';
+import Skills from '@app/components/Section/Skills/Skills';
+import Roles from '@app/components/Section/Roles/Roles';
+import Work from '@app/components/Section/Work/Work';
+import Contact from '@app/components/Section/Contact/Contact';
 import Footer from '@app/components/Footer/Footer';
 
 import { main, menuWidth } from './Main.module.scss';
