@@ -5,6 +5,8 @@ import { sections } from '@app/types/types';
 
 import Section from '@app/components/Section/Section';
 
+import { rolesList, rolesListItem } from './Roles.module.scss';
+
 const roles: { id: string }[] = [
   { id: '01' },
   { id: '02' },
@@ -26,9 +28,9 @@ const Roles: React.FC = () => {
       heading={formatMessage({ id: 'section-roles-title' })}
     >
       <article>
-        <ul className="column-list">
+        <ul className={rolesList}>
           {roles.map(({ id }, index) => (
-            <li key={index} className="column-list-item">
+            <li key={index} className={rolesListItem}>
               {formatMessage({ id: `section-roles-text-${id}` })}
             </li>
           ))}

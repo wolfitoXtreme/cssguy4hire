@@ -87,6 +87,12 @@ $font-size-default: $font-size-medium;
 
 // line-height default
 $line-height-default: 1.15;
+$heading-tags: h1, h2, h3, h4, h5, h6;
+$text-block-tags: p, ul, ol, dl, pre, address, blockquote, table;
+$block-tags: article, aside, canvas, div, fieldset, figure, form, hgroup, output,
+  section, video;
+$heading-and-block-tags: join($heading-tags, $block-tags);
+$text-block-and-block-tags: join($text-block-tags, $block-tags);
 
 //
 // colors

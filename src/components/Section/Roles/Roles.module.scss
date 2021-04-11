@@ -1,0 +1,13 @@
+@import '~@styles/config/variables';
+@import '~@styles/helpers/mixins';
+@import '~@styles/base/placeholders';
+
+.roles-list {
+  @extend %column-list;
+
+  &-item {
+    &:before {
+      @extend %bullets-level-2;
+    }
+  }
+}

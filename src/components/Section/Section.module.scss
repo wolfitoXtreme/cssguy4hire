@@ -1,5 +1,7 @@
-@import '~@styles/base/layout';
 @import '~@styles/config/variables';
+@import '~@styles/helpers/functions';
+@import '~@styles/helpers/mixins';
+@import '~@styles/base/placeholders';
 @import '~breakpoint-sass/stylesheets/breakpoint';
 
 .section {

@@ -58,8 +58,8 @@ const Main: React.FC<MainInt> = ({ lang }) => {
   }, [enableSwiper, menuIsOpen, menuIsToggling, swiperPanels]);
 
   useEffect(() => {
-    currentDevice === devices.DESKTOP && toggleMenu(false);
-  }, [currentDevice, toggleMenu]);
+    currentDevice === devices.DESKTOP && menuIsOpen && toggleMenu(false);
+  }, [currentDevice, menuIsOpen, toggleMenu]);
 
   useEffect(() => {
     if (menuIsOpen !== null && menuIsToggling) {

@@ -1,5 +1,3 @@
-export const columnList: string;
-export const columnListItem: string;
 export const sectionHeadingWide: string;
 export const sectionDetail: string;
 export const section: string;

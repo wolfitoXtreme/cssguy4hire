@@ -1,12 +1,8 @@
+@import '~@styles/base/placeholders';
+
 //
 // typography
 //
-$heading-tags: h1, h2, h3, h4, h5, h6;
-$text-block-tags: p, ul, ol, dl, pre, address, blockquote, table;
-$block-tags: article, aside, canvas, div, fieldset, figure, form, hgroup, output,
-  section, video;
-$text-block-and-block-tags: join($text-block-tags, $block-tags);
-$heading-and-block-tags: join($heading-tags, $block-tags);
 
 html {
   font-family: $default-font-family;
@@ -263,38 +259,6 @@ h6 {
   }
 }
 
-// default texts
-%default-texts {
-  margin: 16px 0;
-
-  @include breakpoint(map-get($breakpoints, small)) {
-    margin: 18px 0;
-  }
-
-  @include breakpoint(map-get($breakpoints, large)) {
-    margin: 22px 0;
-  }
-
-  // any heading or block element following a text block
-  @for $i from 1 through length($heading-and-block-tags) {
-    & + #{nth($heading-and-block-tags, $i)} {
-      margin-top: 12px;
-
-      @include breakpoint(map-get($breakpoints, small)) {
-        margin-top: 18px;
-      }
-
-      @include breakpoint(map-get($breakpoints, medium)) {
-        margin-top: 24px;
-      }
-
-      @include breakpoint(map-get($breakpoints, large)) {
-        margin-top: 34px;
-      }
-    }
-  }
-}
-
 //
 // paragraphs
 //
@@ -305,148 +269,6 @@ p {
 //
 // lists
 //
-
-// lists
-%lists {
-  padding: 0;
-  list-style: none;
-  @extend %default-texts;
-
-  // nested lists and paragraphs
-  & p,
-  & ul,
-  & ol {
-    &:first-child,
-    &:last-child {
-      margin-bottom: 16px;
-    }
-  }
-
-  p:only-child {
-    margin: 0;
-  }
-}
-
-// list - items
-%list-items {
-  margin: 0 0 5px;
-  padding: 0 0 0 11px;
-
-  @include breakpoint(map-get($breakpoints, small)) {
-    padding: 0 0 0 13px;
-  }
-  @include breakpoint(map-get($breakpoints, medium)) {
-    padding: 0 0 0 15px;
-  }
-  @include breakpoint(map-get($breakpoints, large)) {
-    margin: 0 0 9px;
-    padding: 0 0 0 20px;
-  }
-
-  p:only-child {
-    padding: 0;
-  }
-}
-
-%bullets-level-1 {
-  $bullet-size: 7px;
-
-  content: '';
-  top: (1em * $line-height-default) / 2;
-  left: 0;
-  margin-top: -($bullet-size / 2);
-  width: $bullet-size;
-  height: $bullet-size;
-  display: block;
-  border-radius: 100%;
-  position: absolute;
-  background-color: $orange-peel;
-  box-shadow: -1px -1px 0 0 rgba($black, 0.21);
-
-  @include breakpoint(map-get($breakpoints, small)) {
-    $bullet-size: 8px;
-
-    margin-top: -($bullet-size / 2);
-    width: $bullet-size;
-    height: $bullet-size;
-  }
-
-  @include breakpoint(map-get($breakpoints, medium)) {
-    $bullet-size: 10px;
-
-    margin-top: -($bullet-size / 2);
-    width: $bullet-size;
-    height: $bullet-size;
-  }
-
-  @include breakpoint(map-get($breakpoints, large)) {
-    $bullet-size: 12px;
-
-    margin-top: -($bullet-size / 2);
-    width: $bullet-size;
-    height: $bullet-size;
-  }
-}
-
-%bullets-level-2 {
-  $bullet-size: 5px;
-
-  margin-top: -($bullet-size / 2);
-  width: $bullet-size;
-  height: $bullet-size;
-  border: 1px solid $orange-peel;
-  background-color: transparent;
-  box-shadow: none;
-
-  @include breakpoint(map-get($breakpoints, small)) {
-    $bullet-size: 6px;
-
-    margin-top: -($bullet-size / 2);
-    width: $bullet-size;
-    height: $bullet-size;
-  }
-
-  @include breakpoint(map-get($breakpoints, medium)) {
-    $bullet-size: 8px;
-
-    margin-top: -($bullet-size / 2);
-    width: $bullet-size;
-    height: $bullet-size;
-  }
-
-  @include breakpoint(map-get($breakpoints, large)) {
-    $bullet-size: 10px;
-
-    margin-top: -($bullet-size / 2);
-    width: $bullet-size;
-    height: $bullet-size;
-    border-width: 2px;
-  }
-}
-
-%bullets-level-3 {
-  $bullet-size: 1px;
-
-  margin-top: -($bullet-size / 2);
-  height: $bullet-size;
-  border-radius: 0;
-  border-style: none;
-  background-color: $orange-peel;
-
-  @include breakpoint(map-get($breakpoints, medium)) {
-    $bullet-size: 2px;
-
-    margin-top: -($bullet-size / 2);
-    height: $bullet-size;
-  }
-
-  @include breakpoint(map-get($breakpoints, large)) {
-    $bullet-size: 2px;
-
-    margin-top: -($bullet-size / 2);
-    height: $bullet-size;
-  }
-}
 
 ul {
   @extend %lists;
@@ -471,7 +293,7 @@ ol > li {
   &:before {
     content: counter(li-counter) '. ';
     counter-increment: li-counter;
-    top: 0.36em;
+    top: 0.25em;
     left: -6px;
     width: 13px;
     font: normal 0.8em/1 $heading-font;
@@ -481,16 +303,18 @@ ol > li {
     position: absolute;
 
     @include breakpoint(map-get($breakpoints, small)) {
+      top: 0.28em;
       width: 15px;
     }
 
     @include breakpoint(map-get($breakpoints, medium)) {
-      top: 0.46em;
-      left: -9px;
+      top: 0.32em;
+      left: -10px;
       width: 20px;
     }
 
     @include breakpoint(map-get($breakpoints, large)) {
+      top: 0.3em;
       left: -20px;
       width: 32px;
     }

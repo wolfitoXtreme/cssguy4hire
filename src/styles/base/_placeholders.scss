@@ -1,0 +1,249 @@
+//
+// placeholders
+//
+
+// default texts
+%default-texts {
+  margin: 16px 0;
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    margin: 18px 0;
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    margin: 22px 0;
+  }
+
+  // any heading or block element following a text block
+  @for $i from 1 through length($heading-and-block-tags) {
+    & + #{nth($heading-and-block-tags, $i)} {
+      margin-top: 12px;
+
+      @include breakpoint(map-get($breakpoints, small)) {
+        margin-top: 18px;
+      }
+
+      @include breakpoint(map-get($breakpoints, medium)) {
+        margin-top: 24px;
+      }
+
+      @include breakpoint(map-get($breakpoints, large)) {
+        margin-top: 34px;
+      }
+    }
+  }
+}
+
+// lists
+%lists {
+  padding: 0;
+  list-style: none;
+  @extend %default-texts;
+
+  // nested lists and paragraphs
+  & p,
+  & ul,
+  & ol {
+    &:first-child,
+    &:last-child {
+      margin-bottom: 16px;
+    }
+  }
+
+  p:only-child {
+    margin: 0;
+  }
+}
+
+// list - items
+%list-items {
+  margin: 0 0 4px;
+  padding: 0 0 0 10px;
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    padding: 0 0 0 12px;
+  }
+  @include breakpoint(map-get($breakpoints, medium)) {
+    padding: 0 0 0 14px;
+  }
+  @include breakpoint(map-get($breakpoints, large)) {
+    margin: 0 0 6px;
+    padding: 0 0 0 18px;
+  }
+
+  p:only-child {
+    padding: 0;
+  }
+}
+
+%bullets-level-1 {
+  $bullet-size: 7px;
+
+  content: '';
+  top: (1em * $line-height-default) / 2;
+  left: 0;
+  margin-top: -($bullet-size / 2);
+  width: $bullet-size;
+  height: $bullet-size;
+  display: block;
+  border-radius: 100%;
+  position: absolute;
+  background-color: $orange-peel;
+  box-shadow: -1px -1px 0 0 rgba($black, 0.21);
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    $bullet-size: 8px;
+
+    margin-top: -($bullet-size / 2);
+    width: $bullet-size;
+    height: $bullet-size;
+  }
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    $bullet-size: 10px;
+
+    margin-top: -($bullet-size / 2);
+    width: $bullet-size;
+    height: $bullet-size;
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    $bullet-size: 12px;
+
+    margin-top: -($bullet-size / 2);
+    width: $bullet-size;
+    height: $bullet-size;
+  }
+}
+
+%bullets-level-2 {
+  $bullet-size: 5px;
+
+  margin-top: -($bullet-size / 2);
+  width: $bullet-size;
+  height: $bullet-size;
+  border: 1px solid $orange-peel;
+  background-color: transparent;
+  box-shadow: none;
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    $bullet-size: 6px;
+
+    margin-top: -($bullet-size / 2);
+    width: $bullet-size;
+    height: $bullet-size;
+  }
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    $bullet-size: 8px;
+
+    margin-top: -($bullet-size / 2);
+    width: $bullet-size;
+    height: $bullet-size;
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    $bullet-size: 10px;
+
+    margin-top: -($bullet-size / 2);
+    width: $bullet-size;
+    height: $bullet-size;
+    border-width: 2px;
+  }
+}
+
+%bullets-level-3 {
+  $bullet-size: 1px;
+
+  margin-top: -($bullet-size / 2);
+  height: $bullet-size;
+  border-style: none;
+  border-radius: 0;
+  background-color: $orange-peel;
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    $bullet-size: 2px;
+
+    margin-top: -($bullet-size / 2);
+    height: $bullet-size;
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    $bullet-size: 2px;
+
+    margin-top: -($bullet-size / 2);
+    height: $bullet-size;
+  }
+}
+
+// column-lists
+%column-list {
+  @include breakpoint((orientation landscape)) {
+    column-count: 2;
+    column-gap: 18px;
+  }
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    column-gap: 22px;
+  }
+
+  // set two columns for 600px and beyond
+  @include breakpoint(600px) {
+    column-count: 2;
+  }
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    column-gap: 30px;
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    column-gap: 40px;
+  }
+
+  @include breakpoint($app-max-width(orientation landscape)) {
+    column-gap: 80px;
+  }
+
+  &-item {
+    width: 100%;
+    display: inline-block;
+    break-inside: avoid;
+  }
+}
+
+// section-horizontal-padding
+%section-horizontal-padding {
+  $section-padding-x-small: 0 48px;
+  $section-padding-small: 0 54px;
+  $section-padding-medium: 0 106px;
+  $section-padding-large: 0 142px;
+  $horizontal-space: getPercentageFrom(
+    nth($section-padding-x-small, 2),
+    map-get($breakpoints, x-small)
+  );
+
+  padding: 0 $horizontal-space;
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    $horizontal-space: getPercentageFrom(
+      nth($section-padding-small, 2),
+      map-get($breakpoints, small)
+    );
+
+    padding: 0 $horizontal-space;
+  }
+  @include breakpoint(map-get($breakpoints, medium)) {
+    $horizontal-space: getPercentageFrom(
+      nth($section-padding-medium, 2),
+      map-get($breakpoints, medium)
+    );
+
+    padding: 0 $horizontal-space;
+  }
+  @include breakpoint(map-get($breakpoints, large)) {
+    $horizontal-space: nth($section-padding-large, 2);
+
+    padding: 0 $horizontal-space;
+    max-width: $app-max-width;
+  }
+}

@@ -1,4 +1,7 @@
-@import '~@styles/base/layout';
+@import '~@styles/config/variables';
+@import '~@styles/helpers/mixins';
+@import '~@styles/helpers/functions';
+@import '~@styles/base/placeholders';
 
 .slider {
   :global {
