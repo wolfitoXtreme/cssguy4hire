@@ -54,6 +54,8 @@ export const MenuContext = React.createContext<{
   menuIsOpen: boolean | null;
   togglingMenu: (x: boolean) => void;
   menuIsToggling: boolean;
+  activePanel: number | null;
+  setActivePanel: (x: number | null) => void;
   currentPanel: number;
   changePanel: (x: number) => void;
   jumpPanel: number | null;
@@ -66,6 +68,8 @@ export const MenuContext = React.createContext<{
   menuIsOpen: null,
   togglingMenu: (transitioning) => transitioning,
   menuIsToggling: false,
+  activePanel: null,
+  setActivePanel: (panel) => panel,
   currentPanel: 0,
   changePanel: (panel) => panel,
   jumpPanel: null,
@@ -77,6 +81,7 @@ export const MenuContext = React.createContext<{
 export const MenuProvider: React.FC = ({ children }) => {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean | null>(null);
   const [menuIsToggling, setMenuIsToggling] = useState<boolean>(false);
+  const [activePanel, setActivePanel] = useState<number | null>(null);
   const [currentPanel, setCurrentPanel] = useState<number>(0);
   const [jumpPanel, setJumpPanel] = useState<number | null>(null);
   const [swiperPanels, setSwiperPanels] = useState<SwiperCore | null>(null);
@@ -109,6 +114,8 @@ export const MenuProvider: React.FC = ({ children }) => {
         menuIsOpen,
         togglingMenu,
         menuIsToggling,
+        activePanel,
+        setActivePanel,
         currentPanel,
         changePanel,
         jumpPanel,

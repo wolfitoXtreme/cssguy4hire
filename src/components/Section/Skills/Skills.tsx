@@ -1,12 +1,23 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
 
+import classNames from 'classnames';
+
 import { sections, sectionSkillsType } from '@app/types/types';
 
 import Section from '@app/components/Section/Section';
 import ContentSlider from '@app/components/ContentSlider/ContentSlider';
 
-import { skillsAdditional } from './Skills.module.scss';
+import {
+  list,
+  listItemExpertiseText,
+  listItemExpertiseAmount,
+  listItemExpertiseDot,
+  listItemExpertiseDotFilled,
+  listItemExpertise,
+  additional,
+  dotsAmount
+} from './Skills.module.scss';
 
 const skills: sectionSkillsType = [
   {
@@ -14,10 +25,10 @@ const skills: sectionSkillsType = [
     categories: [
       { text: 'JavaScript', expertise: 4 },
       { text: 'reactJS', expertise: 3 },
-      { text: 'HTML5/CSS3', expertise: 5 },
+      { text: 'HTML5/<wbr>CSS3', expertise: 5 },
       { text: 'SASS', expertise: 4 },
-      { text: 'GulpJS/GruntJS/Webpack', expertise: 3 },
-      { text: 'Demandware/SFCC', expertise: 3 },
+      { text: 'GulpJS/GruntJS/<wbr>Webpack', expertise: 3 },
+      { text: 'Demandware/<wbr>SFCC', expertise: 3 },
       { text: 'Django', expertise: 3 }
     ],
     other:
@@ -32,10 +43,10 @@ const skills: sectionSkillsType = [
       { text: 'After Effects', expertise: 3 },
       { text: 'Premiere Pro', expertise: 3 },
       { text: 'Blender', expertise: 2 },
-      { text: 'Keyshape', expertise: 2 }
+      { text: 'Inkscape', expertise: 3 }
     ],
     other:
-      '3ds Max, Flash Professional, DreamWeaver, Acrobat Pro, LightWave 3D, Zeplin.'
+      '3ds Max, Keyshape, Flash Professional, DreamWeaver, LightWave 3D, Zeplin.'
   },
   {
     id: 'personal',
@@ -52,27 +63,56 @@ const skills: sectionSkillsType = [
   }
 ];
 
-const Skills: React.FC = () => {
-  const { formatMessage } = useIntl();
+const dots: string[] = [];
+for (let i = 0; i < parseInt(dotsAmount); i++) {
+  dots.push('');
+}
 
-  const textAndExpertise = (
-    text: string | undefined,
-    expertise: number | undefined
-  ) => {
-    const dots = (expertise && expertise) || '';
-    return {
-      __html: (text && text + dots) || ''
-    };
-  };
+const TextAndExpertise: React.FC<{ text?: string; expertise?: number }> = ({
+  text,
+  expertise
+}) => {
+  return (
+    <>
+      {(expertise && (
+        <>
+          <span
+            className={listItemExpertiseText}
+            dangerouslySetInnerHTML={{ __html: `${text}` }}
+          />
+          <span className={listItemExpertiseAmount}>
+            {dots.map((dot, index) => {
+              return (
+                <span
+                  key={index}
+                  className={classNames(listItemExpertiseDot, {
+                    [listItemExpertiseDotFilled]: index < expertise
+                  })}
+                />
+              );
+            })}
+          </span>
+        </>
+      )) || <>{text}</>}
+    </>
+  );
+};
+
+const Skills: React.FC<{ panelIndex?: number; test?: string }> = ({
+  panelIndex
+}) => {
+  const { formatMessage } = useIntl();
 
   return (
     <Section
       id={sections.SKILLS}
+      // panelIndex={panelIndex}
       heading={formatMessage({ id: 'section-skills-title' })}
       variant="wide"
     >
       <article>
         <ContentSlider
+          panelIndex={panelIndex}
           slides={skills.map(({ id, categories, other }) => {
             return {
               title: formatMessage({
@@ -80,7 +120,7 @@ const Skills: React.FC = () => {
               }),
               content: (
                 <>
-                  <ul className="column-list">
+                  <ul className={list}>
                     {categories.map(({ id, text, expertise }, index) => {
                       const outputText = id
                         ? formatMessage({ id: `section-skills-text-${id}` })
@@ -89,17 +129,20 @@ const Skills: React.FC = () => {
                       return (
                         <li
                           key={index}
-                          dangerouslySetInnerHTML={textAndExpertise(
-                            outputText,
-                            expertise
-                          )}
-                          className="column-list-item"
-                        />
+                          className={classNames({
+                            [listItemExpertise]: expertise
+                          })}
+                        >
+                          <TextAndExpertise
+                            text={outputText}
+                            expertise={expertise}
+                          />
+                        </li>
                       );
                     })}
                   </ul>
                   {other && (
-                    <p className={skillsAdditional}>
+                    <p className={additional}>
                       <b>
                         {formatMessage({
                           id: 'section-skills-additional-title'
