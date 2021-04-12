@@ -4,6 +4,8 @@
 @import '~@styles/base/placeholders';
 
 .slider {
+  overflow: visible;
+
   :global {
     .swiper-wrapper {
       margin: 0;
@@ -12,11 +14,17 @@
 }
 
 .slide {
-  @extend %section-horizontal-padding;
   margin: 0;
+  padding: 0;
+  width: 100%;
 
   &:before {
     display: none;
+  }
+
+  &-content {
+    @extend %section-horizontal-padding;
+    margin: 0 auto;
   }
 }
 

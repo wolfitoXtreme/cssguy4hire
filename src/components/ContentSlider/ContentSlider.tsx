@@ -12,6 +12,7 @@ import 'swiper/swiper.scss';
 import {
   slider,
   slide,
+  slideContent,
   arrows,
   arrowsArrow,
   arrowsArrowIcon
@@ -86,8 +87,10 @@ const ContentSlider: React.FC<ContentSliderInt> = ({ panelIndex, slides }) => {
                 index === activeSlide && panelIndex === activePanel
             })}
           >
-            {title && <h4>{title}</h4>}
-            {content}
+            <div className={slideContent}>
+              {title && <h4>{title}</h4>}
+              {content}
+            </div>
           </SwiperSlide>
         ))}
 

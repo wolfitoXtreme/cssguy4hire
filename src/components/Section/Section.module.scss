@@ -101,6 +101,7 @@
 
     &-wide {
       @extend %section-horizontal-padding;
+      margin: 0 auto;
     }
   }
 
@@ -112,6 +113,7 @@
 
     &-wide {
       padding: 0;
+      max-width: none;
     }
   }
 
@@ -137,7 +139,7 @@
 
   &-footer--img {
     height: auto;
-    opacity: 0.44;
+    opacity: 0.24;
 
     @include breakpoint(map-get($breakpoints, small)) {
       width: 129px;

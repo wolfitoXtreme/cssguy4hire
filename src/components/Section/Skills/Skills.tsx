@@ -98,9 +98,7 @@ const TextAndExpertise: React.FC<{ text?: string; expertise?: number }> = ({
   );
 };
 
-const Skills: React.FC<{ panelIndex?: number; test?: string }> = ({
-  panelIndex
-}) => {
+const Skills: React.FC<{ panelIndex?: number }> = ({ panelIndex }) => {
   const { formatMessage } = useIntl();
 
   return (

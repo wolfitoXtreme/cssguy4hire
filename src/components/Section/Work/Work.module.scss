@@ -1,0 +1,302 @@
+@import '~@styles/config/variables';
+@import '~@styles/helpers/mixins';
+@import '~@styles/helpers/functions';
+
+.work-sample {
+  display: flex;
+  flex-direction: column;
+
+  @include breakpoint((orientation landscape)) {
+    flex-direction: row-reverse;
+    align-items: center;
+  }
+
+  &-detail {
+    $available-width: 556px;
+    $landscape-gap: 30px;
+
+    font-size: $font-size-xxx-small;
+    order: 1;
+
+    @include breakpoint(map-get($breakpoints, small)) {
+      font-size: $font-size-xx-small;
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      padding: 0 30% 0 5%;
+      font-size: $font-size-x-small;
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+      font-size: $font-size-medium;
+    }
+
+    @include breakpoint((orientation landscape)) {
+      padding-right: 0;
+      padding-left: getPercentageFrom($landscape-gap, $available-width);
+      width: 50%;
+      order: 0;
+
+      @include breakpoint(
+        map-get($breakpoints, small) (max-width map-get($breakpoints, medium))
+          (max-height 340px)
+      ) {
+        width: 60%;
+        font-size: $font-size-xxx-small;
+      }
+
+      @include breakpoint(
+        map-get($breakpoints, medium) (max-width map-get($breakpoints, large))
+          (max-height 440px)
+      ) {
+        width: 60%;
+        font-size: $font-size-xx-small;
+      }
+
+      @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
+        width: 60%;
+        font-size: $font-size-x-small;
+      }
+    }
+
+    // remove last child margin
+    *:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &-title {
+    line-height: 1;
+  }
+
+  &-system {
+    margin-top: 3.5px;
+    font-family: $default-font;
+    font-size: $font-size-xxx-small - 1;
+    letter-spacing: 0.015em;
+    color: $white;
+    opacity: 0.7;
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      margin-top: 4.5px;
+      font-size: $font-size-xx-small;
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+      margin-top: 6px;
+      font-size: $font-size-small;
+    }
+
+    &:after {
+      content: '';
+      margin: 6px 0 7px;
+      width: 10%;
+      height: 1px;
+      display: block;
+      opacity: 0.5;
+      background-color: $white;
+
+      @include breakpoint(map-get($breakpoints, medium)) {
+        margin: 8px 0 10px;
+        height: 2px;
+      }
+
+      @include breakpoint(map-get($breakpoints, large)) {
+        margin: 10px 0 12px;
+        height: 3px;
+      }
+    }
+
+    + p {
+      margin-top: 5px;
+      @include breakpoint(map-get($breakpoints, medium)) {
+        margin-top: 5.5px;
+      }
+      @include breakpoint(map-get($breakpoints, large)) {
+        margin-top: 7px;
+      }
+    }
+  }
+
+  &-image {
+    padding-bottom: 8px;
+    order: 0;
+
+    @include breakpoint(map-get($breakpoints, small)) {
+      padding-bottom: 11px;
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      padding-bottom: 14px;
+    }
+
+    @include breakpoint(orientation portrait) {
+      @include breakpoint((max-height 500px)) {
+        margin: 0 auto;
+        width: 80%;
+      }
+    }
+
+    @include breakpoint((orientation landscape)) {
+      padding-bottom: 0;
+      width: 50%;
+      order: 1;
+
+      @include breakpoint(
+        map-get($breakpoints, small) (max-width map-get($breakpoints, medium))
+          (max-height 340px)
+      ) {
+        width: 40%;
+      }
+
+      @include breakpoint(
+        map-get($breakpoints, medium) (max-width map-get($breakpoints, large))
+          (max-height 440px)
+      ) {
+        width: 40%;
+      }
+
+      @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
+        width: 40%;
+      }
+    }
+  }
+}
+
+.images {
+  $device-set-width: 224px;
+  $device-set-height: 168px;
+
+  padding-bottom: percentageHeightRatio($device-set-width, $device-set-height);
+  height: 0;
+  transform: scaleY(1.0001);
+  position: relative;
+
+  @at-root :global .slide-active :local & {
+    animation: work-sample-animation 700ms ease 400ms 1 forwards;
+  }
+
+  &-inner {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+
+  &-large {
+    $device-width: 203px;
+    $device-height: 155px;
+
+    top: 0;
+    left: 0;
+    margin: 0;
+    width: getPercentageFrom($device-width, $device-set-width);
+    display: block;
+    border-radius: 10px;
+    position: absolute;
+    box-shadow: 3px 3px 9px 5px rgba($black, 0.4);
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      border-radius: 20px;
+    }
+
+    &-img {
+      top: getPercentageFrom(12px, $device-height);
+      left: getPercentageFrom(10px, $device-width);
+      width: getPercentageFrom(174px, $device-width);
+      height: auto;
+      display: block;
+      border-radius: 2px;
+      position: absolute;
+    }
+  }
+
+  &-small {
+    $device-width: 74px;
+    $device-height: 144px;
+
+    top: getPercentageFrom(24px, $device-set-height);
+    right: 0;
+    margin: 0;
+    width: getPercentageFrom($device-width, $device-set-width);
+    display: block;
+    border-radius: 10px;
+    position: absolute;
+    z-index: 1;
+    box-shadow: 3px 3px 9px 5px rgba($black, 0.4);
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      border-radius: 20px;
+    }
+
+    &-img {
+      top: getPercentageFrom(14px, $device-height);
+      left: getPercentageFrom(5px, $device-width);
+      width: getPercentageFrom(64px, $device-width);
+      height: auto;
+      display: block;
+      border-radius: 2px;
+      position: absolute;
+    }
+  }
+
+  &-device {
+    width: 100%;
+    height: auto;
+    display: block;
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@keyframes work-sample-animation {
+  0% {
+    filter: blur(0) contrast(100%) brightness(100%);
+  }
+
+  10% {
+    filter: blur(2px) contrast(0%) brightness(150%);
+    opacity: 0.6;
+    transform: scaleY(1.1);
+  }
+
+  15% {
+    filter: blur(0) contrast(100%) brightness(100%);
+    opacity: 1;
+    transform: scaleY(1);
+  }
+
+  16% {
+    filter: blur(1px) contrast(100%) brightness(100%);
+    opacity: 0.5;
+    transform: scaleY(1);
+  }
+
+  25% {
+    filter: blur(18px) contrast(0%) brightness(150%);
+    opacity: 0.2;
+    transform: scaleY(1.5);
+  }
+
+  40% {
+    filter: blur(0) contrast(100%) brightness(100%);
+    opacity: 1;
+    transform: scaleY(1);
+  }
+
+  85% {
+    filter: blur(0) contrast(100%) brightness(100%);
+    opacity: 1;
+  }
+
+  90% {
+    filter: blur(1px) contrast(0%) brightness(200%);
+    opacity: 0.6;
+  }
+
+  100% {
+    filter: blur(0) contrast(100%) brightness(100%);
+    opacity: 1;
+  }
+}
