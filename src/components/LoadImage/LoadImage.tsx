@@ -1,4 +1,9 @@
-import React, { useState } from 'react';
+import React, {
+  Children,
+  JSXElementConstructor,
+  useMemo,
+  useState
+} from 'react';
 
 const requestImages = require.context(
   '@app/assets/images/',
@@ -6,11 +11,14 @@ const requestImages = require.context(
   /\.(png|jpe?g|svg)$/
 );
 
-const LoadImage: React.FC<{
+interface LoadImageInt {
   source: string;
   text: string;
   className?: string;
-}> = ({ source, text, className }) => {
+  wrapper?: JSX.Element;
+}
+
+const Image: React.FC<LoadImageInt> = ({ source, text, className }) => {
   const [imageFile, setImageFile] = useState('');
 
   const getImage = (image: string) => {
@@ -36,6 +44,36 @@ const LoadImage: React.FC<{
   getImage(source);
 
   return <img src={imageFile} alt={text} title={text} className={className} />;
+};
+
+const Wrapper: React.FC<{
+  wrapper: JSX.Element;
+  children: React.ReactNode;
+}> = ({ wrapper, children }) => {
+  const { props } = (wrapper as JSX.Element) || {};
+  const propsWithChildren = { ...props, children };
+  console.log('wrapper: ', wrapper);
+  console.log('test wrapper: ', { ...wrapper, props: propsWithChildren });
+  return { ...wrapper, props: propsWithChildren };
+};
+
+const LoadImage: React.FC<LoadImageInt> = ({
+  source,
+  text,
+  className,
+  wrapper
+}) => {
+  return (
+    <>
+      {wrapper ? (
+        <Wrapper wrapper={wrapper}>
+          <Image source={source} text={text} className={className} />
+        </Wrapper>
+      ) : (
+        <Image source={source} text={text} className={className} />
+      )}
+    </>
+  );
 };
 
 export default LoadImage;

@@ -18,9 +18,9 @@ import {
   images,
   imagesInner,
   imagesLarge,
-  imagesLargeImg,
+  imagesLargeImgWrapper,
   imagesSmall,
-  imagesSmallImg,
+  imagesSmallImgWrapper,
   imagesDevice
 } from './Work.module.scss';
 
@@ -96,7 +96,7 @@ const Work: React.FC<{ panelIndex?: number }> = ({ panelIndex }) => {
                           <LoadImage
                             source={`sample-image-large--${id}.jpg`}
                             text={title}
-                            className={imagesLargeImg}
+                            wrapper={<div className={imagesLargeImgWrapper} />}
                           />
                           <img
                             src={deviceDesktop}
@@ -108,7 +108,7 @@ const Work: React.FC<{ panelIndex?: number }> = ({ panelIndex }) => {
                           <LoadImage
                             source={`sample-image-small--${id}.jpg`}
                             text={title}
-                            className={imagesSmallImg}
+                            wrapper={<div className={imagesSmallImgWrapper} />}
                           />
                           <img
                             src={deviceMovile}

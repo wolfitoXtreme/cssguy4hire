@@ -2,6 +2,15 @@
 @import '~@styles/helpers/mixins';
 @import '~@styles/helpers/functions';
 
+$image-init-scale: 1.0001;
+$images-fade-duration: 500ms;
+$frame-shadow-duration: 500ms;
+$frame-shadow-delay: $images-fade-duration - 300ms;
+$image-fade-in-duration: 1200ms;
+$image-fade-in-delay: $frame-shadow-delay;
+$images-blur-duration: 700ms;
+$images-blur-delay: $image-fade-in-duration + $image-fade-in-delay;
+
 .work-sample {
   display: flex;
   flex-direction: column;
@@ -138,7 +147,7 @@
     }
 
     @include breakpoint((orientation landscape)) {
-      padding-bottom: 0;
+      padding-bottom: 2px; // overcome scaled image inside to be cut off
       width: 50%;
       order: 1;
 
@@ -163,17 +172,96 @@
   }
 }
 
+@mixin image-sample(
+  $device-width,
+  $device-height,
+  $device-set-width,
+  $img-offset-top,
+  $img-offset-left,
+  $img-width
+) {
+  $box-shadow-values: 3px 3px 9px 5px;
+
+  margin: 0;
+  width: getPercentageFrom($device-width, $device-set-width);
+  display: block;
+  border-radius: 20px;
+  position: absolute;
+
+  @include breakpoint((orientation landscape)) {
+    @include breakpoint(map-get($breakpoints, small)) {
+      border-radius: 10px;
+    }
+  }
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    border-radius: 20px;
+  }
+
+  @include transitions(
+    $frame-shadow-duration,
+    ease-out,
+    $frame-shadow-delay,
+    (box-shadow)
+  );
+
+  @at-root :global .slide-active :local & {
+    animation: work-sample-animation $images-blur-duration ease
+      $images-blur-delay 1 forwards;
+    box-shadow: $box-shadow-values rgba($black, 0.4);
+  }
+
+  &-img-wrapper {
+    top: getPercentageFrom($img-offset-top, $device-height);
+    left: getPercentageFrom($img-offset-left, $device-width);
+    width: getPercentageFrom($img-width, $device-width);
+    height: auto;
+    display: block;
+    border-radius: 2px;
+    position: absolute;
+
+    &:before {
+      content: '';
+      width: 100%;
+      height: 100%;
+      display: block;
+      opacity: 1;
+      position: absolute;
+      background-color: map-get($section-colors, work);
+
+      @include transitions(
+        $image-fade-in-duration,
+        ease-out,
+        $image-fade-in-delay,
+        (opacity)
+      );
+
+      @at-root :global .slide-active :local & {
+        opacity: 0;
+      }
+    }
+
+    & > img {
+      width: 100%;
+    }
+  }
+}
+
 .images {
   $device-set-width: 224px;
   $device-set-height: 168px;
 
   padding-bottom: percentageHeightRatio($device-set-width, $device-set-height);
   height: 0;
-  transform: scaleY(1.0001);
+  opacity: 0.2;
+  transform: scaleY($image-init-scale); // avoids image jittering when animating
   position: relative;
+  filter: saturate(0) brightness(0);
+  @include transitions($images-fade-duration, ease-out, 0ms, (filter, opacity));
 
   @at-root :global .slide-active :local & {
-    animation: work-sample-animation 700ms ease 400ms 1 forwards;
+    opacity: 1;
+    filter: saturate(100%) brightness(100%);
   }
 
   &-inner {
@@ -187,58 +275,42 @@
   &-large {
     $device-width: 203px;
     $device-height: 155px;
+    $img-offset-top: 12px;
+    $img-offset-left: 10px;
+    $img-width: 174px;
+
+    @include image-sample(
+      $device-width,
+      $device-height,
+      $device-set-width,
+      $img-offset-top,
+      $img-offset-left,
+      $img-width
+    );
 
     top: 0;
     left: 0;
-    margin: 0;
-    width: getPercentageFrom($device-width, $device-set-width);
-    display: block;
-    border-radius: 10px;
-    position: absolute;
-    box-shadow: 3px 3px 9px 5px rgba($black, 0.4);
-
-    @include breakpoint(map-get($breakpoints, medium)) {
-      border-radius: 20px;
-    }
-
-    &-img {
-      top: getPercentageFrom(12px, $device-height);
-      left: getPercentageFrom(10px, $device-width);
-      width: getPercentageFrom(174px, $device-width);
-      height: auto;
-      display: block;
-      border-radius: 2px;
-      position: absolute;
-    }
   }
 
   &-small {
     $device-width: 74px;
     $device-height: 144px;
+    $img-offset-top: 14px;
+    $img-offset-left: 5px;
+    $img-width: 64px;
+
+    @include image-sample(
+      $device-width,
+      $device-height,
+      $device-set-width,
+      $img-offset-top,
+      $img-offset-left,
+      $img-width
+    );
 
     top: getPercentageFrom(24px, $device-set-height);
     right: 0;
-    margin: 0;
-    width: getPercentageFrom($device-width, $device-set-width);
-    display: block;
-    border-radius: 10px;
-    position: absolute;
     z-index: 1;
-    box-shadow: 3px 3px 9px 5px rgba($black, 0.4);
-
-    @include breakpoint(map-get($breakpoints, medium)) {
-      border-radius: 20px;
-    }
-
-    &-img {
-      top: getPercentageFrom(14px, $device-height);
-      left: getPercentageFrom(5px, $device-width);
-      width: getPercentageFrom(64px, $device-width);
-      height: auto;
-      display: block;
-      border-radius: 2px;
-      position: absolute;
-    }
   }
 
   &-device {
@@ -247,6 +319,18 @@
     display: block;
     position: relative;
     z-index: 1;
+  }
+}
+
+@keyframes work-sample-animation-frame {
+  0% {
+    opacity: 0.2;
+    filter: saturate(0) brightness(0);
+  }
+
+  100% {
+    opacity: 1;
+    filter: saturate(100%) brightness(100%);
   }
 }
 
@@ -264,13 +348,13 @@
   15% {
     filter: blur(0) contrast(100%) brightness(100%);
     opacity: 1;
-    transform: scaleY(1);
+    transform: scaleY($image-init-scale);
   }
 
   16% {
     filter: blur(1px) contrast(100%) brightness(100%);
     opacity: 0.5;
-    transform: scaleY(1);
+    transform: scaleY($image-init-scale);
   }
 
   25% {
@@ -282,7 +366,7 @@
   40% {
     filter: blur(0) contrast(100%) brightness(100%);
     opacity: 1;
-    transform: scaleY(1);
+    transform: scaleY($image-init-scale);
   }
 
   85% {
@@ -298,5 +382,6 @@
   100% {
     filter: blur(0) contrast(100%) brightness(100%);
     opacity: 1;
+    transform: scaleY($image-init-scale);
   }
 }
