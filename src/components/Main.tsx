@@ -54,6 +54,7 @@ const Main: React.FC<MainInt> = ({ lang }) => {
     if (swiperPanels) {
       swiperPanels.allowSlideNext = enableSwiper;
       swiperPanels.allowSlidePrev = enableSwiper;
+      swiperPanels.allowTouchMove = enableSwiper;
     }
   }, [enableSwiper, menuIsOpen, menuIsToggling, swiperPanels]);
 

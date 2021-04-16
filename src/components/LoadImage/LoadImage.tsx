@@ -52,8 +52,7 @@ const Wrapper: React.FC<{
 }> = ({ wrapper, children }) => {
   const { props } = (wrapper as JSX.Element) || {};
   const propsWithChildren = { ...props, children };
-  console.log('wrapper: ', wrapper);
-  console.log('test wrapper: ', { ...wrapper, props: propsWithChildren });
+
   return { ...wrapper, props: propsWithChildren };
 };
 

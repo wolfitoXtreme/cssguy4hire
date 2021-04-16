@@ -15,8 +15,11 @@ import {
   slideContent,
   arrows,
   arrowsArrow,
-  arrowsArrowIcon
+  arrowsArrowIcon,
+  noTouchEvents
 } from './ContentSlider.module.scss';
+import { getNoTouch } from '@app/utils/utils';
+import { useIntl } from 'react-intl';
 
 SwiperCore.use([Keyboard, Navigation]);
 
@@ -31,6 +34,7 @@ interface ContentSliderInt {
 }
 
 const ContentSlider: React.FC<ContentSliderInt> = ({ panelIndex, slides }) => {
+  const { formatMessage } = useIntl();
   const { menuIsOpen, menuIsToggling, activePanel } = useContext(MenuContext);
 
   const [activeSlide, setActiveSlide] = useState<number | null>(null);
@@ -39,11 +43,15 @@ const ContentSlider: React.FC<ContentSliderInt> = ({ panelIndex, slides }) => {
   const controlNext = useRef<HTMLButtonElement>(null);
   const controlPrev = useRef<HTMLButtonElement>(null);
 
+  const navNextText = formatMessage({ id: 'nav-next' });
+  const navPrevText = formatMessage({ id: 'nav-previous' });
+
   useEffect(() => {
     setEnableSwiper(!!menuIsOpen ? false : true);
     if (swiper) {
       swiper.allowSlideNext = enableSwiper;
       swiper.allowSlidePrev = enableSwiper;
+      swiper.allowTouchMove = enableSwiper;
     }
   }, [swiper, enableSwiper, menuIsOpen, menuIsToggling]);
 
@@ -97,30 +105,30 @@ const ContentSlider: React.FC<ContentSliderInt> = ({ panelIndex, slides }) => {
       <div className={arrows}>
         <button
           ref={controlPrev}
-          title="previous"
+          title={navPrevText}
           onClick={(event) => {
             const target = event.currentTarget as HTMLButtonElement;
             target.blur();
             event.preventDefault();
           }}
-          className={arrowsArrow}
+          className={classNames(arrowsArrow, { [noTouchEvents]: getNoTouch() })}
         >
           <IconArrow className={arrowsArrowIcon} />
-          Previous
+          {navPrevText}
         </button>
 
         <button
           ref={controlNext}
-          title="next"
+          title={navNextText}
           onClick={(event) => {
             const target = event.currentTarget as HTMLButtonElement;
             target.blur();
             event.preventDefault();
           }}
-          className={arrowsArrow}
+          className={classNames(arrowsArrow, { [noTouchEvents]: getNoTouch() })}
         >
           <IconArrow className={arrowsArrowIcon} />
-          Next
+          {navNextText}
         </button>
       </div>
     </Swiper>

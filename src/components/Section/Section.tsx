@@ -12,6 +12,7 @@ import SecondaryMenu from '@app/components/Menu/SecondaryMenu/SecondaryMenu';
 
 import {
   section,
+  sectionNavDisabled,
   sectionDetail,
   sectionDetailWide,
   sectionHeading,
@@ -25,6 +26,7 @@ import {
   workSection,
   contactSection
 } from './Section.module.scss';
+import { MenuContext } from '@app/context/MenuContext/MenuContext';
 
 interface SectionInt {
   id: sections;
@@ -36,6 +38,7 @@ interface SectionInt {
 const Section: React.FC<SectionInt> = ({ id, heading, children, variant }) => {
   const { formatMessage } = useIntl();
   const { type: currentDevice } = useContext(DeviceContext);
+  const { menuIsOpen } = useContext(MenuContext);
 
   const sectionClassName = (sectionName: sections): string => {
     const isHome = () => homeSection;
@@ -63,7 +66,9 @@ const Section: React.FC<SectionInt> = ({ id, heading, children, variant }) => {
     <section
       id={id}
       title={heading}
-      className={classNames(section, sectionClassName(id))}
+      className={classNames(section, sectionClassName(id), {
+        [sectionNavDisabled]: menuIsOpen
+      })}
     >
       {currentDevice === devices.DESKTOP && (
         <SecondaryMenu

@@ -1,6 +1,7 @@
 export const sectionHeadingWide: string;
 export const sectionDetail: string;
 export const section: string;
+export const sectionNavDisabled: string;
 export const homeSection: string;
 export const aboutSection: string;
 export const skillsSection: string;

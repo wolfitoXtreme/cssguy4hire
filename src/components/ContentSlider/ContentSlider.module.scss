@@ -83,9 +83,14 @@
         transform: scaleX(1);
       }
 
-      .arrows-arrow:hover &,
       .arrows-arrow:active &,
       .arrows-arrow:focus & {
+        opacity: 0.5;
+        fill: $white;
+      }
+
+      // touch device sticky hover fix
+      .arrows-arrow.no-touch-events:hover & {
         opacity: 0.5;
         fill: $white;
       }

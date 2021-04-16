@@ -36,6 +36,7 @@ const PrimaryMenu: React.FC<{ menuType: devices.MOBILE | devices.DESKTOP }> = ({
   const { formatMessage } = useIntl();
   const {
     navigation: { sections: menuItems },
+    swiperPanels,
     currentPanel,
     jumpingPanel
   } = useContext(MenuContext);
@@ -80,6 +81,8 @@ const PrimaryMenu: React.FC<{ menuType: devices.MOBILE | devices.DESKTOP }> = ({
                     onClick={(event) => {
                       const target = event.currentTarget as HTMLAnchorElement;
                       target.blur();
+                      event.preventDefault();
+                      swiperPanels?.slideTo(index);
                     }}
                     className={classNames(menuMainItemLink, {
                       [noTouchEvents]: getNoTouch()
