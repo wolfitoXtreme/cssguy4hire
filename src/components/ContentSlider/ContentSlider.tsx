@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import { useIntl } from 'react-intl';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Keyboard, Navigation } from 'swiper';
@@ -6,7 +7,7 @@ import classNames from 'classnames';
 
 import { MenuContext } from '@app/context/MenuContext/MenuContext';
 import { ReactComponent as IconArrow } from '@app/assets/icons/icon-slider-arrow.svg';
-
+import { getNoTouch } from '@app/utils/utils';
 import 'swiper/swiper.scss';
 
 import {
@@ -18,8 +19,6 @@ import {
   arrowsArrowIcon,
   noTouchEvents
 } from './ContentSlider.module.scss';
-import { getNoTouch } from '@app/utils/utils';
-import { useIntl } from 'react-intl';
 
 SwiperCore.use([Keyboard, Navigation]);
 

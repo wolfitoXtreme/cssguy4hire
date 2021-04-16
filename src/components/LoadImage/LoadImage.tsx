@@ -1,9 +1,4 @@
-import React, {
-  Children,
-  JSXElementConstructor,
-  useMemo,
-  useState
-} from 'react';
+import React, { useState } from 'react';
 
 const requestImages = require.context(
   '@app/assets/images/',
