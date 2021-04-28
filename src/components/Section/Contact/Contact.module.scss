@@ -1,0 +1,48 @@
+@import '~@styles/config/variables';
+
+$transition-duration: $default-duration;
+
+.rtl {
+  &-enter {
+    left: 100%;
+
+    &-active {
+      left: 0;
+      transition: left $transition-duration 0ms ease-out;
+    }
+  }
+
+  &-exit {
+    left: 0;
+
+    &-active {
+      left: -100%;
+      transition: left $transition-duration 0ms ease-out;
+    }
+  }
+}
+
+.ltr {
+  &-enter {
+    left: -100%;
+
+    &-active {
+      left: 0;
+      transition: left $transition-duration 0ms ease-in;
+    }
+  }
+
+  &-exit {
+    left: 0;
+
+    &-active {
+      left: 100%;
+      transition: left $transition-duration 0ms ease-in;
+    }
+  }
+}
+
+/* stylelint-disable property-no-unknown */
+:export {
+  transition-duration: $transition-duration;
+}

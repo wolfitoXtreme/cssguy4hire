@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { IntlProvider } from 'react-intl';
 import { connect } from 'react-redux';
 
@@ -29,7 +29,6 @@ interface MainInt {
 const Main: React.FC<MainInt> = ({ lang }) => {
   const mainRef = useRef<HTMLElement | null>(null);
   const menuRef = useRef(null);
-  const [enableSwiper, setEnableSwiper] = useState(false);
 
   const { type: currentDevice } = useContext(DeviceContext);
   const {
@@ -39,7 +38,8 @@ const Main: React.FC<MainInt> = ({ lang }) => {
     menuIsToggling,
     swiperPanels,
     jumpPanel,
-    jumpingPanel
+    jumpingPanel,
+    setEnablePanels
   } = useContext(MenuContext);
 
   const menuPositions = {
@@ -48,15 +48,6 @@ const Main: React.FC<MainInt> = ({ lang }) => {
   };
 
   const messages = translations[lang];
-
-  useEffect(() => {
-    setEnableSwiper(!!menuIsOpen ? false : true);
-    if (swiperPanels) {
-      swiperPanels.allowSlideNext = enableSwiper;
-      swiperPanels.allowSlidePrev = enableSwiper;
-      swiperPanels.allowTouchMove = enableSwiper;
-    }
-  }, [enableSwiper, menuIsOpen, menuIsToggling, swiperPanels]);
 
   useEffect(() => {
     currentDevice === devices.DESKTOP && menuIsOpen && toggleMenu(false);
@@ -91,7 +82,8 @@ const Main: React.FC<MainInt> = ({ lang }) => {
     togglingMenu,
     swiperPanels,
     jumpPanel,
-    jumpingPanel
+    jumpingPanel,
+    setEnablePanels
   ]);
 
   // update languages

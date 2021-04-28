@@ -4,20 +4,20 @@
 .toggler {
   $duration: $default-duration;
 
+  @include no-highlight;
+  @include remove-text;
+
   top: 7px;
   right: 12px;
   padding: 0 2px 0 1px;
   width: 42px;
   height: 42px;
   overflow: hidden;
+  border-style: none;
   position: absolute;
+  cursor: pointer;
   z-index: 20;
   background-color: transparent;
-  border-style: none;
-  cursor: pointer;
-
-  @include no-highlight;
-  @include remove-text;
 
   &:active {
     transform: scale(0.95);

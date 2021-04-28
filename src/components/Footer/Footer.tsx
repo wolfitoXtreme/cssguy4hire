@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl';
 import { languageStateType } from '@app/types/types';
 
 interface FooterInt {
-  className?: string | undefined;
+  className?: string;
   footerVariant?: 'maintenance';
 }
 

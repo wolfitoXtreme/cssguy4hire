@@ -16,6 +16,7 @@
     "menu-lang": "Español",
     "nav-next": "next",
     "nav-previous": "previous",
+    "nav-close": "close",
     "section-home-title": "Home",
     "section-home-text": "Widely experienced <strong>Web Designer</strong> and <strong>Front-end Developer</strong> focusing on <strong>designing</strong> and <strong>building</strong> intuitive and functional <strong>web applications</strong>.",
     "section-about-title": "About",
@@ -67,6 +68,7 @@
     "section-contact-sub-title": "Wanna know more, hire him, or just get in touch??",
     "section-contact-text": "César is always interested to hear about new projects and challenges, please chose over any of the following methods or just send him an e-mail straight to <span>cesar{at}cssguy4hire.com</span>.",
     "section-contact-button-text": "Get in touch",
+    "section-contact-form-title": "Get in touch",
     "footer-contact": "<strong>CÉSAR CANDELA<br></strong> · Web Designer/Front-end developer · <br> (+359) 88 456 7671 · <span>cesar{at}cssguy4hire.com</span>"
   },
   "es": {
@@ -86,6 +88,7 @@
     "menu-lang": "English",
     "nav-next": "siguiente",
     "nav-previous": "anterior",
+    "nav-close": "cerrar",
     "section-home-title": "Inicio",
     "section-home-text": "Experimentado <strong>Diseñador web</strong> y <strong>Desarrollador Front-end</strong>, enfocado en <strong>diseñar</strong> y <strong>construir</strong> <strong>aplicaciones web</strong> funcionales e intuitivas.",
     "section-about-title": "Acerca de",
@@ -137,6 +140,7 @@
     "section-contact-sub-title": "Saber más, contratarle, o contactarle??",
     "section-contact-text": "César está siempre interesado en saber de nuevos proyectos y retos, elija cualquiera de los siguientes métodos o envíele un e-mail directo a <span>cesar{at}cssguy4hire.com</span>.",
     "section-contact-button-text": "Hacer contacto",
+    "section-contact-form-title": "Contactar",
     "footer-contact": "<strong>CÉSAR CANDELA<br></strong> · Diseñador web/Desarrollador Front-end · <br> (+359) 88 456 7671 · <span>cesar{at}cssguy4hire.com</span>"
   }
 }

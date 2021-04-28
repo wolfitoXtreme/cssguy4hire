@@ -18,9 +18,9 @@
 .button {
   $margin: 4px;
   $padding-x-small: 9px 20px 9px;
-  $padding-small: 9px 23px 9px;
-  $padding-medium: 11px 29px 11px;
-  $padding-large: 16px 39px 16px;
+  $padding-small: 9px 22px 9px;
+  $padding-medium: 11px 24px 11px;
+  $padding-large: 12px 28px 12px;
   $disabled-opacity: 0.4;
   $border-width: 2px;
 
@@ -41,6 +41,18 @@
     border: $border-width solid map-deep-get($btn-colors, default, border);
     border-radius: 5px;
     background-color: map-deep-get($btn-colors, default, background);
+
+    @include breakpoint(map-get($breakpoints, small)) {
+      padding: $padding-small;
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      padding: $padding-medium;
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+      padding: $padding-large;
+    }
 
     &:link,
     &:visited {

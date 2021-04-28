@@ -162,6 +162,7 @@
       "page-break-after",
       "page-break-before",
       "page-break-inside",
+      "fill",
       "background-color",
       "box-shadow"
     ],

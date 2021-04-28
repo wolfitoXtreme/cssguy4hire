@@ -46,7 +46,7 @@
       transition: opacity $transition-duration ease-out 0ms;
       position: relative;
       background: rgba($black, 0.35);
-      -ms-touch-action: none;
+      touch-action: none;
     }
 
     .swiper-container-horizontal > .swiper-scrollbar {
@@ -115,7 +115,13 @@
     background-image: linear-gradient(90deg, $menu-item-shadow-colors-fg),
       linear-gradient(90deg, $menu-item-shadow-colors-bg);
 
+    // remove headings in desktop devices
     @include breakpoint(map-get($breakpoints, medium)) {
+      @include hidden(false);
+    }
+
+    // remove headings for menu-contact
+    @at-root .menu-contact & {
       @include hidden(false);
     }
   }
@@ -459,8 +465,8 @@
       left: 0;
       width: 0;
       height: $icon-height;
-      position: absolute;
       border-style: none;
+      position: absolute;
       border-left: 1px dotted rgba($oil, 0.5);
     }
 
@@ -477,8 +483,8 @@
   &-internal {
     &#{&} {
       svg {
-        fill: $white;
         opacity: 0.4;
+        fill: $white;
       }
 
       .menu-util-item-link:active,
@@ -502,6 +508,152 @@
         &:before {
           border-color: rgba($white, 0.2);
         }
+      }
+    }
+  }
+}
+
+.menu-contact {
+  $icon-width: 30px;
+  $icon-height: 30px;
+  $icon-width-small: 33px;
+  $icon-height-small: 33px;
+  $icon-width-medium: 46px;
+  $icon-height-medium: 46px;
+  $icon-width-large: 58px;
+  $icon-height-large: 58px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    flex-direction: row;
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    flex-direction: column;
+  }
+
+  @include breakpoint(orientation landscape) {
+    flex-direction: row;
+    justify-content: flex-start;
+
+    @include breakpoint((max-width 560px)) {
+      flex-direction: column;
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+      flex-direction: column;
+    }
+  }
+
+  &#{&} &-list {
+    margin: 0 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    order: 1;
+
+    &:last-of-type {
+      order: 0;
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      margin-left: 18px;
+
+      &:last-of-type {
+        margin-left: 0;
+      }
+    }
+
+    @include breakpoint(orientation landscape) {
+      margin-left: 18px;
+
+      &:last-of-type {
+        margin-left: 0;
+      }
+
+      @include breakpoint((max-width 560px)) {
+        margin-left: 0;
+      }
+
+      @include breakpoint(map-get($breakpoints, large)) {
+        margin-left: 0;
+      }
+    }
+  }
+
+  &-item {
+    margin: 0 2px 0 0;
+    padding: 0;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    @include breakpoint(map-get($breakpoints, small)) {
+      margin-right: 4px;
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      margin-right: 5px;
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+      margin-right: 8px;
+    }
+
+    // removes default list bullets
+    &:before {
+      display: none;
+    }
+  }
+
+  &-item-link {
+    span {
+      @include hidden;
+    }
+  }
+
+  &-item-icon {
+    width: $icon-width;
+    height: $icon-height;
+
+    @include breakpoint(map-get($breakpoints, small)) {
+      width: $icon-width-small;
+      height: $icon-height-small;
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      width: $icon-width-medium;
+      height: $icon-height-medium;
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+      width: $icon-width-large;
+      height: $icon-height-large;
+    }
+
+    /*stylelint-disable-next-line no-descending-specificity*/
+    svg {
+      width: 100%;
+      height: 100%;
+      opacity: 0.4;
+      fill: $white;
+    }
+
+    .menu-contact-item-link:active &,
+    .menu-contact-item-link:focus & {
+      /*stylelint-disable-next-line no-descending-specificity*/
+      svg {
+        opacity: 1;
+      }
+    }
+
+    .menu-contact-item-link.no-touch-events:hover & {
+      svg {
+        opacity: 1;
       }
     }
   }

@@ -33,82 +33,99 @@ interface SectionInt {
   heading?: string;
   children?: React.ReactNode;
   variant?: 'wide';
+  toggler?: boolean;
+  secondaryMenu?: boolean;
+  className?: string;
 }
 
-const Section: React.FC<SectionInt> = ({ id, heading, children, variant }) => {
-  const { formatMessage } = useIntl();
-  const { type: currentDevice } = useContext(DeviceContext);
-  const { menuIsOpen } = useContext(MenuContext);
+const Section = React.forwardRef<HTMLElement, SectionInt>(
+  (
+    {
+      id,
+      heading,
+      children,
+      variant,
+      toggler = true,
+      secondaryMenu = true,
+      className
+    },
+    ref
+  ) => {
+    const { formatMessage } = useIntl();
+    const { type: currentDevice } = useContext(DeviceContext);
+    const { menuIsOpen } = useContext(MenuContext);
 
-  const sectionClassName = (sectionName: sections): string => {
-    const isHome = () => homeSection;
-    const isAbout = () => aboutSection;
-    const isSkills = () => skillsSection;
-    const isRoles = () => rolesSection;
-    const isWork = () => workSection;
-    const isContact = () => contactSection;
+    const sectionClassName = (sectionName: sections): string => {
+      const isHome = () => homeSection;
+      const isAbout = () => aboutSection;
+      const isSkills = () => skillsSection;
+      const isRoles = () => rolesSection;
+      const isWork = () => workSection;
+      const isContact = () => contactSection;
 
-    const setClassName = {
-      [sections.HOME]: isHome,
-      [sections.ABOUT]: isAbout,
-      [sections.ROLES]: isRoles,
-      [sections.SKILLS]: isSkills,
-      [sections.WORK]: isWork,
-      [sections.CONTACT]: isContact
+      const setClassName = {
+        [sections.HOME]: isHome,
+        [sections.ABOUT]: isAbout,
+        [sections.ROLES]: isRoles,
+        [sections.SKILLS]: isSkills,
+        [sections.WORK]: isWork,
+        [sections.CONTACT]: isContact
+      };
+
+      return setClassName[sectionName]
+        ? setClassName[sectionName]()
+        : homeSection;
     };
 
-    return setClassName[sectionName]
-      ? setClassName[sectionName]()
-      : homeSection;
-  };
-
-  return (
-    <section
-      id={id}
-      title={heading}
-      className={classNames(section, sectionClassName(id), {
-        [sectionNavDisabled]: menuIsOpen
-      })}
-    >
-      {currentDevice === devices.DESKTOP && (
-        <SecondaryMenu
-          menuType={devices.DESKTOP}
-          variant={id !== sections.HOME ? 'internal' : undefined}
-        />
-      )}
-      {currentDevice === devices.MOBILE && <MenuToggler />}
-      <div
-        className={classNames(sectionDetail, {
-          [sectionDetailWide]: variant === 'wide'
+    return (
+      <section
+        id={id}
+        ref={ref}
+        title={heading}
+        className={classNames(className, section, sectionClassName(id), {
+          [sectionNavDisabled]: menuIsOpen
         })}
       >
-        {heading && (
-          <h2
-            className={classNames(sectionHeading, {
-              [sectionHeadingWide]: variant === 'wide'
-            })}
-          >
-            {heading}
-          </h2>
+        {currentDevice === devices.DESKTOP && secondaryMenu && (
+          <SecondaryMenu
+            menuType={devices.DESKTOP}
+            variant={id !== sections.HOME ? 'internal' : undefined}
+          />
         )}
-        {children}
-      </div>
-      {id !== sections.HOME && (
-        <div className={sectionFooterSignature}>
-          <h6>
-            <div>
-              <img
-                className={sectionFooterImg}
-                src={logo}
-                alt={formatMessage({ id: 'site' })}
-              />
-            </div>
-            <span className="hidden">{formatMessage({ id: 'site' })}</span>
-          </h6>
+        {currentDevice === devices.MOBILE && toggler && <MenuToggler />}
+        <div
+          className={classNames(sectionDetail, {
+            [sectionDetailWide]: variant === 'wide'
+          })}
+        >
+          {heading && (
+            <h2
+              className={classNames(sectionHeading, {
+                [sectionHeadingWide]: variant === 'wide'
+              })}
+            >
+              {heading}
+            </h2>
+          )}
+          {children}
         </div>
-      )}
-    </section>
-  );
-};
+        {id !== sections.HOME && (
+          <div className={sectionFooterSignature}>
+            <h6>
+              <div>
+                <img
+                  className={sectionFooterImg}
+                  src={logo}
+                  alt={formatMessage({ id: 'site' })}
+                />
+              </div>
+              <span className="hidden">{formatMessage({ id: 'site' })}</span>
+            </h6>
+          </div>
+        )}
+      </section>
+    );
+  }
+);
 
 export default Section;

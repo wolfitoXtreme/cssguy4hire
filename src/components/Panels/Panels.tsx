@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Keyboard, Mousewheel } from 'swiper';
@@ -19,11 +19,17 @@ interface PanelsInt {
 
 const Panels: React.FC<PanelsInt> = ({ children }) => {
   const {
+    menuIsOpen,
     changePanel,
     setActivePanel,
     currentPanel,
-    setSwiperPanels
+    setSwiperPanels,
+    setEnablePanels
   } = useContext(MenuContext);
+
+  useEffect(() => {
+    menuIsOpen && setEnablePanels(false);
+  }, [menuIsOpen, setEnablePanels]);
 
   return (
     <Swiper

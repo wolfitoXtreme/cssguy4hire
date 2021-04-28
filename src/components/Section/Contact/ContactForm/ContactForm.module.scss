@@ -1,0 +1,86 @@
+@import '~@styles/config/variables';
+@import '~@styles/helpers/mixins';
+
+.contact-form {
+  position: absolute;
+}
+
+.close-button {
+  $button-width: 36px;
+  $button-height: 36px;
+  $button-padding: 2px;
+
+  @include no-highlight;
+  @include remove-text;
+
+  top: 11px;
+  right: 11px;
+  width: $button-width;
+  height: $button-height;
+  display: block;
+  opacity: 0.4;
+  border-style: none;
+  position: absolute;
+  background-color: transparent;
+  cursor: pointer;
+
+  &:hover,
+  &:active,
+  &:focus {
+    opacity: 0.8;
+  }
+
+  &-icon {
+    top: $button-padding;
+    left: $button-padding;
+    width: $button-width - ($button-padding * 2);
+    height: $button-height - ($button-padding * 2);
+    position: absolute;
+    fill: $white;
+  }
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    $button-width: 40px;
+    $button-height: 40px;
+
+    top: 13px;
+    right: 13px;
+    width: $button-width;
+    height: $button-height;
+
+    &-icon {
+      width: $button-width - ($button-padding * 2);
+      height: $button-height - ($button-padding * 2);
+    }
+  }
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    $button-width: 44px;
+    $button-height: 44px;
+
+    top: 15px;
+    right: 15px;
+    width: $button-width;
+    height: $button-height;
+
+    &-icon {
+      width: $button-width - ($button-padding * 2);
+      height: $button-height - ($button-padding * 2);
+    }
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    $button-width: 48px;
+    $button-height: 48px;
+
+    top: 19px;
+    right: 19px;
+    width: $button-width;
+    height: $button-height;
+
+    &-icon {
+      width: $button-width - ($button-padding * 2);
+      height: $button-height - ($button-padding * 2);
+    }
+  }
+}

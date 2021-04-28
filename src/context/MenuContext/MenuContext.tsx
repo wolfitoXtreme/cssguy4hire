@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import SwiperCore from 'swiper';
 
@@ -62,6 +62,7 @@ export const MenuContext = React.createContext<{
   jumpingPanel: (x: number | null) => void;
   swiperPanels: SwiperCore | null;
   setSwiperPanels: (x: SwiperCore) => void;
+  setEnablePanels: (x: boolean) => void;
 }>({
   navigation,
   toggleMenu: (open) => open,
@@ -75,7 +76,8 @@ export const MenuContext = React.createContext<{
   jumpPanel: null,
   jumpingPanel: (panel) => panel,
   swiperPanels: null,
-  setSwiperPanels: (swiper) => swiper
+  setSwiperPanels: (swiper) => swiper,
+  setEnablePanels: (enablePanels) => enablePanels
 });
 
 export const MenuProvider: React.FC = ({ children }) => {
@@ -85,11 +87,21 @@ export const MenuProvider: React.FC = ({ children }) => {
   const [currentPanel, setCurrentPanel] = useState<number>(0);
   const [jumpPanel, setJumpPanel] = useState<number | null>(null);
   const [swiperPanels, setSwiperPanels] = useState<SwiperCore | null>(null);
+  const [enablePanels, setEnablePanels] = useState(true);
 
   const toggleMenu = (open: boolean | null) => {
     togglingMenu(true);
     setMenuIsOpen(open);
+    setEnablePanels(true);
   };
+
+  useEffect(() => {
+    if (swiperPanels) {
+      swiperPanels.allowSlideNext = enablePanels;
+      swiperPanels.allowSlidePrev = enablePanels;
+      swiperPanels.allowTouchMove = enablePanels;
+    }
+  }, [enablePanels, swiperPanels]);
 
   const togglingMenu = (menuIsToggling: boolean) =>
     setMenuIsToggling(menuIsToggling);
@@ -104,6 +116,7 @@ export const MenuProvider: React.FC = ({ children }) => {
     togglingMenu(true);
     setMenuIsOpen(false);
     setJumpPanel(panel);
+    setEnablePanels(true);
   };
 
   return (
@@ -121,7 +134,8 @@ export const MenuProvider: React.FC = ({ children }) => {
         jumpPanel,
         jumpingPanel,
         swiperPanels,
-        setSwiperPanels: initSwiperPanels
+        setSwiperPanels: initSwiperPanels,
+        setEnablePanels
       }}
     >
       {children}
