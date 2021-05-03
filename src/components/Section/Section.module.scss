@@ -107,6 +107,10 @@
     background-color: map-get($section-colors, contact);
   }
 
+  &-static {
+    position: absolute;
+  }
+
   &-heading {
     padding-bottom: 8px;
 
@@ -118,18 +122,43 @@
     &-wide {
       @extend %section-horizontal-padding;
       margin: 0 auto;
+
+      width: 100%;
     }
   }
 
   &-detail {
     @extend %section-horizontal-padding;
+
+    padding-top: 25px;
+    padding-bottom: 25px;
     width: 100%;
     max-height: 100%;
     z-index: 1;
 
     &-wide {
-      padding: 0;
+      padding-right: 0;
+      padding-left: 0;
       max-width: none;
+    }
+
+    &-static {
+      padding-right: 0;
+      padding-left: 0;
+      height: 100%;
+      max-width: none;
+      display: flex;
+      overflow-x: hidden;
+      overflow-y: auto;
+      position: absolute;
+
+      & .section-detail-inner {
+        @extend %section-horizontal-padding;
+
+        margin: auto auto;
+        width: 100%;
+        max-width: $app-max-width;
+      }
     }
   }
 

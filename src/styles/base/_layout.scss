@@ -29,3 +29,15 @@ body {
   // test mediaQueries
   @include queryInfo();
 }
+
+// forms
+fieldset {
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  border-style: none;
+}
+
+legend {
+  @include hidden;
+}

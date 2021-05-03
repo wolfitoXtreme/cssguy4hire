@@ -64,6 +64,7 @@ $transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 @mixin font-label {
   font-family: unquote($default-font + ', ' + $default-font-fallback);
   font-size: $font-size-tiny;
+  font-weight: 600;
   letter-spacing: -0.002em;
   line-height: $line-height;
   color: rgba($label-color, $field-texts-opacity);
@@ -281,6 +282,7 @@ $transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
     font-size: inherit;
     overflow: hidden;
     border-radius: $field-border-radius;
+    background-color: map-deep-get($field-colors, field, background);
 
     .field-input-outlined {
       top: 0;
@@ -337,6 +339,7 @@ $transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
     margin: 0;
     padding: $input-padding;
     height: auto;
+    text-overflow: ellipsis;
     box-sizing: border-box;
 
     &#{&}-select {
@@ -352,7 +355,6 @@ $transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
     // placeholder, and simulated placeholder for Select Menus
     &-placeholder,
     &::placeholder {
-      text-overflow: ellipsis;
       /* stylelint-disable-next-line declaration-no-important*/
       color: rgba($input-color, $field-texts-opacity) !important;
       opacity: $field-texts-opacity;
@@ -415,34 +417,33 @@ $transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
       &::placeholder {
         /* stylelint-disable-next-line declaration-no-important*/
         opacity: 1 !important; // Overrides MUI important rule, why, why, why they do that?
-        /*
-        label[data-shrink=false] + .MuiInputBase-formControl .MuiInputBase-input::-webkit-input-placeholder {
-          opacity: 0 !important;
-        }
-        */
       }
     }
 
     &:-webkit-autofill,
-    &:-webkit-autofill:first-line,
-    &:-webkit-autofill:hover,
-    &:-webkit-autofill:focus,
-    &:-internal-autofill-selected {
+    &:-webkit-autofill:first-line {
       @include font-input;
+    }
 
-      color: $black;
+    &:-webkit-autofill:hover,
+    &:-internal-autofill-selected {
+      -webkit-box-shadow: 0 0 0 50px
+        map-deep-get($field-colors, field, background) inset;
+    }
+
+    &:-webkit-autofill:focus {
+      -webkit-box-shadow: 0 0 0 50px
+        map-deep-get($field-colors, active, background) inset;
     }
   }
 }
 
 .menu {
   &-wrapper {
-    content: 'menu-wrapper';
     margin-top: -1px;
   }
 
   &#{&} {
-    content: '';
     padding: 0;
 
     & .menu-item {

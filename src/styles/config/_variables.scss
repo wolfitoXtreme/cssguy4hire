@@ -117,12 +117,14 @@ $colors: (
   myrtle: #264c2a,
   falu-red: #7a1a1e,
   turkish-rose: #9d6d7a,
+  cold-turkey: #cfbabf,
   scarlett: #86203a,
   siren: #6f283b,
   pohutukawa: #5d1628,
   eternity: #272a26,
   oil: #252724,
   orange-peel: #fc9803,
+  orange-red: #f93103,
   red: #f4120e,
   tawny: #d84f00,
   radical-red: #f93c5d,
@@ -147,12 +149,14 @@ $dark-slate-blue: nth(map-get($colors, dark-slate-blue), 1);
 $myrtle: nth(map-get($colors, myrtle), 1);
 $falu-red: nth(map-get($colors, falu-red), 1);
 $turkish-rose: nth(map-get($colors, turkish-rose), 1);
+$cold-turkey: nth(map-get($colors, cold-turkey), 1);
 $scarlett: nth(map-get($colors, scarlett), 1);
 $siren: nth(map-get($colors, siren), 1);
 $pohutukawa: nth(map-get($colors, pohutukawa), 1);
 $eternity: nth(map-get($colors, eternity), 1);
 $oil: nth(map-get($colors, oil), 1);
 $orange-peel: nth(map-get($colors, orange-peel), 1);
+$orange-red: nth(map-get($colors, orange-red), 1);
 $red: nth(map-get($colors, red), 1);
 $tawny: nth(map-get($colors, tawny), 1);
 $radical-red: nth(map-get($colors, radical-red), 1);
@@ -180,19 +184,19 @@ $field-colors: (
   hover: (
     color: $white,
     background: $white,
-    border: rgba($white, 0.7)
+    border: $cold-turkey
   ),
   active: (
     color: $white,
     background: $scarlett,
-    border: rgba($white, 0.7),
+    border: $cold-turkey,
     // pass the whole shadow parameters
     shadow: 2px 2px 4px 0 rgba($scarlett, 0.4)
   )
 );
 
 // error color
-$error-color: $red;
+$error-color: $orange-red;
 
 // button colors
 $btn-colors: (

@@ -54,6 +54,7 @@ interface InputChoiceButtonInt {
   defaultValue?: any;
   disabled?: boolean;
   validators?: { (...args: any[]): void }[];
+  showErrors?: boolean;
 }
 
 const InputChoiceButton: React.FC<InputChoiceButtonInt> = ({
@@ -63,7 +64,8 @@ const InputChoiceButton: React.FC<InputChoiceButtonInt> = ({
   options,
   defaultValue,
   disabled,
-  validators
+  validators,
+  showErrors = true
 }) => {
   const { type: currentDevice } = useContext(DeviceContext);
   const [optionDefaultValue] = useState<any[]>(
@@ -164,7 +166,7 @@ const InputChoiceButton: React.FC<InputChoiceButtonInt> = ({
             </Field>
           ))}
         </div>
-        {error && errorMessage && (
+        {showErrors && error && (
           <FormHelperText
             error={error}
             classes={{

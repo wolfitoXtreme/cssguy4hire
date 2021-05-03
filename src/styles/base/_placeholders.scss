@@ -232,6 +232,7 @@
 
     padding: 0 $horizontal-space;
   }
+
   @include breakpoint(map-get($breakpoints, medium)) {
     $horizontal-space: getPercentageFrom(
       nth($section-padding-medium, 2),
@@ -240,6 +241,7 @@
 
     padding: 0 $horizontal-space;
   }
+
   @include breakpoint(map-get($breakpoints, large)) {
     $horizontal-space: nth($section-padding-large, 2);
 

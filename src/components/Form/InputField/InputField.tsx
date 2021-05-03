@@ -52,27 +52,24 @@ interface SelectOptionInt {
   isMobile: boolean;
   value: string | ReadonlyArray<string> | number;
   classes?: Record<string, string>;
+  children?: React.ReactNode;
 }
 
-const SelectOption: React.FC<SelectOptionInt> = ({
-  isMobile,
-  value,
-  classes,
-  children,
-  ...rest
-}) => {
-  return (
-    (isMobile && (
-      <option value={value} {...rest}>
-        {children}
-      </option>
-    )) || (
-      <MenuItem value={value} classes={classes} {...rest}>
-        {children}
-      </MenuItem>
-    )
-  );
-};
+const SelectOption = React.forwardRef(
+  ({ isMobile, value, classes, children, ...rest }: SelectOptionInt, ref) => {
+    return (
+      (isMobile && (
+        <option value={value} {...rest}>
+          {children}
+        </option>
+      )) || (
+        <MenuItem value={value} classes={classes} {...rest}>
+          {children}
+        </MenuItem>
+      )
+    );
+  }
+);
 
 const Icon: React.FC<{ props: any }> = (props) => (
   <div {...props}>
@@ -89,6 +86,7 @@ export interface InputFieldInt extends InputProps {
   shrink?: boolean;
   disableAnimation?: boolean;
   validators?: { (...args: any[]): void }[];
+  showErrors?: boolean;
 }
 
 const InputField: React.FC<InputFieldInt> = ({
@@ -99,12 +97,14 @@ const InputField: React.FC<InputFieldInt> = ({
   options = [],
   defaultOption = 'Choose an option',
   fullWidth,
+  className,
   shrink,
   multiline,
   rows,
   disabled,
   disableAnimation,
-  validators
+  validators,
+  showErrors = true
 }) => {
   const { type: currentDevice } = useContext(DeviceContext);
   const [selectValue, setSelectValue] = useState('');
@@ -136,7 +136,12 @@ const InputField: React.FC<InputFieldInt> = ({
 
   return (
     <>
-      <FormControl fullWidth={fullWidth} classes={{ root: fieldWrapper }}>
+      <FormControl
+        fullWidth={fullWidth}
+        classes={{
+          root: classNames(fieldWrapper, className)
+        }}
+      >
         <Field
           name={fieldName}
           validate={
@@ -252,7 +257,7 @@ const InputField: React.FC<InputFieldInt> = ({
                   </Select>
                 )}
 
-                {error && (
+                {showErrors && error && (
                   <FormHelperText
                     error={error}
                     classes={{
@@ -265,8 +270,6 @@ const InputField: React.FC<InputFieldInt> = ({
                     {errorMessage}
                   </FormHelperText>
                 )}
-
-                {/* {meta.error && meta.touched && <span>{meta.error}</span>} */}
               </>
             );
           }}

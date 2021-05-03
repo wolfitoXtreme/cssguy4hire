@@ -1,0 +1,65 @@
+@import '~@styles/config/variables';
+@import '~@styles/helpers/functions';
+@import '~@styles/helpers/mixins';
+
+.form {
+  display: flex;
+  flex-flow: column;
+
+  &-row {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      flex-flow: row;
+    }
+
+    @include breakpoint(orientation landscape) {
+      flex-flow: row;
+
+      @include breakpoint(
+        map-get($breakpoints, xx-small) map-get($breakpoints, small)
+      ) {
+        flex-flow: column;
+      }
+    }
+  }
+
+  &-column {
+    $column-width-landscape: getPercentageFrom(350px, 740px);
+
+    width: 100%;
+    flex: 0 0 auto;
+    flex-flow: column;
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      width: $column-width-landscape;
+    }
+
+    @include breakpoint(orientation landscape) {
+      width: $column-width-landscape;
+
+      @include breakpoint(
+        map-get($breakpoints, xx-small) map-get($breakpoints, small)
+      ) {
+        width: 100%;
+      }
+    }
+
+    &-full-height {
+      > div:only-child {
+        height: 100%;
+        display: flex;
+
+        label + div {
+          flex: 1 1 100%;
+        }
+
+        textarea {
+          height: 100%;
+        }
+      }
+    }
+  }
+}

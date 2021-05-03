@@ -13,9 +13,12 @@ import SecondaryMenu from '@app/components/Menu/SecondaryMenu/SecondaryMenu';
 
 import {
   section,
+  sectionStatic,
   sectionNavDisabled,
   sectionDetail,
+  sectionDetailInner,
   sectionDetailWide,
+  sectionDetailStatic,
   sectionHeading,
   sectionHeadingWide,
   sectionFooterSignature,
@@ -32,23 +35,14 @@ interface SectionInt {
   id: sections;
   heading?: string;
   children?: React.ReactNode;
-  variant?: 'wide';
+  variant?: 'wide' | 'static';
   toggler?: boolean;
   secondaryMenu?: boolean;
-  className?: string;
 }
 
 const Section = React.forwardRef<HTMLElement, SectionInt>(
   (
-    {
-      id,
-      heading,
-      children,
-      variant,
-      toggler = true,
-      secondaryMenu = true,
-      className
-    },
+    { id, heading, children, variant, toggler = true, secondaryMenu = true },
     ref
   ) => {
     const { formatMessage } = useIntl();
@@ -82,8 +76,9 @@ const Section = React.forwardRef<HTMLElement, SectionInt>(
         id={id}
         ref={ref}
         title={heading}
-        className={classNames(className, section, sectionClassName(id), {
-          [sectionNavDisabled]: menuIsOpen
+        className={classNames(section, sectionClassName(id), {
+          [sectionNavDisabled]: menuIsOpen,
+          [sectionStatic]: variant === 'static'
         })}
       >
         {currentDevice === devices.DESKTOP && secondaryMenu && (
@@ -95,19 +90,22 @@ const Section = React.forwardRef<HTMLElement, SectionInt>(
         {currentDevice === devices.MOBILE && toggler && <MenuToggler />}
         <div
           className={classNames(sectionDetail, {
-            [sectionDetailWide]: variant === 'wide'
+            [sectionDetailWide]: variant === 'wide',
+            [sectionDetailStatic]: variant === 'static'
           })}
         >
-          {heading && (
-            <h2
-              className={classNames(sectionHeading, {
-                [sectionHeadingWide]: variant === 'wide'
-              })}
-            >
-              {heading}
-            </h2>
-          )}
-          {children}
+          <div className={sectionDetailInner}>
+            {heading && (
+              <h2
+                className={classNames(sectionHeading, {
+                  [sectionHeadingWide]: variant === 'wide'
+                })}
+              >
+                {heading}
+              </h2>
+            )}
+            {children}
+          </div>
         </div>
         {id !== sections.HOME && (
           <div className={sectionFooterSignature}>
