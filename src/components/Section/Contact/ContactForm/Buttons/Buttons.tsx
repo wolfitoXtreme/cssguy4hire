@@ -8,6 +8,7 @@ import ButtonGroup from '@app/components/Form/ButtonGroup/ButtonGroup';
 const Buttons = () => {
   const { formatMessage } = useIntl();
   const form = useForm();
+
   const registeredFieds = form.getRegisteredFields();
   const resetFields = () => {
     registeredFieds.forEach((field) => {

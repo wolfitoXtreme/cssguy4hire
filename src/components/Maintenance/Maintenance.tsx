@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import classNames from 'classnames';
 
-import { languageStateType, devices } from '@app/types/types';
+import { LanguageStateType, devices } from '@app/types/types';
 import translations from '@app/translations/translations.json';
 import { getNoTouch } from '@app/utils/utils';
 
@@ -82,7 +82,7 @@ const Maintenance = ({ lang }) => {
   );
 };
 
-const mapStateToProps = (state: languageStateType) => {
+const mapStateToProps = (state: LanguageStateType) => {
   return {
     lang: state.languageReducer.lang
   };

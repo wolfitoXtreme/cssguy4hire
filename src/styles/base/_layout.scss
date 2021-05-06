@@ -40,4 +40,8 @@ fieldset {
 
 legend {
   @include hidden;
+
+  & + * {
+    margin-top: 0;
+  }
 }

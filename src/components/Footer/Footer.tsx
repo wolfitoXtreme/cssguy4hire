@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { useIntl } from 'react-intl';
 
-import { languageStateType } from '@app/types/types';
+import { LanguageStateType } from '@app/types/types';
 
 interface FooterInt {
   className?: string;
@@ -23,7 +23,7 @@ const Footer: React.FC<FooterInt> = ({ footerVariant, className }) => {
   );
 };
 
-const mapStateToProps = (state: languageStateType) => {
+const mapStateToProps = (state: LanguageStateType) => {
   return {
     lang: state.languageReducer.lang
   };

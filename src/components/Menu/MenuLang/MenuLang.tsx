@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { changeLanguage } from '@store/actions';
 
 import { MenuContext } from '@app/context/MenuContext/MenuContext';
-import { languages, languageStateType, links } from '@app/types/types';
+import { LanguageStateType, languages, links } from '@app/types/types';
 
 import IconMenu from '../IconMenu/IconMenu';
 
@@ -73,7 +73,7 @@ const MenuLang: React.FC<MenuLangInt> = ({
 
 // export default MenuLang;
 
-const mapStateToProps = (state: languageStateType) => {
+const mapStateToProps = (state: LanguageStateType) => {
   return {
     lang: state.languageReducer.lang
   };

@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 
 import classNames from 'classnames';
 
-import { sections, sectionSkillsType } from '@app/types/types';
+import { sections, SectionSkillsType } from '@app/types/types';
 
 import Section from '@app/components/Section/Section';
 import ContentSlider from '@app/components/ContentSlider/ContentSlider';
@@ -19,7 +19,7 @@ import {
   dotsAmount
 } from './Skills.module.scss';
 
-const skills: sectionSkillsType = [
+const skills: SectionSkillsType = [
   {
     id: 'programming',
     categories: [

@@ -10,11 +10,11 @@ export interface FontInt {
   fontVariants: FontVariantType[];
 }
 
-export type languageStateType = {
+export type LanguageStateType = {
   languageReducer: { lang: string };
 };
 
-export type sectionSkillsType = {
+export type SectionSkillsType = {
   id: string;
   categories: { id?: string; text?: string; expertise?: number }[];
   other?: string;
@@ -48,3 +48,15 @@ export enum links {
   CV = 'cv',
   LANG = 'lang'
 }
+
+export enum error {
+  REQUIRED = 'required',
+  EMAIL = 'email'
+}
+
+export type ErrorType =
+  | {
+      type: error;
+      messageID: string;
+    }
+  | undefined;

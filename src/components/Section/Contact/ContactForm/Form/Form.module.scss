@@ -6,6 +6,36 @@
   display: flex;
   flex-flow: column;
 
+  &-warning {
+    padding: 8px 12px;
+    display: flex;
+    flex-flow: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    background-color: rgba($white, 0.2);
+
+    &-icon {
+      $icon-width: 20px;
+      $icon-height: $icon-width;
+
+      margin: 0 -4px 0 8px;
+      width: $icon-width;
+      height: $icon-height;
+      flex: 0 0 auto;
+      align-self: flex-start;
+      fill: $white;
+
+      @include breakpoint(map-get($breakpoints, large)) {
+        $icon-width: 22px;
+        $icon-height: $icon-width;
+
+        width: $icon-width;
+        height: $icon-height;
+      }
+    }
+  }
+
   &-row {
     display: flex;
     flex-flow: column;

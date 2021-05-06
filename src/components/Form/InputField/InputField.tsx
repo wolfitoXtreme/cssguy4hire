@@ -87,6 +87,7 @@ export interface InputFieldInt extends InputProps {
   disableAnimation?: boolean;
   validators?: { (...args: any[]): void }[];
   showErrors?: boolean;
+  errorMessage?: string;
 }
 
 const InputField: React.FC<InputFieldInt> = ({
@@ -104,10 +105,12 @@ const InputField: React.FC<InputFieldInt> = ({
   disabled,
   disableAnimation,
   validators,
-  showErrors = true
+  showErrors = true,
+  errorMessage
 }) => {
   const { type: currentDevice } = useContext(DeviceContext);
   const [selectValue, setSelectValue] = useState('');
+
   const handleSelectChange = (event) => {
     setSelectValue(event.target.value);
   };
@@ -149,8 +152,7 @@ const InputField: React.FC<InputFieldInt> = ({
           }
         >
           {({ input: { onChange, value }, meta }) => {
-            const errorMessage = meta.error;
-            const error = errorMessage && meta.touched && meta.invalid;
+            const error = meta.error && meta.touched && meta.invalid;
 
             return (
               <>
@@ -267,7 +269,7 @@ const InputField: React.FC<InputFieldInt> = ({
                       error: helperError
                     }}
                   >
-                    {errorMessage}
+                    {errorMessage ? errorMessage : 'Field has error.'}
                   </FormHelperText>
                 )}
               </>

@@ -6,7 +6,7 @@ import classNames from 'classnames';
 
 import { getNoTouch } from '@app/utils/utils';
 import { MenuContext } from '@app/context/MenuContext/MenuContext';
-import { languageStateType, devices, links } from '@app/types/types';
+import { LanguageStateType, devices, links } from '@app/types/types';
 
 import IconMenu from '../IconMenu/IconMenu';
 import MenuLang from '../MenuLang/MenuLang';
@@ -159,7 +159,7 @@ const SecondaryMenu: React.FC<SecondaryMenuInt> = ({
   );
 };
 
-const mapStateToProps = (state: languageStateType) => {
+const mapStateToProps = (state: LanguageStateType) => {
   return {
     lang: state.languageReducer.lang
   };

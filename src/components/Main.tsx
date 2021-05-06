@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { gsap } from 'gsap';
 
-import { languageStateType, languages, devices } from '@app/types/types';
+import { LanguageStateType, languages, devices } from '@app/types/types';
 import { updateDocumentLanguage } from '@app/utils/utils';
 import { MenuContext } from '@app/context/MenuContext/MenuContext';
 import { DeviceContext } from '@app/context/DeviceContext/DeviceContext';
@@ -111,7 +111,7 @@ const Main: React.FC<MainInt> = ({ lang }) => {
   );
 };
 
-const mapStateToProps = (state: languageStateType) => {
+const mapStateToProps = (state: LanguageStateType) => {
   return {
     lang: state.languageReducer.lang
   };
