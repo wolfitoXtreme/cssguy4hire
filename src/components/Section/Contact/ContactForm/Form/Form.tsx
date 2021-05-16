@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Form as FinalForm } from 'react-final-form';
 import { useIntl } from 'react-intl';
 
+import axios from 'axios';
 import classNames from 'classnames';
 
 import { error, ErrorType } from '@app/types/types';
+import { ContactFormContext } from '@app/context/ContactFormContext/ContactFormContext';
 import { mustNotBeEmpty, mustHaveEmailFormat } from '@app/utils/validators';
 import { ReactComponent as IconWarn } from '@app/assets/icons/icon-warn.svg';
 
@@ -20,39 +22,42 @@ import {
   formColumnFullHeight
 } from './Form.module.scss';
 
-const onSubmit = async (values) => {
-  await new Promise((resolve) => {
-    setTimeout(resolve, 800);
-  });
-  alert('...form submitted, ' + JSON.stringify(values, null, 2));
-};
-
-const Form = () => {
+const Form: React.FC = () => {
   const { formatMessage } = useIntl();
-
-  const getTranslation = (inputElement: string) =>
-    formatMessage({ id: `contact-form-${inputElement}` });
-
+  const { toggleResponse, setResponseMessage } = useContext(ContactFormContext);
+  const [enableSubmit, setEnableSubmit] = useState(true);
+  const [formSubmitting, setFormsubmitting] = useState(false);
+  const [formGlobalError, setFormGlobalError] = useState<string | null>(null);
   const [formErrors, setFormErrors] = useState<{ [key: string]: ErrorType }>(
     {}
   );
-  const [formGlobalError, setFormGlobalError] = useState<string | null>(null);
+
+  const responseErrorMsg = formatMessage({
+    id: 'contact-form-response-error'
+  });
+
+  const responseSuccessMsg = formatMessage({
+    id: 'contact-form-response-success'
+  });
+
+  const getFieldTranslation = (inputElement: string) =>
+    formatMessage({ id: `contact-form-${inputElement}` });
 
   const subjectOptions = [
     {
-      value: 'subject-a',
+      value: 'subject-option-a',
       label: formatMessage({ id: 'contact-form-subject-option-a' })
     },
     {
-      value: 'subject-b',
+      value: 'subject-option-b',
       label: formatMessage({ id: 'contact-form-subject-option-b' })
     },
     {
-      value: 'subject-c',
+      value: 'subject-option-c',
       label: formatMessage({ id: 'contact-form-subject-option-c' })
     },
     {
-      value: 'subject-d',
+      value: 'subject-option-d',
       label: formatMessage({ id: 'contact-form-subject-option-d' })
     }
   ];
@@ -62,6 +67,39 @@ const Form = () => {
     formatMessage({
       id: errors[field].messageID
     });
+
+  const onSubmit = async (values) => {
+    axios({
+      method: 'POST',
+      url: '/send',
+      data: values
+    })
+      .then((response) => {
+        const {
+          data: { status, error: errorMsg }
+        } = response;
+
+        if (status === 'success') {
+          setResponseMessage({
+            message: responseSuccessMsg
+          });
+          toggleResponse();
+        } else {
+          setResponseMessage({
+            message: responseErrorMsg,
+            error: errorMsg
+          });
+          toggleResponse();
+        }
+      })
+      .catch((error) => {
+        setResponseMessage({
+          message: responseErrorMsg,
+          error: error.message
+        });
+        toggleResponse();
+      });
+  };
 
   useEffect(() => {
     const getGlobalError = (errors: { [key: string]: ErrorType }) => {
@@ -94,98 +132,123 @@ const Form = () => {
     setFormGlobalError(getGlobalError(formErrors));
   }, [formErrors, formatMessage]);
 
+  useEffect(() => {
+    if (!formSubmitting) {
+      formGlobalError ? setEnableSubmit(false) : setEnableSubmit(true);
+    } else {
+      setEnableSubmit(false);
+    }
+  }, [formErrors, formGlobalError, formSubmitting]);
+
   return (
-    <FinalForm
-      onSubmit={onSubmit}
-      initialValues={{}}
-      render={({ handleSubmit, errors, submitFailed }) => {
-        submitFailed && setFormErrors(errors);
+    <>
+      <FinalForm
+        onSubmit={onSubmit}
+        initialValues={{}}
+        render={({
+          handleSubmit,
+          errors,
+          submitting,
+          submitFailed,
+          submitSucceeded,
+          form: { reset }
+        }) => {
+          submitFailed && setFormErrors(errors);
+          submitting && setFormsubmitting(true);
 
-        return (
-          <form onSubmit={handleSubmit} noValidate className={form}>
-            <fieldset>
-              <legend>{formatMessage({ id: 'section-form-legend' })}</legend>
-              {!submitFailed ? (
-                <p>{formatMessage({ id: 'section-form-text' })}</p>
-              ) : Object.keys(formErrors).length > 0 ? (
-                <p className={formWarning}>
-                  <IconWarn className={formWarningIcon} />
-                  {formGlobalError}
-                </p>
-              ) : (
-                <p>{formatMessage({ id: 'contact-form-global-no-errors' })}</p>
-              )}
+          return (
+            <form onSubmit={handleSubmit} noValidate className={form}>
+              <fieldset>
+                <legend>{formatMessage({ id: 'section-form-legend' })}</legend>
 
-              <div className={formRow}>
-                <div className={formColumn}>
-                  <InputField
-                    type="text"
-                    fieldName="name"
-                    label={getTranslation('name-label') + ': '}
-                    placeholder={getTranslation('name-placeholder')}
-                    fullWidth
-                    disableAnimation
-                    validators={[mustNotBeEmpty]}
-                    errorMessage={getFieldErrorMessage(errors, 'name')}
-                    showErrors={false}
-                  />
-                  <InputField
-                    type="text"
-                    fieldName="company"
-                    label={getTranslation('company-label') + ': '}
-                    placeholder={getTranslation('company-placeholder')}
-                    fullWidth
-                    disableAnimation
-                    validators={[mustNotBeEmpty]}
-                    errorMessage={getFieldErrorMessage(errors, 'company')}
-                    showErrors={false}
-                  />
-                  <InputField
-                    type="text"
-                    fieldName="email"
-                    label={getTranslation('email-label') + ': '}
-                    placeholder={getTranslation('email-placeholder')}
-                    fullWidth
-                    disableAnimation
-                    validators={[mustNotBeEmpty, mustHaveEmailFormat]}
-                    errorMessage={getFieldErrorMessage(errors, 'email')}
-                    showErrors={false}
-                  />
-                  <InputField
-                    type="select"
-                    fieldName="subject"
-                    label={getTranslation('subject-label') + ': '}
-                    defaultOption={getTranslation('subject-placeholder')}
-                    fullWidth
-                    options={subjectOptions}
-                    disableAnimation
-                    validators={[mustNotBeEmpty]}
-                    errorMessage={getFieldErrorMessage(errors, 'subject')}
-                    showErrors={false}
-                  />
+                {!submitFailed && !formGlobalError && (
+                  <p>{formatMessage({ id: 'section-form-text' })}</p>
+                )}
+
+                {submitFailed && Object.keys(formErrors).length === 0 && (
+                  <p>
+                    {formatMessage({ id: 'contact-form-global-no-errors' })}
+                  </p>
+                )}
+
+                {formGlobalError && (
+                  <p className={formWarning}>
+                    <IconWarn className={formWarningIcon} />
+                    {formGlobalError}
+                  </p>
+                )}
+
+                <div className={formRow}>
+                  <div className={formColumn}>
+                    <InputField
+                      type="text"
+                      fieldName="name"
+                      label={getFieldTranslation('name-label') + ': '}
+                      placeholder={getFieldTranslation('name-placeholder')}
+                      fullWidth
+                      disableAnimation
+                      validators={[mustNotBeEmpty]}
+                      errorMessage={getFieldErrorMessage(errors, 'name')}
+                      showErrors={false}
+                    />
+                    <InputField
+                      type="text"
+                      fieldName="company"
+                      label={getFieldTranslation('company-label') + ': '}
+                      placeholder={getFieldTranslation('company-placeholder')}
+                      fullWidth
+                      disableAnimation
+                      validators={[mustNotBeEmpty]}
+                      errorMessage={getFieldErrorMessage(errors, 'company')}
+                      showErrors={false}
+                    />
+                    <InputField
+                      type="text"
+                      fieldName="email"
+                      label={getFieldTranslation('email-label') + ': '}
+                      placeholder={getFieldTranslation('email-placeholder')}
+                      fullWidth
+                      disableAnimation
+                      validators={[mustNotBeEmpty, mustHaveEmailFormat]}
+                      errorMessage={getFieldErrorMessage(errors, 'email')}
+                      showErrors={false}
+                    />
+                    <InputField
+                      type="select"
+                      fieldName="subject"
+                      label={getFieldTranslation('subject-label') + ': '}
+                      defaultOption={getFieldTranslation('subject-placeholder')}
+                      fullWidth
+                      options={subjectOptions}
+                      disableAnimation
+                      validators={[mustNotBeEmpty]}
+                      errorMessage={getFieldErrorMessage(errors, 'subject')}
+                      showErrors={false}
+                    />
+                  </div>
+                  <div className={classNames(formColumn, formColumnFullHeight)}>
+                    <InputField
+                      type="text"
+                      fieldName="comments"
+                      label={getFieldTranslation('comments-label') + ': '}
+                      placeholder={getFieldTranslation('comments-placeholder')}
+                      fullWidth
+                      disableAnimation
+                      validators={[mustNotBeEmpty]}
+                      multiline
+                      rows={6}
+                      errorMessage={getFieldErrorMessage(errors, 'comments')}
+                      showErrors={false}
+                    />
+                  </div>
                 </div>
-                <div className={classNames(formColumn, formColumnFullHeight)}>
-                  <InputField
-                    type="text"
-                    fieldName="comments"
-                    label={getTranslation('comments-label') + ': '}
-                    placeholder={getTranslation('comments-placeholder')}
-                    fullWidth
-                    disableAnimation
-                    validators={[mustNotBeEmpty]}
-                    multiline
-                    rows={6}
-                    errorMessage={getFieldErrorMessage(errors, 'comments')}
-                    showErrors={false}
-                  />
-                </div>
-              </div>
-            </fieldset>
-            <Buttons />
-          </form>
-        );
-      }}
-    />
+              </fieldset>
+              <Buttons enableSubmit={enableSubmit} />
+            </form>
+          );
+        }}
+      />
+    </>
   );
 };
 

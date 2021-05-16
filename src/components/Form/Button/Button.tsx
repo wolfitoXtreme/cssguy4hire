@@ -18,6 +18,7 @@ interface ButtonInt extends ButtonProps {
 const Button: React.FC<ButtonInt> = ({
   variant = 'outlined',
   icon,
+  disabled,
   ...rest
 }) => (
   <>
@@ -29,6 +30,7 @@ const Button: React.FC<ButtonInt> = ({
         disabled: buttonDisabled
       }}
       variant={variant}
+      disabled={disabled}
       endIcon={icon && <IconArrow />}
       {...rest}
     ></MUIButton>

@@ -137,6 +137,10 @@ const InputField: React.FC<InputFieldInt> = ({
     }
   };
 
+  const parseInput = (value) => {
+    return value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ0-9.,/"'#!?$%&*;:=\-_`~()@ ]/g, '');
+  };
+
   return (
     <>
       <FormControl
@@ -147,6 +151,7 @@ const InputField: React.FC<InputFieldInt> = ({
       >
         <Field
           name={fieldName}
+          parse={type === 'text' ? parseInput : (value) => value}
           validate={
             validators ? composeValidators(...validators) : () => void 0
           }

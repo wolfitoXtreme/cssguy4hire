@@ -1,0 +1,1 @@
+export const serverErrorMessage: string;

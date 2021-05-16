@@ -65,9 +65,9 @@ export const MenuContext = React.createContext<{
   setEnablePanels: (x: boolean) => void;
 }>({
   navigation,
-  toggleMenu: (open) => open,
+  toggleMenu: () => {},
   menuIsOpen: null,
-  togglingMenu: (transitioning) => transitioning,
+  togglingMenu: (menuIsToggling) => menuIsToggling,
   menuIsToggling: false,
   activePanel: null,
   setActivePanel: (panel) => panel,

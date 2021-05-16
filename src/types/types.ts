@@ -60,3 +60,8 @@ export type ErrorType =
       messageID: string;
     }
   | undefined;
+
+export type ErrorMessage = {
+  message: string;
+  error?: string;
+};

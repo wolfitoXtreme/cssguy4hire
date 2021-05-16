@@ -1,20 +1,16 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { useIntl } from 'react-intl';
 
-import { sections } from '@app/types/types';
 import { MenuContext } from '@app/context/MenuContext/MenuContext';
-
-import Button from '@app/components/Form/Button/Button';
-import Section from '@app/components/Section/Section';
-import SecondaryMenu from '@app/components/Menu/SecondaryMenu/SecondaryMenu';
-import ButtonGroup from '@app/components/Form/ButtonGroup/ButtonGroup';
-import ContactForm from '@app/components/Section/Contact/ContactForm/ContactForm';
-
 import {
-  menuContactList,
-  menuContactItem
-} from '@app/components/Menu/Menu.module.scss';
+  ContactFormContext,
+  ContactFormProvider
+} from '@app/context/ContactFormContext/ContactFormContext';
+
+import ContactIntro from '@app/components/Section/Contact/ContactIntro/ContactIntro';
+import ContactForm from '@app/components/Section/Contact/ContactForm/ContactForm';
+import ContactResponse from '@app/components/Section/Contact/ContactResponse/ContactResponse';
+import ContactCloseButton from '@app/components/Section/Contact/ContactCloseButton/ContactCloseButton';
 
 import {
   transitionDuration,
@@ -45,71 +41,58 @@ const ltrTransition = {
 
 const Contact: React.FC = () => {
   const { setEnablePanels } = useContext(MenuContext);
-  const [showForm, setShowForm] = useState(false);
-  const { formatMessage } = useIntl();
 
-  const panel = React.createRef<HTMLElement>();
+  const intro = React.createRef<HTMLElement>();
   const form = React.createRef<HTMLElement>();
-
-  const toggleForm = () => {
-    setShowForm(!showForm);
-    !showForm && setEnablePanels(false);
-  };
+  const response = React.createRef<HTMLElement>();
 
   return (
-    <>
-      <CSSTransition
-        in={!showForm}
-        timeout={duration}
-        classNames={showForm ? rtlTransition : ltrTransition}
-        unmountOnExit
-        onEntered={() => setEnablePanels(true)}
-        nodeRef={panel}
-      >
-        <Section
-          id={sections.CONTACT}
-          heading={formatMessage({ id: 'section-contact-title' })}
-          ref={panel}
-        >
-          <article>
-            <h4>{formatMessage({ id: 'section-contact-sub-title' })}</h4>
-            <p
-              dangerouslySetInnerHTML={{
-                __html: formatMessage({ id: 'section-contact-text' })
-              }}
-            />
+    <ContactFormProvider>
+      <ContactFormContext.Consumer>
+        {({ showForm, showResponse, toggleForm, toggleResponse }) => (
+          <>
+            <CSSTransition
+              in={!showForm && !showResponse}
+              timeout={duration}
+              classNames={showForm ? rtlTransition : ltrTransition}
+              unmountOnExit
+              onEntered={() => setEnablePanels(true)}
+              nodeRef={intro}
+            >
+              <ContactIntro ref={intro} />
+            </CSSTransition>
 
-            <SecondaryMenu variant="contact">
-              <ul className={menuContactList}>
-                <li className={menuContactItem}>
-                  <ButtonGroup>
-                    <Button
-                      icon="end"
-                      onClick={(event) => {
-                        event.preventDefault();
-                        toggleForm();
-                      }}
-                    >
-                      {formatMessage({ id: 'section-contact-button-text' })}
-                    </Button>
-                  </ButtonGroup>
-                </li>
-              </ul>
-            </SecondaryMenu>
-          </article>
-        </Section>
-      </CSSTransition>
-
-      <CSSTransition
-        in={showForm}
-        timeout={duration}
-        classNames={showForm ? rtlTransition : ltrTransition}
-        unmountOnExit
-        nodeRef={form}
-      >
-        <ContactForm toggleForm={toggleForm} ref={form} />
-      </CSSTransition>
-    </>
+            <CSSTransition
+              in={showForm && !showResponse}
+              timeout={duration}
+              classNames={showForm ? rtlTransition : ltrTransition}
+              unmountOnExit
+              nodeRef={form}
+            >
+              <ContactForm
+                ref={form}
+                closeButton={<ContactCloseButton actions={[toggleForm]} />}
+              />
+            </CSSTransition>
+            <CSSTransition
+              in={showResponse}
+              timeout={duration}
+              classNames={showForm ? rtlTransition : ltrTransition}
+              unmountOnExit
+              nodeRef={response}
+            >
+              <ContactResponse
+                ref={response}
+                actions={[toggleForm, toggleResponse]}
+                closeButton={
+                  <ContactCloseButton actions={[toggleForm, toggleResponse]} />
+                }
+              />
+            </CSSTransition>
+          </>
+        )}
+      </ContactFormContext.Consumer>
+    </ContactFormProvider>
   );
 };
 
