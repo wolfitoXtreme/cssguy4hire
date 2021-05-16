@@ -149,15 +149,23 @@ const Form: React.FC = () => {
           handleSubmit,
           errors,
           submitting,
-          submitFailed,
-          submitSucceeded,
-          form: { reset }
+          submitFailed
+          // submitSucceeded,
+          // form: { reset }
         }) => {
           submitFailed && setFormErrors(errors);
           submitting && setFormsubmitting(true);
 
           return (
-            <form onSubmit={handleSubmit} noValidate className={form}>
+            <form
+              onSubmit={handleSubmit}
+              onReset={() => {
+                setFormGlobalError(null);
+                setFormErrors({});
+              }}
+              noValidate
+              className={form}
+            >
               <fieldset>
                 <legend>{formatMessage({ id: 'section-form-legend' })}</legend>
 
