@@ -113,11 +113,10 @@
   },
   "scripts": {
     "server": "nodemon server.js",
-    "start": "node scripts/start.js",
+    "start": "node server.js",
+    "start:dev": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "heroku-postbuild": "yarn install && yarn run build"
   },
   "proxy": "http://localhost:8080",
   "browserslist": {

@@ -1,6 +1,8 @@
 const express = require('express');
-const { check, validationResult } = require('express-validator');
 const nodemailer = require('nodemailer');
+const { check, validationResult } = require('express-validator');
+
+const path = require('path');
 require('dotenv').config();
 
 const { en: translations } = require('./src/translations/translations.json');
@@ -28,12 +30,15 @@ transporter.verify((error, success) => {
   }
 });
 
-// console.log('environment vars: ', process.env);
-
 const app = express();
+app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.json());
 
 app.get('/test', (req, res) => res.send('test successful!'));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/build/index.html'));
+});
 
 app.post(
   '/send',
@@ -92,15 +97,13 @@ app.post(
   `;
 
     const mail = {
-      // from: `Contact form <${process.env.MAIL_USER}>`,
-      from: `Contact form `,
+      from: `Contact form <${process.env.MAIL_USER}>`,
       to: process.env.MAIL_USER,
       subject: `Contact from ${translations['site']}`,
       html
     };
 
     transporter.sendMail(mail, (error, data) => {
-      // console.log('transporter sending email...', mail, data);
       console.log('transporter sending email...', mail);
       if (error) {
         console.log('error: ', error);

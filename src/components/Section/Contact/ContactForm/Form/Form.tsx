@@ -150,8 +150,6 @@ const Form: React.FC = () => {
           errors,
           submitting,
           submitFailed
-          // submitSucceeded,
-          // form: { reset }
         }) => {
           submitFailed && setFormErrors(errors);
           submitting && setFormsubmitting(true);
