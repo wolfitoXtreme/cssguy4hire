@@ -59,7 +59,6 @@
     "mini-css-extract-plugin": "0.11.3",
     "node-sass": "^4.14.1",
     "nodemailer": "^6.6.0",
-    "nodemon": "^2.0.7",
     "optimize-css-assets-webpack-plugin": "5.0.4",
     "pnp-webpack-plugin": "1.6.4",
     "postcss-flexbugs-fixes": "4.2.1",
@@ -97,6 +96,7 @@
     "workbox-webpack-plugin": "5.1.4"
   },
   "devDependencies": {
+    "nodemon": "^2.0.7",
     "babel-plugin-root-import": "^6.6.0",
     "breakpoint-sass": "^2.7.1",
     "classnames": "^2.2.6",
@@ -115,8 +115,7 @@
     "server": "nodemon server.js",
     "start": "node server.js",
     "start:dev": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "heroku-postbuild": "yarn install && yarn run build"
+    "build": "node scripts/build.js && yarn install"
   },
   "proxy": "http://localhost:8080",
   "browserslist": {

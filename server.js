@@ -10,6 +10,8 @@ const project = require('./package.json');
 
 const { name: projectName } = project;
 
+const port = process.env.PORT || 8080;
+
 const transport = {
   host: 'smtp.zoho.eu',
   port: 465,
@@ -120,6 +122,9 @@ app.post(
   }
 );
 
-app.listen(8080, () => {
-  console.log(projectName.toUpperCase() + ' - server is started!!');
+app.listen(port, () => {
+  console.log(
+    projectName.toUpperCase() + ' - server is started!!, port: ',
+    port
+  );
 });
