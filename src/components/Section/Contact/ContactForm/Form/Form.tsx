@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Form as FinalForm } from 'react-final-form';
 import { useIntl } from 'react-intl';
 import ReCAPTCHA from 'react-google-recaptcha';
@@ -25,9 +25,14 @@ import {
 
 const Form: React.FC = () => {
   const { formatMessage } = useIntl();
-  const { toggleResponse, setResponseMessage, enableSubmit } = useContext(
-    ContactFormContext
-  );
+
+  const {
+    toggleResponse,
+    setResponseMessage,
+    enableSubmit,
+    setEnableSubmit
+  } = useContext(ContactFormContext);
+
   const [formGlobalError, setFormGlobalError] = useState<string | null>(null);
   const [formErrors, setFormErrors] = useState<{ [key: string]: ErrorType }>(
     {}
@@ -73,6 +78,8 @@ const Form: React.FC = () => {
   const onSubmit = async (values) => {
     const token = await recaptchaRef?.current?.executeAsync();
     recaptchaRef?.current?.reset();
+
+    setEnableSubmit(false);
 
     axios({
       method: 'POST',
