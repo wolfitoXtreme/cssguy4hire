@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Form as FinalForm } from 'react-final-form';
 import { useIntl } from 'react-intl';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 import axios from 'axios';
 import classNames from 'classnames';
@@ -24,13 +25,14 @@ import {
 
 const Form: React.FC = () => {
   const { formatMessage } = useIntl();
-  const { toggleResponse, setResponseMessage } = useContext(ContactFormContext);
-  const [enableSubmit, setEnableSubmit] = useState(true);
-  const [formSubmitting, setFormsubmitting] = useState(false);
+  const { toggleResponse, setResponseMessage, enableSubmit } = useContext(
+    ContactFormContext
+  );
   const [formGlobalError, setFormGlobalError] = useState<string | null>(null);
   const [formErrors, setFormErrors] = useState<{ [key: string]: ErrorType }>(
     {}
   );
+  const recaptchaRef = React.createRef<ReCAPTCHA>();
 
   const responseErrorMsg = formatMessage({
     id: 'contact-form-response-error'
@@ -69,10 +71,13 @@ const Form: React.FC = () => {
     });
 
   const onSubmit = async (values) => {
+    const token = await recaptchaRef?.current?.executeAsync();
+    recaptchaRef?.current?.reset();
+
     axios({
       method: 'POST',
       url: '/send',
-      data: values
+      data: { ...values, token }
     })
       .then((response) => {
         const {
@@ -132,27 +137,13 @@ const Form: React.FC = () => {
     setFormGlobalError(getGlobalError(formErrors));
   }, [formErrors, formatMessage]);
 
-  useEffect(() => {
-    if (!formSubmitting) {
-      formGlobalError ? setEnableSubmit(false) : setEnableSubmit(true);
-    } else {
-      setEnableSubmit(false);
-    }
-  }, [formErrors, formGlobalError, formSubmitting]);
-
   return (
     <>
       <FinalForm
         onSubmit={onSubmit}
         initialValues={{}}
-        render={({
-          handleSubmit,
-          errors,
-          submitting,
-          submitFailed
-        }) => {
+        render={({ handleSubmit, errors, submitting, submitFailed }) => {
           submitFailed && setFormErrors(errors);
-          submitting && setFormsubmitting(true);
 
           return (
             <form
@@ -194,6 +185,7 @@ const Form: React.FC = () => {
                       fullWidth
                       disableAnimation
                       validators={[mustNotBeEmpty]}
+                      disabled={!enableSubmit}
                       errorMessage={getFieldErrorMessage(errors, 'name')}
                       showErrors={false}
                     />
@@ -205,6 +197,7 @@ const Form: React.FC = () => {
                       fullWidth
                       disableAnimation
                       validators={[mustNotBeEmpty]}
+                      disabled={!enableSubmit}
                       errorMessage={getFieldErrorMessage(errors, 'company')}
                       showErrors={false}
                     />
@@ -216,6 +209,7 @@ const Form: React.FC = () => {
                       fullWidth
                       disableAnimation
                       validators={[mustNotBeEmpty, mustHaveEmailFormat]}
+                      disabled={!enableSubmit}
                       errorMessage={getFieldErrorMessage(errors, 'email')}
                       showErrors={false}
                     />
@@ -228,6 +222,7 @@ const Form: React.FC = () => {
                       options={subjectOptions}
                       disableAnimation
                       validators={[mustNotBeEmpty]}
+                      disabled={!enableSubmit}
                       errorMessage={getFieldErrorMessage(errors, 'subject')}
                       showErrors={false}
                     />
@@ -243,11 +238,17 @@ const Form: React.FC = () => {
                       validators={[mustNotBeEmpty]}
                       multiline
                       rows={6}
+                      disabled={!enableSubmit}
                       errorMessage={getFieldErrorMessage(errors, 'comments')}
                       showErrors={false}
                     />
                   </div>
                 </div>
+                <ReCAPTCHA
+                  ref={recaptchaRef}
+                  size="invisible"
+                  sitekey="6Le2Rt4aAAAAAB0nfNyiqjVm4AQlPI-_j18tmm3L"
+                />
               </fieldset>
               <Buttons enableSubmit={enableSubmit} />
             </form>

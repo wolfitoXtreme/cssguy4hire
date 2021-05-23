@@ -20,6 +20,7 @@ const Buttons: React.FC<{ enableSubmit: boolean }> = ({ enableSubmit }) => {
     <ButtonGroup>
       <Button
         type="reset"
+        disabled={!enableSubmit}
         onClick={() => {
           resetFields();
           form?.reset();

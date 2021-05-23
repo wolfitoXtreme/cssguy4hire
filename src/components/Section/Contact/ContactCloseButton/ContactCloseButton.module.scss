@@ -26,6 +26,17 @@
     opacity: 0.8;
   }
 
+  &-disabled {
+    opacity: 0.2;
+    cursor: default;
+
+    &:hover,
+    &:active,
+    &:focus {
+      opacity: 0.2;
+    }
+  }
+
   &-icon {
     top: $button-padding;
     left: $button-padding;

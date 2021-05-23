@@ -1,5 +1,6 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
+const fetch = require('node-fetch');
 const { check, validationResult } = require('express-validator');
 
 const path = require('path');
@@ -32,11 +33,25 @@ transporter.verify((error, success) => {
   }
 });
 
+const validateToken = async (token) => {
+  const secret = process.env.RECAPTCHA_SECRET_KEY;
+  const response = await fetch(
+    `https://www.google.com/recaptcha/api/siteverify?secret=${secret}&response=${token}`,
+    {
+      method: 'POST'
+    }
+  ).then((response) => {
+    return response.json();
+  });
+
+  const { success } = await response;
+
+  return success;
+};
+
 const app = express();
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.json());
-
-app.get('/test', (req, res) => res.send('test successful!'));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/build/index.html'));
@@ -51,7 +66,13 @@ app.post(
     check('subject').not().isEmpty().trim().escape(),
     check('comments').not().isEmpty().trim().escape()
   ],
-  (req, res, next) => {
+  async (req, res, next) => {
+    const isHuman = await validateToken(req.body.token);
+
+    if (!isHuman) {
+      return res.status(400).json({ errors: ['no human'] });
+    }
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       console.log('cannot send, encounter field errors...');
@@ -69,28 +90,27 @@ app.post(
     </head>
     <body bgcolor="#ffffff" text="#000000">
 
-    <div style="font: normal 12px/14px Arial, Helvetica, sans-serif; color: #4E4E4E;">
+    <div style="font: normal 12px/normal Arial, Helvetica, sans-serif; color: #4E4E4E;">
 
       <p style="margin: 0px; padding-bottom: 5px;">
         <strong>Contact details:</strong>
       </p>
 
-      ----------------------------------------------
-      <br /><br />
+      ---
+      <br>
 
-      <ul style="margin: 0px; padding-bottom: 12px;">
-        <li style="padding-bottom: 2px;"><strong>Name: </strong>${name}</li>
-        <li style="padding-bottom: 2px;"><strong>Company: </strong>${company}</li>
-        <li style="padding-bottom: 2px;"><strong>E-mail: </strong>${email}</li>
-        <li style="padding-bottom: 2px;"><strong>Subject: </strong>${
+      <ul>
+        <li><strong>Name: </strong>${name}</li>
+        <li><strong>Company: </strong>${company}</li>
+        <li><strong>E-mail: </strong>${email}</li>
+        <li><strong>Subject: </strong>${
           translations[`contact-form-${subject}`]
         }</li>
-        <li style="padding-bottom: 2px;"><strong>Comments: </strong><br />${comments}</li>
+        <li><strong>Comments: </strong><br />${comments}</li>
       </ul>
 
-      <br />
-      ----------------------------------------------
-      <br /><br />
+      ---
+      <br>
 
     </div>
 

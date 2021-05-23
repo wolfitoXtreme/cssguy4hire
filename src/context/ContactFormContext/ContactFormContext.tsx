@@ -10,6 +10,8 @@ export const ContactFormContext = React.createContext<{
   setShowResponse: (x: boolean) => void;
   responseMessage: ErrorMessage | null;
   setResponseMessage: (x: ErrorMessage | null) => void;
+  enableSubmit: boolean;
+  setEnableSubmit: (x: boolean) => void;
 }>({
   showForm: false,
   showResponse: false,
@@ -17,7 +19,9 @@ export const ContactFormContext = React.createContext<{
   toggleResponse: () => {},
   setShowResponse: (showResponse) => showResponse,
   responseMessage: null,
-  setResponseMessage: (responseMessage) => responseMessage
+  setResponseMessage: (responseMessage) => responseMessage,
+  enableSubmit: true,
+  setEnableSubmit: () => {}
 });
 
 export const ContactFormProvider: React.FC = ({ children }) => {
@@ -26,6 +30,7 @@ export const ContactFormProvider: React.FC = ({ children }) => {
   const [responseMessage, setResponseMessage] = useState<ErrorMessage | null>(
     null
   );
+  const [enableSubmit, setEnableSubmit] = useState(true);
 
   const toggleForm = () => {
     setShowForm(!showForm);
@@ -33,6 +38,7 @@ export const ContactFormProvider: React.FC = ({ children }) => {
 
   const toggleResponse = () => {
     setShowResponse(!showResponse);
+    setEnableSubmit(true);
   };
 
   return (
@@ -44,7 +50,9 @@ export const ContactFormProvider: React.FC = ({ children }) => {
         toggleResponse,
         setShowResponse,
         responseMessage,
-        setResponseMessage
+        setResponseMessage,
+        enableSubmit,
+        setEnableSubmit
       }}
     >
       {children}
