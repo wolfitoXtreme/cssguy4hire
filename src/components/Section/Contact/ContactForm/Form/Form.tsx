@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { Form as FinalForm } from 'react-final-form';
-import { useIntl } from 'react-intl';
-import ReCAPTCHA from 'react-google-recaptcha';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import axios from 'axios';
 import classNames from 'classnames';
 
-import { error, ErrorType } from '@app/types/types';
+import { error, ErrorType, LanguageStateType } from '@app/types/types';
 import { ContactFormContext } from '@app/context/ContactFormContext/ContactFormContext';
 import { mustNotBeEmpty, mustHaveEmailFormat } from '@app/utils/validators';
 import { ReactComponent as IconWarn } from '@app/assets/icons/icon-warn.svg';
@@ -20,24 +20,25 @@ import {
   formWarningIcon,
   formRow,
   formColumn,
-  formColumnFullHeight
+  formColumnFullHeight,
+  formNotes
 } from './Form.module.scss';
 
-const Form: React.FC = () => {
+const Form: React.FC<{ lang: string }> = ({ lang }) => {
   const { formatMessage } = useIntl();
 
   const {
     toggleResponse,
     setResponseMessage,
     enableSubmit,
-    setEnableSubmit
+    setEnableSubmit,
+    recaptchaRef
   } = useContext(ContactFormContext);
 
   const [formGlobalError, setFormGlobalError] = useState<string | null>(null);
   const [formErrors, setFormErrors] = useState<{ [key: string]: ErrorType }>(
     {}
   );
-  const recaptchaRef = React.createRef<ReCAPTCHA>();
 
   const responseErrorMsg = formatMessage({
     id: 'contact-form-response-error'
@@ -45,6 +46,10 @@ const Form: React.FC = () => {
 
   const responseSuccessMsg = formatMessage({
     id: 'contact-form-response-success'
+  });
+
+  const grecaptchaNotes = formatMessage({
+    id: 'contact-form-grecaptcha-notes'
   });
 
   const getFieldTranslation = (inputElement: string) =>
@@ -251,12 +256,34 @@ const Form: React.FC = () => {
                     />
                   </div>
                 </div>
-                <ReCAPTCHA
-                  ref={recaptchaRef}
-                  size="invisible"
-                  sitekey="6Le2Rt4aAAAAAB0nfNyiqjVm4AQlPI-_j18tmm3L"
-                />
               </fieldset>
+              <p className={formNotes}>
+                <FormattedMessage
+                  id="form-notes"
+                  defaultMessage={grecaptchaNotes}
+                  values={{
+                    privacy: (chunks) => (
+                      <a
+                        href={`https://policies.google.com/privacy?hl=${lang}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {chunks}
+                      </a>
+                    ),
+                    terms: (chunks) => (
+                      <a
+                        href={`https://policies.google.com/terms?hl=${lang}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {chunks}
+                      </a>
+                    ),
+                    b: (chunks) => <b>{chunks}</b>
+                  }}
+                />
+              </p>
               <Buttons enableSubmit={enableSubmit} />
             </form>
           );
@@ -266,4 +293,11 @@ const Form: React.FC = () => {
   );
 };
 
-export default Form;
+// export default Form;
+
+const mapStateToProps = (state: LanguageStateType) => {
+  return {
+    lang: state.languageReducer.lang
+  };
+};
+export default connect(mapStateToProps)(Form);

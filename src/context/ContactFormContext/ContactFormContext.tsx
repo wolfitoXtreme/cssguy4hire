@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 import { ErrorMessage } from '@app/types/types';
 
@@ -12,6 +13,7 @@ export const ContactFormContext = React.createContext<{
   setResponseMessage: (x: ErrorMessage | null) => void;
   enableSubmit: boolean;
   setEnableSubmit: (x: boolean) => void;
+  recaptchaRef: React.RefObject<ReCAPTCHA> | null;
 }>({
   showForm: false,
   showResponse: false,
@@ -21,7 +23,8 @@ export const ContactFormContext = React.createContext<{
   responseMessage: null,
   setResponseMessage: (responseMessage) => responseMessage,
   enableSubmit: true,
-  setEnableSubmit: () => {}
+  setEnableSubmit: () => {},
+  recaptchaRef: null
 });
 
 export const ContactFormProvider: React.FC = ({ children }) => {
@@ -31,6 +34,7 @@ export const ContactFormProvider: React.FC = ({ children }) => {
     null
   );
   const [enableSubmit, setEnableSubmit] = useState(true);
+  const recaptchaRef = React.createRef<ReCAPTCHA>();
 
   const toggleForm = () => {
     setShowForm(!showForm);
@@ -52,7 +56,8 @@ export const ContactFormProvider: React.FC = ({ children }) => {
         responseMessage,
         setResponseMessage,
         enableSubmit,
-        setEnableSubmit
+        setEnableSubmit,
+        recaptchaRef
       }}
     >
       {children}

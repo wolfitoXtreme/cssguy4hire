@@ -63,8 +63,16 @@
     flex: 0 0 auto;
     flex-flow: column;
 
+    > *:only-child {
+      padding-bottom: 0;
+    }
+
     @include breakpoint(map-get($breakpoints, medium)) {
       width: $column-width-landscape;
+
+      > *:last-child {
+        padding-bottom: 0;
+      }
     }
 
     @include breakpoint(orientation landscape) {
@@ -90,6 +98,17 @@
           height: 100%;
         }
       }
+    }
+  }
+
+  &-notes {
+    margin: 10px 0 0;
+    font-size: $font-size-tiny;
+    letter-spacing: -0.02em;
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      margin-top: 15px;
+      font-size: $font-size-xxx-small;
     }
   }
 }

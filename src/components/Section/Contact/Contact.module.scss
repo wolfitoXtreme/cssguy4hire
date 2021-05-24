@@ -42,6 +42,11 @@ $transition-duration: $default-duration;
   }
 }
 
+/* hides reCAPCHA - terms should be shown*/
+:global .grecaptcha-badge {
+  visibility: hidden;
+}
+
 /* stylelint-disable property-no-unknown */
 :export {
   transition-duration: $transition-duration;

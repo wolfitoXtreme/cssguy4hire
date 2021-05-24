@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
 import { CSSTransition } from 'react-transition-group';
 
 import { MenuContext } from '@app/context/MenuContext/MenuContext';
@@ -49,7 +50,13 @@ const Contact: React.FC = () => {
   return (
     <ContactFormProvider>
       <ContactFormContext.Consumer>
-        {({ showForm, showResponse, toggleForm, toggleResponse }) => (
+        {({
+          showForm,
+          showResponse,
+          toggleForm,
+          toggleResponse,
+          recaptchaRef
+        }) => (
           <>
             <CSSTransition
               in={!showForm && !showResponse}
@@ -74,6 +81,7 @@ const Contact: React.FC = () => {
                 closeButton={<ContactCloseButton actions={[toggleForm]} />}
               />
             </CSSTransition>
+
             <CSSTransition
               in={showResponse}
               timeout={duration}
@@ -89,6 +97,12 @@ const Contact: React.FC = () => {
                 }
               />
             </CSSTransition>
+
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              size="invisible"
+              sitekey="6Le2Rt4aAAAAAB0nfNyiqjVm4AQlPI-_j18tmm3L"
+            />
           </>
         )}
       </ContactFormContext.Consumer>

@@ -45,7 +45,7 @@ const ContactResponse = React.forwardRef<HTMLElement, ContactResponseInt>(
         variant="static"
       >
         <FormattedMessage
-          id="seccess-message"
+          id="success-message"
           defaultMessage={message}
           values={{
             a: (chunks) => (
