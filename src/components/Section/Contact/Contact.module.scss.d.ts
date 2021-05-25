@@ -7,3 +7,4 @@ export const ltrEnter: string;
 export const ltrEnterActive: string;
 export const ltrExit: string;
 export const ltrExitActive: string;
+export const closeButton: string;

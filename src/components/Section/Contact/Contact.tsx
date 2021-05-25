@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
 import { CSSTransition } from 'react-transition-group';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 import { MenuContext } from '@app/context/MenuContext/MenuContext';
 import {
@@ -11,7 +11,7 @@ import {
 import ContactIntro from '@app/components/Section/Contact/ContactIntro/ContactIntro';
 import ContactForm from '@app/components/Section/Contact/ContactForm/ContactForm';
 import ContactResponse from '@app/components/Section/Contact/ContactResponse/ContactResponse';
-import ContactCloseButton from '@app/components/Section/Contact/ContactCloseButton/ContactCloseButton';
+import CloseButton from '@app/components/CloseButton/CloseButton';
 
 import {
   transitionDuration,
@@ -22,10 +22,12 @@ import {
   ltrEnter,
   ltrEnterActive,
   ltrExit,
-  ltrExitActive
+  ltrExitActive,
+  closeButton
 } from './Contact.module.scss';
 
 const duration = parseInt(transitionDuration);
+
 const rtlTransition = {
   enter: rtlEnter,
   enterActive: rtlEnterActive,
@@ -55,6 +57,7 @@ const Contact: React.FC = () => {
           showResponse,
           toggleForm,
           toggleResponse,
+          enableSubmit,
           recaptchaRef
         }) => (
           <>
@@ -78,7 +81,13 @@ const Contact: React.FC = () => {
             >
               <ContactForm
                 ref={form}
-                closeButton={<ContactCloseButton actions={[toggleForm]} />}
+                closeButton={
+                  <CloseButton
+                    actions={[toggleForm]}
+                    enable={enableSubmit}
+                    className={closeButton}
+                  />
+                }
               />
             </CSSTransition>
 
@@ -93,7 +102,11 @@ const Contact: React.FC = () => {
                 ref={response}
                 actions={[toggleForm, toggleResponse]}
                 closeButton={
-                  <ContactCloseButton actions={[toggleForm, toggleResponse]} />
+                  <CloseButton
+                    actions={[toggleForm, toggleResponse]}
+                    enable={enableSubmit}
+                    className={closeButton}
+                  />
                 }
               />
             </CSSTransition>

@@ -6,10 +6,9 @@ import ButtonGroup from '@app/components/Form/ButtonGroup/ButtonGroup';
 
 interface ButtonsInt {
   disabled?: boolean;
-  inverted?: boolean;
 }
 
-const Buttons: React.FC<ButtonsInt> = ({ disabled, inverted = false }) => {
+const Buttons: React.FC<ButtonsInt> = ({ disabled }) => {
   const form = useForm();
   const registeredFieds = form.getRegisteredFields();
   const resetFields = () => {
@@ -22,7 +21,7 @@ const Buttons: React.FC<ButtonsInt> = ({ disabled, inverted = false }) => {
     <>
       <h5>Buttons</h5>
 
-      <ButtonGroup inverted={inverted}>
+      <ButtonGroup variant="inverted">
         <Button
           type="submit"
           icon="end"

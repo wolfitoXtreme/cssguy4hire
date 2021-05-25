@@ -4,14 +4,20 @@ import classNames from 'classnames';
 
 import {
   buttonGroup,
-  buttonGroupInverted
+  buttonGroupInverted,
+  buttonGroupCentered
 } from '@app/components/Form/Button/Button.module.scss';
 
 const ButtonGroup: React.FC<{
   children: React.ReactNode;
-  inverted?: boolean;
-}> = ({ children, inverted = false }) => (
-  <div className={classNames(buttonGroup, { [buttonGroupInverted]: inverted })}>
+  variant?: 'inverted' | 'centered';
+}> = ({ children, variant }) => (
+  <div
+    className={classNames(buttonGroup, {
+      [buttonGroupInverted]: variant === 'inverted',
+      [buttonGroupCentered]: variant === 'centered'
+    })}
+  >
     {children}
   </div>
 );

@@ -7,6 +7,7 @@ import { createStore, compose } from 'redux';
 import { RootReducer } from '@store/reducers/index';
 
 import { DeviceProvider } from '@app/context/DeviceContext/DeviceContext';
+import { InfoOverlayProvider } from '@app/context/InfoOverlayContext/InfoOverlayContext';
 import { MenuProvider } from '@app/context/MenuContext/MenuContext';
 
 import Reference from '@app/components/Reference/Reference';
@@ -27,40 +28,42 @@ const App = () => {
   return (
     <Provider store={store}>
       <DeviceProvider>
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
-          <Switch>
-            <Route
-              path="/"
-              render={(props) =>
-                (isMaintenance && <Maintenance {...props} />) || (
+        <InfoOverlayProvider>
+          <BrowserRouter basename={process.env.PUBLIC_URL}>
+            <Switch>
+              <Route
+                path="/"
+                render={(props) =>
+                  (isMaintenance && <Maintenance {...props} />) || (
+                    <MenuProvider>
+                      <Main {...props} />
+                    </MenuProvider>
+                  )
+                }
+                exact
+              />
+              <Route
+                path="/development/"
+                render={(props) => (
                   <MenuProvider>
                     <Main {...props} />
                   </MenuProvider>
-                )
-              }
-              exact
-            />
-            <Route
-              path="/development/"
-              render={(props) => (
-                <MenuProvider>
-                  <Main {...props} />
-                </MenuProvider>
-              )}
-              exact
-            />
-            <Route
-              path="/maintenance/"
-              render={(props) => <Maintenance {...props} />}
-              exact
-            />
-            <Route
-              path="/reference/"
-              render={(props) => <Reference {...props} />}
-              exact
-            />
-          </Switch>
-        </BrowserRouter>
+                )}
+                exact
+              />
+              <Route
+                path="/maintenance/"
+                render={(props) => <Maintenance {...props} />}
+                exact
+              />
+              <Route
+                path="/reference/"
+                render={(props) => <Reference {...props} />}
+                exact
+              />
+            </Switch>
+          </BrowserRouter>
+        </InfoOverlayProvider>
       </DeviceProvider>
     </Provider>
   );

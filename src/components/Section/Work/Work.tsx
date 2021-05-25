@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 
 import { sections } from '@app/types/types';
 import deviceMovile from '@app/assets/images/sample-device-small.svg';
 import deviceDesktop from '@app/assets/images/sample-device-large.svg';
+import { InfoOverlayContext } from '@app/context/InfoOverlayContext/InfoOverlayContext';
+import { MenuContext } from '@app/context/MenuContext/MenuContext';
 
 import LoadImage from '@app/components/LoadImage/LoadImage';
 import Section from '@app/components/Section/Section';
 import ContentSlider from '@app/components/ContentSlider/ContentSlider';
+import InfoOverlay from '@app/components/InfoOverlay/InfoOverlay';
 
 import {
   workSample,
@@ -63,7 +66,16 @@ const workProjects: {
 ];
 
 const Work: React.FC<{ panelIndex?: number }> = ({ panelIndex }) => {
+  const { activePanel } = useContext(MenuContext);
+  const { showInfo, infoShown, setInfoshown } = useContext(InfoOverlayContext);
   const { formatMessage } = useIntl();
+
+  useEffect(() => {
+    if (panelIndex === activePanel && !infoShown) {
+      showInfo(true);
+      setInfoshown(true);
+    }
+  }, [activePanel, infoShown, panelIndex, setInfoshown, showInfo]);
 
   return (
     <Section
@@ -125,6 +137,13 @@ const Work: React.FC<{ panelIndex?: number }> = ({ panelIndex }) => {
           })}
         />
       </article>
+      <InfoOverlay
+        title={formatMessage({ id: 'section-work-disclaimer-title' })}
+      >
+        <>
+          <p>{formatMessage({ id: 'section-work-disclaimer-text' })}</p>
+        </>
+      </InfoOverlay>
     </Section>
   );
 };

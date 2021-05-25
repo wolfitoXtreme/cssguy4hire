@@ -31,7 +31,7 @@ const Forms: React.FC = () => {
               <SelectFields />
               <RadioButtons />
               <CheckBoxes />
-              <Buttons inverted />
+              <Buttons />
               <pre className={formValues}>
                 {JSON.stringify(values, null, 2)}
               </pre>
@@ -49,7 +49,7 @@ const Forms: React.FC = () => {
               <SelectFields disabled />
               <RadioButtons disabled />
               <CheckBoxes disabled />
-              <Buttons disabled inverted />
+              <Buttons disabled />
             </form>
           )}
         />

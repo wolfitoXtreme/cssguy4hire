@@ -9,14 +9,13 @@
   @include no-highlight;
   @include remove-text;
 
-  top: 11px;
-  right: 11px;
   width: $button-width;
   height: $button-height;
   display: block;
   opacity: 0.4;
   border-style: none;
-  position: absolute;
+  position: relative;
+
   background-color: transparent;
   cursor: pointer;
 
@@ -50,8 +49,6 @@
     $button-width: 40px;
     $button-height: 40px;
 
-    top: 13px;
-    right: 13px;
     width: $button-width;
     height: $button-height;
 
@@ -65,8 +62,6 @@
     $button-width: 44px;
     $button-height: 44px;
 
-    top: 15px;
-    right: 15px;
     width: $button-width;
     height: $button-height;
 
@@ -80,14 +75,64 @@
     $button-width: 48px;
     $button-height: 48px;
 
-    top: 19px;
-    right: 19px;
     width: $button-width;
     height: $button-height;
 
     &-icon {
       width: $button-width - ($button-padding * 2);
       height: $button-height - ($button-padding * 2);
+    }
+  }
+
+  &-small {
+    $button-width: 30px;
+    $button-height: 30px;
+
+    width: $button-width;
+    height: $button-height;
+
+    .close-button-icon {
+      width: $button-width - ($button-padding * 2);
+      height: $button-height - ($button-padding * 2);
+    }
+
+    @include breakpoint(map-get($breakpoints, small)) {
+      $button-width: 34px;
+      $button-height: 34px;
+
+      width: $button-width;
+      height: $button-height;
+
+      .close-button-icon {
+        width: $button-width - ($button-padding * 2);
+        height: $button-height - ($button-padding * 2);
+      }
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      $button-width: 38px;
+      $button-height: 38px;
+
+      width: $button-width;
+      height: $button-height;
+
+      .close-button-icon {
+        width: $button-width - ($button-padding * 2);
+        height: $button-height - ($button-padding * 2);
+      }
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+      $button-width: 42px;
+      $button-height: 42px;
+
+      width: $button-width;
+      height: $button-height;
+
+      .close-button-icon {
+        width: $button-width - ($button-padding * 2);
+        height: $button-height - ($button-padding * 2);
+      }
     }
   }
 }

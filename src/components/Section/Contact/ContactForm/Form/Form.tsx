@@ -293,8 +293,6 @@ const Form: React.FC<{ lang: string }> = ({ lang }) => {
   );
 };
 
-// export default Form;
-
 const mapStateToProps = (state: LanguageStateType) => {
   return {
     lang: state.languageReducer.lang
