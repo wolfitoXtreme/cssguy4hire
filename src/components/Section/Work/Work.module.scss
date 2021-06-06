@@ -1,4 +1,5 @@
 @import '~@styles/config/variables';
+@import '~@styles/config/variables-export';
 @import '~@styles/helpers/mixins';
 @import '~@styles/helpers/functions';
 
@@ -205,7 +206,7 @@ $images-blur-delay: $image-fade-in-duration + $image-fade-in-delay;
     (box-shadow)
   );
 
-  @at-root :global .slide-active :local & {
+  @at-root :global .slide-active :local &.animation-enabled {
     animation: work-sample-animation $images-blur-duration ease
       $images-blur-delay 1 forwards;
     box-shadow: $box-shadow-values rgba($black, 0.4);
@@ -257,9 +258,10 @@ $images-blur-delay: $image-fade-in-duration + $image-fade-in-delay;
   transform: scaleY($image-init-scale); // avoids image jittering when animating
   position: relative;
   filter: saturate(0) brightness(0);
+
   @include transitions($images-fade-duration, ease-out, 0ms, (filter, opacity));
 
-  @at-root :global .slide-active :local & {
+  @at-root :global .slide-active :local &.animation-enabled {
     opacity: 1;
     filter: saturate(100%) brightness(100%);
   }
@@ -319,18 +321,6 @@ $images-blur-delay: $image-fade-in-duration + $image-fade-in-delay;
     display: block;
     position: relative;
     z-index: 1;
-  }
-}
-
-@keyframes work-sample-animation-frame {
-  0% {
-    opacity: 0.2;
-    filter: saturate(0) brightness(0);
-  }
-
-  100% {
-    opacity: 1;
-    filter: saturate(100%) brightness(100%);
   }
 }
 

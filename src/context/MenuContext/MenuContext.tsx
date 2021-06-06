@@ -63,6 +63,7 @@ export const MenuContext = React.createContext<{
   swiperPanels: SwiperCore | null;
   setSwiperPanels: (x: SwiperCore) => void;
   setEnablePanels: (x: boolean) => void;
+  enablePanels: boolean;
 }>({
   navigation,
   toggleMenu: () => {},
@@ -77,7 +78,8 @@ export const MenuContext = React.createContext<{
   jumpingPanel: (panel) => panel,
   swiperPanels: null,
   setSwiperPanels: (swiper) => swiper,
-  setEnablePanels: (enablePanels) => enablePanels
+  setEnablePanels: (enablePanels) => enablePanels,
+  enablePanels: true
 });
 
 export const MenuProvider: React.FC = ({ children }) => {
@@ -135,7 +137,8 @@ export const MenuProvider: React.FC = ({ children }) => {
         jumpingPanel,
         swiperPanels,
         setSwiperPanels: initSwiperPanels,
-        setEnablePanels
+        setEnablePanels,
+        enablePanels
       }}
     >
       {children}

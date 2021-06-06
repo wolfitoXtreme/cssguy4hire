@@ -1,26 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export const InfoOverlayContext = React.createContext<{
   infoActive: boolean;
-  showInfo: (x: boolean) => void;
+  setInfoActive: (x: boolean) => void;
+  showInfo: boolean;
+  setShowInfo: (x: boolean) => void;
   infoShown: boolean;
   setInfoshown: (x: boolean) => void;
 }>({
   infoActive: false,
-  showInfo: () => {},
+  setInfoActive: () => {},
+  showInfo: false,
+  setShowInfo: () => {},
   infoShown: false,
   setInfoshown: () => {}
 });
 
 export const InfoOverlayProvider: React.FC = ({ children }) => {
   const [infoActive, setInfoActive] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
   const [infoShown, setInfoshown] = useState(false);
+
+  useEffect(() => {
+    infoActive && setShowInfo(true);
+  }, [infoActive]);
 
   return (
     <InfoOverlayContext.Provider
       value={{
         infoActive,
-        showInfo: setInfoActive,
+        setInfoActive,
+        showInfo,
+        setShowInfo,
         infoShown,
         setInfoshown
       }}

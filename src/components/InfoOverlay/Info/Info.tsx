@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
 import { InfoOverlayContext } from '@app/context/InfoOverlayContext/InfoOverlayContext';
+import { MenuContext } from '@app/context/MenuContext/MenuContext';
 
 import CloseButton from '@app/components/CloseButton/CloseButton';
 
@@ -30,34 +31,40 @@ const bttmToTopTransition = {
 interface InfoInt {
   title?: string;
   content: React.ReactNode;
+  bgColor?: string;
 }
 
-const Info: React.FC<InfoInt> = ({ title, content }) => {
-  const { infoActive, showInfo } = useContext(InfoOverlayContext);
-  const [showCard, setShowCard] = useState(false);
+const Info: React.FC<InfoInt> = ({ title, content, bgColor }) => {
+  const { setInfoActive, showInfo, setShowInfo, setInfoshown } = useContext(
+    InfoOverlayContext
+  );
+  const { setEnablePanels } = useContext(MenuContext);
 
   const infoRef = useRef(null);
-
-  useEffect(() => {
-    infoActive && setShowCard(true);
-  }, [infoActive]);
 
   return (
     <>
       <CSSTransition
-        in={showCard}
+        in={showInfo}
         timeout={duration}
         classNames={bttmToTopTransition}
         unmountOnExit
         nodeRef={infoRef}
-        onExited={() => showInfo(false)}
+        onExited={() => {
+          setInfoActive(false);
+          setInfoshown(true);
+        }}
       >
         <div className={info} ref={infoRef}>
-          <div className={infoCard}>
+          <div
+            className={infoCard}
+            style={{ backgroundColor: bgColor && bgColor }}
+          >
             <CloseButton
               actions={[
                 () => {
-                  setShowCard(false);
+                  setShowInfo(false);
+                  setEnablePanels(true);
                 }
               ]}
               className={infoCardCloseButton}

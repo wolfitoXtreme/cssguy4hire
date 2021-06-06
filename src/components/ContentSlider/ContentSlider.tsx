@@ -34,7 +34,9 @@ interface ContentSliderInt {
 
 const ContentSlider: React.FC<ContentSliderInt> = ({ panelIndex, slides }) => {
   const { formatMessage } = useIntl();
-  const { menuIsOpen, menuIsToggling, activePanel } = useContext(MenuContext);
+  const { menuIsOpen, enablePanels, menuIsToggling, activePanel } = useContext(
+    MenuContext
+  );
 
   const [activeSlide, setActiveSlide] = useState<number | null>(null);
   const [swiper, setSwiper] = useState<SwiperCore | null>(null);
@@ -46,13 +48,13 @@ const ContentSlider: React.FC<ContentSliderInt> = ({ panelIndex, slides }) => {
   const navPrevText = formatMessage({ id: 'nav-previous' });
 
   useEffect(() => {
-    setEnableSwiper(!!menuIsOpen ? false : true);
+    setEnableSwiper(!!menuIsOpen || !enablePanels ? false : true);
     if (swiper) {
       swiper.allowSlideNext = enableSwiper;
       swiper.allowSlidePrev = enableSwiper;
       swiper.allowTouchMove = enableSwiper;
     }
-  }, [swiper, enableSwiper, menuIsOpen, menuIsToggling]);
+  }, [swiper, enableSwiper, menuIsOpen, menuIsToggling, enablePanels]);
 
   return (
     <Swiper

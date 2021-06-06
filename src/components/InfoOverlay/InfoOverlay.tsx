@@ -13,9 +13,14 @@ const infoWrapper = document.createElement('div');
 interface InfoOverlayInt {
   title?: string;
   children?: React.ReactNode;
+  bgColor?: string;
 }
 
-const InfoOverlay: React.FC<InfoOverlayInt> = ({ title, children }) => {
+const InfoOverlay: React.FC<InfoOverlayInt> = ({
+  title,
+  children,
+  bgColor
+}) => {
   const { infoActive } = useContext(InfoOverlayContext);
 
   useEffect(() => {
@@ -29,7 +34,10 @@ const InfoOverlay: React.FC<InfoOverlayInt> = ({ title, children }) => {
     }
   }, [infoActive]);
 
-  return createPortal(<Info title={title} content={children} />, infoWrapper);
+  return createPortal(
+    <Info title={title} content={children} bgColor={bgColor} />,
+    infoWrapper
+  );
 };
 
 export default InfoOverlay;
