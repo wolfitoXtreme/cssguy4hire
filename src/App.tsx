@@ -8,7 +8,7 @@ import { RootReducer } from '@store/reducers/index';
 
 import { DeviceProvider } from '@app/context/DeviceContext/DeviceContext';
 import { InfoOverlayProvider } from '@app/context/InfoOverlayContext/InfoOverlayContext';
-import { MenuProvider } from '@app/context/MenuContext/MenuContext';
+import { NavigationProvider } from '@app/context/NavigationContext/NavigationContext';
 
 import Reference from '@app/components/Reference/Reference';
 import Main from '@app/components/Main';
@@ -35,9 +35,9 @@ const App = () => {
                 path="/"
                 render={(props) =>
                   (isMaintenance && <Maintenance {...props} />) || (
-                    <MenuProvider>
+                    <NavigationProvider>
                       <Main {...props} />
-                    </MenuProvider>
+                    </NavigationProvider>
                   )
                 }
                 exact
@@ -45,9 +45,9 @@ const App = () => {
               <Route
                 path="/development/"
                 render={(props) => (
-                  <MenuProvider>
+                  <NavigationProvider>
                     <Main {...props} />
-                  </MenuProvider>
+                  </NavigationProvider>
                 )}
                 exact
               />

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useIntl } from 'react-intl';
 
 import { sections } from '@app/types/types';
-import { MenuContext } from '@app/context/MenuContext/MenuContext';
+import { NavigationContext } from '@app/context/NavigationContext/NavigationContext';
 import { ContactFormContext } from '@app/context/ContactFormContext/ContactFormContext';
 
 import Button from '@app/components/Form/Button/Button';
@@ -17,7 +17,7 @@ import {
 
 const ContactIntro = React.forwardRef<HTMLElement>((props, ref) => {
   const { toggleForm } = useContext(ContactFormContext);
-  const { setEnablePanels } = useContext(MenuContext);
+  const { setEnablePanels, setStaticContent } = useContext(NavigationContext);
   const { formatMessage } = useIntl();
 
   return (
@@ -43,6 +43,7 @@ const ContactIntro = React.forwardRef<HTMLElement>((props, ref) => {
                   onClick={(event) => {
                     event.preventDefault();
                     setEnablePanels(false);
+                    setStaticContent(true);
                     toggleForm();
                   }}
                 >

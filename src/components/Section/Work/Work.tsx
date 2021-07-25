@@ -8,7 +8,7 @@ import { SASSvarsToJason } from '@app/utils/utils';
 import deviceMovile from '@app/assets/images/sample-device-small.svg';
 import deviceDesktop from '@app/assets/images/sample-device-large.svg';
 import { InfoOverlayContext } from '@app/context/InfoOverlayContext/InfoOverlayContext';
-import { MenuContext } from '@app/context/MenuContext/MenuContext';
+import { NavigationContext } from '@app/context/NavigationContext/NavigationContext';
 
 import LoadImage from '@app/components/LoadImage/LoadImage';
 import Section from '@app/components/Section/Section';
@@ -73,7 +73,7 @@ const workProjects: {
 ];
 
 const Work: React.FC<{ panelIndex?: number }> = ({ panelIndex }) => {
-  const { activePanel, setEnablePanels } = useContext(MenuContext);
+  const { activePanel, setEnablePanels } = useContext(NavigationContext);
   const { setInfoActive, setShowInfo, infoShown } = useContext(
     InfoOverlayContext
   );

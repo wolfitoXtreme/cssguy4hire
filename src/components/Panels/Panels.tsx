@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Keyboard, Mousewheel } from 'swiper';
 import 'swiper/swiper.scss';
 
-import { MenuContext } from '@app/context/MenuContext/MenuContext';
+import { NavigationContext } from '@app/context/NavigationContext/NavigationContext';
 
 import { panels, panel } from './Panels.module.scss';
 
@@ -25,7 +25,7 @@ const Panels: React.FC<PanelsInt> = ({ children }) => {
     currentPanel,
     setSwiperPanels,
     setEnablePanels
-  } = useContext(MenuContext);
+  } = useContext(NavigationContext);
 
   useEffect(() => {
     menuIsOpen && setEnablePanels(false);

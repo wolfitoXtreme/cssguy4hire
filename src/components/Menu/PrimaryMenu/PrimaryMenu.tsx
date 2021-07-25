@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl';
 import classNames from 'classnames';
 
 import { getNoTouch } from '@app/utils/utils';
-import { MenuContext } from '@app/context/MenuContext/MenuContext';
+import { NavigationContext } from '@app/context/NavigationContext/NavigationContext';
 import { devices, sections } from '@app/types/types';
 
 import IconMenu from '../IconMenu/IconMenu';
@@ -39,7 +39,7 @@ const PrimaryMenu: React.FC<{ menuType: devices.MOBILE | devices.DESKTOP }> = ({
     swiperPanels,
     currentPanel,
     jumpingPanel
-  } = useContext(MenuContext);
+  } = useContext(NavigationContext);
 
   const sectionClassName = (sectionName: sections): string => {
     const isHome = () => menuListItemHome;

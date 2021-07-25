@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import ReCAPTCHA from 'react-google-recaptcha';
 
-import { MenuContext } from '@app/context/MenuContext/MenuContext';
+import { NavigationContext } from '@app/context/NavigationContext/NavigationContext';
 import {
   ContactFormContext,
   ContactFormProvider
@@ -43,7 +43,7 @@ const ltrTransition = {
 };
 
 const Contact: React.FC = () => {
-  const { setEnablePanels } = useContext(MenuContext);
+  const { setEnablePanels, setStaticContent } = useContext(NavigationContext);
 
   const intro = React.createRef<HTMLElement>();
   const form = React.createRef<HTMLElement>();
@@ -66,7 +66,10 @@ const Contact: React.FC = () => {
               timeout={duration}
               classNames={showForm ? rtlTransition : ltrTransition}
               unmountOnExit
-              onEntered={() => setEnablePanels(true)}
+              onEntered={() => {
+                setEnablePanels(true);
+                setStaticContent(false);
+              }}
               nodeRef={intro}
             >
               <ContactIntro ref={intro} />

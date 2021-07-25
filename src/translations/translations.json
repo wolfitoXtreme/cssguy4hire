@@ -96,7 +96,8 @@
     "contact-form-grecaptcha-notes": "This site is protected by <b>reCAPTCHA</b> and the Google <privacy>Privacy Policy</privacy> and <terms>Terms of Service</terms> apply.",
     "contact-form-button-send": "Sumbit",
     "contact-form-button-reset": "Reset",
-    "footer-contact": "<strong>CÉSAR CANDELA<br></strong> · Web Designer/Front-end developer · <br> (+359) 88 456 7671 · <span>cesar{at}cssguy4hire.com</span>"
+    "footer-contact": "<strong>CÉSAR CANDELA<br></strong> · Web Designer/Front-end developer · <br> (+359) 88 456 7671 · <span>cesar{at}cssguy4hire.com</span>",
+    "not-diaplayable": "Screen size too small, please resize your browser or rotate your device."
   },
   "es": {
     "site": "{CSS}Guy4Hire",
@@ -195,6 +196,7 @@
     "contact-form-grecaptcha-notes": "Este sitio esta protegido por <b>reCAPTCHA</b> y la <privacy>Política de Privacidad</privacy> y las <terms>Condiciones de Servicio</terms> de Google son aplicables.",
     "contact-form-button-send": "Enviar",
     "contact-form-button-reset": "Borrar",
-    "footer-contact": "<b>CÉSAR CANDELA</b> · Diseñador web/Desarrollador Front-end · (+359) 88 456 7671 · <span>email</span>"
+    "footer-contact": "<b>CÉSAR CANDELA</b> · Diseñador web/Desarrollador Front-end · (+359) 88 456 7671 · <span>email</span>",
+    "not-diaplayable": "Patalla demasiado pequeña, por favor cambie el tamaño de la ventana o rote su dispositivo."
   }
 }

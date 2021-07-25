@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Keyboard, Navigation } from 'swiper';
 import classNames from 'classnames';
 
-import { MenuContext } from '@app/context/MenuContext/MenuContext';
+import { NavigationContext } from '@app/context/NavigationContext/NavigationContext';
 import { ReactComponent as IconArrow } from '@app/assets/icons/icon-slider-arrow.svg';
 import { getNoTouch } from '@app/utils/utils';
 import 'swiper/swiper.scss';
@@ -35,7 +35,7 @@ interface ContentSliderInt {
 const ContentSlider: React.FC<ContentSliderInt> = ({ panelIndex, slides }) => {
   const { formatMessage } = useIntl();
   const { menuIsOpen, enablePanels, menuIsToggling, activePanel } = useContext(
-    MenuContext
+    NavigationContext
   );
 
   const [activeSlide, setActiveSlide] = useState<number | null>(null);

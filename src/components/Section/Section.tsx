@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { sections, devices } from '@app/types/types';
 import { DeviceContext } from '@app/context/DeviceContext/DeviceContext';
 import logo from '@app/assets/images/logo-footer.svg';
-import { MenuContext } from '@app/context/MenuContext/MenuContext';
+import { NavigationContext } from '@app/context/NavigationContext/NavigationContext';
 
 import MenuToggler from '@app/components/Menu/MenuToggler/MenuToggler';
 import SecondaryMenu from '@app/components/Menu/SecondaryMenu/SecondaryMenu';
@@ -47,7 +47,7 @@ const Section = React.forwardRef<HTMLElement, SectionInt>(
   ) => {
     const { formatMessage } = useIntl();
     const { type: currentDevice } = useContext(DeviceContext);
-    const { menuIsOpen } = useContext(MenuContext);
+    const { menuIsOpen, staticContent } = useContext(NavigationContext);
 
     const sectionClassName = (sectionName: sections): string => {
       const isHome = () => homeSection;
@@ -78,7 +78,7 @@ const Section = React.forwardRef<HTMLElement, SectionInt>(
         title={heading}
         className={classNames(section, sectionClassName(id), {
           [sectionNavDisabled]: menuIsOpen,
-          [sectionStatic]: variant === 'static'
+          [sectionStatic]: staticContent
         })}
       >
         {currentDevice === devices.DESKTOP && secondaryMenu && (
@@ -91,7 +91,7 @@ const Section = React.forwardRef<HTMLElement, SectionInt>(
         <div
           className={classNames(sectionDetail, {
             [sectionDetailWide]: variant === 'wide',
-            [sectionDetailStatic]: variant === 'static'
+            [sectionDetailStatic]: staticContent
           })}
         >
           <div className={sectionDetailInner}>

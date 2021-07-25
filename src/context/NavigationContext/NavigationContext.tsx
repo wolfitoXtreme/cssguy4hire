@@ -44,7 +44,7 @@ const navigation = {
   lang: { id: links.LANG }
 };
 
-export const MenuContext = React.createContext<{
+export const NavigationContext = React.createContext<{
   navigation: {
     sections: { id: sections }[];
     external: { id: links; name?: string; url?: string }[];
@@ -64,6 +64,8 @@ export const MenuContext = React.createContext<{
   setSwiperPanels: (x: SwiperCore) => void;
   setEnablePanels: (x: boolean) => void;
   enablePanels: boolean;
+  setStaticContent: (x: boolean) => void;
+  staticContent: boolean;
 }>({
   navigation,
   toggleMenu: () => {},
@@ -79,10 +81,12 @@ export const MenuContext = React.createContext<{
   swiperPanels: null,
   setSwiperPanels: (swiper) => swiper,
   setEnablePanels: (enablePanels) => enablePanels,
-  enablePanels: true
+  enablePanels: true,
+  setStaticContent: (staticContent) => staticContent,
+  staticContent: false
 });
 
-export const MenuProvider: React.FC = ({ children }) => {
+export const NavigationProvider: React.FC = ({ children }) => {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean | null>(null);
   const [menuIsToggling, setMenuIsToggling] = useState<boolean>(false);
   const [activePanel, setActivePanel] = useState<number | null>(null);
@@ -90,6 +94,7 @@ export const MenuProvider: React.FC = ({ children }) => {
   const [jumpPanel, setJumpPanel] = useState<number | null>(null);
   const [swiperPanels, setSwiperPanels] = useState<SwiperCore | null>(null);
   const [enablePanels, setEnablePanels] = useState(true);
+  const [staticContent, setStaticContent] = useState(false);
 
   const toggleMenu = (open: boolean | null) => {
     togglingMenu(true);
@@ -122,7 +127,7 @@ export const MenuProvider: React.FC = ({ children }) => {
   };
 
   return (
-    <MenuContext.Provider
+    <NavigationContext.Provider
       value={{
         navigation,
         toggleMenu,
@@ -138,10 +143,12 @@ export const MenuProvider: React.FC = ({ children }) => {
         swiperPanels,
         setSwiperPanels: initSwiperPanels,
         setEnablePanels,
-        enablePanels
+        enablePanels,
+        setStaticContent,
+        staticContent
       }}
     >
       {children}
-    </MenuContext.Provider>
+    </NavigationContext.Provider>
   );
 };

@@ -2,7 +2,7 @@ import React, { useContext, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
 
 import { InfoOverlayContext } from '@app/context/InfoOverlayContext/InfoOverlayContext';
-import { MenuContext } from '@app/context/MenuContext/MenuContext';
+import { NavigationContext } from '@app/context/NavigationContext/NavigationContext';
 
 import CloseButton from '@app/components/CloseButton/CloseButton';
 
@@ -38,7 +38,7 @@ const Info: React.FC<InfoInt> = ({ title, content, bgColor }) => {
   const { setInfoActive, showInfo, setShowInfo, setInfoshown } = useContext(
     InfoOverlayContext
   );
-  const { setEnablePanels } = useContext(MenuContext);
+  const { setEnablePanels } = useContext(NavigationContext);
 
   const infoRef = useRef(null);
 

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { changeLanguage } from '@store/actions';
 
-import { MenuContext } from '@app/context/MenuContext/MenuContext';
+import { NavigationContext } from '@app/context/NavigationContext/NavigationContext';
 import { LanguageStateType, languages, links } from '@app/types/types';
 
 import IconMenu from '../IconMenu/IconMenu';
@@ -34,7 +34,7 @@ const MenuLang: React.FC<MenuLangInt> = ({
     navigation: {
       lang: { id: langMenu }
     }
-  } = useContext(MenuContext);
+  } = useContext(NavigationContext);
 
   const getOtherLang = (lang: languages) =>
     lang === languages.ENGLISH ? languages.SPANISH : languages.ENGLISH;

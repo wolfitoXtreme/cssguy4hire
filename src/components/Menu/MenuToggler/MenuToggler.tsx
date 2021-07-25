@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 
 import classNames from 'classnames';
 
-import { MenuContext } from '@app/context/MenuContext/MenuContext';
+import { NavigationContext } from '@app/context/NavigationContext/NavigationContext';
 import { ReactComponent as IconNav } from '@app/assets/icons/icon-nav.svg';
 import { ReactComponent as IconNavHover } from '@app/assets/icons/icon-nav-hover.svg';
 import { ReactComponent as IconNavClose } from '@app/assets/icons/icon-nav-close.svg';
@@ -21,7 +21,7 @@ import {
 
 const MenuToggler: React.FC = () => {
   const { formatMessage } = useIntl();
-  const { toggleMenu, menuIsOpen } = useContext(MenuContext);
+  const { toggleMenu, menuIsOpen } = useContext(NavigationContext);
   const [isHover, setIsHover] = useState(false);
   const text = formatMessage({ id: 'menu' });
 

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 import { getNoTouch } from '@app/utils/utils';
-import { MenuContext } from '@app/context/MenuContext/MenuContext';
+import { NavigationContext } from '@app/context/NavigationContext/NavigationContext';
 import { LanguageStateType, devices, links } from '@app/types/types';
 
 import IconMenu from '../IconMenu/IconMenu';
@@ -50,8 +50,8 @@ const SecondaryMenu: React.FC<SecondaryMenuInt> = ({
   const { formatMessage } = useIntl();
   const {
     navigation: { external: menuItems }
-  } = useContext(MenuContext);
-  const { toggleMenu, menuIsOpen } = useContext(MenuContext);
+  } = useContext(NavigationContext);
+  const { toggleMenu, menuIsOpen } = useContext(NavigationContext);
 
   const showLang = variant !== 'maintenance' && variant !== 'contact';
 

@@ -6,7 +6,7 @@ import { gsap } from 'gsap';
 
 import { LanguageStateType, languages, devices } from '@app/types/types';
 import { updateDocumentLanguage } from '@app/utils/utils';
-import { MenuContext } from '@app/context/MenuContext/MenuContext';
+import { NavigationContext } from '@app/context/NavigationContext/NavigationContext';
 import { DeviceContext } from '@app/context/DeviceContext/DeviceContext';
 import translations from '@app/translations/translations.json';
 
@@ -19,6 +19,7 @@ import Roles from '@app/components/Section/Roles/Roles';
 import Work from '@app/components/Section/Work/Work';
 import Contact from '@app/components/Section/Contact/Contact';
 import Footer from '@app/components/Footer/Footer';
+import NotDisplayable from '@app/components/NotDisplayable/NotDisplayable';
 
 import { main, menuWidth } from './Main.module.scss';
 
@@ -40,7 +41,7 @@ const Main: React.FC<MainInt> = ({ lang }) => {
     jumpPanel,
     jumpingPanel,
     setEnablePanels
-  } = useContext(MenuContext);
+  } = useContext(NavigationContext);
 
   const menuPositions = {
     main: [parseInt(menuWidth), 0],
@@ -106,6 +107,7 @@ const Main: React.FC<MainInt> = ({ lang }) => {
           </Panels>
         </main>
         <Footer />
+        <NotDisplayable />
       </>
     </IntlProvider>
   );
