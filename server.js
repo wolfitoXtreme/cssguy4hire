@@ -3,6 +3,7 @@ const nodemailer = require('nodemailer');
 const fetch = require('node-fetch');
 const { check, validationResult } = require('express-validator');
 
+const compression = require('compression');
 const path = require('path');
 require('dotenv').config();
 
@@ -50,6 +51,7 @@ const validateToken = async (token) => {
 };
 
 const app = express();
+app.use(compression());
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.json());
 
