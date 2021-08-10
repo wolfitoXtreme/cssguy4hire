@@ -25,6 +25,7 @@
         url('#{$fonts-dir}#{$font-name}.ttf') format('truetype');
       font-weight: $font-weight;
       font-style: normal;
+      font-display: block;
     }
   }
 }
