@@ -1,0 +1,138 @@
+@import '~@styles/config/variables';
+@import '~@styles/helpers/mixins';
+
+.close-button {
+  $button-width: 36px;
+  $button-height: 36px;
+  $button-padding: 2px;
+
+  @include no-highlight;
+  @include remove-text;
+
+  width: $button-width;
+  height: $button-height;
+  display: block;
+  opacity: 0.4;
+  border-style: none;
+  position: relative;
+
+  background-color: transparent;
+  cursor: pointer;
+
+  &:hover,
+  &:active,
+  &:focus {
+    opacity: 0.8;
+  }
+
+  &-disabled {
+    opacity: 0.2;
+    cursor: default;
+
+    &:hover,
+    &:active,
+    &:focus {
+      opacity: 0.2;
+    }
+  }
+
+  &-icon {
+    top: $button-padding;
+    left: $button-padding;
+    width: $button-width - ($button-padding * 2);
+    height: $button-height - ($button-padding * 2);
+    position: absolute;
+    fill: $white;
+  }
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    $button-width: 40px;
+    $button-height: 40px;
+
+    width: $button-width;
+    height: $button-height;
+
+    &-icon {
+      width: $button-width - ($button-padding * 2);
+      height: $button-height - ($button-padding * 2);
+    }
+  }
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    $button-width: 44px;
+    $button-height: 44px;
+
+    width: $button-width;
+    height: $button-height;
+
+    &-icon {
+      width: $button-width - ($button-padding * 2);
+      height: $button-height - ($button-padding * 2);
+    }
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    $button-width: 48px;
+    $button-height: 48px;
+
+    width: $button-width;
+    height: $button-height;
+
+    &-icon {
+      width: $button-width - ($button-padding * 2);
+      height: $button-height - ($button-padding * 2);
+    }
+  }
+
+  &-small {
+    $button-width: 30px;
+    $button-height: 30px;
+
+    width: $button-width;
+    height: $button-height;
+
+    .close-button-icon {
+      width: $button-width - ($button-padding * 2);
+      height: $button-height - ($button-padding * 2);
+    }
+
+    @include breakpoint(map-get($breakpoints, small)) {
+      $button-width: 34px;
+      $button-height: 34px;
+
+      width: $button-width;
+      height: $button-height;
+
+      .close-button-icon {
+        width: $button-width - ($button-padding * 2);
+        height: $button-height - ($button-padding * 2);
+      }
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      $button-width: 38px;
+      $button-height: 38px;
+
+      width: $button-width;
+      height: $button-height;
+
+      .close-button-icon {
+        width: $button-width - ($button-padding * 2);
+        height: $button-height - ($button-padding * 2);
+      }
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+      $button-width: 42px;
+      $button-height: 42px;
+
+      width: $button-width;
+      height: $button-height;
+
+      .close-button-icon {
+        width: $button-width - ($button-padding * 2);
+        height: $button-height - ($button-padding * 2);
+      }
+    }
+  }
+}

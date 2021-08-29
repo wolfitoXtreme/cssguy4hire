@@ -1,0 +1,133 @@
+//
+// Configuration
+//
+@import '~@styles/config/variables';
+
+// default font color
+$font-color-default: $black;
+
+//
+// Reference Styles
+//
+
+// overrides basic styles
+body {
+  &.reference {
+    color: $font-color-default;
+    overflow: visible;
+    background-color: $light-grey;
+
+    > div {
+      // targets #root container
+      padding: 15px;
+    }
+
+    //
+    // overrides
+    //
+
+    // headings
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      text-shadow: none; // remove default shadows
+      color: $font-color-default; // override default color (for legibility)
+    }
+
+    // ordered lits items
+    ol > li {
+      &:before {
+        color: $font-color-default;
+      }
+    }
+
+    // unordered lists items
+    ul > li {
+      // bullets
+      &:before {
+        background-color: $black;
+        box-shadow: none;
+      }
+
+      // bullets - second level
+      ul > li {
+        &:before {
+          border-color: $black;
+        }
+      }
+
+      // bullets - third level
+      ul > li > ul > li {
+        &:before {
+          background-color: $black;
+        }
+      }
+    }
+  }
+}
+
+// grid
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  &-item {
+    margin: 8px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $very-light-grey;
+    position: relative;
+
+    &:first-child,
+    &:last-child {
+      margin: 8px; // overrides default
+    }
+
+    &:hover {
+      border-color: $dim-grey;
+    }
+  }
+
+  &-thumb {
+    margin: 0 auto;
+    padding: 8px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-detail {
+      margin: 0 -1px -1px;
+      padding: 8px 10px;
+      font-size: $font-size-xxx-small;
+      border-top: 1px solid $very-light-grey;
+      flex-grow: 1;
+
+      .grid-item:hover & {
+        color: $white;
+        border-color: $dim-grey;
+        background-color: $dim-grey;
+      }
+    }
+
+    &-name {
+      padding-bottom: 4px;
+      font-weight: bold;
+      line-height: 1;
+      text-transform: uppercase;
+      display: block;
+    }
+
+    &-value {
+      font-size: $font-size-tiny;
+      letter-spacing: 0;
+      display: block;
+    }
+  }
+}

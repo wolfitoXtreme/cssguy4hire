@@ -1,0 +1,20 @@
+@import '~@styles/config/variables';
+
+.grid {
+  &-icons {
+    justify-content: center;
+  }
+
+  &-thumb {
+    &-icon {
+      padding: 14px;
+      background-color: $gainsboro;
+
+      svg {
+        min-width: 60px;
+        min-height: 60px;
+        max-width: none;
+      }
+    }
+  }
+}

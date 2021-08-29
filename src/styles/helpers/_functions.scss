@@ -1,0 +1,68 @@
+//
+// functions
+//
+
+// map deep get
+@function map-deep-get($map, $keys...) {
+  @each $key in $keys {
+    $map: map-get($map, $key);
+  }
+  @return $map;
+}
+
+// strip units
+@function strip-units($number) {
+  @return $number / ($number * 0 + 1);
+}
+
+// convert pixels to em
+@function pem($pxVal, $base: $font-size-default) {
+  $pxVal: strip-units($pxVal);
+  $base: strip-units($base);
+
+  @return $pxVal / $base * 1em;
+}
+
+// get percentage from (return unitless value)
+@function getPercentageFrom($valueA, $valueB) {
+  $percentage: percentage(strip-units($valueA) / strip-units($valueB));
+
+  @return ($percentage);
+}
+
+// get proportional size
+@function getProportionalSize($value, $stretch) {
+  $proportionalSize: ($value * strip-units($stretch)) / 100;
+
+  @return ($proportionalSize);
+}
+
+// stretch by size
+@function stretchBySize($valueA, $valueB, $newA) {
+  $stretch: getPercentageFrom($newA, $valueA);
+  $newB: round(getProportionalSize($valueB, $stretch));
+
+  @return ($newB);
+}
+
+// greatest common divisor
+@function gcd($valueA, $valueB) {
+  @return if($valueB == 0, $valueA, gcd($valueB, $valueA%$valueB));
+}
+
+// get aspect ratio
+@function getAspectRatio($width, $height) {
+  $gcd: gcd($width, $height);
+  $ratioA: $width/$gcd;
+  $ratioB: $height/$gcd;
+
+  @return $ratioA $ratioB;
+}
+
+// set percentage height ratio
+@function percentageHeightRatio($width, $height) {
+  $ratio: getAspectRatio($width, $height);
+  $percentageHeightRatio: (nth($ratio, 2) / nth($ratio, 1)) * 100%;
+
+  @return $percentageHeightRatio;
+}

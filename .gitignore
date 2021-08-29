@@ -1,49 +1,35 @@
-# Project source
-node_modules
-docs
-print
-ui
-resources
-_old
-app/config/auth.json
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Compiled files
-app/config/icons.json
-app/config/images.json
-app/scss/config/_breakpoints.scss
-app/scss/config/_icons.scss
-app/scss/config/_images.scss
-app/scss/config/_font-sizes.scss
-app/scss/config/_colors-default.scss
-app/scss/config/_colors.scss
-app/css/
-app/js/app.js
-app/js/webfont.js
-app/js/loader.js
-app/img/icons/icons.svg
-app/img/*.jpg
-app/img/*.png
-app/img/*.svg
-app/reference/*.html
-app/reference/js/
-app/reference/css/
-dist/css
-dist/js
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
 
-# Compiled source
-*.com
-*.class
-*.dll
-*.exe
-*.o
-*.so
+# resources
+/docs
+/print
+/ui
+/resources
+/_old
 
-# Packages
-*.7z
-*.dmg
-*.gz
-*.iso
-*.jar
-*.rar
-*.tar
-*.zip
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+debug.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+.eslintcache
+**/App.scss.d.ts

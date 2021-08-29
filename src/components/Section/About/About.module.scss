@@ -1,0 +1,21 @@
+@import '~@styles/config/variables';
+@import '~@styles/helpers/mixins';
+
+.about {
+  &-content {
+    strong {
+      color: $orange-peel;
+    }
+  }
+
+  // not rendered in certain screen sizes
+  &-disposable {
+    @include breakpoint(map-get($breakpoints, x-small) (max-height 380px)) {
+      @include hidden(false);
+    }
+
+    @include breakpoint(map-get($breakpoints, large) (max-height 450px)) {
+      @include hidden(false);
+    }
+  }
+}

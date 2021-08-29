@@ -1,0 +1,19 @@
+@import '~@styles/config/variables';
+
+.grid {
+  &-images {
+    justify-content: center;
+  }
+
+  &-thumb {
+    &-image {
+      padding: 14px;
+      background-color: $gainsboro;
+    }
+
+    &-img {
+      height: auto;
+      max-width: 150px;
+    }
+  }
+}

@@ -1,0 +1,114 @@
+@import '~@styles/config/variables';
+@import '~@styles/helpers/functions';
+@import '~@styles/helpers/mixins';
+
+.form {
+  display: flex;
+  flex-flow: column;
+
+  &-warning {
+    padding: 8px 12px;
+    display: flex;
+    flex-flow: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    background-color: rgba($white, 0.2);
+
+    &-icon {
+      $icon-width: 20px;
+      $icon-height: $icon-width;
+
+      margin: 0 -4px 0 8px;
+      width: $icon-width;
+      height: $icon-height;
+      flex: 0 0 auto;
+      align-self: flex-start;
+      fill: $white;
+
+      @include breakpoint(map-get($breakpoints, large)) {
+        $icon-width: 22px;
+        $icon-height: $icon-width;
+
+        width: $icon-width;
+        height: $icon-height;
+      }
+    }
+  }
+
+  &-row {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      flex-flow: row;
+    }
+
+    @include breakpoint(orientation landscape) {
+      flex-flow: row;
+
+      @include breakpoint(
+        map-get($breakpoints, xx-small) map-get($breakpoints, small)
+      ) {
+        flex-flow: column;
+      }
+    }
+  }
+
+  &-column {
+    $column-width-landscape: getPercentageFrom(350px, 740px);
+
+    width: 100%;
+    flex: 0 0 auto;
+    flex-flow: column;
+
+    > *:only-child {
+      padding-bottom: 0;
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      width: $column-width-landscape;
+
+      > *:last-child {
+        padding-bottom: 0;
+      }
+    }
+
+    @include breakpoint(orientation landscape) {
+      width: $column-width-landscape;
+
+      @include breakpoint(
+        map-get($breakpoints, xx-small) map-get($breakpoints, small)
+      ) {
+        width: 100%;
+      }
+    }
+
+    &-full-height {
+      > div:only-child {
+        height: 100%;
+        display: flex;
+
+        label + div {
+          flex: 1 1 100%;
+        }
+
+        textarea {
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  &-notes {
+    margin: 10px 0 0;
+    font-size: $font-size-tiny;
+    letter-spacing: -0.02em;
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      margin-top: 15px;
+      font-size: $font-size-xxx-small;
+    }
+  }
+}

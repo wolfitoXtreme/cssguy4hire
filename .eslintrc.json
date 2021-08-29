@@ -1,0 +1,61 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": ["react-app", "react-app/jest"],
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "node": true,
+    "es6": true
+  },
+  "plugins": ["import"],
+  "rules": {
+    "no-console": "warn",
+    "import/newline-after-import": ["warn", { "count": 1 }],
+    "import/order": [
+      "warn",
+      {
+        "groups": [
+          ["internal", "external"],
+          ["builtin"],
+          ["parent", "sibling"],
+          "index",
+          "object"
+        ],
+        "newlines-between": "always",
+        "pathGroups": [
+          {
+            "pattern": "react*",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "@store/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@app/!(components)/**",
+            "group": "parent",
+            "position": "before"
+          },
+          {
+            "pattern": "@app/components/**/!(*.module.scss)",
+            "group": "parent",
+            "position": "before"
+          },
+          {
+            "pattern": "@app/**/*.module.scss",
+            "group": "index",
+            "position": "before"
+          },
+          {
+            "pattern": "./*.module.scss",
+            "group": "index",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["builtin"]
+      }
+    ]
+  }
+}

@@ -1,0 +1,76 @@
+@import '~@styles/config/variables';
+@import '~@styles/helpers/mixins';
+
+$transition-duration: $default-duration;
+
+.rtl {
+  &-enter {
+    left: 100%;
+
+    &-active {
+      left: 0;
+      transition: left $transition-duration 0ms ease-out;
+    }
+  }
+
+  &-exit {
+    left: 0;
+
+    &-active {
+      left: -100%;
+      transition: left $transition-duration 0ms ease-out;
+    }
+  }
+}
+
+.ltr {
+  &-enter {
+    left: -100%;
+
+    &-active {
+      left: 0;
+      transition: left $transition-duration 0ms ease-in;
+    }
+  }
+
+  &-exit {
+    left: 0;
+
+    &-active {
+      left: 100%;
+      transition: left $transition-duration 0ms ease-in;
+    }
+  }
+}
+
+.close-button {
+  &#{&} {
+    top: 11px;
+    right: 11px;
+    position: absolute;
+
+    @include breakpoint(map-get($breakpoints, small)) {
+      top: 13px;
+      right: 13px;
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      top: 15px;
+      right: 15px;
+    }
+    @include breakpoint(map-get($breakpoints, large)) {
+      top: 19px;
+      right: 19px;
+    }
+  }
+}
+
+/* hides reCAPCHA - terms should be shown*/
+:global .grecaptcha-badge {
+  visibility: hidden;
+}
+
+/* stylelint-disable property-no-unknown */
+:export {
+  transition-duration: $transition-duration;
+}

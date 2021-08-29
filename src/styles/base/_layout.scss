@@ -1,0 +1,47 @@
+//
+// layout
+//
+
+// set breakpoints to EMS
+@if ($debug != true) {
+  @include breakpoint-set('to ems', true);
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+  background-color: $light-black;
+
+  // targets #root container
+  > div {
+    height: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-flow: column;
+  }
+
+  // test mediaQueries
+  @include queryInfo();
+}
+
+// forms
+fieldset {
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  border-style: none;
+}
+
+legend {
+  @include hidden;
+
+  & + * {
+    margin-top: 0;
+  }
+}

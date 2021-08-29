@@ -1,0 +1,676 @@
+@import '~@styles/config/variables';
+@import '~@styles/helpers/mixins';
+@import '~breakpoint-sass/stylesheets/breakpoint';
+
+.navigation {
+  $shadow-colors-fg: rgba($black, 1) 0px, rgba($black, 0.18) 3px,
+    rgba($black, 0) 8px;
+  $shadow-colors-bg: rgba($black, 0.55) 0px, rgba($black, 0.35) 6px,
+    rgba($black, 0) 20px;
+
+  top: 0;
+  right: -$menu-width;
+  width: $menu-width;
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+  z-index: 1;
+  background-color: $nero;
+  background-image: linear-gradient(90deg, $shadow-colors-fg),
+    linear-gradient(90deg, $shadow-colors-bg);
+
+  &-swiper {
+    height: 100%;
+
+    :global .swiper-slide {
+      height: auto;
+    }
+  }
+}
+
+/*stylelint-disable-next-line no-duplicate-selectors*/
+.navigation {
+  :global {
+    $offset: 2px;
+    $thickness: 4px;
+    $length-offset: 1%;
+    $length: 100% - ($length-offset * 2);
+    $border-radius: 3px;
+    $transition-duration: $default-duration;
+
+    .swiper-scrollbar {
+      content: 'swiper-scrollbar-test';
+
+      opacity: 0;
+      border-radius: $border-radius;
+      transition: opacity $transition-duration ease-out 0ms;
+      position: relative;
+      background: rgba($black, 0.35);
+      touch-action: none;
+    }
+
+    .swiper-container-horizontal > .swiper-scrollbar {
+      bottom: $offset;
+      left: 1%;
+      width: 98%;
+      height: $thickness;
+      position: absolute;
+      z-index: 50;
+    }
+
+    .swiper-container-vertical > .swiper-scrollbar {
+      top: 1%;
+      right: $offset;
+      width: $thickness;
+      height: 98%;
+      position: absolute;
+      z-index: 50;
+    }
+
+    .swiper-container-horizontal:hover > .swiper-scrollbar,
+    .swiper-container-vertical:hover > .swiper-scrollbar {
+      opacity: 1;
+    }
+
+    .swiper-scrollbar-drag {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: $border-radius;
+      position: relative;
+      background: rgba($white, 0.25);
+    }
+
+    .swiper-scrollbar-cursor-drag {
+      cursor: move;
+    }
+
+    .swiper-scrollbar-lock {
+      display: none;
+    }
+  }
+}
+
+.menu {
+  $menu-item-shadow-colors-fg: rgba($black, 0.55) 0px, rgba($black, 0.18) 3px,
+    rgba($black, 0.1) 8px;
+  $menu-item-shadow-colors-bg: rgba($black, 0.55) 0px, rgba($black, 0.45) 6px,
+    rgba($black, 0.1) 20px;
+  $menu-item-links-padding: 19px 15px 13px 12px;
+
+  &:first-of-type {
+    border-top: 1px solid rgba($white, 0.2);
+  }
+
+  &-heading {
+    margin: 0;
+    padding: 8px 0 5px;
+    /*stylelint-disable-next-line font-family-no-missing-generic-family-keyword*/
+    font: 300 #{$font-size-tiny}/#{$line-height-default} opensans;
+    letter-spacing: 0.08em;
+    text-align: center;
+    color: rgba($white, 0.8);
+    background-color: darken($nero, 3%);
+    background-image: linear-gradient(90deg, $menu-item-shadow-colors-fg),
+      linear-gradient(90deg, $menu-item-shadow-colors-bg);
+
+    // remove headings in desktop devices
+    @include breakpoint(map-get($breakpoints, medium)) {
+      @include hidden(false);
+    }
+
+    // remove headings for menu-contact
+    @at-root .menu-contact & {
+      @include hidden(false);
+    }
+  }
+
+  &-list {
+    $bullet-width: 40px;
+
+    margin: 0;
+
+    &-item {
+      margin: 0;
+      padding: 0;
+
+      &:before {
+        content: '';
+        top: 50%;
+        left: -1px;
+        margin-top: -($bullet-width / 2);
+        margin-left: -($bullet-width / 2);
+        width: $bullet-width;
+        height: $bullet-width;
+        display: none;
+        border-radius: 0;
+        transform: rotate(315deg);
+        position: absolute;
+        z-index: 2;
+        background-color: inherit;
+        box-shadow: 0 0 4px 4px rgba($black, 0.35);
+      }
+
+      &-home {
+        background-color: map-get($section-colors, home);
+      }
+
+      &-about {
+        background-color: map-get($section-colors, about);
+      }
+
+      &-skills {
+        background-color: map-get($section-colors, skills);
+      }
+
+      &-roles {
+        background-color: map-get($section-colors, roles);
+      }
+
+      &-work {
+        background-color: map-get($section-colors, work);
+      }
+
+      &-contact {
+        background-color: map-get($section-colors, contact);
+      }
+    }
+
+    &-item-active {
+      &:before {
+        display: block;
+      }
+    }
+
+    &-item-link {
+      padding: $menu-item-links-padding;
+      /*stylelint-disable-next-line font-family-no-missing-generic-family-keyword*/
+      font: normal #{$font-size-normal}/#{$line-height-default} oswald;
+      letter-spacing: 0;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      display: block;
+      border-bottom: 1px solid rgba($white, 0.2);
+      background-image: linear-gradient(90deg, $menu-item-shadow-colors-fg),
+        linear-gradient(90deg, $menu-item-shadow-colors-bg);
+
+      &:link,
+      &:visited {
+        color: $white;
+        background-color: $nero;
+      }
+
+      &:active,
+      &:focus {
+        color: $nero;
+        background-color: $white;
+      }
+
+      // touch device sticky hover fix
+      &.no-touch-events:hover {
+        color: $nero;
+        background-color: $white;
+      }
+
+      .menu-list-item-active & {
+        background-color: $charcoal;
+      }
+
+      strong,
+      span {
+        font-weight: 400;
+      }
+    }
+
+    &-item-icon {
+      &#{&} {
+        $icon-width: 27px;
+        $icon-height: 27px;
+
+        top: 50%;
+        right: nth($menu-item-links-padding, 2);
+        margin-top: -($icon-height / 2);
+        width: $icon-width;
+        height: $icon-height;
+        display: block;
+        position: absolute;
+
+        svg {
+          width: 100%;
+          height: 100%;
+          fill: $white;
+        }
+
+        .menu-list-item-link:active &,
+        .menu-list-item-link:focus & {
+          svg {
+            fill: $nero;
+          }
+        }
+
+        // touch device sticky hover fix
+        .menu-list-item-link.no-touch-events:hover & {
+          svg {
+            fill: $nero;
+          }
+        }
+      }
+    }
+  }
+}
+
+.menu-main {
+  display: none; // avoid applying styles while component is un-mounting
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    display: block;
+  }
+
+  &-list {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  &-item {
+    margin: 0 0 0 20px;
+    padding: 0;
+
+    @include breakpoint(map-get($breakpoints, large)) {
+      margin-left: 24px;
+    }
+
+    &:first-of-type {
+      margin-left: 0;
+    }
+
+    // removes default list bullets
+    &:before {
+      display: none;
+    }
+  }
+
+  &-item-link {
+    padding: 0 4px;
+    /*stylelint-disable-next-line font-family-no-missing-generic-family-keyword*/
+    font: normal #{$font-size-medium}/#{$line-height-default} oswald-book;
+    letter-spacing: 0;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    display: block;
+
+    @include breakpoint(map-get($breakpoints, large)) {
+      padding: 0 8px;
+      font-size: $font-size-x-huge;
+    }
+
+    // max height adjustments
+    @include breakpoint(orientation landscape) {
+      @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
+        padding: 0 4px;
+        font-size: $font-size-medium;
+      }
+    }
+
+    &:link,
+    &:visited {
+      color: $eternity;
+    }
+
+    &:active,
+    &:focus {
+      color: $white;
+    }
+
+    // touch device sticky hover fix
+    &.no-touch-events:hover {
+      color: $white;
+    }
+
+    strong {
+      font-weight: 400;
+    }
+  }
+
+  &-item-icon {
+    margin: 0 auto 3px;
+    width: 46px;
+    height: 46px;
+    display: block;
+
+    @include breakpoint(map-get($breakpoints, large)) {
+      width: 72px;
+      height: 72px;
+    }
+
+    // max height adjustments
+    @include breakpoint(orientation landscape) {
+      @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
+        width: 46px;
+        height: 46px;
+      }
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+      fill: $eternity;
+    }
+
+    .menu-main-item-link:active &,
+    .menu-main-item-link:focus & {
+      svg {
+        fill: $white;
+      }
+    }
+
+    .menu-main-item-link.no-touch-events:hover & {
+      svg {
+        fill: $white;
+      }
+    }
+  }
+}
+
+.menu-util {
+  $icon-width: 32px;
+  $icon-height: 32px;
+  $icon-width-large: 42px;
+  $icon-height-large: 42px;
+
+  top: 22px;
+  right: 30px;
+  display: none; // avoid applying styles while component is un-mounting
+  position: absolute;
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    display: flex;
+  }
+
+  &-list {
+    margin: 0;
+    padding-right: 5px;
+    display: flex;
+    position: relative;
+
+    @include breakpoint(map-get($breakpoints, large)) {
+      padding-right: 6px;
+    }
+  }
+
+  &-item {
+    margin: 0 0 0 4px;
+    padding: 0;
+
+    // removes default list bullets
+    &:before {
+      display: none;
+    }
+
+    &:first-child {
+      margin: 0;
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+      margin-left: 5px;
+    }
+  }
+
+  &-item-link {
+    span {
+      @include hidden;
+    }
+  }
+
+  &-item-icon {
+    width: $icon-width;
+    height: $icon-height;
+
+    @include breakpoint(map-get($breakpoints, large)) {
+      width: $icon-width-large;
+      height: $icon-height-large;
+    }
+
+    /*stylelint-disable-next-line no-descending-specificity*/
+    svg {
+      width: 100%;
+      height: 100%;
+      fill: $nero;
+    }
+
+    .menu-util-item-link:active &,
+    .menu-util-item-link:focus & {
+      /*stylelint-disable-next-line no-descending-specificity*/
+      svg {
+        fill: $white;
+      }
+    }
+
+    .menu-util-item-link.no-touch-events:hover & {
+      svg {
+        fill: $white;
+      }
+    }
+  }
+
+  &-lang-list {
+    padding: 0 0 0 6px;
+
+    &:before {
+      content: '';
+      top: 0;
+      left: 0;
+      width: 0;
+      height: $icon-height;
+      border-style: none;
+      position: absolute;
+      border-left: 1px dotted rgba($oil, 0.5);
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+      padding-left: 8px;
+
+      &:before {
+        height: $icon-height-large;
+        border-width: 2px;
+      }
+    }
+  }
+
+  &-internal {
+    &#{&} {
+      svg {
+        opacity: 0.4;
+        fill: $white;
+      }
+
+      .menu-util-item-link:active,
+      .menu-util-item-link:focus {
+        .menu-util-item-icon {
+          svg {
+            opacity: 1;
+          }
+        }
+      }
+
+      .menu-util-item-link.no-touch-events:hover {
+        .menu-util-item-icon {
+          svg {
+            opacity: 1;
+          }
+        }
+      }
+
+      .menu-util-lang-list {
+        &:before {
+          border-color: rgba($white, 0.2);
+        }
+      }
+    }
+  }
+}
+
+.menu-contact {
+  $icon-width: 30px;
+  $icon-height: 30px;
+  $icon-width-small: 33px;
+  $icon-height-small: 33px;
+  $icon-width-medium: 46px;
+  $icon-height-medium: 46px;
+  $icon-width-large: 58px;
+  $icon-height-large: 58px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    flex-direction: row;
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    flex-direction: column;
+  }
+
+  @include breakpoint(orientation landscape) {
+    flex-direction: row;
+    justify-content: flex-start;
+
+    @include breakpoint((max-width 560px)) {
+      flex-direction: column;
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+      flex-direction: column;
+    }
+  }
+
+  &#{&} &-list {
+    margin: 0 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    order: 1;
+
+    &:last-of-type {
+      order: 0;
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      margin-left: 18px;
+
+      &:last-of-type {
+        margin-left: 0;
+      }
+    }
+
+    @include breakpoint(orientation landscape) {
+      margin-left: 18px;
+
+      &:last-of-type {
+        margin-left: 0;
+      }
+
+      @include breakpoint((max-width 560px)) {
+        margin-left: 0;
+      }
+
+      @include breakpoint(map-get($breakpoints, large)) {
+        margin-left: 0;
+      }
+    }
+  }
+
+  &-item {
+    margin: 0 2px 0 0;
+    padding: 0;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    @include breakpoint(map-get($breakpoints, small)) {
+      margin-right: 4px;
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      margin-right: 5px;
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+      margin-right: 8px;
+    }
+
+    // removes default list bullets
+    &:before {
+      display: none;
+    }
+  }
+
+  &-item-link {
+    span {
+      @include hidden;
+    }
+  }
+
+  &-item-icon {
+    width: $icon-width;
+    height: $icon-height;
+
+    @include breakpoint(map-get($breakpoints, small)) {
+      width: $icon-width-small;
+      height: $icon-height-small;
+    }
+
+    @include breakpoint(map-get($breakpoints, medium)) {
+      width: $icon-width-medium;
+      height: $icon-height-medium;
+    }
+
+    @include breakpoint(map-get($breakpoints, large)) {
+      width: $icon-width-large;
+      height: $icon-height-large;
+    }
+
+    /*stylelint-disable-next-line no-descending-specificity*/
+    svg {
+      width: 100%;
+      height: 100%;
+      opacity: 0.4;
+      fill: $white;
+    }
+
+    .menu-contact-item-link:active &,
+    .menu-contact-item-link:focus & {
+      /*stylelint-disable-next-line no-descending-specificity*/
+      svg {
+        opacity: 1;
+      }
+    }
+
+    .menu-contact-item-link.no-touch-events:hover & {
+      svg {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.menu-util-maintenance {
+  margin: 0 auto;
+  padding: 40px 0 10px;
+  display: flex;
+  justify-content: center;
+  position: static;
+
+  @include breakpoint(orientation landscape) {
+    padding-top: 20px;
+  }
+
+  .menu-heading {
+    @include hidden(false);
+  }
+}

@@ -1,0 +1,11 @@
+@import '~@styles/config/variables';
+@import '~@styles/helpers/mixins';
+
+.server-error-message {
+  font-size: $font-size-xxx-small;
+  opacity: 0.5;
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    font-size: $font-size-xx-small;
+  }
+}

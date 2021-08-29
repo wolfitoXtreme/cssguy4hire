@@ -1,0 +1,101 @@
+@import '~@styles/config/variables';
+@import '~@styles/helpers/mixins';
+
+.toggler {
+  $duration: $default-duration;
+
+  @include no-highlight;
+  @include remove-text;
+
+  top: 7px;
+  right: 12px;
+  padding: 0 2px 0 1px;
+  width: 42px;
+  height: 42px;
+  overflow: hidden;
+  border-style: none;
+  position: absolute;
+  cursor: pointer;
+  z-index: 20;
+  background-color: transparent;
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    $button-width: 46px;
+    $button-height: 46px;
+
+    top: 9px;
+    right: 14px;
+    width: $button-width;
+    height: $button-height;
+  }
+
+  &-icon {
+    top: 50%;
+    left: 50%;
+    padding: 0 2px 0 1px;
+    width: 100%;
+    height: 100%;
+    display: block;
+    opacity: 1;
+    overflow: hidden;
+    transform: translate(-50%, -50%);
+    transform-origin: center;
+    position: absolute;
+    z-index: 1;
+
+    @include transitions($duration, ease-out, 0ms, (width, height, opacity));
+
+    .toggler-is-hover & {
+      opacity: 0;
+    }
+
+    .toggler-is-open & {
+      width: 0;
+      height: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+
+    &-hover {
+      opacity: 0;
+
+      .toggler-is-hover & {
+        opacity: 1;
+      }
+    }
+
+    &-close {
+      padding: 0 8px 0 6px;
+      width: 0;
+      height: 0;
+      opacity: 0;
+      overflow: hidden;
+
+      .toggler-is-open & {
+        width: 100%;
+        height: 100%;
+        opacity: 1;
+      }
+
+      .toggler-is-hover.toggler-is-open & {
+        opacity: 0;
+      }
+
+      &-hover {
+        .toggler-is-open & {
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+        }
+
+        .toggler-is-hover.toggler-is-open & {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,139 @@
+@import '~@styles/config/variables';
+@import '~@styles/helpers/functions';
+@import '~@styles/helpers/mixins';
+
+.site-heading {
+  padding-bottom: 15px;
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    padding-bottom: 19px;
+  }
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    padding-bottom: 23px;
+  }
+
+  // 'portrait logo' on large landscape screens
+  @include breakpoint(
+    map-get($breakpoints, large) (min-height 768px) (orientation landscape)
+  ) {
+    padding-bottom: 32px;
+  }
+}
+
+.site-logo {
+  padding: 0 getPercentageFrom(11px, 224px);
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    margin: 0 auto;
+    padding: 0;
+    max-width: 452px;
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    max-width: 800px;
+  }
+
+  @include breakpoint(orientation landscape) {
+    @include breakpoint(map-get($breakpoints, medium) (min-height 440px)) {
+      max-width: 900px;
+    }
+
+    // max height adjustments
+    @include breakpoint(map-get($breakpoints, large)) {
+      @include breakpoint(max-height 540px) {
+        max-width: 600px;
+      }
+
+      @include breakpoint((min-height 540px) (max-height 620px)) {
+        max-width: 700px;
+      }
+
+      // setting site-logo width to accommodate portrait logo on large landscape screens, see below
+      @include breakpoint(min-height 768px) {
+        // design logo image width: 424px, max content with: 740px
+        width: getPercentageFrom(424px, 740px) / 1.2;
+      }
+    }
+  }
+
+  &-simple {
+    width: 100%;
+  }
+}
+
+.logo-wrapper {
+  $width: 854px;
+  $height: 558px;
+
+  padding: 0 0 percentageHeightRatio($width, $height);
+  width: 100%;
+  height: 0;
+  transition: padding $default-duration ease-out 0ms;
+  position: relative;
+
+  @include breakpoint((orientation landscape)) {
+    $width: 1400px;
+    $height: 252px;
+
+    padding: 0 0 percentageHeightRatio($width, $height);
+  }
+
+  // although landscape, switch to 'portrait logo set' depending on screen height
+  @include breakpoint(
+    map-get($breakpoints, large) (min-height 768px) (orientation landscape)
+  ) {
+    $width: 854px;
+    $height: 558px;
+
+    padding: 0 0 percentageHeightRatio($width, $height);
+  }
+}
+
+.logo-img {
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: auto;
+  display: block;
+  transform: translate(-50%, -50%);
+  position: absolute;
+
+  @include transitions(
+    $default-duration,
+    ease-out,
+    0ms,
+    (width, height, opacity)
+  );
+
+  @include breakpoint((orientation landscape)) {
+    width: 0;
+    opacity: 0;
+  }
+
+  // logo-img-landscape
+  &-landscape {
+    width: 0;
+    opacity: 0;
+
+    @include breakpoint((orientation landscape)) {
+      width: 100%;
+      height: auto;
+      opacity: 1;
+    }
+  }
+
+  // although landscape, switch to 'portrait logo' depending on screen height
+  @include breakpoint(
+    map-get($breakpoints, large) (min-height 768px) (orientation landscape)
+  ) {
+    width: 100%;
+    opacity: 1;
+
+    // logo-img--landscape
+    &-landscape {
+      width: 0;
+      opacity: 0;
+    }
+  }
+}

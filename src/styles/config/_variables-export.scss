@@ -1,0 +1,16 @@
+@import '~@styles/config/variables';
+
+//
+// variables exported to JS
+//
+
+/* stylelint-disable property-no-unknown */
+:export {
+  breakpoints: quote($breakpoints);
+  fonts: quote($fonts);
+  fontSizes: quote($font-sizes);
+  colors: quote($colors);
+  linkColors: quote($link-colors);
+  menuWidth: $menu-width;
+  sectionColors: quote($section-colors);
+}

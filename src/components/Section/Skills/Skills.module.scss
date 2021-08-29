@@ -1,0 +1,165 @@
+@import '~@styles/config/variables';
+@import '~@styles/helpers/mixins';
+@import '~@styles/base/placeholders';
+
+$dots-amount: 5;
+
+.list {
+  @extend %column-list;
+
+  // max height adjustments
+  @include breakpoint(orientation landscape) {
+    @include breakpoint((max-width 560px)) {
+      column-count: 1;
+    }
+  }
+
+  &-item-expertise {
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-between;
+
+    &-text {
+      overflow-wrap: break-word;
+    }
+
+    &-amount {
+      padding: 2px 0 0 8px;
+      display: flex;
+      flex: 0 0 auto;
+
+      @include breakpoint(map-get($breakpoints, large)) {
+        padding-top: 4px;
+      }
+    }
+
+    &-dot {
+      $dots-width: 12px;
+      $dots-height: $dots-width;
+      $dots-time: 200ms;
+      $dots-delay: $dots-time / ($dots-amount * 0.65);
+
+      margin-left: 2px;
+      width: $dots-width;
+      height: $dots-height;
+      display: inline-block;
+      position: relative;
+
+      &:first-child {
+        margin: 0;
+      }
+
+      &:before,
+      &:after {
+        content: '';
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        border: 2px solid rgba($white, 0.24);
+        border-radius: 100%;
+        position: absolute;
+      }
+
+      &:after {
+        display: none;
+        z-index: 10;
+      }
+
+      @include breakpoint(map-get($breakpoints, small)) {
+        $dots-width: 13px;
+        $dots-height: $dots-width;
+
+        margin-left: 3px;
+        width: $dots-width;
+        height: $dots-height;
+
+        @include breakpoint((orientation landscape)) {
+          $dots-width: 12px;
+          $dots-height: $dots-width;
+
+          margin-left: 2px;
+          width: $dots-width;
+          height: $dots-height;
+        }
+      }
+
+      @include breakpoint(map-get($breakpoints, medium)) {
+        $dots-width: 15px;
+        $dots-height: $dots-width;
+
+        margin-left: 3px;
+        width: $dots-width;
+        height: $dots-height;
+      }
+
+      @include breakpoint(map-get($breakpoints, large)) {
+        $dots-width: 18px;
+        $dots-height: $dots-width;
+
+        width: $dots-width;
+        height: $dots-height;
+      }
+
+      &-filled {
+        &:after {
+          display: block;
+          opacity: 0;
+          border-color: transparent;
+          transition: opacity $dots-time ease-out;
+          background-color: rgba($white, 0.24);
+        }
+
+        @for $i from 1 through $dots-amount {
+          $local-delay: $dots-delay * ($i - 1);
+
+          &:nth-child(#{$i}):after {
+            transition-delay: $local-delay;
+          }
+        }
+
+        @at-root :global .slide-active :local & {
+          &:after {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}
+
+.additional {
+  margin-top: -5px;
+  font-size: $font-size-xxx-small;
+  font-weight: 100;
+  letter-spacing: 0.005rem;
+  opacity: 0.6;
+
+  &.additional {
+    // override global default styles
+    margin-bottom: 4px;
+  }
+
+  @include breakpoint(map-get($breakpoints, small)) {
+    font-size: $font-size-xx-small;
+  }
+
+  @include breakpoint(map-get($breakpoints, medium)) {
+    font-size: $font-size-small;
+    letter-spacing: -0.02em;
+  }
+
+  @include breakpoint(map-get($breakpoints, large)) {
+    font-size: $font-size-medium;
+  }
+
+  b {
+    font-weight: 400;
+  }
+}
+
+/* stylelint-disable property-no-unknown */
+:export {
+  dots-amount: $dots-amount;
+}

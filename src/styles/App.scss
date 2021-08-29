@@ -1,0 +1,73 @@
+//
+// CSSGuy4Hire - app
+//
+
+//
+// Configuration
+//
+@import 'config/variables';
+
+//
+// helpers
+//
+@import 'helpers/functions';
+@import 'helpers/mixins';
+@import 'helpers/helpers';
+
+//
+// Base
+//
+@import '~normalize.css/normalize.css';
+@import 'base/fonts';
+@import 'base/placeholders';
+@import 'base/typography';
+@import 'base/layout';
+
+//
+// variables as class names
+//
+
+// generate colors as CSS class names
+@each $color in map_keys($colors) {
+  .color-#{unquote($color)} {
+    color: map-get($colors, $color);
+  }
+
+  .bg-color-#{unquote($color)} {
+    background-color: map-get($colors, $color);
+  }
+}
+
+// generate link colors as CSS class names
+@each $link-color in map_keys($link-colors) {
+  .link-color-#{unquote($link-color)} {
+    color: map-get($link-colors, $link-color);
+  }
+}
+
+// generate font-sizes as CSS class names
+@each $font in map_keys($font-sizes) {
+  .font-size-#{unquote($font)} {
+    font-size: map-get($font-sizes, $font);
+  }
+}
+
+// generate font names as CSS class names
+@each $font in map_keys($fonts) {
+  $font-names: map-keys($fonts);
+
+  @each $font in $font-names {
+    .font-family-#{unquote($font)} {
+      font-family: unquote($font);
+    }
+  }
+
+  @each $font-weight in map_keys(map-get($fonts, $font)) {
+    $font-name: map-deep-get($fonts, $font, $font-weight);
+
+    .font-family-#{unquote($font-name)} {
+      font-family: unquote($font);
+      font-weight: $font-weight;
+    }
+  }
+}
