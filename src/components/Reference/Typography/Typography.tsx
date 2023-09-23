@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SASSvarsToJason, kebapCaseToTitleCase } from '@app/utils/utils';
+import { SASSvarsToJason, kebabCaseToTitleCase } from '@app/utils/utils';
 import { FontInt, FontVariantType } from '@app/types/types';
 
 import Section from '@app/components/Reference/Section/Section';
@@ -20,7 +20,7 @@ const formatFonts = (fonts) => {
     Object.getOwnPropertyNames(variants).forEach((fontWeight) => {
       formattedVariants.push({
         variant: variants[fontWeight],
-        variantName: kebapCaseToTitleCase(
+        variantName: kebabCaseToTitleCase(
           variants[fontWeight].replace(/([a-z]+-)/g, '')
         ),
         variantWeight: fontWeight
@@ -29,7 +29,7 @@ const formatFonts = (fonts) => {
 
     formattedFonts.push({
       font: fontFamily,
-      fontName: kebapCaseToTitleCase(fontFamily),
+      fontName: kebabCaseToTitleCase(fontFamily),
       fontVariants: formattedVariants
     });
   });

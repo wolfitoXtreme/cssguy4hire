@@ -8,7 +8,7 @@ export const SASSvarsToJason = (sassVar: string) => {
   );
 };
 
-export const kebapCaseToTitleCase = (string: string) =>
+export const kebabCaseToTitleCase = (string: string) =>
   string
     .split('-')
     .map((word) => {

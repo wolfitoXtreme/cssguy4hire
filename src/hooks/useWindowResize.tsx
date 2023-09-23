@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { throttle } from 'lodash';
+import throttle from 'lodash/throttle';
 
 export interface WindowSize {
   width: number | undefined;
