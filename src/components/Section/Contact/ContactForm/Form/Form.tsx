@@ -24,6 +24,8 @@ import {
   formNotes
 } from './Form.module.scss';
 
+const mailServer = process.env.REACT_APP_MAIL_SERVER;
+
 const Form: React.FC<{ lang: string }> = ({ lang }) => {
   const { formatMessage } = useIntl();
 
@@ -88,7 +90,7 @@ const Form: React.FC<{ lang: string }> = ({ lang }) => {
 
     axios({
       method: 'POST',
-      url: '/send',
+      url: `${mailServer}/send`,
       data: { ...values, token }
     })
       .then((response) => {
