@@ -14,7 +14,8 @@ import { form, formValues } from './Forms.module.scss';
 
 const Forms: React.FC = () => {
   const onSubmit = () => {
-    console.log('...submitting');
+    // eslint-disable-next-line no-console
+    console.log('...submitting?');
   };
 
   return (
