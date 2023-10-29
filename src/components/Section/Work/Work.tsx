@@ -1,19 +1,15 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { useIntl } from 'react-intl';
 
 import classNames from 'classnames';
 
 import { sections } from '@app/types/types';
-import { SASSvarsToJason } from '@app/utils/utils';
 import deviceMovile from '@app/assets/images/sample-device-small.svg';
 import deviceDesktop from '@app/assets/images/sample-device-large.svg';
-import { InfoOverlayContext } from '@app/context/InfoOverlayContext/InfoOverlayContext';
-import { NavigationContext } from '@app/context/NavigationContext/NavigationContext';
 
 import LoadImage from '@app/components/LoadImage/LoadImage';
 import Section from '@app/components/Section/Section';
 import ContentSlider from '@app/components/ContentSlider/ContentSlider';
-import InfoOverlay from '@app/components/InfoOverlay/InfoOverlay';
 
 import {
   workSample,
@@ -21,18 +17,14 @@ import {
   workSampleTitle,
   workSampleSystem,
   workSampleImage,
-  animationEnabled,
   images,
   imagesInner,
   imagesLarge,
   imagesLargeImgWrapper,
   imagesSmall,
   imagesSmallImgWrapper,
-  imagesDevice,
-  sectionColors as SASSSectionColors
+  imagesDevice
 } from './Work.module.scss';
-
-const sectionColors = SASSvarsToJason(SASSSectionColors);
 
 const workProjects: {
   id: string;
@@ -72,32 +64,8 @@ const workProjects: {
   }
 ];
 
-const Work: React.FC<{ panelIndex?: number }> = ({ panelIndex }) => {
-  const { activePanel, setEnablePanels } = useContext(NavigationContext);
-  const { setInfoActive, setShowInfo, infoShown } = useContext(
-    InfoOverlayContext
-  );
+const Work: React.FC = () => {
   const { formatMessage } = useIntl();
-
-  useEffect(() => {
-    if (panelIndex === activePanel && !infoShown) {
-      setInfoActive(true);
-      setEnablePanels(false);
-
-      const testTimeout = setTimeout(() => {
-        setShowInfo(false);
-        setEnablePanels(true);
-      }, 15000);
-      return () => clearTimeout(testTimeout);
-    }
-  }, [
-    activePanel,
-    infoShown,
-    panelIndex,
-    setEnablePanels,
-    setInfoActive,
-    setShowInfo
-  ]);
 
   return (
     <Section
@@ -107,7 +75,6 @@ const Work: React.FC<{ panelIndex?: number }> = ({ panelIndex }) => {
     >
       <article>
         <ContentSlider
-          panelIndex={panelIndex}
           slides={workProjects.map(({ id, title }) => {
             return {
               content: (
@@ -124,17 +91,9 @@ const Work: React.FC<{ panelIndex?: number }> = ({ panelIndex }) => {
                     </p>
                   </div>
                   <div className={workSampleImage}>
-                    <div
-                      className={classNames(images, {
-                        [animationEnabled]: infoShown
-                      })}
-                    >
+                    <div className={classNames(images)}>
                       <div className={imagesInner}>
-                        <figure
-                          className={classNames(imagesLarge, {
-                            [animationEnabled]: infoShown
-                          })}
-                        >
+                        <figure className={classNames(imagesLarge)}>
                           <LoadImage
                             source={`sample-image-large--${id}.jpg`}
                             text={title}
@@ -146,11 +105,7 @@ const Work: React.FC<{ panelIndex?: number }> = ({ panelIndex }) => {
                             className={imagesDevice}
                           />
                         </figure>
-                        <figure
-                          className={classNames(imagesSmall, {
-                            [animationEnabled]: infoShown
-                          })}
-                        >
+                        <figure className={classNames(imagesSmall)}>
                           <LoadImage
                             source={`sample-image-small--${id}.jpg`}
                             text={title}
@@ -171,14 +126,6 @@ const Work: React.FC<{ panelIndex?: number }> = ({ panelIndex }) => {
           })}
         />
       </article>
-      <InfoOverlay
-        title={formatMessage({ id: 'section-work-disclaimer-title' })}
-        bgColor={sectionColors['work']}
-      >
-        <>
-          <p>{formatMessage({ id: 'section-work-disclaimer-text' })}</p>
-        </>
-      </InfoOverlay>
     </Section>
   );
 };

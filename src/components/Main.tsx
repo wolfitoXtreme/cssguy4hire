@@ -39,8 +39,7 @@ const Main: React.FC<MainInt> = ({ lang }) => {
     menuIsToggling,
     swiperPanels,
     jumpPanel,
-    jumpingPanel,
-    setEnablePanels
+    jumpingPanel
   } = useContext(NavigationContext);
 
   const menuPositions = {
@@ -75,7 +74,6 @@ const Main: React.FC<MainInt> = ({ lang }) => {
       });
     }
   }, [
-    currentDevice,
     menuIsOpen,
     menuPositions.main,
     menuPositions.menu,
@@ -83,8 +81,7 @@ const Main: React.FC<MainInt> = ({ lang }) => {
     togglingMenu,
     swiperPanels,
     jumpPanel,
-    jumpingPanel,
-    setEnablePanels
+    jumpingPanel
   ]);
 
   // update languages

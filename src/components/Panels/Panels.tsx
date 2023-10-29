@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, Children } from 'react';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Keyboard, Mousewheel } from 'swiper';
@@ -13,6 +13,12 @@ SwiperCore.use([Keyboard, Mousewheel]);
 let movement = 0;
 const movementThreshold = 4;
 
+export const PanelsIndexContext = React.createContext<{
+  panelIndex: number;
+}>({
+  panelIndex: 0
+});
+
 interface PanelsInt {
   children: React.ReactNode;
 }
@@ -26,6 +32,8 @@ const Panels: React.FC<PanelsInt> = ({ children }) => {
     setSwiperPanels,
     setEnablePanels
   } = useContext(NavigationContext);
+
+  const childrenArray = Children.toArray(children);
 
   useEffect(() => {
     menuIsOpen && setEnablePanels(false);
@@ -59,12 +67,14 @@ const Panels: React.FC<PanelsInt> = ({ children }) => {
       }}
     >
       {children &&
-        React.Children.map(children, (child, index) => (
+        Children.map(childrenArray, (child, index) => (
           <SwiperSlide key={index} className={panel}>
-            {React.isValidElement(child) &&
-              React.cloneElement(child, {
-                panelIndex: index
-              })}
+            <PanelsIndexContext.Provider
+              key={index}
+              value={{ panelIndex: index }}
+            >
+              {child}
+            </PanelsIndexContext.Provider>
           </SwiperSlide>
         ))}
     </Swiper>

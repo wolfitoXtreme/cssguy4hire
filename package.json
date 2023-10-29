@@ -116,9 +116,9 @@
     "stylelint-scss": "^3.18.0"
   },
   "scripts": {
-    "server": "nodemon server.js",
+    "serve": "nodemon server.js",
     "start": "node server.js",
-    "start:dev": "node scripts/start.js",
+    "dev": "node scripts/start.js",
     "build": "node scripts/build.js && yarn install"
   },
   "proxy": "http://localhost:8080",

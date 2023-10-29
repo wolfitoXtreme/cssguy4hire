@@ -49,6 +49,13 @@ const Contact: React.FC = () => {
   const form = React.createRef<HTMLElement>();
   const response = React.createRef<HTMLElement>();
 
+  const reEnablePanels = () => {
+    setTimeout(() => {
+      setEnablePanels(true);
+      setStaticContent(false);
+    }, 100);
+  };
+
   return (
     <ContactFormProvider>
       <ContactFormContext.Consumer>
@@ -67,8 +74,7 @@ const Contact: React.FC = () => {
               classNames={showForm ? rtlTransition : ltrTransition}
               unmountOnExit
               onEntered={() => {
-                setEnablePanels(true);
-                setStaticContent(false);
+                reEnablePanels();
               }}
               nodeRef={intro}
             >

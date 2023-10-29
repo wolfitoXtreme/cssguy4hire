@@ -98,19 +98,17 @@ const TextAndExpertise: React.FC<{ text?: string; expertise?: number }> = ({
   );
 };
 
-const Skills: React.FC<{ panelIndex?: number }> = ({ panelIndex }) => {
+const Skills: React.FC = () => {
   const { formatMessage } = useIntl();
 
   return (
     <Section
       id={sections.SKILLS}
-      // panelIndex={panelIndex}
       heading={formatMessage({ id: 'section-skills-title' })}
       variant="wide"
     >
       <article>
         <ContentSlider
-          panelIndex={panelIndex}
           slides={skills.map(({ id, categories, other }) => {
             return {
               title: formatMessage({

@@ -206,7 +206,7 @@ $images-blur-delay: $image-fade-in-duration + $image-fade-in-delay;
     (box-shadow)
   );
 
-  @at-root :global .slide-active :local &.animation-enabled {
+  @at-root :global .slide-active :local & {
     animation: work-sample-animation $images-blur-duration ease
       $images-blur-delay 1 forwards;
     box-shadow: $box-shadow-values rgba($black, 0.4);
@@ -261,7 +261,7 @@ $images-blur-delay: $image-fade-in-duration + $image-fade-in-delay;
 
   @include transitions($images-fade-duration, ease-out, 0ms, (filter, opacity));
 
-  @at-root :global .slide-active :local &.animation-enabled {
+  @at-root :global .slide-active :local & {
     opacity: 1;
     filter: saturate(100%) brightness(100%);
   }

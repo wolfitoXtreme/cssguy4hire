@@ -11,7 +11,6 @@ export const workSampleTitle: string;
 export const workSampleSystem: string;
 export const workSampleImage: string;
 export const images: string;
-export const animationEnabled: string;
 export const imagesInner: string;
 export const imagesLarge: string;
 export const workSampleAnimation: string;

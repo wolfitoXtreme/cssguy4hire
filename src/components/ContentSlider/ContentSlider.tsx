@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState
+} from 'react';
 import { useIntl } from 'react-intl';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -8,7 +14,8 @@ import classNames from 'classnames';
 import { NavigationContext } from '@app/context/NavigationContext/NavigationContext';
 import { ReactComponent as IconArrow } from '@app/assets/icons/icon-slider-arrow.svg';
 import { getNoTouch } from '@app/utils/utils';
-import 'swiper/swiper.scss';
+
+import { PanelsIndexContext } from '@app/components/Panels/Panels';
 
 import {
   slider,
@@ -20,41 +27,68 @@ import {
   noTouchEvents
 } from './ContentSlider.module.scss';
 
+import 'swiper/swiper.scss';
+
 SwiperCore.use([Keyboard, Navigation]);
 
 let movement = 0;
 const movementThreshold = 4;
 interface ContentSliderInt {
-  panelIndex?: number;
   slides?: {
     title?: string;
     content: React.ReactNode;
   }[];
 }
 
-const ContentSlider: React.FC<ContentSliderInt> = ({ panelIndex, slides }) => {
+const ContentSlider: React.FC<ContentSliderInt> = ({ slides }) => {
   const { formatMessage } = useIntl();
-  const { menuIsOpen, enablePanels, menuIsToggling, activePanel } = useContext(
-    NavigationContext
-  );
+  const {
+    menuIsOpen,
+    enablePanels,
+    menuIsToggling,
+    activePanel,
+    staticContent
+  } = useContext(NavigationContext);
+  const { panelIndex } = useContext(PanelsIndexContext);
 
   const [activeSlide, setActiveSlide] = useState<number | null>(null);
   const [swiper, setSwiper] = useState<SwiperCore | null>(null);
   const [enableSwiper, setEnableSwiper] = useState(true);
   const controlNext = useRef<HTMLButtonElement>(null);
   const controlPrev = useRef<HTMLButtonElement>(null);
+  const staticContentSet = useRef<boolean>(false);
 
   const navNextText = formatMessage({ id: 'nav-next' });
   const navPrevText = formatMessage({ id: 'nav-previous' });
 
+  const resetSwiper = useCallback(() => {
+    swiper?.update();
+  }, [swiper]);
+
   useEffect(() => {
     setEnableSwiper(!!menuIsOpen || !enablePanels ? false : true);
+    if (staticContent && !staticContentSet.current) {
+      staticContentSet.current = true;
+    }
+
     if (swiper) {
       swiper.allowSlideNext = enableSwiper;
       swiper.allowSlidePrev = enableSwiper;
       swiper.allowTouchMove = enableSwiper;
+      if (!staticContent && staticContentSet.current) {
+        resetSwiper();
+      }
     }
-  }, [swiper, enableSwiper, menuIsOpen, menuIsToggling, enablePanels]);
+  }, [
+    swiper,
+    enableSwiper,
+    menuIsOpen,
+    menuIsToggling,
+    enablePanels,
+    staticContent,
+    staticContentSet,
+    resetSwiper
+  ]);
 
   return (
     <Swiper
