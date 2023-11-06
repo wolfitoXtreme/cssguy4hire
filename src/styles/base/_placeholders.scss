@@ -57,8 +57,7 @@
 
 // list - items
 %list-items {
-  margin: 0 0 4px;
-  padding: 0 0 0 10px;
+  padding: 0 0 4px 10px;
 
   @include breakpoint(map-get($breakpoints, small)) {
     padding: 0 0 0 12px;
@@ -67,8 +66,7 @@
     padding: 0 0 0 14px;
   }
   @include breakpoint(map-get($breakpoints, large)) {
-    margin: 0 0 6px;
-    padding: 0 0 0 18px;
+    padding: 0 0 6px 18px;
   }
 
   p:only-child {
@@ -78,11 +76,12 @@
 
 %bullets-level-1 {
   $bullet-size: 7px;
+  $bullet-offset: 2;
 
   content: '';
   top: (1em * $line-height-default) / 2;
   left: 0;
-  margin-top: -($bullet-size / 2);
+  margin-top: -($bullet-size / $bullet-offset);
   width: $bullet-size;
   height: $bullet-size;
   display: block;
@@ -94,7 +93,7 @@
   @include breakpoint(map-get($breakpoints, small)) {
     $bullet-size: 8px;
 
-    margin-top: -($bullet-size / 2);
+    margin-top: -($bullet-size / $bullet-offset);
     width: $bullet-size;
     height: $bullet-size;
   }
@@ -102,7 +101,7 @@
   @include breakpoint(map-get($breakpoints, medium)) {
     $bullet-size: 10px;
 
-    margin-top: -($bullet-size / 2);
+    margin-top: -($bullet-size / $bullet-offset);
     width: $bullet-size;
     height: $bullet-size;
   }
@@ -110,7 +109,7 @@
   @include breakpoint(map-get($breakpoints, large)) {
     $bullet-size: 12px;
 
-    margin-top: -($bullet-size / 2);
+    margin-top: -($bullet-size / $bullet-offset);
     width: $bullet-size;
     height: $bullet-size;
   }
@@ -118,8 +117,9 @@
 
 %bullets-level-2 {
   $bullet-size: 5px;
+  $bullet-offset: 2.4;
 
-  margin-top: -($bullet-size / 2);
+  margin-top: -($bullet-size / $bullet-offset);
   width: $bullet-size;
   height: $bullet-size;
   border: 1px solid $orange-peel;
@@ -129,7 +129,7 @@
   @include breakpoint(map-get($breakpoints, small)) {
     $bullet-size: 6px;
 
-    margin-top: -($bullet-size / 2);
+    margin-top: -($bullet-size / $bullet-offset);
     width: $bullet-size;
     height: $bullet-size;
   }
@@ -137,7 +137,7 @@
   @include breakpoint(map-get($breakpoints, medium)) {
     $bullet-size: 8px;
 
-    margin-top: -($bullet-size / 2);
+    margin-top: -($bullet-size / $bullet-offset);
     width: $bullet-size;
     height: $bullet-size;
   }
@@ -145,7 +145,7 @@
   @include breakpoint(map-get($breakpoints, large)) {
     $bullet-size: 10px;
 
-    margin-top: -($bullet-size / 2);
+    margin-top: -($bullet-size / $bullet-offset);
     width: $bullet-size;
     height: $bullet-size;
     border-width: 2px;
@@ -202,12 +202,6 @@
 
   @include breakpoint($app-max-width(orientation landscape)) {
     column-gap: 80px;
-  }
-
-  &-item {
-    width: 100%;
-    display: inline-block;
-    break-inside: avoid;
   }
 }
 

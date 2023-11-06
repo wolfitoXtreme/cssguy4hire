@@ -7,7 +7,6 @@ import { createStore, compose } from 'redux';
 import { RootReducer } from '@store/reducers/index';
 
 import { DeviceProvider } from '@app/context/DeviceContext/DeviceContext';
-import { InfoOverlayProvider } from '@app/context/InfoOverlayContext/InfoOverlayContext';
 import { NavigationProvider } from '@app/context/NavigationContext/NavigationContext';
 
 import Reference from '@app/components/Reference/Reference';
@@ -28,42 +27,40 @@ const App = () => {
   return (
     <Provider store={store}>
       <DeviceProvider>
-        <InfoOverlayProvider>
-          <BrowserRouter basename={process.env.PUBLIC_URL}>
-            <Switch>
-              <Route
-                path="/"
-                render={(props) =>
-                  (isMaintenance && <Maintenance {...props} />) || (
-                    <NavigationProvider>
-                      <Main {...props} />
-                    </NavigationProvider>
-                  )
-                }
-                exact
-              />
-              <Route
-                path="/development/"
-                render={(props) => (
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
+          <Switch>
+            <Route
+              path="/"
+              render={(props) =>
+                (isMaintenance && <Maintenance {...props} />) || (
                   <NavigationProvider>
                     <Main {...props} />
                   </NavigationProvider>
-                )}
-                exact
-              />
-              <Route
-                path="/maintenance/"
-                render={(props) => <Maintenance {...props} />}
-                exact
-              />
-              <Route
-                path="/reference/"
-                render={(props) => <Reference {...props} />}
-                exact
-              />
-            </Switch>
-          </BrowserRouter>
-        </InfoOverlayProvider>
+                )
+              }
+              exact
+            />
+            <Route
+              path="/development/"
+              render={(props) => (
+                <NavigationProvider>
+                  <Main {...props} />
+                </NavigationProvider>
+              )}
+              exact
+            />
+            <Route
+              path="/maintenance/"
+              render={(props) => <Maintenance {...props} />}
+              exact
+            />
+            <Route
+              path="/reference/"
+              render={(props) => <Reference {...props} />}
+              exact
+            />
+          </Switch>
+        </BrowserRouter>
       </DeviceProvider>
     </Provider>
   );

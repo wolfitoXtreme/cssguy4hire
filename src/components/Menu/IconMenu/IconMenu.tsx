@@ -17,16 +17,17 @@ const IconMenu: React.FC<IconProps> = ({ icon, className }) => {
 
     const importIcon = async (): Promise<void> => {
       try {
-        const { default: test } = await import(
+        const { default: defaultImport } = await import(
           `@app/assets/icons/icon-${icon}.svg`
         );
-        ImportedIconRef.current = test;
+        ImportedIconRef.current = defaultImport;
       } catch (err) {
         return;
       } finally {
         setLoading(false);
       }
     };
+
     importIcon();
   }, [icon]);
 

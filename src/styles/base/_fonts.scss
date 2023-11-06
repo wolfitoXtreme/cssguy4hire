@@ -21,8 +21,7 @@
     @font-face {
       font-family: '#{$font}';
       src: url('#{$fonts-dir}#{$font-name}.woff2') format('woff2'),
-        url('#{$fonts-dir}#{$font-name}.woff') format('woff'),
-        url('#{$fonts-dir}#{$font-name}.ttf') format('truetype');
+        url('#{$fonts-dir}#{$font-name}.woff') format('woff');
       font-weight: $font-weight;
       font-style: normal;
       font-display: block;

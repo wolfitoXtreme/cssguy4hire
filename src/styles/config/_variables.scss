@@ -86,7 +86,7 @@ $font-size-humongous: nth(map-get($font-sizes, humongous), 1);
 $font-size-default: $font-size-medium;
 
 // line-height default
-$line-height-default: 1.15;
+$line-height-default: 1.25;
 $heading-tags: h1, h2, h3, h4, h5, h6;
 $text-block-tags: p, ul, ol, dl, pre, address, blockquote, table;
 $block-tags: article, aside, canvas, div, fieldset, figure, form, hgroup, output,

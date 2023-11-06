@@ -39,8 +39,6 @@
     $transition-duration: $default-duration;
 
     .swiper-scrollbar {
-      content: 'swiper-scrollbar-test';
-
       opacity: 0;
       border-radius: $border-radius;
       transition: opacity $transition-duration ease-out 0ms;

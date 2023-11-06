@@ -24,12 +24,12 @@ $dots-amount: 5;
     }
 
     &-amount {
-      padding: 2px 0 0 8px;
+      padding: 4px 0 0 8px;
       display: flex;
       flex: 0 0 auto;
 
       @include breakpoint(map-get($breakpoints, large)) {
-        padding-top: 4px;
+        padding-top: 6px;
       }
     }
 
