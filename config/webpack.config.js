@@ -124,6 +124,13 @@ module.exports = function (webpackEnv) {
           // https://github.com/facebook/create-react-app/issues/2677
           ident: 'postcss',
           plugins: () => [
+            require('postcss-pxtorem')({
+              rootValue: 16,
+              unitPrecision: 5,
+              propList: isEnvProduction
+                ? ['font-size', 'padding', 'margin']
+                : []
+            }),
             require('postcss-flexbugs-fixes'),
             require('postcss-preset-env')({
               autoprefixer: {
