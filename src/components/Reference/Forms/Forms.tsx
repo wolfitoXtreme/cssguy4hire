@@ -13,9 +13,7 @@ import CheckBoxes from './CheckBoxes/CheckBoxes';
 import { form, formValues } from './Forms.module.scss';
 
 const Forms: React.FC = () => {
-  const onSubmit = () => {
-    console.log('...submitting');
-  };
+  const onSubmit = () => {};
 
   return (
     <Section heading="Forms">

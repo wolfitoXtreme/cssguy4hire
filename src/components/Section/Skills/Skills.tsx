@@ -24,15 +24,16 @@ const skills: SectionSkillsType = [
     id: 'programming',
     categories: [
       { text: 'JavaScript', expertise: 4 },
-      { text: 'reactJS', expertise: 3 },
+      { text: 'React.js', expertise: 3 },
+      { text: 'Vue.js', expertise: 3 },
       { text: 'HTML5/<wbr>CSS3', expertise: 5 },
       { text: 'SASS', expertise: 4 },
-      { text: 'GulpJS/GruntJS/<wbr>Webpack', expertise: 3 },
+      { text: 'Webpack/Vite', expertise: 3 },
       { text: 'Demandware/<wbr>SFCC', expertise: 3 },
       { text: 'Django', expertise: 3 }
     ],
     other:
-      ' AngularJS, jQuery, Git/SVN, PHP, ActionScript, MySQL, MongoDB, VSCode.'
+      'jQuery, Gulp, Grunt, Git/SVN, PHP, ActionScript, MySQL, MongoDB, VSCode.'
   },
   {
     id: 'digital-editing',
@@ -42,11 +43,11 @@ const skills: SectionSkillsType = [
       { text: 'InDesign', expertise: 3 },
       { text: 'After Effects', expertise: 3 },
       { text: 'Premiere Pro', expertise: 3 },
-      { text: 'Blender', expertise: 2 },
+      { text: 'Figma', expertise: 3 },
+      { text: '3ds Max', expertise: 2 },
       { text: 'Inkscape', expertise: 3 }
     ],
-    other:
-      '3ds Max, Keyshape, Flash Professional, DreamWeaver, LightWave 3D, Zeplin.'
+    other: 'Keyshape, Flash Professional, DreamWeaver, LightWave 3D, Zeplin.'
   },
   {
     id: 'personal',
@@ -58,7 +59,8 @@ const skills: SectionSkillsType = [
       { id: 'motivation' },
       { id: 'communication' },
       { id: 'problems-solving' },
-      { id: 'detail-oriented' }
+      { id: 'detail-oriented' },
+      { id: 'critical' }
     ]
   }
 ];

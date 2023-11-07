@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ReactSVG } from 'react-svg';
 
 const requestImages = require.context(
   '@app/assets/images/',
@@ -10,11 +11,18 @@ interface LoadImageInt {
   source: string;
   text: string;
   className?: string;
+  svgInline?: boolean;
   wrapper?: JSX.Element;
 }
 
-const Image: React.FC<LoadImageInt> = ({ source, text, className }) => {
+const Image: React.FC<LoadImageInt> = ({
+  source,
+  text,
+  className,
+  svgInline
+}) => {
   const [imageFile, setImageFile] = useState('');
+  const isSVG = /.svg/.test(source);
 
   const getImage = (image: string) => {
     const result = async (
@@ -38,7 +46,17 @@ const Image: React.FC<LoadImageInt> = ({ source, text, className }) => {
 
   getImage(source);
 
-  return <img src={imageFile} alt={text} title={text} className={className} />;
+  if (isSVG && svgInline) {
+    return <ReactSVG src={imageFile} className={className} />;
+  } else if (!isSVG && svgInline) {
+    // eslint-disable-next-line no-console
+    console.error('Bitmap Images cannot be injected inline.');
+    return <></>;
+  } else {
+    return (
+      <img src={imageFile} alt={text} title={text} className={className} />
+    );
+  }
 };
 
 const Wrapper: React.FC<{
@@ -55,16 +73,27 @@ const LoadImage: React.FC<LoadImageInt> = ({
   source,
   text,
   className,
-  wrapper
+  wrapper,
+  svgInline = false
 }) => {
   return (
     <>
       {wrapper ? (
         <Wrapper wrapper={wrapper}>
-          <Image source={source} text={text} className={className} />
+          <Image
+            source={source}
+            text={text}
+            className={className}
+            svgInline={svgInline}
+          />
         </Wrapper>
       ) : (
-        <Image source={source} text={text} className={className} />
+        <Image
+          source={source}
+          text={text}
+          className={className}
+          svgInline={svgInline}
+        />
       )}
     </>
   );
