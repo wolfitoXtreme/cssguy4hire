@@ -17,361 +17,108 @@ $images-blur-delay: $image-fade-in-duration + $image-fade-in-delay;
   flex-direction: column;
 
   @include breakpoint((orientation landscape)) {
-    flex-direction: row-reverse;
-    align-items: center;
-  }
-
-  &-detail {
-    $available-width: 556px;
-    $landscape-gap: 30px;
-
-    font-size: $font-size-xxx-small;
-    order: 1;
-
-    @include breakpoint(map-get($breakpoints, small)) {
-      font-size: $font-size-xx-small;
-    }
-
-    @include breakpoint(map-get($breakpoints, medium)) {
-      padding: 0 30% 0 5%;
-      font-size: $font-size-x-small;
-    }
-
-    @include breakpoint(map-get($breakpoints, large)) {
-      font-size: $font-size-medium;
-    }
-
-    @include breakpoint((orientation landscape)) {
-      padding-right: 0;
-      padding-left: getPercentageFrom($landscape-gap, $available-width);
-      width: 50%;
-      order: 0;
-
-      @include breakpoint(
-        map-get($breakpoints, small) (max-width map-get($breakpoints, medium))
-          (max-height 340px)
-      ) {
-        width: 60%;
-        font-size: $font-size-xxx-small;
-      }
-
-      @include breakpoint(
-        map-get($breakpoints, medium) (max-width map-get($breakpoints, large))
-          (max-height 440px)
-      ) {
-        width: 60%;
-        font-size: $font-size-xx-small;
-      }
-
-      @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
-        width: 60%;
-        font-size: $font-size-x-small;
-      }
-    }
-
-    // remove last child margin
-    *:last-child {
-      margin-bottom: 0;
-    }
+    display: grid;
+    grid-template-areas:
+      'image title'
+      'image description';
+    grid-template-columns: 25% 1fr;
+    column-gap: 5%;
   }
 
   &-title {
-    line-height: 1;
-  }
-
-  &-system {
-    margin-top: 3.5px;
-    font-family: $default-font;
-    font-size: $font-size-xxx-small - 1;
-    letter-spacing: 0.015em;
-    color: $white;
-    opacity: 0.7;
-
-    @include breakpoint(map-get($breakpoints, medium)) {
-      margin-top: 4.5px;
-      font-size: $font-size-xx-small;
+    h4 {
+      line-height: 1;
     }
 
-    @include breakpoint(map-get($breakpoints, large)) {
-      margin-top: 6px;
-      font-size: $font-size-small;
-    }
-
-    &:after {
-      content: '';
-      margin: 6px 0 7px;
-      width: 10%;
-      height: 1px;
-      display: block;
-      opacity: 0.5;
-      background-color: $white;
+    h5 {
+      margin-top: 3.5px;
+      font-family: $default-font;
+      font-size: $font-size-xxx-small - 1;
+      letter-spacing: 0.015em;
+      color: $white;
+      opacity: 0.7;
 
       @include breakpoint(map-get($breakpoints, medium)) {
-        margin: 8px 0 10px;
-        height: 2px;
+        margin-top: 4.5px;
+        font-size: $font-size-xx-small;
       }
 
       @include breakpoint(map-get($breakpoints, large)) {
-        margin: 10px 0 12px;
-        height: 3px;
+        margin-top: 6px;
+        font-size: $font-size-small;
+      }
+
+      &:after {
+        content: '';
+        margin: 6px 0 7px;
+        width: 10%;
+        height: 1px;
+        display: block;
+        opacity: 0.5;
+        background-color: $white;
+
+        @include breakpoint(map-get($breakpoints, medium)) {
+          margin: 8px 0 10px;
+          height: 2px;
+        }
+
+        @include breakpoint(map-get($breakpoints, large)) {
+          margin: 10px 0 12px;
+          height: 3px;
+        }
       }
     }
 
-    + p {
-      margin-top: 5px;
-      @include breakpoint(map-get($breakpoints, medium)) {
-        margin-top: 5.5px;
-      }
-      @include breakpoint(map-get($breakpoints, large)) {
-        margin-top: 7px;
-      }
+    @include breakpoint((orientation landscape)) {
+      grid-area: title;
     }
   }
 
   &-image {
-    padding-bottom: 8px;
+    padding: 8px 0 16px;
+    max-width: 50%;
+    line-height: 0;
     order: 0;
 
-    @include breakpoint(map-get($breakpoints, small)) {
-      padding-bottom: 11px;
+    @include breakpoint((orientation landscape)) {
+      max-width: unset;
+      grid-area: image;
     }
+  }
 
-    @include breakpoint(map-get($breakpoints, medium)) {
-      padding-bottom: 14px;
-    }
-
-    @include breakpoint(orientation portrait) {
-      @include breakpoint((max-height 500px)) {
-        margin: 0 auto;
-        width: 80%;
-      }
+  &-description {
+    b,
+    strong {
+      color: $orange-peel;
     }
 
     @include breakpoint((orientation landscape)) {
-      padding-bottom: 2px; // overcome scaled image inside to be cut off
-      width: 50%;
-      order: 1;
-
-      @include breakpoint(
-        map-get($breakpoints, small) (max-width map-get($breakpoints, medium))
-          (max-height 340px)
-      ) {
-        width: 40%;
-      }
-
-      @include breakpoint(
-        map-get($breakpoints, medium) (max-width map-get($breakpoints, large))
-          (max-height 440px)
-      ) {
-        width: 40%;
-      }
-
-      @include breakpoint(map-get($breakpoints, large) (max-height 540px)) {
-        width: 40%;
-      }
-    }
-  }
-}
-
-@mixin image-sample(
-  $device-width,
-  $device-height,
-  $device-set-width,
-  $img-offset-top,
-  $img-offset-left,
-  $img-width
-) {
-  $box-shadow-values: 3px 3px 9px 5px;
-
-  margin: 0;
-  width: getPercentageFrom($device-width, $device-set-width);
-  display: block;
-  border-radius: 20px;
-  position: absolute;
-
-  @include breakpoint((orientation landscape)) {
-    @include breakpoint(map-get($breakpoints, small)) {
-      border-radius: 10px;
-    }
-  }
-
-  @include breakpoint(map-get($breakpoints, medium)) {
-    border-radius: 20px;
-  }
-
-  @include transitions(
-    $frame-shadow-duration,
-    ease-out,
-    $frame-shadow-delay,
-    (box-shadow)
-  );
-
-  @at-root :global .slide-active :local & {
-    animation: work-sample-animation $images-blur-duration ease
-      $images-blur-delay 1 forwards;
-    box-shadow: $box-shadow-values rgba($black, 0.4);
-  }
-
-  &-img-wrapper {
-    top: getPercentageFrom($img-offset-top, $device-height);
-    left: getPercentageFrom($img-offset-left, $device-width);
-    width: getPercentageFrom($img-width, $device-width);
-    height: auto;
-    display: block;
-    border-radius: 2px;
-    position: absolute;
-
-    &:before {
-      content: '';
-      width: 100%;
-      height: 100%;
-      display: block;
-      opacity: 1;
-      position: absolute;
-      background-color: map-get($section-colors, work);
-
-      @include transitions(
-        $image-fade-in-duration,
-        ease-out,
-        $image-fade-in-delay,
-        (opacity)
-      );
-
-      @at-root :global .slide-active :local & {
-        opacity: 0;
-      }
-    }
-
-    & > img {
-      width: 100%;
+      grid-area: description;
     }
   }
 }
 
 .images {
-  $device-set-width: 224px;
-  $device-set-height: 168px;
-
-  padding-bottom: percentageHeightRatio($device-set-width, $device-set-height);
-  height: 0;
-  opacity: 0.2;
-  transform: scaleY($image-init-scale); // avoids image jittering when animating
+  margin: 0;
+  opacity: 0.15;
   position: relative;
-  filter: saturate(0) brightness(0);
+  filter: brightness(0%);
+
+  svg {
+    width: 100%;
+    height: auto;
+    fill: darken($white, 10%);
+    filter: drop-shadow(0 0 0 rgba($black, 0));
+  }
 
   @include transitions($images-fade-duration, ease-out, 0ms, (filter, opacity));
 
   @at-root :global .slide-active :local & {
     opacity: 1;
-    filter: saturate(100%) brightness(100%);
-  }
+    filter: brightness(100%);
 
-  &-inner {
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-  }
-
-  &-large {
-    $device-width: 203px;
-    $device-height: 155px;
-    $img-offset-top: 12px;
-    $img-offset-left: 10px;
-    $img-width: 174px;
-
-    @include image-sample(
-      $device-width,
-      $device-height,
-      $device-set-width,
-      $img-offset-top,
-      $img-offset-left,
-      $img-width
-    );
-
-    top: 0;
-    left: 0;
-  }
-
-  &-small {
-    $device-width: 74px;
-    $device-height: 144px;
-    $img-offset-top: 14px;
-    $img-offset-left: 5px;
-    $img-width: 64px;
-
-    @include image-sample(
-      $device-width,
-      $device-height,
-      $device-set-width,
-      $img-offset-top,
-      $img-offset-left,
-      $img-width
-    );
-
-    top: getPercentageFrom(24px, $device-set-height);
-    right: 0;
-    z-index: 1;
-  }
-
-  &-device {
-    width: 100%;
-    height: auto;
-    display: block;
-    position: relative;
-    z-index: 1;
-  }
-}
-
-@keyframes work-sample-animation {
-  0% {
-    filter: blur(0) contrast(100%) brightness(100%);
-  }
-
-  10% {
-    filter: blur(2px) contrast(0%) brightness(150%);
-    opacity: 0.6;
-    transform: scaleY(1.1);
-  }
-
-  15% {
-    filter: blur(0) contrast(100%) brightness(100%);
-    opacity: 1;
-    transform: scaleY($image-init-scale);
-  }
-
-  16% {
-    filter: blur(1px) contrast(100%) brightness(100%);
-    opacity: 0.5;
-    transform: scaleY($image-init-scale);
-  }
-
-  25% {
-    filter: blur(18px) contrast(0%) brightness(150%);
-    opacity: 0.2;
-    transform: scaleY(1.5);
-  }
-
-  40% {
-    filter: blur(0) contrast(100%) brightness(100%);
-    opacity: 1;
-    transform: scaleY($image-init-scale);
-  }
-
-  85% {
-    filter: blur(0) contrast(100%) brightness(100%);
-    opacity: 1;
-  }
-
-  90% {
-    filter: blur(1px) contrast(0%) brightness(200%);
-    opacity: 0.6;
-  }
-
-  100% {
-    filter: blur(0) contrast(100%) brightness(100%);
-    opacity: 1;
-    transform: scaleY($image-init-scale);
+    svg {
+      filter: drop-shadow(3px 3px 2px rgba($black, 0.2));
+    }
   }
 }

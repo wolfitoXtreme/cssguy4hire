@@ -4,8 +4,6 @@ import { useIntl } from 'react-intl';
 import classNames from 'classnames';
 
 import { sections } from '@app/types/types';
-import deviceMovile from '@app/assets/images/sample-device-small.svg';
-import deviceDesktop from '@app/assets/images/sample-device-large.svg';
 
 import LoadImage from '@app/components/LoadImage/LoadImage';
 import Section from '@app/components/Section/Section';
@@ -13,17 +11,10 @@ import ContentSlider from '@app/components/ContentSlider/ContentSlider';
 
 import {
   workSample,
-  workSampleDetail,
+  workSampleDescription,
   workSampleTitle,
-  workSampleSystem,
   workSampleImage,
-  images,
-  imagesInner,
-  imagesLarge,
-  imagesLargeImgWrapper,
-  imagesSmall,
-  imagesSmallImgWrapper,
-  imagesDevice
+  images
 } from './Work.module.scss';
 
 const workProjects: {
@@ -31,36 +22,20 @@ const workProjects: {
   title: string;
 }[] = [
   {
-    id: 'pokerstars',
-    title: 'PokerStars Casino (Flutter Entertainment)'
+    id: 'mimacom',
+    title: 'Mimacom'
   },
   {
-    id: 'iqos',
-    title: 'IQOS (Philip Morris International)'
+    id: 'stars-group',
+    title: 'The Stars Group'
   },
   {
-    id: 'blu',
-    title: 'BLU (Imperial Brands)'
+    id: 'accenture',
+    title: 'Accenture'
   },
   {
-    id: 'nexxus',
-    title: 'NEXXUS (Uniliever)'
-  },
-  {
-    id: 'vitra',
-    title: 'Vitra'
-  },
-  {
-    id: 'fotocasion',
-    title: 'Fotocasión'
-  },
-  {
-    id: 'libreria-desnivel',
-    title: 'Librería Desnivel'
-  },
-  {
-    id: 'kano-libros',
-    title: 'Kano Libros'
+    id: 'ppi',
+    title: 'Proveedores de Presencia en Internet'
   }
 ];
 
@@ -79,46 +54,33 @@ const Work: React.FC = () => {
             return {
               content: (
                 <div className={workSample}>
-                  <div className={workSampleDetail}>
-                    <h4 className={workSampleTitle}>{title}</h4>
-                    <h5 className={workSampleSystem}>
-                      {formatMessage({ id: `section-work-system-${id}` })}
-                    </h5>
-                    <p>
+                  <div className={workSampleTitle}>
+                    <h4>{title}</h4>
+                    <h5>
                       {formatMessage({
-                        id: `section-work-description-${id}`
+                        id: `section-work-company-${id}-role`
                       })}
-                    </p>
+                    </h5>
                   </div>
+
                   <div className={workSampleImage}>
-                    <div className={classNames(images)}>
-                      <div className={imagesInner}>
-                        <figure className={classNames(imagesLarge)}>
-                          <LoadImage
-                            source={`sample-image-large--${id}.jpg`}
-                            text={title}
-                            wrapper={<div className={imagesLargeImgWrapper} />}
-                          />
-                          <img
-                            src={deviceDesktop}
-                            alt=""
-                            className={imagesDevice}
-                          />
-                        </figure>
-                        <figure className={classNames(imagesSmall)}>
-                          <LoadImage
-                            source={`sample-image-small--${id}.jpg`}
-                            text={title}
-                            wrapper={<div className={imagesSmallImgWrapper} />}
-                          />
-                          <img
-                            src={deviceMovile}
-                            alt=""
-                            className={imagesDevice}
-                          />
-                        </figure>
-                      </div>
-                    </div>
+                    <figure className={classNames(images)}>
+                      <LoadImage
+                        source={`logo-${id}.svg`}
+                        text={title}
+                        svgInline
+                      />
+                    </figure>
+                  </div>
+
+                  <div className={workSampleDescription}>
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: formatMessage({
+                          id: `section-work-company-${id}-role-description`
+                        })
+                      }}
+                    />
                   </div>
                 </div>
               )
