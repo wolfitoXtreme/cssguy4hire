@@ -24,7 +24,7 @@ import {
   formNotes
 } from './Form.module.scss';
 
-const mailServer = process.env.REACT_APP_MAIL_SERVER;
+const mailServer = 'https://cssguy4hire-express-server.vercel.app';
 
 const Form: React.FC<{ lang: string }> = ({ lang }) => {
   const { formatMessage } = useIntl();
