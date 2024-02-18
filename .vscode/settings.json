@@ -1,0 +1,18 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.stylelint": "explicit"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.detectIndentation": true,
+  "eslint.format.enable": true,
+  "editor.formatOnSave": true,
+  "files.exclude": {
+    "**/node_modules": true
+  },
+  "eslint.lintTask.enable": true,
+  "git.autoRepositoryDetection": false,
+  "gitlens.views.fileHistory.avatars": true,
+  "stylelint.enable": true,
+  "stylelint.validate": ["scss"]
+}

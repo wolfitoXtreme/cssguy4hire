@@ -1,27 +1,35 @@
 {
-  "include": ["./src/*", "./global.d.ts"],
   "compilerOptions": {
-    "lib": ["dom", "es2017"],
-    "jsx": "react",
-    "esModuleInterop": true,
     "target": "es5",
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
-    "moduleResolution": "node",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "noResolve": false,
-    "noImplicitAny": false,
-    "baseUrl": "./src",
+    "jsx": "preserve",
+    "incremental": true,
+
+    /* Linting */
+    "strict": true,
+    "skipLibCheck": true,
+    "noFallthroughCasesInSwitch": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "paths": {
-      "@app/*": ["*"],
-      "@store/*": ["store/*"],
-      "@styles/*": ["scss"]
+      "@/*": ["./*"],
+      "@/api/*": ["./pages/api/*"],
+      "@/public/*": ["./public/*"],
+      "@/components/*": ["./components/*"],
+      "@/assets/*": ["./assets/*"],
+      "@/styles/*": ["./styles/*"]
     }
-  }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }
