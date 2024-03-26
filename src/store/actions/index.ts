@@ -1,1 +1,0 @@
-export { changeLanguage } from './language';
