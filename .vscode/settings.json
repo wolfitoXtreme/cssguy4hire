@@ -7,6 +7,7 @@
   "editor.detectIndentation": true,
   "eslint.format.enable": true,
   "editor.formatOnSave": true,
+  "editor.stickyScroll.enabled": false,
   "files.exclude": {
     "**/node_modules": true
   },
@@ -14,5 +15,6 @@
   "git.autoRepositoryDetection": false,
   "gitlens.views.fileHistory.avatars": true,
   "stylelint.enable": true,
-  "stylelint.validate": ["scss"]
+  "stylelint.validate": ["scss"],
+  "workbench.tree.enableStickyScroll": false
 }
