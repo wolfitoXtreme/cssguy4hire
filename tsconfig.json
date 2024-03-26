@@ -21,13 +21,15 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
       "@/api/*": ["./pages/api/*"],
       "@/public/*": ["./public/*"],
       "@/components/*": ["./components/*"],
       "@/assets/*": ["./assets/*"],
-      "@/styles/*": ["./styles/*"]
+      "@/styles/*": ["./styles/*"],
+      "@/utils/*": ["./utils/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

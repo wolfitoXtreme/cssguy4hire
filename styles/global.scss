@@ -1,2 +1,15 @@
 // base
+@use 'config/variables';
 @use 'config/reset';
+
+:root {
+  // colors
+  @each $color in map_keys(variables.$colors) {
+    #{--color-}#{$color}: map-get(variables.$colors, $color);
+  }
+
+  // font-sizes
+  @each $font-size in map_keys(variables.$font-sizes) {
+    #{--font-size-}#{$font-size}: map-get(variables.$font-sizes, $font-size);
+  }
+}

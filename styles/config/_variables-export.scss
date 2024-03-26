@@ -1,0 +1,6 @@
+@use 'variables';
+@use 'styles/helpers/functions';
+
+:export {
+  colors: functions.map-to-json(variables.$colors);
+}

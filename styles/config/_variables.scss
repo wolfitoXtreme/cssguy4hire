@@ -1,0 +1,99 @@
+// colors
+$colors: (
+  // Reds
+  falu-red: hsl(358 65% 29%),
+  pohutukawa: hsl(345 62% 23%),
+  siren: hsl(344 47% 30%),
+  scarlett: hsl(345 61% 33%),
+  turkish-rose: hsl(344 20% 52%),
+  cold-turkey: hsl(346 18% 77%),
+  radical-red: hsl(350 94% 61%),
+  red: hsl(1 91% 51%),
+  // Oranges
+  dark-goldenrod: hsl(50 100% 36%),
+  tawny: hsl(22 100% 42%),
+  orange-peel: hsl(36 98% 50%),
+  // Yellows
+  husk: hsl(36 41% 50%),
+  moon-yellow: hsl(50 85% 51%),
+  turbo: hsl(50 96% 55%),
+  // Greens
+  myrtle: hsl(126 33% 22%),
+  // Blues
+  lucky-point: hsl(227 36% 23%),
+  dark-slate-blue: hsl(257 37% 39%),
+  // Black and Grey
+  black: hsl(0 0% 0%),
+  light-black: hsl(0 0% 2%),
+  nero: hsl(0 0% 15%),
+  eternity: hsl(105 5% 16%),
+  oil: hsl(100 4% 15%),
+  charcoal: hsl(0 0% 25%),
+  dim-grey: hsl(0 0% 38%),
+  grey: hsl(0 0% 50%),
+  dark-grey: hsl(0 0% 67%),
+  light-grey: hsl(0 0% 79%),
+  very-light-grey: hsl(0 0% 83%),
+  gainsboro: hsl(0 0% 90%),
+  white: hsl(0 0% 100%),
+  // // Reds
+  // falu-red: #7a1a1e,
+  // pohutukawa: #5d1628,
+  // siren: #6f283b,
+  // scarlett: #86203a,
+  // turkish-rose: #9d6d7a,
+  // cold-turkey: #cfbabf,
+  // radical-red: #f93c5d,
+  // red: #f4120e,
+  // // Oranges
+  // dark-goldenrod: #b99a00,
+  // tawny: #d84f00,
+  // orange-peel: #fc9803,
+  // // Yellows
+  // husk: #b48a4b,
+  // moon-yellow: #ecc716,
+  // turbo: #fad41c,
+  // // Greens
+  // myrtle: #264c2a,
+  // // Blues
+  // lucky-point: #262f50,
+  // dark-slate-blue: #533e87,
+  // // Black and Grey
+  // black: #000,
+  // light-black: #060606,
+  // nero: #262626,
+  // eternity: #272a26,
+  // oil: #252724,
+  // charcoal: #404040,
+  // dim-grey: #616161,
+  // grey: #7f7f7f,
+  // dark-grey: #aaa,
+  // light-grey: #c9c9c9,
+  // very-light-grey: #d3d3d3,
+  // gainsboro: #e5e5e5,
+  // white: #fff
+);
+
+// font sizes
+$font-sizes: (
+  micro: 9px,
+  tiny: 10px,
+  xxx-small: 12px,
+  xx-small: 13px,
+  x-small: 14px,
+  small: 15px,
+  default: 16px,
+  medium: 18px,
+  medium-large: 20px,
+  large: 21px,
+  x-large: 22px,
+  xx-large: 23px,
+  xxx-large: 26px,
+  huge: 27px,
+  x-huge: 28px,
+  xx-huge: 36px,
+  xxx-huge: 41px,
+  massive: 52px,
+  gigantic: 72px,
+  humongous: 82px,
+);

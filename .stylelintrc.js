@@ -13,7 +13,9 @@ module.exports = {
         ignoreFontFamilies: ['[$].*'],
       },
     ],
-    // indentation: 2, TODO: COnflicts with prettier
+    'function-no-unknown': null,
+    'hue-degree-notation': 'number',
+    // indentation: 2, TODO: Conflicts with prettier
     'order/order': ['custom-properties', 'declarations'],
     'order/properties-order': [
       'all',
@@ -539,6 +541,7 @@ module.exports = {
 
       'print-color-adjust',
     ],
+    'property-no-unknown': [true, { ignoreSelectors: [':export'] }],
     'rule-empty-line-before': [
       'always',
       { ignore: ['after-comment', 'first-nested'] },

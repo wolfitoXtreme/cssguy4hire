@@ -1,0 +1,11 @@
+@function map-to-json($map) {
+  $json: '';
+  $keys: map-keys($map);
+
+  @each $key in $keys {
+    $value: map-get($map, $key);
+    $json: $json + '"#{$key}": "#{$value}", ';
+  }
+
+  @return '{' + $json + '}';
+}

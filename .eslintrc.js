@@ -18,6 +18,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'eslint-config-next',
     'next/core-web-vitals',
+    'plugin:storybook/recommended',
   ],
   plugins: ['import'],
   ignorePatterns: ['!.stylelintrc*', '!.lintstagedrc*'],
@@ -39,7 +40,7 @@ module.exports = {
         'newlines-between': 'always',
         pathGroups: [
           {
-            pattern: '{react,next}{/,}*',
+            pattern: '{react,next}{/*,}*',
             group: 'builtin',
             position: 'before',
           },
@@ -64,7 +65,7 @@ module.exports = {
             position: 'before',
           },
           {
-            pattern: '{@/styles/**,./**.module.scss}',
+            pattern: '{./**.module.scss, @/styles/**}',
             group: 'index',
             position: 'after',
           },
