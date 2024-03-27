@@ -1,6 +1,13 @@
-// base
+// config
 @use 'config/variables';
-@use 'config/reset';
+
+// helpers
+@use 'helpers/functions';
+
+// base
+@use 'base/reset';
+@use 'base/fonts';
+@use 'base/typography';
 
 :root {
   // colors
@@ -8,8 +15,40 @@
     #{--color-}#{$color}: map-get(variables.$colors, $color);
   }
 
-  // font-sizes
+  // default font
+  --default-font: #{unquote(
+      variables.$default-font + ', ' + variables.$default-font-fallback
+    )};
+
+  // font sizes
   @each $font-size in map_keys(variables.$font-sizes) {
     #{--font-size-}#{$font-size}: map-get(variables.$font-sizes, $font-size);
+  }
+}
+
+// font-families utility classes
+@each $font in map_keys(variables.$fonts) {
+  $font-names: map-keys(variables.$fonts);
+
+  @each $font in $font-names {
+    .font-family-#{unquote($font)} {
+      font-family: unquote($font);
+    }
+  }
+
+  @each $font-weight in map_keys(map-get(variables.$fonts, $font)) {
+    $font-name: functions.map-deep-get(variables.$fonts, $font, $font-weight);
+
+    .font-family-#{unquote($font-name)} {
+      font-family: unquote($font);
+      font-weight: $font-weight;
+    }
+  }
+}
+
+// font-sizes utility classes
+@each $font in map_keys(variables.$font-sizes) {
+  .font-size-#{unquote($font)} {
+    font-size: map-get(variables.$font-sizes, $font);
   }
 }

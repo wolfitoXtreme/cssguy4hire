@@ -4,6 +4,13 @@ module.exports = {
   plugins: ['stylelint-order', 'stylelint-scss'],
   rules: {
     'alpha-value-notation': 'number',
+    'at-rule-empty-line-before': [
+      'always',
+      {
+        ignore: ['after-comment'],
+        ignoreAtRules: ['use', 'else', 'each'],
+      },
+    ],
     'at-rule-no-unknown': null,
     'declaration-block-no-duplicate-properties': true,
     'declaration-no-important': true,

@@ -65,7 +65,7 @@ module.exports = {
             position: 'before',
           },
           {
-            pattern: '{./**.module.scss, @/styles/**}',
+            pattern: '{./**.module.scss}',
             group: 'index',
             position: 'after',
           },

@@ -1,11 +1,27 @@
+// map-to-json
 @function map-to-json($map) {
   $json: '';
   $keys: map-keys($map);
 
   @each $key in $keys {
     $value: map-get($map, $key);
-    $json: $json + '"#{$key}": "#{$value}", ';
+
+    @if type-of($value) == map {
+      $nestedJson: map-to-json($value);
+      $json: $json + '"#{$key}": #{$nestedJson}, ';
+    } @else {
+      $json: $json + '"#{$key}": "#{$value}", ';
+    }
   }
 
   @return '{' + $json + '}';
+}
+
+// map deep get
+@function map-deep-get($map, $keys...) {
+  @each $key in $keys {
+    $map: map-get($map, $key);
+  }
+
+  @return $map;
 }

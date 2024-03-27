@@ -1,5 +1,9 @@
 @use 'styles/global';
 
+main {
+  display: flow-root;
+}
+
 .sample-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -37,12 +41,8 @@
   .sample-grid-item:hover & {
     color: var(--color-white);
     border-color: color-mix(in hsl, var(--border-color) 100%, currentcolor);
-
-    // border-color: var(--color-dim-grey);
     background-color: var(--color-charcoal);
   }
-
-  // background-color: pink;
 
   &-name {
     font-weight: 700;

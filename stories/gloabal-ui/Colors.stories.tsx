@@ -3,32 +3,34 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { SASSvarsToJason } from '@/utils/utils';
 
 import '@/stories/styles.scss';
-// import '@/styles/global.scss';
 
 import styles from './Colors.module.scss';
 
 const StoryComponent = () => {
   const colors = SASSvarsToJason(styles.colors);
-  console.log({ colors });
 
   return (
-    <ul className="sample-grid">
-      {Object.keys(colors).map((color: string, index) => (
-        <li key={index} className="sample-grid-item">
-          <div
-            className="sample-thumb"
-            style={{ backgroundColor: colors[color] }}
-          />
-          <p className="sample-detail">
-            <span className="sample-detail-name">{color}</span>
-            <br />
-            <span className="sample-detail-value">--color-{color}</span>
-            <br />
-            <span className="sample-detail-value">{colors[color]}</span>
-          </p>
-        </li>
-      ))}
-    </ul>
+    <main>
+      <article>
+        <ul className="sample-grid">
+          {Object.keys(colors).map((color: string, index) => (
+            <li key={index} className="sample-grid-item">
+              <div
+                className="sample-thumb"
+                style={{ backgroundColor: colors[color] }}
+              />
+              <p className="sample-detail">
+                <span className="sample-detail-name">{color}</span>
+                <br />
+                <span className="sample-detail-value">--color-{color}</span>
+                <br />
+                <span className="sample-detail-value">{colors[color]}</span>
+              </p>
+            </li>
+          ))}
+        </ul>
+      </article>
+    </main>
   );
 };
 

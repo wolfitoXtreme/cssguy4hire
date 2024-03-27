@@ -1,0 +1,19 @@
+@use 'styles/config/variables';
+@use 'styles/helpers/functions';
+
+@each $font in map_keys(variables.$fonts) {
+  @each $font-weight in map_keys(map-get(variables.$fonts, $font)) {
+    $fonts-dir: '../../assets/fonts/';
+    $font-name: functions.map-deep-get(variables.$fonts, $font, $font-weight);
+
+    @font-face {
+      font-family: '#{$font}';
+      font-style: normal;
+      font-weight: $font-weight;
+      src:
+        url('#{$fonts-dir}#{$font-name}.woff2') format('woff2'),
+        url('#{$fonts-dir}#{$font-name}.woff') format('woff');
+      font-display: block;
+    }
+  }
+}
