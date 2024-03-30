@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  eslint: {
+    dirs: ['pages', 'app', 'components', 'lib', 'src', 'stories'], // nextJS defaults plus stories
+  },
   reactStrictMode: true,
   // images: {}
   webpack(config) {

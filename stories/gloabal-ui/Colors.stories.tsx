@@ -2,8 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { SASSvarsToJason } from '@/utils/utils';
 
-import '@/stories/styles.scss';
-
 import styles from './Colors.module.scss';
 
 const StoryComponent = () => {
@@ -13,8 +11,8 @@ const StoryComponent = () => {
     <main>
       <article>
         <ul className="sample-grid">
-          {Object.keys(colors).map((color: string, index) => (
-            <li key={index} className="sample-grid-item">
+          {Object.keys(colors).map((color: string) => (
+            <li key={`key-${color}`} className="sample-grid-item">
               <div
                 className="sample-thumb"
                 style={{ backgroundColor: colors[color] }}

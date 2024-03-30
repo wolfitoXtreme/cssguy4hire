@@ -1,15 +1,9 @@
 @use 'variables';
-
 @use 'styles/helpers/functions';
 
 :export {
   colors: functions.map-to-json(variables.$colors);
+  linkColors: functions.map-to-json(variables.$link-colors);
   fonts: functions.map-to-json(variables.$fonts);
   fontSizes: functions.map-to-json(variables.$font-sizes);
-}
-
-@debug functions.map-to-json(variables.$font-sizes);
-
-.test-var {
-  content: functions.map-to-json(variables.$fonts);
 }

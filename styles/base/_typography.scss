@@ -1,3 +1,176 @@
+@use 'styles/helpers/mixins';
+@use './placeholders';
+
 html {
   font-family: var(--default-font);
+  font-size: var(--font-size-default);
+}
+
+body {
+  line-height: var(--line-height-default);
+}
+
+// headings
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-block: 0.3em;
+  font-family: var(--heading-font);
+  letter-spacing: -0.03em;
+}
+
+h1 {
+  font-size: var(--font-size-xxx-huge);
+}
+
+h2 {
+  font-size: var(--font-size-xx-huge);
+}
+
+h3 {
+  font-size: var(--font-size-huge);
+}
+
+h4 {
+  font-size: var(--font-size-large);
+  font-weight: 400;
+}
+
+h5 {
+  font-size: var(--font-size-normal);
+  font-weight: 400;
+}
+
+h6 {
+  font-size: var(--font-size-xx-small);
+}
+
+p:not([class]) {
+  @extend %default-texts;
+}
+
+ul:not([class]) {
+  @extend %lists;
+}
+
+ol:not([class]) {
+  counter-reset: li-counter;
+
+  @extend %lists;
+}
+
+li {
+  ul:not([class]) & {
+    @extend %list-items;
+  }
+}
+
+// ordered lits items
+ol:not([class]) > li {
+  --counter-font-size: 0.8em;
+  --counter-type: decimal;
+  --counter-suffix: ' .';
+
+  position: relative;
+
+  &::before {
+    content: counter(li-counter, var(--counter-type)) var(--counter-suffix);
+    counter-increment: li-counter;
+    top: 0.25em;
+    left: calc(var(--list-padding-inline-start) * -1.2);
+    position: absolute;
+    font: 700 var(--counter-font-size) / 1 var(--heading-font);
+    text-align: right;
+    color: var(--color-nero);
+    display: block;
+  }
+}
+
+// unordered lists items
+ul:not([class]) > li {
+  position: relative;
+
+  // bullets
+  &::before {
+    @extend %bullets-level-1;
+  }
+
+  // bullets - second level
+  ul > li {
+    &::before {
+      @extend %bullets-level-2;
+    }
+  }
+
+  // bullets - third level
+  ul > li > ul > li {
+    &::before {
+      @extend %bullets-level-3;
+    }
+  }
+}
+
+dt {
+  font-weight: 700;
+
+  @extend %list-items;
+}
+
+dd {
+  @extend %list-items;
+}
+
+hr {
+  @include mixins.hidden;
+}
+
+// bold texts
+b,
+strong {
+  font-weight: 600; // matches semi-bold weight
+}
+
+// links
+a {
+  @include mixins.no-highlight;
+
+  &:link {
+    color: var(--link-color-link);
+  }
+
+  &:visited {
+    color: var(--link-color-visited);
+  }
+
+  &:hover {
+    color: var(--link-color-hover);
+  }
+
+  &:active,
+  &:focus {
+    color: var(--link-color-active);
+  }
+}
+
+// columns
+.columns {
+  @extend %columns;
+
+  @at-root ul#{&} {
+    @extend %lists;
+
+    > li {
+      position: relative;
+
+      @extend %list-items;
+
+      // bullets
+      &::before {
+        @extend %bullets-level-1;
+      }
+    }
+  }
 }

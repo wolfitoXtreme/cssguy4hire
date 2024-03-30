@@ -21,7 +21,7 @@ module.exports = {
     'plugin:storybook/recommended',
   ],
   plugins: ['import'],
-  ignorePatterns: ['!.stylelintrc*', '!.lintstagedrc*'],
+  ignorePatterns: ['!.stylelintrc*', '!.lintstagedrc*', '!.storybook'],
   rules: {
     'arrow-parens': ['warn', 'as-needed'],
     'comma-dangle': ['warn', 'always-multiline'],

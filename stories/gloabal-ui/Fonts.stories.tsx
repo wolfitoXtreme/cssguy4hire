@@ -3,8 +3,6 @@ import classNames from 'classnames';
 
 import { SASSvarsToJason, kebabCaseToTitleCase } from '@/utils/utils';
 
-import '@/stories/styles.scss';
-
 import styles from './Fonts.module.scss';
 
 type TFontVariant = {
@@ -25,8 +23,6 @@ const StoryComponent = () => {
 
   const fontsFormatted = Object.keys(fonts).reduce<TFont[]>(
     (result, currentFont) => {
-      console.log(fonts[currentFont]);
-
       const fontVariants = Object.keys(fonts[currentFont]).reduce<
         TFontVariant[]
       >((result, fontWeight) => {
@@ -53,16 +49,13 @@ const StoryComponent = () => {
     },
     [],
   );
-  console.log({ fontsFormatted }, { fontSizes });
 
   return (
-    <main>
+    <main className={styles['font-sample']}>
       {fontsFormatted.map(({ font, fontName, fontVariants }) => (
-        <article
-          key={font}
-          className={classNames(styles['font-sample'], `font-family-${font}`)}>
+        <article key={font} className={`font-family-${font}`}>
           <header>
-            <h5>{fontName}</h5>
+            <h3>{fontName}</h3>
             <p>
               {fontVariants.map(({ variant, variantName }, index) => (
                 <>

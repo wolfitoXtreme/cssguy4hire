@@ -50,6 +50,14 @@ $colors: (
   white: hsl(0 0% 100%)
 );
 
+// link colors
+$link-colors: (
+  'link': '--color-orange-peel',
+  'visited': '--color-husk',
+  'hover': '--color-tawny',
+  'active': '--color-radical-red',
+);
+
 // font families
 $fonts: (
   'opensans': (

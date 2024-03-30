@@ -1,0 +1,39 @@
+@use 'styles/config/variables-export';
+
+.sample-link {
+  &-link {
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+      color: var(--link-color-link);
+    }
+  }
+
+  &-visited {
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+      color: var(--link-color-visited);
+    }
+  }
+
+  &-hover {
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+      color: var(--link-color-hover);
+    }
+  }
+
+  &-active {
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+      color: var(--link-color-active);
+    }
+  }
+}

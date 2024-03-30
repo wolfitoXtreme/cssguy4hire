@@ -1,0 +1,87 @@
+$heading-tags: h1, h2, h3, h4, h5, h6;
+$text-block-tags: p, ul, ol, dl, pre, address, blockquote, table;
+$block-tags: article, aside, canvas, div, fieldset, figure, form, hgroup, output,
+  section, video;
+$heading-and-block-tags: join($heading-tags, $block-tags);
+$text-block-and-block-tags: join($text-block-tags, $block-tags);
+
+// default texts
+%default-texts {
+  --default-texts-margin-block: 0.8em;
+
+  margin-block: var(--default-texts-margin-block);
+
+  // any heading or block element following a %default-texts block
+  @for $i from 1 through length($heading-and-block-tags) {
+    & + #{nth($heading-and-block-tags, $i)} {
+      margin-block-start: 1.8rem;
+    }
+  }
+}
+
+// lists
+%lists {
+  --list-padding-inline-start: 1.2em;
+
+  padding-inline-start: var(--list-padding-inline-start);
+  list-style: none;
+
+  @extend %default-texts;
+}
+
+// list - items
+%list-items {
+  margin-block: 0.3em;
+
+  > p {
+    &:last-child {
+      margin-block-end: var(--default-texts-margin-block);
+    }
+  }
+
+  > p:only-child {
+    margin: 0;
+  }
+}
+
+%bullets-level-1 {
+  --bullet-width: 0.4em;
+  --bullet-height: var(--bullet-width);
+  --bullet-color: var(--color-nero);
+
+  content: '';
+  top: calc((1em * var(--line-height-default) - (var(--bullet-height))) / 2);
+  left: calc(var(--list-padding-inline-start) * -0.6);
+  position: absolute;
+  width: var(--bullet-width);
+  height: var(--bullet-height);
+  border: 0 solid var(--bullet-color);
+  border-radius: 100%;
+  display: block;
+  background-color: var(--bullet-color);
+}
+
+%bullets-level-2 {
+  --bullet-color: var(--color-charcoal);
+
+  border-width: 2px;
+  background-color: transparent;
+}
+
+%bullets-level-3 {
+  --bullet-height: 0.1em;
+  --bullet-color: var(--color-dim-grey);
+
+  border-style: none;
+  border-radius: 0;
+  background-color: var(--bullet-color);
+}
+
+// columns
+%columns {
+  --column-count: 2;
+  --column-gap: 32px;
+
+  column-count: var(--column-count);
+  column-gap: var(--column-gap);
+}

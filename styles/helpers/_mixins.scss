@@ -1,0 +1,34 @@
+// hidden extend wrapper
+@mixin hidden($extend: true) {
+  @if $extend {
+    @extend %hidden;
+  } @else {
+    position: absolute;
+    z-index: -1;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+  }
+}
+
+// hidden placeholder
+%hidden {
+  @include hidden($extend: false);
+}
+
+// no highlight
+@mixin no-highlight($extend: true) {
+  @if $extend {
+    @extend %no-highlight;
+  } @else {
+    outline: 0;
+    outline-style: none;
+    -webkit-tap-highlight-color: rgb(0 0 0 / 0);
+  }
+}
+
+// remove text placeholder
+%no-highlight {
+  @include no-highlight($extend: false);
+}

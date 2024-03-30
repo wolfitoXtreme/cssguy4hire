@@ -12,7 +12,22 @@
 :root {
   // colors
   @each $color in map_keys(variables.$colors) {
-    #{--color-}#{$color}: map-get(variables.$colors, $color);
+    $current-color: map-get(variables.$colors, $color);
+
+    #{--color-}#{$color}: $current-color;
+  }
+
+  // colors - hsl values
+  @each $color in map_keys(variables.$colors) {
+    $current-color: map-get(variables.$colors, $color);
+
+    #{--color-}#{$color}-values: functions.extract-hls-values($current-color);
+  }
+
+  @each $color in map_keys(variables.$link-colors) {
+    $current-color: map-get(variables.$link-colors, $color);
+
+    #{--link-color-}#{$color}: var(unquote($current-color));
   }
 
   // default font
@@ -20,13 +35,23 @@
       variables.$default-font + ', ' + variables.$default-font-fallback
     )};
 
+  // default heading fonts
+  --heading-font: oswald;
+
   // font sizes
   @each $font-size in map_keys(variables.$font-sizes) {
     #{--font-size-}#{$font-size}: map-get(variables.$font-sizes, $font-size);
   }
+
+  // default line height
+  --line-height-default: 1.25;
 }
 
-// font-families utility classes
+//
+// utility class names
+//
+
+// font-families
 @each $font in map_keys(variables.$fonts) {
   $font-names: map-keys(variables.$fonts);
 
@@ -46,7 +71,7 @@
   }
 }
 
-// font-sizes utility classes
+// font-sizes
 @each $font in map_keys(variables.$font-sizes) {
   .font-size-#{unquote($font)} {
     font-size: map-get(variables.$font-sizes, $font);

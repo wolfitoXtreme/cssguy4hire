@@ -1,12 +1,62 @@
 @use 'styles/global';
 
+body.sb-show-main.sb-main-padded {
+  padding: 0;
+}
+
 main {
+  --main-padding-inline: 30px;
+  --main-padding-block: 15px;
+
+  padding: var(--main-padding-block) var(--main-padding-inline);
   display: flow-root;
+}
+
+article {
+  margin-block: 25px;
+  display: flow-root;
+
+  header {
+    margin-block: 10px;
+  }
+
+  header:not(:last-child) {
+    padding-block-end: 10px;
+    border-bottom: 1px solid var(--color-very-light-grey);
+  }
+
+  h3 {
+    font-weight: unset;
+  }
+
+  &::after {
+    content: '';
+    margin-inline: calc(var(--main-padding-inline) * -1);
+    margin-block-start: 35px;
+    width: auto;
+    height: 40px;
+    border-top: 1px solid hsla(var(--color-very-light-grey-values) / 0.35);
+    display: block;
+    background-image: linear-gradient(
+      180deg,
+      hsl(var(--color-black-values) / 0.042),
+      hsl(var(--color-black-values) / 0)
+    );
+  }
+
+  &:last-child::after {
+    visibility: hidden;
+  }
+
+  ol:not([class]) ol li {
+    --counter-type: lower-alpha;
+    --counter-suffix: ' )';
+  }
 }
 
 .sample-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 8px;
 
   @at-root ul#{&} {

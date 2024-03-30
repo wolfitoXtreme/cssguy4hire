@@ -18,8 +18,8 @@
     "eslint:fix": "next lint --fix",
     "stylelint": "stylelint '**/*.scss'",
     "stylelint:fix": "stylelint '**/*.scss' --fix",
-    "prettier": "prettier --config .prettierrc.js 'pages/**/*.{js,ts,tsx}' --check",
-    "prettier:fix": "prettier --config .prettierrc.js 'pages/**/*.{js,ts,tsx}' --write",
+    "prettier": "prettier --config .prettierrc.js '{pages,components,stories}/**/*.{js,ts,tsx}' --check",
+    "prettier:fix": "prettier --config .prettierrc.js '{pages,components,stories}/**/*.{js,ts,tsx}' --write",
     "postinstall": "husky install",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"

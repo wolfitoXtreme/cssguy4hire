@@ -25,3 +25,12 @@
 
   @return $map;
 }
+
+// extract hsl values
+@function extract-hls-values($color) {
+  $hue: hue($color);
+  $saturation: saturation($color);
+  $lightness: lightness($color);
+
+  @return $hue $saturation $lightness;
+}
