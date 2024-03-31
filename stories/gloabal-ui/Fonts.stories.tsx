@@ -53,24 +53,24 @@ const StoryComponent = () => {
   return (
     <main className={styles['font-sample']}>
       {fontsFormatted.map(({ font, fontName, fontVariants }) => (
-        <article key={font} className={`font-family-${font}`}>
+        <article key={`key-${font}`} className={`font-family-${font}`}>
           <header>
             <h3>{fontName}</h3>
             <p>
               {fontVariants.map(({ variant, variantName }, index) => (
-                <>
-                  <span key={variant} className={`font-family-${variant}`}>
+                <span key={`key-${font}-${variant}`}>
+                  <span className={`font-family-${variant}`}>
                     {variantName}
                   </span>
                   {index < fontVariants.length - 1 ? ', ' : ''}
-                </>
+                </span>
               ))}
             </p>
           </header>
 
           <section>
-            {Object.keys(fontSizes).map((sizeName, index) => (
-              <div key={index} className={styles['size']}>
+            {Object.keys(fontSizes).map(sizeName => (
+              <div key={`key-${font}-${sizeName}`} className={styles['size']}>
                 <p
                   className={classNames(
                     styles['size-sample'],

@@ -1,0 +1,66 @@
+$transition-duration: 500ms;
+
+.notification {
+  --bg-color-mix-percent: 90%;
+
+  top: 100%;
+  position: fixed;
+  padding: 1rem 2rem;
+  width: 100%;
+  color: var(--color-white);
+  box-shadow: 0 -3px 6px hsl(var(--color-black-values) / 0.2);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  background-color: color-mix(
+    in hsl,
+    var(--color-black) var(--bg-color-mix-percent),
+    var(--color-white)
+  );
+  cursor: pointer;
+  transform: translateY(-100%);
+
+  &-message {
+    margin-block: 0;
+  }
+
+  &:hover {
+    --bg-color-mix-percent: 100%;
+  }
+
+  &-icon {
+    --icon-size: 1rem;
+
+    width: var(--icon-size);
+    height: var(--icon-size);
+    color: var(--color-white);
+    flex: 0 0 auto;
+
+    > path + path {
+      stroke: var(--color-black);
+    }
+  }
+}
+
+.my-node-enter {
+  transform: translateY(0%);
+}
+
+.my-node-enter-active {
+  transform: translateY(-100%);
+  transition: transform $transition-duration;
+}
+
+.my-node-exit {
+  transform: translateY(-100%);
+}
+
+.my-node-exit-active {
+  transform: translateY(0%);
+  transition: transform $transition-duration;
+}
+
+:export {
+  transition-duration: $transition-duration;
+}

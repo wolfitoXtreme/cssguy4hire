@@ -78,7 +78,7 @@ module.exports = {
         },
       },
     ],
-    indent: ['error', 2],
+    // indent: ['error', 2],TODO: Conflicts with prettier
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'no-unused-vars': ['off'],

@@ -1,18 +1,35 @@
+import { useContext } from 'react';
+
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { SASSvarsToJason } from '@/utils/utils';
 
+import { NotificationContext } from '@/stories/lib/notification/NotificationContext';
+import SampleItem from '@/stories/lib/sampleItem/SampleItem';
+
 import styles from './Colors.module.scss';
 
 const StoryComponent = () => {
+  const { showNotification } = useContext(NotificationContext);
   const colors = SASSvarsToJason(styles.colors);
+
+  const copyValueHandler = (text: string) => {
+    showNotification({
+      message: `Color variable "<b>${text}</b>" copied to clipboard.`,
+    });
+    navigator.clipboard.writeText(text);
+  };
 
   return (
     <main>
       <article>
         <ul className="sample-grid">
           {Object.keys(colors).map((color: string) => (
-            <li key={`key-${color}`} className="sample-grid-item">
+            <SampleItem
+              tagName="li"
+              key={`key-${color}`}
+              onCopy={() => copyValueHandler(`--color-${color}`)}
+              className="sample-grid-item sample-grid-item--clickable">
               <div
                 className="sample-thumb"
                 style={{ backgroundColor: colors[color] }}
@@ -24,7 +41,7 @@ const StoryComponent = () => {
                 <br />
                 <span className="sample-detail-value">{colors[color]}</span>
               </p>
-            </li>
+            </SampleItem>
           ))}
         </ul>
       </article>

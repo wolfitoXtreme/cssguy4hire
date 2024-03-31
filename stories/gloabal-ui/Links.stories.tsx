@@ -3,6 +3,8 @@ import classNames from 'classnames';
 
 import { SASSvarsToJason } from '@/utils/utils';
 
+import SampleItem from '@/stories/lib/sampleItem/SampleItem';
+
 import styles from './Links.module.scss';
 
 const StoryComponent = () => {
@@ -24,7 +26,10 @@ const StoryComponent = () => {
       <article>
         <ul className="sample-grid">
           {Object.keys(linkColors).map((color: string) => (
-            <li key={`key-${color}`} className="sample-grid-item">
+            <SampleItem
+              tagName="li"
+              key={`key-${color}`}
+              className="sample-grid-item">
               <div
                 className="sample-thumb"
                 style={{ backgroundColor: `var(--link-color-${color})` }}
@@ -46,7 +51,7 @@ const StoryComponent = () => {
                   {getHsl(linkColors[color])}
                 </span>
               </p>
-            </li>
+            </SampleItem>
           ))}
         </ul>
       </article>

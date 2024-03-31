@@ -1,0 +1,41 @@
+.copy-tip {
+  position: absolute;
+  width: 100%;
+  color: var(--color-white);
+  display: grid;
+  aspect-ratio: 1 / 1;
+  background-color: transparent;
+  transition: background-color 300ms 0ms;
+
+  > * {
+    grid-column: 1 /2;
+    grid-row: 1 /2;
+  }
+
+  &:hover {
+    background-color: hsla(var(--color-black-values) / 0.35);
+  }
+
+  &-text {
+    padding-inline: 1rem;
+    font-size: var(--font-size-xxx-small);
+    text-align: center;
+    visibility: hidden;
+    align-self: center;
+
+    .copy-tip:hover & {
+      visibility: visible;
+    }
+  }
+
+  &-icon {
+    margin: 0.4rem;
+    width: 1rem;
+    opacity: 0.45;
+    place-self: end end;
+
+    .copy-tip:hover & {
+      opacity: 0.8;
+    }
+  }
+}

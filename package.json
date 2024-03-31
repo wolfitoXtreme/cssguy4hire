@@ -27,7 +27,8 @@
   "dependencies": {
     "next": "14.0.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-transition-group": "^4.4.5"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "1.2.25",
@@ -45,6 +46,7 @@
     "@types/postcss-pxtorem": "^6",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/react-transition-group": "^4",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": "^6.10.0",
     "autoprefixer": "^10.4.16",

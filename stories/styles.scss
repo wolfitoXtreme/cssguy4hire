@@ -66,12 +66,17 @@ article {
   &-item {
     --border-color: var(--color-very-light-grey);
 
+    position: relative;
     border: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
 
     &:hover {
       --border-color: var(--color-dim-grey);
+    }
+
+    &--clickable {
+      cursor: pointer;
     }
   }
 
