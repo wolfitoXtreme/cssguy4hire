@@ -1,9 +1,5 @@
 @use 'styles/global';
 
-body.sb-show-main.sb-main-padded {
-  padding: 0;
-}
-
 main {
   --main-padding-inline: 30px;
   --main-padding-block: 15px;
@@ -83,6 +79,15 @@ article {
   .sample-thumb {
     width: 100%;
     aspect-ratio: 1 / 1;
+
+    &--icon {
+      background-color: var(--color-very-light-grey);
+
+      svg {
+        margin: 1rem;
+        aspect-ratio: 1 / 1;
+      }
+    }
   }
 }
 

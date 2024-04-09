@@ -19,8 +19,17 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
-  staticDirs: ['..\\public'],
+  staticDirs: ['../assets/icons'],
+  previewHead: head => `
+    ${head}
+    <style>
+      body.sb-show-main.sb-main-padded {
+        padding: 0;
+      }
+    </style>
+  `,
   webpackFinal: async config => {
+    // loads inline SVG's
     const imageRule = config.module?.rules?.find(rule => {
       const test = (rule as { test: RegExp }).test;
 
@@ -33,6 +42,7 @@ const config: StorybookConfig = {
 
     imageRule.exclude = /\.svg$/;
 
+    // SVG's as components
     config.module?.rules?.push({
       test: /\.svg$/,
       use: ['@svgr/webpack'],

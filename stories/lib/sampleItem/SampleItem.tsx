@@ -15,10 +15,15 @@ interface IWrapper {
 const Wrapper: React.FC<IWrapper> = ({ tagName = 'div', children, ...rest }) =>
   React.createElement(tagName, { ...rest }, children);
 
+export enum EnumSampleVariant {
+  LIGHT = 'light',
+  DARK = 'dark',
+}
 interface ISampleItem {
   tagName?: keyof JSX.IntrinsicElements;
   children?: React.ReactNode;
   className?: string;
+  sampleVariant?: EnumSampleVariant.LIGHT | EnumSampleVariant.DARK;
   onCopy?: () => void;
 }
 
@@ -26,6 +31,7 @@ const SampleItem: React.FC<ISampleItem> = ({
   tagName,
   children,
   className,
+  sampleVariant = EnumSampleVariant.LIGHT,
   onCopy,
 }) => {
   return (
@@ -34,7 +40,10 @@ const SampleItem: React.FC<ISampleItem> = ({
         onCopy && onCopy();
       }}
       tagName={tagName}
-      className={classNames('test-class', className)}>
+      className={classNames(className, {
+        [styles['sample-variant--dark']]:
+          sampleVariant === EnumSampleVariant.DARK,
+      })}>
       {children}
       {onCopy && (
         <div className={styles['copy-tip']}>

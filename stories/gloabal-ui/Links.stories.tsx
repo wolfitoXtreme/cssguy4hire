@@ -62,12 +62,6 @@ const StoryComponent = () => {
 const meta = {
   title: 'Global-Ui',
   component: StoryComponent,
-  parameters: {
-    options: {
-      bottomPanelHeight: 0,
-      rightPanelWidth: 0,
-    },
-  },
 } satisfies Meta<typeof StoryComponent>;
 
 export default meta;
