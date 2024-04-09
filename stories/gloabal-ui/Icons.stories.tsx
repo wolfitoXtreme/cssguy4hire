@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 
 import type { Meta, StoryObj } from '@storybook/react';
@@ -34,16 +34,26 @@ const colors = Object.entries(SASSvarsToJason(styles.colors)).map(
 );
 
 const Icon: React.FC<IIcon> = ({ icon: { file, name }, color }) => {
-  const viewBox = useRef<string | null>(null);
+  const [viewBox, setViewBox] = useState<string | null>(null);
   const [dimensions, setDimensions] = useState<{
     width: string | null;
     height: string | null;
   }>({ width: null, height: null });
 
   useEffect(() => {
-    const [, , width, height] = viewBox.current?.match(/\b\d+\b/g) || [];
-    setDimensions({ width, height });
-  }, []);
+    if (viewBox) {
+      const [, , width, height] = viewBox.match(/\b\d+\b/g) || [];
+      setDimensions({ width, height });
+    }
+  }, [viewBox]);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleBeforeInjection = (svg: any) => {
+    if (svg) {
+      const viewBox = svg.getAttribute('viewBox');
+      setViewBox(viewBox);
+    }
+  };
 
   const { showNotification } = useContext(NotificationContext);
 
@@ -63,9 +73,8 @@ const Icon: React.FC<IIcon> = ({ icon: { file, name }, color }) => {
       <div className="sample-thumb sample-thumb--icon" style={{ color }}>
         <ReactSVG
           src={file}
-          beforeInjection={svg => {
-            viewBox.current = svg.getAttribute('viewBox');
-          }}
+          loading={() => <>Loading...</>}
+          beforeInjection={handleBeforeInjection}
           onError={error => {
             // eslint-disable-next-line no-console
             console.error({ error });
