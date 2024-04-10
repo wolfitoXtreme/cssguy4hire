@@ -3,7 +3,7 @@
 
 @each $font in map_keys(variables.$fonts) {
   @each $font-weight in map_keys(map-get(variables.$fonts, $font)) {
-    $fonts-dir: '../../assets/fonts/';
+    $fonts-dir: '/assets/fonts/';
     $font-name: functions.map-deep-get(variables.$fonts, $font, $font-weight);
 
     @font-face {

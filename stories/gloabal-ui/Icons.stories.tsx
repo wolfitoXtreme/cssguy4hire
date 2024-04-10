@@ -22,9 +22,9 @@ interface IIcon {
   icon: TIcon;
   color?: string;
 }
-
+const ICONS_DIR = '/assets/icons/';
 const icons = importAll(
-  require.context('../../assets/icons/', false, /\.(svg)$/),
+  require.context('/public/assets/icons/', false, /\.(svg)$/),
 ) as TIcon[];
 
 const colors = Object.entries(SASSvarsToJason(styles.colors)).map(
@@ -72,7 +72,7 @@ const Icon: React.FC<IIcon> = ({ icon: { file, name }, color }) => {
       className="sample-grid-item sample-grid-item--clickable">
       <div className="sample-thumb sample-thumb--icon" style={{ color }}>
         <ReactSVG
-          src={file}
+          src={`${ICONS_DIR}${file}`}
           loading={() => <>Loading...</>}
           beforeInjection={handleBeforeInjection}
           onError={error => {

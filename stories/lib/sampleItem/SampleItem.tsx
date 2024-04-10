@@ -19,6 +19,7 @@ export enum EnumSampleVariant {
   LIGHT = 'light',
   DARK = 'dark',
 }
+
 interface ISampleItem {
   tagName?: keyof JSX.IntrinsicElements;
   children?: React.ReactNode;
