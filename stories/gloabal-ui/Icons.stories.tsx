@@ -67,9 +67,9 @@ const Icon: React.FC<IIcon> = ({ icon: { file, name }, color }) => {
   return (
     <SampleItem
       tagName="li"
-      sampleVariant={EnumSampleVariant.DARK}
       onCopy={() => copyValueHandler(name)}
-      className="sample-grid-item sample-grid-item--clickable">
+      sampleVariant={EnumSampleVariant.LIGHT}
+      className="sample-grid-item">
       <div className="sample-thumb sample-thumb--icon" style={{ color }}>
         <ReactSVG
           src={`${ICONS_DIR}${file}`}
@@ -85,7 +85,7 @@ const Icon: React.FC<IIcon> = ({ icon: { file, name }, color }) => {
         <span className="sample-detail-name">{name}</span>
         <br />
         <span className="sample-detail-value">
-          {dimensions.width}px {dimensions.height}px
+          ({dimensions.width}px, {dimensions.height}px)
         </span>
       </p>
     </SampleItem>

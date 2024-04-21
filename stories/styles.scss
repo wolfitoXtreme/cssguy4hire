@@ -70,13 +70,10 @@ article {
     &:hover {
       --border-color: var(--color-dim-grey);
     }
-
-    &--clickable {
-      cursor: pointer;
-    }
   }
 
   .sample-thumb {
+    padding: 1rem;
     width: 100%;
     aspect-ratio: 1 / 1;
 
@@ -84,8 +81,28 @@ article {
       background-color: var(--color-very-light-grey);
 
       svg {
-        margin: 1rem;
         aspect-ratio: 1 / 1;
+      }
+    }
+
+    &--image {
+      background-color: var(--color-very-light-grey);
+
+      img {
+        aspect-ratio: 1 / 1;
+        object-fit: contain;
+      }
+    }
+
+    &--image-dark {
+      background-color: hsl(var(--color-black-values) / 0.8);
+    }
+
+    &--image-bkg {
+      padding: unset;
+
+      img {
+        object-fit: cover;
       }
     }
   }

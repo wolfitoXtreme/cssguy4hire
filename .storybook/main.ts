@@ -19,7 +19,7 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
-  // staticDirs: ['..\\public'], TODO: Cannot find a use here
+  staticDirs: ['..\\public'],
   previewHead: head => `
     ${head}
     <style>

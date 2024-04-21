@@ -29,7 +29,7 @@ const StoryComponent = () => {
               tagName="li"
               key={`key-${color}`}
               onCopy={() => copyValueHandler(`--color-${color}`)}
-              className="sample-grid-item sample-grid-item--clickable">
+              className="sample-grid-item">
               <div
                 className="sample-thumb"
                 style={{ backgroundColor: colors[color] }}

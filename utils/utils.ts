@@ -13,7 +13,7 @@ export const kebabCaseToTitleCase = (string: string) =>
 export const importAll = (context: any) => {
   return context.keys().map((key: string) => {
     const file = key.replace('./', '');
-    const name = file.replace('.svg', '');
+    const name = file.replace(/(\.(svg|png|jpe?g|gif))/, '');
 
     return {
       file,

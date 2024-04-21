@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import classNames from 'classnames';
 
 import IconCopy from '@/stories/assets/icon-copy.svg';
+import IconZoom from '@/stories/assets/icon-zoom.svg';
 
 import styles from './SampleItem.module.scss';
 
@@ -20,38 +21,70 @@ export enum EnumSampleVariant {
   DARK = 'dark',
 }
 
+export interface IHandleMouseEnter {
+  (...args: [action: 'copy' | 'zoom']): void;
+}
+
 interface ISampleItem {
   tagName?: keyof JSX.IntrinsicElements;
   children?: React.ReactNode;
   className?: string;
   sampleVariant?: EnumSampleVariant.LIGHT | EnumSampleVariant.DARK;
   onCopy?: () => void;
+  onZoom?: () => void;
 }
 
 const SampleItem: React.FC<ISampleItem> = ({
   tagName,
   children,
   className,
-  sampleVariant = EnumSampleVariant.LIGHT,
+  sampleVariant = EnumSampleVariant.DARK,
   onCopy,
+  onZoom,
 }) => {
+  const [actionText, setActionText] = useState('dummy text here');
+  const hasActions = onCopy || onZoom;
+
+  const handleMouseEnter: IHandleMouseEnter = action => {
+    if (action === 'copy') {
+      setActionText('Click to copy value to the clipboard.');
+    }
+    if (action === 'zoom') {
+      setActionText('Click to enlarge the image.');
+    }
+  };
+
   return (
     <Wrapper
-      onClick={() => {
-        onCopy && onCopy();
-      }}
       tagName={tagName}
       className={classNames(className, {
-        [styles['sample-variant--dark']]:
-          sampleVariant === EnumSampleVariant.DARK,
+        [styles['sample-variant--light']]:
+          sampleVariant === EnumSampleVariant.LIGHT,
       })}>
       {children}
-      {onCopy && (
-        <div className={styles['copy-tip']}>
-          <p className={styles['copy-tip-text']}>
-            Click to copy value to the clipboard.
-          </p>{' '}
-          <IconCopy className={styles['copy-tip-icon']} />
+      {hasActions && (
+        <div className={styles['action-tip']}>
+          <p className={styles['action-tip-text']}>{actionText}</p>
+          <div className={styles['action-tip-actions']}>
+            {onZoom && (
+              <IconZoom
+                className={styles['action-icon']}
+                onMouseEnter={() => handleMouseEnter('zoom')}
+                onClick={() => {
+                  onZoom();
+                }}
+              />
+            )}
+            {onCopy && (
+              <IconCopy
+                className={styles['action-icon']}
+                onMouseEnter={() => handleMouseEnter('copy')}
+                onClick={() => {
+                  onCopy();
+                }}
+              />
+            )}
+          </div>
         </div>
       )}
     </Wrapper>

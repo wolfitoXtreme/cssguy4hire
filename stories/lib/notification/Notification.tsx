@@ -8,10 +8,10 @@ import { NotificationContext } from './NotificationContext';
 import styles from './Notification.module.scss';
 
 const notificationIn = {
-  enter: styles['my-node-enter'],
-  enterActive: styles['my-node-enter-active'],
-  exit: styles['my-node-exit'],
-  exitActive: styles['my-node-exit-active'],
+  enter: styles['notification-enter'],
+  enterActive: styles['notification-enter-active'],
+  exit: styles['notification-exit'],
+  exitActive: styles['notification-exit-active'],
 };
 
 const duration = parseInt(styles['transition-duration']);
@@ -49,13 +49,13 @@ const Notification: React.FC<{
         ref={nodeRef}
         onClick={setTransitionOut}
         className={styles.notification}>
+        <IconClose className={styles['notification-icon']} />
         {message && (
           <p
             dangerouslySetInnerHTML={{ __html: message }}
             className={styles['notification-message']}
           />
         )}
-        <IconClose className={styles['notification-icon']} />
       </div>
     </CSSTransition>
   );
